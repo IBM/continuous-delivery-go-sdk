@@ -22,9 +22,6 @@ install:
 notifications:
   email: false
 
-before_script:
-- if [ "${TRAVIS_TAG}" = "${TRAVIS_BRANCH}" ]; then chmod a+x ./appscan/ASOC.sh; fi
-
 script:
 - go test `go list ./... | grep -v examples`
 - go test `go list ./...` -v -tags=integration
