@@ -23,6 +23,6 @@ notifications:
   email: false
 
 script:
-- go test `go list ./... | grep -v examples`
+- go test `go list ./...`
 - go test `go list ./...` -v -tags=integration
 - gometalinter.v2 --errors ./...
