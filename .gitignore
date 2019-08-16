@@ -1,11 +1,9 @@
-.idea/
-.ibm-project
 .DS_Store
-credentials.txt
-*.coverprofile
-node_modules/
-.project
 .env
 
 # ignore vendor/
 vendor/
+
+# SDK generator
+.openapi-generator-ignore
+.openapi-generator/VERSION

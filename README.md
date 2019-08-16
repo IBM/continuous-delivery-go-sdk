@@ -1,5 +1,5 @@
 # IBM Cloud Go SDK Template
-This repository serves as a template for Go SDKs that are produced with the 
+This repository serves as a template for Go SDKs that are produced with the
 [IBM OpenAPI SDK Generator](https://github.ibm.com/CloudEngineering/openapi-sdkgen).
 
 You can use the contents of this repository to create your own Go SDKs.
@@ -15,7 +15,7 @@ The following files will need to be modified after copying them from this templa
 * .travis.yml - Update this file as needed to incorporate any required steps for your SDK
 
 
-* headers.go - Go SDKs built with the IBM OpenAPI SDK Generator 
+* headers.go - Go SDKs built with the IBM OpenAPI SDK Generator
 need to implement a package called "common" which contains a function called `GetSdkHeaders`.  
 The `GetSdkHeaders` function is invoked by the generated service methods and should be modified to suit the
 needs of your particular SDK.

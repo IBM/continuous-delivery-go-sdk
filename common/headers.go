@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	HEADER_NAME_USER_AGENT    = "User-Agent"
+	HEADER_NAME_USER_AGENT = "User-Agent"
 
 	SDK_NAME = "go-sdk-template"
 )
@@ -23,15 +23,15 @@ const (
 // function, it is recommended that you initialize the returned map just once (perhaps by using
 // lazy initialization) and simply return it each time the function is invoked, instead of building it each time
 // as in the example below.
-// 
+//
 // Parameters:
 //   serviceName - the name of the service as defined in the API definition (e.g. "MyService1")
 //   serviceVersion - the version of the service as defined in the API definition (e.g. "V1")
 //   operationId - the operationId as defined in the API definition (e.g. getContext)
-// 
+//
 // Returns:
 //   a Map which contains the set of headers to be included in the REST API request
-// 
+//
 func GetSdkHeaders(serviceName string, serviceVersion string, operationId string) map[string]string {
 	sdkHeaders := make(map[string]string)
 
