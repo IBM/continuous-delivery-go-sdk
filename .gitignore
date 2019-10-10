@@ -7,3 +7,4 @@ vendor/
 # SDK generator
 .openapi-generator-ignore
 .openapi-generator/VERSION
+/.project
