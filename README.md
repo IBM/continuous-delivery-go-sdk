@@ -8,7 +8,14 @@ Go client library to use the MySDK Services.
 * [Overview](#overview)
 * [Prerequisites](#prerequisites)
 * [Installation](#installation)
-* [Authentication](#authentication)
+* [Using the SDK](#using-the-sdk)
+  * [Constructing service clients](#constructing-service-clients)
+  * [Authentication](#authentication)
+  * [Passing operation parameters via an "options" struct](#passing-operation-parameters-via-an-options-struct)
+  * [Receiving operation responses](#receiving-operation-responses)
+  * [Error Handling](#error-handling)
+  * [Default headers](#default-headers)
+  * [Sending request headers](#sending-request-headers)
 * [Sample Code](#sample-code)
 * [License](#license)
 
@@ -57,21 +64,56 @@ to your `Gopkg.toml` file.  Here is an example:
 ```
 then run `dep ensure`.
 
-## Authentication
+## Using the SDK
+This section provides general information on how to use the services contained in this SDK.
+### Constructing service clients
+Each service is implemented in its own package (e.g. `myservicev1`).
+The package will contain a "service client"
+struct (a client-side representation of the service), as well as an "options" struct that is used to
+construct instances of the service client.  
+Here's an example of how to construct an instance of "My Service":
+```go
+import {
+    "github.com/IBM/go-sdk-core/core"
+    "github.com/my-org/my-sdk/myservicev1"
+}
 
-MySDK services use token-based Identity and Access Management (IAM) authentication [IAM](#iam).
+// Create an authenticator.
+authenticator := /* create an authenticator - see examples below */
 
-IAM authentication uses a service API key to obtain an access token that is used to authenticate
-each API request.
-Access tokens are valid for a limited amount of time and must be regenerated.
+// Create an instance of the "MyServiceV1Options"  struct.
+myserviceURL := "https://myservice.cloud.ibm.com/api"
+options := &myservicev1.MyServiceV1Options{
+    Authenticator: authenticator,
+    URL: myserviceURL,
+}
+
+// Create an instance of the "MyServiceV1" service client.
+service, err := NewMyServiceV1(options)
+if err != nil {
+    // handle error
+}
+
+// Service operations can now be called using the "service" variable.
+
+```
+
+### Authentication
+MySDK services use token-based Identity and Access Management (IAM) authentication.
+
+IAM authentication uses an API key to obtain an access token, which is then used to authenticate
+each API request.  Access tokens are valid for a limited amount of time and must be regenerated.
 
 To provide credentials to the SDK, you supply either an IAM service **API key** or an **access token**:
 
-- Use the API key to have the SDK manage the lifecycle of the access token. The SDK requests an access token, ensures that the access token is valid, and refreshes it if necessary.
-- Use the access token if you want to manage the lifecycle yourself. For details, see [Authenticating with IAM tokens](https://cloud.ibm.com/docs/services/watson/getting-started-iam.html).
+- Specify the IAM API key to have the SDK manage the lifecycle of the access token.
+The SDK requests an access token, ensures that the access token is valid, and refreshes it when
+necessary.
+- Specify the access token if you want to manage the lifecycle yourself.
+For details, see [Authenticating with IAM tokens](https://cloud.ibm.com/docs/services/watson/getting-started-iam.html).
 
-
-Supplying the IAM API key:
+##### Examples:
+* Supplying the IAM API key and letting the SDK manage the access token for you:
 
 ```go
 // letting the SDK manage the IAM access token
@@ -95,7 +137,7 @@ service, err := myservicev1.NewMyServiceV1(options)
 
 ```
 
-Supplying the access token (a bearer token):
+* Supplying the access token (a bearer token) and managing it yourself:
 
 ```go
 import {
@@ -115,54 +157,69 @@ options := &myservicev1.MyServiceV1Options{
 
 // Construct the service instance.
 service, err := myservicev1.NewMyServiceV1(options)
-```
 
-## Using the SDK
+...
+// Later when the access token expires, the application must refresh the access token,
+// then set the new access token on the authenticator.
+// Subsequent request invocations will include the new access token.
+authenticator.BearerToken = /* new access token */
+```
+For more information on authentication, including the full set of authentication schemes supported by
+the underlying Go Core library, see
+[this page](https://github.com/IBM/go-sdk-core/blob/master/Authentication.md)
+
 ### Passing operation parameters via an "options" struct
-For each operation belonging to a service, an options struct is defined as a container for 
+For each operation belonging to a service, an "options" struct is defined as a container for 
 the parameters associated with the operation.
-The name of the struct will be <operation-name>Options and it will contain a field for each 
-operation parameter.  Here's an example:
+The name of the struct will be `<operation-name>Options` and it will contain a field for each 
+operation parameter.  
+Here's an example of an options struct for the `GetResource` operation:
 ```go
 // GetResourceOptions : The GetResource options.
 type GetResourceOptions struct {
 
 	// The id of the resource to retrieve.
-	ResourceID *string `json:"resource_id" validate:"required"`
+    ResourceID *string `json:"resource_id" validate:"required"`
+
+    // The type of the resource to retrieve.
+    ResourceType *string `json:"resource_type" validate:"required"`
+    
+    ...
 }
 ```
-In this example, the `GetResource` operation has one parameter, named `ResourceID`.
+In this example, the `GetResource` operation has two parameters - `ResourceID` and `ResourceType`.
 When invoking this operation, the application first creates an instance of the `GetResourceOptions`
-struct and then sets the ResourceID field within it.  Along with the options struct, a constructor
-function is also provided.
+struct and then sets the parameter values within it.  Along with the "options" struct, a constructor
+function is also provided.  
 Here's an example:
 ```go
-options := service.NewGetResourceOptions("resource-id-1")
+options := service.NewGetResourceOptions("resource-id-1", "resource-type-1")
 ```
 Then the operation can be called like this:
 ```go
 result, detailedResponse, err := service.GetResource(options)
 ```
-This pattern allows for future expansion of the API (within certain guidelines) without impacting
-applications.
+This use of the "options" struct pattern (instead of listing each operation parameter within the
+argument list of the service method) allows for future expansion of the API (within certain 
+guidelines) without impacting applications.
 
 ### Receiving operation responses
 
 Each service method (operation) will return the following values:
 1. `result` - An operation-specific result (if the operation is defined as returning a result).
 2. `detailedResponse` - An instance of the `core.DetailedResponse` struct.
-This will contain response information such as:
-* the HTTP status code returned in the response message
-* the HTTP headers returned in the response message
-* the operation result (if available). This is the same value returned in the `result` return value
+This will contain the following fields:
+* `StatusCode` - the HTTP status code returned in the response message
+* `Headers` - the HTTP headers returned in the response message
+* `Result` - the operation result (if available). This is the same value returned in the `result` return value
 mentioned above.
-3. 'err' - An error object.  This return value will be non-nil if the operation was not successful,
-or nil if it was successful.
+3. 'err' - An error object.  This return value will be nil if the operation was successful, or non-nil
+if unsuccessful.
 
 ##### Example:
 1. Here's an example of calling the `GetResource` operation which returns an instance of the `Resource`
 struct as its result:
-```
+```go
 // Construct the service instance.
 service, err := myservicev1.NewMyServiceV1(
     &myservicev1.MyServiceV1Options{
@@ -170,7 +227,7 @@ service, err := myservicev1.NewMyServiceV1(
     })
 
 // Call the GetResource operation and receive the returned Resource.
-options := service.NewGetResourceOptions("resource-id-1")
+options := service.NewGetResourceOptions("resource-id-1", "resource-type-1")
 result, detailedResponse, err := service.GetResource(options)
 
 // Now use 'result' which should be an instance of 'Resource'.
@@ -190,7 +247,7 @@ detailedResponse, err := service.DeleteResource(options)
 
 ### Error Handling
 
-In the case of an error response from the server endpoint:, the MySDK Go SDK will do the following:
+In the case of an error response from the server endpoint, the MySDK Go SDK will do the following:
 1. The service method (operation) will return a non-nil `error` object.  This `error` object will
 contain the error message retrieved from the HTTP response if possible, or a generic error message
 otherwise.
@@ -202,10 +259,10 @@ response message.
 operation returned a non-JSON response.
 
 ##### Example:
-Here's an example of checking the `error` object after invoking the `GetResource` operation
+Here's an example of checking the `error` object after invoking the `GetResource` operation:
 ```go
 // Call the GetResource operation and receive the returned Resource.
-options := service.NewGetResourceOptions("bad-resource-id")
+options := service.NewGetResourceOptions("bad-resource-id", "bad-resource-type")
 result, detailedResponse, err := service.GetResource(options)
 if err != nil {
     fmt.Println("Error retrieving the resource: ", err.Error())
@@ -214,12 +271,11 @@ if err != nil {
 ```
 
 ### Default headers
-
 Default HTTP headers can be specified by using the `SetDefaultHeaders(http.Header)`
-method of the client instance.  Once set on the client instance, default headers are sent with
+method of the client instance.  Once set on the service client, default headers are sent with
 every outbound request.  
 ##### Example:
-The example below sets the header `Custom-Header` with the value "custom_value" as the default 
+The example below sets the header `Custom-Header` with the value "custom_value" as a default 
 header:
 ```go
 // Construct the service instance.
@@ -232,24 +288,24 @@ customHeaders := http.Header{}
 customHeaders.Add("Custom-Header", "custom_value")
 service.Service.SetDefaultHeaders(customHeaders)
 
-// "Custom-Header" will now be included with all subsequent operation invocations.
+// "Custom-Header" will now be included with all subsequent requests invoked from "service".
 ```
 
 ### Sending request headers
-
-Custom HTTP headers can also be passed with any request.
-To do so, add the headers to the options object passed to the service method.
+Custom HTTP headers can also be passed with any individual request.
+To do so, add the headers to the "options" struct passed to the service method.
 ##### Example:
 Here's an example that sets "Custom-Header" on the `GetResourceOptions` instance and then
 invokes the `GetResource` operation:
 ```go
 
 // Call the GetResource operation, passing our Custom-Header.
-options := service.NewGetResourceOptions("resource-id-1")
+options := service.NewGetResourceOptions("resource-id-1", "resource-type-1")
 customHeaders := make(map[string]interface{})
 customHeaders["Custom-Header"] = "custom_value"
 options.SetHeaders(customHeaders)
 result, detailedResponse, err := service.GetResource(options)
+// "Custom-Header" will be sent along with the "GetResource" request.
 ```
 
 ## Sample Code
