@@ -7,13 +7,12 @@ dist: xenial
 go:
 - 1.12.x
 
-before_install:
-- apt-get update
-- go get -u github.com/golang/dep/cmd/dep
-- go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
+env:
+  global:
+    - GO111MODULE=on
 
-install:
-- dep ensure
+before_install:
+- go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
 
 notifications:
   email: false
@@ -23,5 +22,4 @@ before_script:
 
 script:
 - go test `go list ./...`
-- go test `go list ./...` -v -tags=integration
 - golangci-lint run

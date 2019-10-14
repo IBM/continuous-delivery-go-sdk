@@ -8,7 +8,7 @@ Before that, please search for similar issues. It's possible that someone has al
 If you want to contribute to the repository, here's a quick guide:
   1. Fork the repository
   2. Develop and test your code changes:
-      * To build/test: `mvn clean package`   
+      * To build/test: `go test ./...`   
       * Please add one or more tests to validate your changes.
   3. Make sure everything builds/tests cleanly
   4. Commit your changes  
