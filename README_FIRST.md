@@ -47,9 +47,11 @@ go: finding github.com/stretchr/testify v1.4.0
 ok  	github.ibm.com/CloudEngineering/go-sdk-template/common	0.002s
 ok  	github.ibm.com/CloudEngineering/go-sdk-template/exampleservicev1	0.006s
 ```
+
 Note: the first time you build and test the project, you'll see output showing
 that the Go engine is downloading the dependencies needed by the project since
 they're not yet cached in your environment.
+
 Note: this project uses go "modules" for dependency management.
 For this reason, make sure the `GOPATH` environment variable is not set in
 your shell when executing the `go` commands above.
