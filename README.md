@@ -11,19 +11,18 @@ Go client library to use the MySDK Services.
 * [Using the SDK](#using-the-sdk)
   * [Constructing service clients](#constructing-service-clients)
   * [Authentication](#authentication)
-  * [Passing operation parameters via an "options" struct](#passing-operation-parameters-via-an-options-struct)
+  * [Passing operation parameters via an options struct](#passing-operation-parameters-via-an-options-struct)
   * [Receiving operation responses](#receiving-operation-responses)
   * [Error Handling](#error-handling)
   * [Default headers](#default-headers)
   * [Sending request headers](#sending-request-headers)
-* [Sample Code](#sample-code)
 * [License](#license)
 
 </details>
 
 ## Overview
 
-The IBM Cloud MySDK Go SDK allows developers to programmatically interact with the 
+The IBM Cloud MySDK Go SDK allows developers to programmatically interact with the
 MySDK IBM Cloud services.
 
 ## Prerequisites
@@ -38,7 +37,7 @@ MySDK IBM Cloud services.
 There are a few different ways to download and install the MySDK Go SDK project for use by your
 Go application:
 ##### 1. `go get` command
-Use this command to download and install the MySDK Go SDK project to allow your Go application to 
+Use this command to download and install the MySDK Go SDK project to allow your Go application to
 use it:
 ```
 go get -u github.com/my-org/my-sdk
@@ -48,12 +47,12 @@ If your application is using Go modules, you can add a suitable import to your
 Go application, like this:
 ```go
 import (
-	"github.com/my-org/my-sdk/myservicev1"
+    "github.com/my-org/my-sdk/myservicev1"
 )
 ```
-then run `go mod tidy` to download and install the new dependency and update your Go application's 
+then run `go mod tidy` to download and install the new dependency and update your Go application's
 `go.mod` file.
-##### 2. `dep` dependency manager
+##### 3. `dep` dependency manager
 If your application is using the `dep` dependency management tool, you can add a dependency
 to your `Gopkg.toml` file.  Here is an example:
 ```
@@ -168,22 +167,22 @@ For more information on authentication, including the full set of authentication
 the underlying Go Core library, see
 [this page](https://github.com/IBM/go-sdk-core/blob/master/Authentication.md)
 
-### Passing operation parameters via an "options" struct
-For each operation belonging to a service, an "options" struct is defined as a container for 
+### Passing operation parameters via an options struct
+For each operation belonging to a service, an "options" struct is defined as a container for
 the parameters associated with the operation.
-The name of the struct will be `<operation-name>Options` and it will contain a field for each 
+The name of the struct will be `<operation-name>Options` and it will contain a field for each
 operation parameter.  
 Here's an example of an options struct for the `GetResource` operation:
 ```go
 // GetResourceOptions : The GetResource options.
 type GetResourceOptions struct {
 
-	// The id of the resource to retrieve.
+    // The id of the resource to retrieve.
     ResourceID *string `json:"resource_id" validate:"required"`
 
     // The type of the resource to retrieve.
     ResourceType *string `json:"resource_type" validate:"required"`
-    
+
     ...
 }
 ```
@@ -200,7 +199,7 @@ Then the operation can be called like this:
 result, detailedResponse, err := service.GetResource(options)
 ```
 This use of the "options" struct pattern (instead of listing each operation parameter within the
-argument list of the service method) allows for future expansion of the API (within certain 
+argument list of the service method) allows for future expansion of the API (within certain
 guidelines) without impacting applications.
 
 ### Receiving operation responses
@@ -213,7 +212,7 @@ This will contain the following fields:
 * `Headers` - the HTTP headers returned in the response message
 * `Result` - the operation result (if available). This is the same value returned in the `result` return value
 mentioned above.
-3. 'err' - An error object.  This return value will be nil if the operation was successful, or non-nil
+3. `err` - An error object.  This return value will be nil if the operation was successful, or non-nil
 if unsuccessful.
 
 ##### Example:
@@ -253,9 +252,9 @@ contain the error message retrieved from the HTTP response if possible, or a gen
 otherwise.
 2. The `detailedResponse.Result` field will contain the unmarshalled response (in the form of a
 `map[string]interface{}`) if the operation returned a JSON response.  
-This allows the application to examine all of the error information returned in the HTTP 
+This allows the application to examine all of the error information returned in the HTTP
 response message.
-2. The `detailedResponse.RawResult` field will contain the raw response body as a `[]byte` if the
+3. The `detailedResponse.RawResult` field will contain the raw response body as a `[]byte` if the
 operation returned a non-JSON response.
 
 ##### Example:
@@ -275,7 +274,7 @@ Default HTTP headers can be specified by using the `SetDefaultHeaders(http.Heade
 method of the client instance.  Once set on the service client, default headers are sent with
 every outbound request.  
 ##### Example:
-The example below sets the header `Custom-Header` with the value "custom_value" as a default 
+The example below sets the header `Custom-Header` with the value "custom_value" as a default
 header:
 ```go
 // Construct the service instance.
@@ -307,10 +306,6 @@ options.SetHeaders(customHeaders)
 result, detailedResponse, err := service.GetResource(options)
 // "Custom-Header" will be sent along with the "GetResource" request.
 ```
-
-## Sample Code
-
-See [Samples](Samples).
 
 ## License
 

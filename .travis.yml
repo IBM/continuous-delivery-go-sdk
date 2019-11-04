@@ -22,4 +22,5 @@ before_script:
 
 script:
 - go test `go list ./...`
+# - go test `go list ./...` -tags integration
 - golangci-lint run

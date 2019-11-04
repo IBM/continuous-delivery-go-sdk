@@ -12,14 +12,14 @@ You can copy the repository using one of the following methods:
 1. Download the zip file from the git repository main page
 (click on the `Clone or download` button, then click on `Download ZIP`).
 After downloading the zip file, unzip it into a suitable location where you want the project to exist.
-The unzip command will create the `go-sdk-template-master` directory, which you might want to rename 
+The unzip command will create the `go-sdk-template-master` directory, which you might want to rename
 to something that reflects the Go SDK project that you're trying to build.
 2. Clone this git repository using a command like this:
 ```
 git clone git@github.ibm.com:CloudEngineering/go-sdk-template.git my-sdk
 ```
 where `my-sdk` is the name of the directory to clone the repository into.  If you omit that option, git
-will clone the repo into the `go-sdk-template` directory.  In that case, you might want to rename the 
+will clone the repo into the `go-sdk-template` directory.  In that case, you might want to rename the
 directory to something that reflects the Go SDK project that you're trying to build.
 
 Note: If you use the `git clone` method of copying the repository, be sure to change the URL
@@ -71,11 +71,11 @@ Go SDK project, so modify it as needed to reflect your project.
 project.  Modify this file as needed to incorporate any other build steps needed by your project.
 * __common/headers.go__ - Go SDKs built with the IBM OpenAPI SDK Generator
 need to implement a package called "common" which contains a function called `GetSdkHeaders`.  
-The `GetSdkHeaders` function is invoked by the generated service methods and should be modified to 
+The `GetSdkHeaders` function is invoked by the generated service methods and should be modified to
 suit the needs of your particular SDK. The default implementation of `GetSdkHeaders` will return a map
-containing the "User-Agent" header with a value of the form 
+containing the "User-Agent" header with a value of the form
 `go-sdk-template-0.0.1 (arch=x86_64; os=Linux; go.version=1.12.9)`.
-You can modify this function to customize the value of the `User-Agent` header or add additional 
+You can modify this function to customize the value of the `User-Agent` header or add additional
 headers to the map that is returned.  The headers returned in the map will be added to each
 outgoing request invoked by applications using your SDK.
 After modifying the `common/headers.go` file, be sure to also update the accompanying testcase
@@ -99,9 +99,9 @@ You might want to also add the installation directory to your shell PATH environ
 used as the Go module prefix in step 6 below.
 This is typically a string of the form `github.com/my-org/my-sdk` or `github.ibm.com/my-org/my-sdk`,
 depending on the github server where your Go SDK project will be located.
-Suppose your SDK project (named "cloud-go-sdk") is going to be housed in the IBM internal github 
+Suppose your SDK project (named "cloud-go-sdk") is going to be housed in the IBM internal github
 server under the "ibmcloud" github organization.  In that case, the API package prefix would be `github.ibm.com/ibmcloud/cloud-go-sdk`.
-3. Modify your API definition(s) to include the API package prefix.  Details on the `apiPackage` 
+3. Modify your API definition(s) to include the API package prefix.  Details on the `apiPackage`
 configuration property can be found [here](https://github.ibm.com/CloudEngineering/openapi-sdkgen/wiki/Config-Options).  
 Here's an example of an API definition that has this property defined:
 ```
@@ -117,7 +117,7 @@ info:
       apiPackage: 'github.ibm.com/ibmcloud/cloud-go-sdk'
 ```
 ###### Generating the code for your service(s)
-For each service that you want to include in your Go SDK project, process the 
+For each service that you want to include in your Go SDK project, process the
 service's API definition with the SDK Generator, like this:
 ```
 openapi-sdkgen.sh generate -i <API-definition-filename> -g watson-go -o <output-directory>
@@ -142,9 +142,9 @@ The `go-sdk-template` repository uses Go modules to manage dependencies.
 The `go.mod` file supplied with this repository reflects the dependencies associated with the actual
 code delivered with the repository (i.e. the "common" and "exampleservicev1" packages).
 After you have generated the Go code for your own service(s) and added those packages to the project
-(and removed the `exampleservicev1` package), you'll need to update the `go.mod` file to reflect 
+(and removed the `exampleservicev1` package), you'll need to update the `go.mod` file to reflect
 your own project's module prefix and the dependencies of the new code in your project.
-The easiest way to do this is to simply remove the existing `go.mod` and `go.sum` files, 
+The easiest way to do this is to simply remove the existing `go.mod` and `go.sum` files,
 and then use the Go engine to re-create them:
 ```
 rm go.mod
@@ -152,7 +152,7 @@ rm go.sum
 go mod init github.com/my-org/my-sdk-repo
 go mod tidy
 ```
-In the `go mod init...` command above, be sure to use the correct module prefix for your own Go SDK 
+In the `go mod init...` command above, be sure to use the correct module prefix for your own Go SDK
 project.
 ##### 7. Build and test the project
 If you made it this far, congratulate yourself!
@@ -161,7 +161,7 @@ After modifying the template repository to form your new Go SDK project and then
 code for your service(s) and adding the resulting package(s) to your project, it's time to build
 and test your project.
 
-The OpenAPI SDK Generator will generate unit tests for your service(s) in addition to the client 
+The OpenAPI SDK Generator will generate unit tests for your service(s) in addition to the client
 SDK code, so you should have generated test cases in each of your service package(s).
 
 To build and test all of the code within your project, you can run these commands in the project
@@ -188,3 +188,14 @@ in the [`github.ibm.com/arf/arf-planning-sdk`](https://github.ibm.com/arf/planni
 issue repository.
 
 Our goal is to generate the client SDK and test code that can be built and tested without manual intervention.  If we fall short of that goal, we'd love to hear about it.
+
+##### 8. Running Example Service Integration Test
+
+To set up and run the integration tests, clone the [Example Service repo](https://github.ibm.com/CloudEngineering/example-service) and follow the instructions there for how to start up an instance of the example service
+
+Integration test code can be found [here](exampleservicev1/example_service_v1_integration_test.go)
+
+To run only the integration tests, run this command from the project root directory:
+```sh
+go test exampleservicev1/example_service_v1_integration_test.go
+```

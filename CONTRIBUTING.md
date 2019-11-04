@@ -13,10 +13,10 @@ If you want to contribute to the repository, here's a quick guide:
   3. Make sure everything builds/tests cleanly
   4. Commit your changes  
   5. Push to your fork and submit a pull request to the **master** branch
-  
+
 # Coding Style
 
-This SDK follows the conventions from the [Golang "Effective Go" style guide](). 
+This SDK follows the conventions from the [Golang "Effective Go" style guide]().
 
 You should use [golint](https://github.com/golang/lint#installation) to check style and code coverage. `golint ./...` will perform the style checks on your changes.
 
@@ -31,7 +31,7 @@ The integration test framework will skip integration tests for any service that 
 To provide credentials for the integration tests, copy `test/resources/.config.properties` to `test/resources/auth.js`
 and fill in credentials for the service(s) you wish to test.
 
-To run the tests in a specific test class, use the `-run` flag when invoking `mvn test`, e.g.:
+To run the tests in a specific test class, use the `-run` flag when invoking `go test`, e.g.:
 
 ```
 go test -run NameOfTest
