@@ -65,6 +65,14 @@ Make sure you have done the following:
 with the remote named `origin`, like this: `git remote set-url origin <your project's git URL>`
 
 Next, make modifications to various files as instructed below:
+* __go.mod__ - [Very important] Set the version of the `go-sdk-core` module to be used with
+your SDK project. This is defined in the line that looks like this:
+```
+    github.com/IBM/go-sdk-core v1.0.0
+```
+You must use a version of the Go SDK Core that is compatible with the version of the SDK generator
+used to generate your SDK code.
+See [this link](https://github.ibm.com/CloudEngineering/openapi-sdkgen/wiki/Compatibility-Chart) for details.
 * __README.md__ - This file is intended to be customized to form the `README.md` file for your new
 Go SDK project, so modify it as needed to reflect your project.  
 * __.travis.yml__ - This file contains a basic set of commands to automate Travis builds for your Go SDK
