@@ -16,9 +16,12 @@ If you want to contribute to the repository, here's a quick guide:
 
 # Coding Style
 
-This SDK follows the conventions from the [Golang "Effective Go" style guide]().
+This SDK follows the conventions from the [Golang "Effective Go" style guide](https://golang.org/doc/effective_go.html).
 
-You should use [golint](https://github.com/golang/lint#installation) to check style and code coverage. `golint ./...` will perform the style checks on your changes.
+You should use [golangci-lint](https://github.com/golangci/golangci-lint) to check coding style.
+```
+golangci-lint run
+```
 
 # Running the Tests
 

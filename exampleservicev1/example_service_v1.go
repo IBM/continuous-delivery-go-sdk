@@ -109,7 +109,7 @@ func (exampleService *ExampleServiceV1) ListResources(listResourcesOptions *List
 		var ok bool
 		result, ok = response.Result.(*Resources)
 		if !ok {
-			err = fmt.Errorf("An error occurred while processing the operation response.")
+			err = fmt.Errorf("an error occurred while processing the operation response")
 		}
 	}
 
@@ -170,7 +170,7 @@ func (exampleService *ExampleServiceV1) CreateResource(createResourceOptions *Cr
 		var ok bool
 		result, ok = response.Result.(*Resource)
 		if !ok {
-			err = fmt.Errorf("An error occurred while processing the operation response.")
+			err = fmt.Errorf("an error occurred while processing the operation response")
 		}
 	}
 
@@ -219,7 +219,7 @@ func (exampleService *ExampleServiceV1) GetResource(getResourceOptions *GetResou
 		var ok bool
 		result, ok = response.Result.(*Resource)
 		if !ok {
-			err = fmt.Errorf("An error occurred while processing the operation response.")
+			err = fmt.Errorf("an error occurred while processing the operation response")
 		}
 	}
 
