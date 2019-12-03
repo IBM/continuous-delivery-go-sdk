@@ -11,14 +11,11 @@ env:
   global:
     - GO111MODULE=on
 
-before_install:
-- go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
+install:
+- curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s -- -b $(go env GOPATH)/bin v1.21.0
 
 notifications:
   email: false
-
-before_script:
-- go install github.com/golangci/golangci-lint/cmd/golangci-lint
 
 script:
 - go test `go list ./...`
