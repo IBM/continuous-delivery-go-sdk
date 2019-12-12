@@ -19,7 +19,7 @@ package exampleservicev1
 
 import (
 	"fmt"
-	"github.com/IBM/go-sdk-core/core"
+	"github.com/IBM/go-sdk-core/v3/core"
 	common "github.ibm.com/CloudEngineering/go-sdk-template/common"
 )
 
@@ -31,28 +31,62 @@ type ExampleServiceV1 struct {
 	Service *core.BaseService
 }
 
-const defaultServiceURL = "http://cloud.ibm.com/mysdk/v1"
+// DefaultServiceURL is the default URL to make service requests to.
+const DefaultServiceURL = "http://cloud.ibm.com/mysdk/v1"
+
+// DefaultServiceName is the default key used to find external configuration information.
+const DefaultServiceName = "example_service"
 
 // ExampleServiceV1Options : Service options
 type ExampleServiceV1Options struct {
+	ServiceName   string
 	URL           string
 	Authenticator core.Authenticator
 }
 
-// NewExampleServiceV1 : Instantiate ExampleServiceV1
-func NewExampleServiceV1(options *ExampleServiceV1Options) (service *ExampleServiceV1, err error) {
-	if options.URL == "" {
-		options.URL = defaultServiceURL
+// NewExampleServiceV1UsingExternalConfig : constructs an instance of ExampleServiceV1 with passed in options and external configuration.
+func NewExampleServiceV1UsingExternalConfig(options *ExampleServiceV1Options) (exampleService *ExampleServiceV1, err error) {
+	if options.ServiceName == "" {
+		options.ServiceName = DefaultServiceName
 	}
 
+	if options.Authenticator == nil {
+		options.Authenticator, err = core.GetAuthenticatorFromEnvironment(options.ServiceName)
+		if err != nil {
+			return
+		}
+	}
+
+	exampleService, err = NewExampleServiceV1(options)
+	if err != nil {
+		return
+	}
+
+	err = exampleService.Service.ConfigureService(options.ServiceName)
+	if err != nil {
+		return
+	}
+
+	if options.URL != "" {
+		exampleService.Service.SetServiceURL(options.URL)
+	}
+	return
+}
+
+// NewExampleServiceV1 : constructs an instance of ExampleServiceV1 with passed in options.
+func NewExampleServiceV1(options *ExampleServiceV1Options) (service *ExampleServiceV1, err error) {
 	serviceOptions := &core.ServiceOptions{
-		URL:             options.URL,
+		URL:             DefaultServiceURL,
 		Authenticator:   options.Authenticator,
 	}
 
-	baseService, err := core.NewBaseService(serviceOptions, "example_service", "ExampleService")
+	baseService, err := core.NewBaseService(serviceOptions)
 	if err != nil {
 		return
+	}
+
+	if options.URL != "" {
+		baseService.SetServiceURL(options.URL)
 	}
 
 	service = &ExampleServiceV1{
@@ -109,7 +143,7 @@ func (exampleService *ExampleServiceV1) ListResources(listResourcesOptions *List
 		var ok bool
 		result, ok = response.Result.(*Resources)
 		if !ok {
-			err = fmt.Errorf("an error occurred while processing the operation response")
+			err = fmt.Errorf("An error occurred while processing the operation response.")
 		}
 	}
 
@@ -170,7 +204,7 @@ func (exampleService *ExampleServiceV1) CreateResource(createResourceOptions *Cr
 		var ok bool
 		result, ok = response.Result.(*Resource)
 		if !ok {
-			err = fmt.Errorf("an error occurred while processing the operation response")
+			err = fmt.Errorf("An error occurred while processing the operation response.")
 		}
 	}
 
@@ -219,7 +253,7 @@ func (exampleService *ExampleServiceV1) GetResource(getResourceOptions *GetResou
 		var ok bool
 		result, ok = response.Result.(*Resource)
 		if !ok {
-			err = fmt.Errorf("an error occurred while processing the operation response")
+			err = fmt.Errorf("An error occurred while processing the operation response.")
 		}
 	}
 
@@ -231,7 +265,7 @@ func (exampleService *ExampleServiceV1) GetResource(getResourceOptions *GetResou
 type CreateResourceOptions struct {
 
 	// The id of the resource.
-	ResourceID *int64 `json:"resource_id,omitempty"`
+	ResourceID *string `json:"resource_id,omitempty"`
 
 	// The name of the resource.
 	Name *string `json:"name,omitempty"`
@@ -244,13 +278,13 @@ type CreateResourceOptions struct {
 }
 
 // NewCreateResourceOptions : Instantiate CreateResourceOptions
-func (exampleService *ExampleServiceV1) NewCreateResourceOptions() *CreateResourceOptions {
+func (_ *ExampleServiceV1) NewCreateResourceOptions() *CreateResourceOptions {
 	return &CreateResourceOptions{}
 }
 
 // SetResourceID : Allow user to set ResourceID
-func (options *CreateResourceOptions) SetResourceID(resourceID int64) *CreateResourceOptions {
-	options.ResourceID = core.Int64Ptr(resourceID)
+func (options *CreateResourceOptions) SetResourceID(resourceID string) *CreateResourceOptions {
+	options.ResourceID = core.StringPtr(resourceID)
 	return options
 }
 
@@ -283,7 +317,7 @@ type GetResourceOptions struct {
 }
 
 // NewGetResourceOptions : Instantiate GetResourceOptions
-func (exampleService *ExampleServiceV1) NewGetResourceOptions(resourceID string) *GetResourceOptions {
+func (_ *ExampleServiceV1) NewGetResourceOptions(resourceID string) *GetResourceOptions {
 	return &GetResourceOptions{
 		ResourceID: core.StringPtr(resourceID),
 	}
@@ -312,7 +346,7 @@ type ListResourcesOptions struct {
 }
 
 // NewListResourcesOptions : Instantiate ListResourcesOptions
-func (exampleService *ExampleServiceV1) NewListResourcesOptions() *ListResourcesOptions {
+func (_ *ExampleServiceV1) NewListResourcesOptions() *ListResourcesOptions {
 	return &ListResourcesOptions{}
 }
 
@@ -332,7 +366,7 @@ func (options *ListResourcesOptions) SetHeaders(param map[string]string) *ListRe
 type Resource struct {
 
 	// The id of the resource.
-	ResourceID *int64 `json:"resource_id" validate:"required"`
+	ResourceID *string `json:"resource_id" validate:"required"`
 
 	// The name of the resource.
 	Name *string `json:"name" validate:"required"`
@@ -342,9 +376,9 @@ type Resource struct {
 }
 
 // NewResource : Instantiate Resource (Generic Model Constructor)
-func (exampleService *ExampleServiceV1) NewResource(resourceID int64, name string) (model *Resource, err error) {
+func (_ *ExampleServiceV1) NewResource(resourceID string, name string) (model *Resource, err error) {
 	model = &Resource{
-		ResourceID: core.Int64Ptr(resourceID),
+		ResourceID: core.StringPtr(resourceID),
 		Name: core.StringPtr(name),
 	}
 	err = core.ValidateStruct(model, "required parameters")
