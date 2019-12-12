@@ -68,7 +68,7 @@ func NewExampleServiceV1UsingExternalConfig(options *ExampleServiceV1Options) (e
 	}
 
 	if options.URL != "" {
-		exampleService.Service.SetServiceURL(options.URL)
+		err = exampleService.Service.SetServiceURL(options.URL)
 	}
 	return
 }
@@ -86,7 +86,10 @@ func NewExampleServiceV1(options *ExampleServiceV1Options) (service *ExampleServ
 	}
 
 	if options.URL != "" {
-		baseService.SetServiceURL(options.URL)
+		err = baseService.SetServiceURL(options.URL)
+	if err != nil {
+		return
+	}
 	}
 
 	service = &ExampleServiceV1{
@@ -143,7 +146,7 @@ func (exampleService *ExampleServiceV1) ListResources(listResourcesOptions *List
 		var ok bool
 		result, ok = response.Result.(*Resources)
 		if !ok {
-			err = fmt.Errorf("An error occurred while processing the operation response.")
+			err = fmt.Errorf("an error occurred while processing the operation response")
 		}
 	}
 
@@ -204,7 +207,7 @@ func (exampleService *ExampleServiceV1) CreateResource(createResourceOptions *Cr
 		var ok bool
 		result, ok = response.Result.(*Resource)
 		if !ok {
-			err = fmt.Errorf("An error occurred while processing the operation response.")
+			err = fmt.Errorf("an error occurred while processing the operation response")
 		}
 	}
 
@@ -253,7 +256,7 @@ func (exampleService *ExampleServiceV1) GetResource(getResourceOptions *GetResou
 		var ok bool
 		result, ok = response.Result.(*Resource)
 		if !ok {
-			err = fmt.Errorf("An error occurred while processing the operation response.")
+			err = fmt.Errorf("an error occurred while processing the operation response")
 		}
 	}
 
@@ -278,7 +281,7 @@ type CreateResourceOptions struct {
 }
 
 // NewCreateResourceOptions : Instantiate CreateResourceOptions
-func (_ *ExampleServiceV1) NewCreateResourceOptions() *CreateResourceOptions {
+func (*ExampleServiceV1) NewCreateResourceOptions() *CreateResourceOptions {
 	return &CreateResourceOptions{}
 }
 
@@ -317,7 +320,7 @@ type GetResourceOptions struct {
 }
 
 // NewGetResourceOptions : Instantiate GetResourceOptions
-func (_ *ExampleServiceV1) NewGetResourceOptions(resourceID string) *GetResourceOptions {
+func (*ExampleServiceV1) NewGetResourceOptions(resourceID string) *GetResourceOptions {
 	return &GetResourceOptions{
 		ResourceID: core.StringPtr(resourceID),
 	}
@@ -346,7 +349,7 @@ type ListResourcesOptions struct {
 }
 
 // NewListResourcesOptions : Instantiate ListResourcesOptions
-func (_ *ExampleServiceV1) NewListResourcesOptions() *ListResourcesOptions {
+func (*ExampleServiceV1) NewListResourcesOptions() *ListResourcesOptions {
 	return &ListResourcesOptions{}
 }
 
@@ -376,7 +379,7 @@ type Resource struct {
 }
 
 // NewResource : Instantiate Resource (Generic Model Constructor)
-func (_ *ExampleServiceV1) NewResource(resourceID string, name string) (model *Resource, err error) {
+func (*ExampleServiceV1) NewResource(resourceID string, name string) (model *Resource, err error) {
 	model = &Resource{
 		ResourceID: core.StringPtr(resourceID),
 		Name: core.StringPtr(name),

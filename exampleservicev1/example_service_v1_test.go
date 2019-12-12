@@ -176,6 +176,32 @@ var _ = Describe(`ExampleServiceV1`, func() {
 			})
 		})
 	})
+	Describe("Utility function tests", func () {
+		It("Call CreateMockMap successfully", func () {
+			mockMap := CreateMockMap()
+			Expect(mockMap).ToNot(BeNil())
+		})
+		It("Call CreateMockByteArray successfully", func () {
+			mockByteArray := CreateMockByteArray("This is a test")
+			Expect(mockByteArray).ToNot(BeNil())
+		})
+		It("Call CreateMockUUID successfully", func () {
+			mockUUID := CreateMockUUID("9fab83da-98cb-4f18-a7ba-b6f0435c9673")
+			Expect(mockUUID).ToNot(BeNil())
+		})
+		It("Call CreateMockReader successfully", func () {
+			mockReader := CreateMockReader("This is a test.")
+			Expect(mockReader).ToNot(BeNil())
+		})
+		It("Call CreateMockDate successfully", func () {
+			mockDate := CreateMockDate()
+			Expect(mockDate).ToNot(BeNil())
+		})
+		It("Call CreateMockDateTime successfully", func () {
+			mockDateTime := CreateMockDateTime()
+			Expect(mockDateTime).ToNot(BeNil())
+		})
+	})
 })
 
 //
