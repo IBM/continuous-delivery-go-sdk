@@ -307,6 +307,10 @@ result, detailedResponse, err := service.GetResource(options)
 // "Custom-Header" will be sent along with the "GetResource" request.
 ```
 
+### Transaction IDs
+
+Every call from the SDK will receive a response which will contain a transaction ID, accessible via the `x-global-transaction-id` header.  This transaction ID is useful for troubleshooting and accessing relevant logs from your service instance.
+
 ## License
 
 The IBM Cloud MySDK Go SDK is released under the Apache 2.0 license. The license's full text can be found in [LICENSE](LICENSE).
