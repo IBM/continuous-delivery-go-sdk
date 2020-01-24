@@ -105,7 +105,7 @@ Details are [here](https://github.ibm.com/CloudEngineering/openapi-sdkgen/blob/m
 You might want to also add the installation directory to your shell PATH environment variable.
 2. Determine the correct API package prefix to use for your Go SDK project.  This value will also be
 used as the Go module prefix in step 6 below.
-This is typically a string of the form `github.com/my-org/my-sdk` or `github.ibm.com/my-org/my-sdk`,
+This is typically a string of the form `github.com/my-org/my-sdk` or `github.ibm.com/my-org/my-sdk` (the url of your SDK repository),
 depending on the github server where your Go SDK project will be located.
 Suppose your SDK project (named "cloud-go-sdk") is going to be housed in the IBM internal github
 server under the "ibmcloud" github organization.  In that case, the API package prefix would be `github.ibm.com/ibmcloud/cloud-go-sdk`.
