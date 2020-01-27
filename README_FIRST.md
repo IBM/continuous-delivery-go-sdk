@@ -207,3 +207,36 @@ To run only the integration tests, run this command from the project root direct
 ```sh
 go test exampleservicev1/example_service_v1_integration_test.go
 ```
+
+##### 9. Continuous Integration
+This repository is set up to use [Travis](https://travis-ci.org/) for continuous integration.
+
+Note - to pass credentials to Travis and run integration tests, create a file named `ibm-credentials.env` at the root of the project directory, then encrypt the `ibm-credentials.env` file with the Travis CLI to store the decryption keys in Travis setting. For more information on the format of the `ibm-credentials.env` file, see (example credentials file here)[https://github.com/IBM/go-sdk-core/blob/master/resources/ibm-credentials.env]. To encrypt `ibm-credentials.env` and set decryption keys on Travis config:
+
+1. Enable Travis-CI for your repository in Travis.
+2. Make sure Ruby and Ruby Gem are installed and up to date on your local machine. You can [install Ruby here](https://www.ruby-lang.org/en/documentation/installation/)
+3. Install Travis CLI (`gem install travis`). To verify installation, type `travis -v`
+4. Log into Travis through CLI. Depending on whether you're trying to connect to Travis Enterprise, or Public Travis, the commands will be different.
+
+Here's the command for logging into Travis Enterprise:
+```sh
+travis login -X --github-token <your-github-enterprise-token> --api-endpoint https://travis.ibm.com/api
+```
+
+Here's the command for logging into Public Travis
+```sh
+travis login --github-token <your-public-github-token> --com
+```
+
+5. From the root of the project, run the command `travis encrypt-file ibm-credentials.env`
+6. The command will generate a file called `ibm-credentials.env.enc` in the project folder root directory. Commit the file to your repository
+7. Terminal should print out a command to add to your build script. In that command is a string with the format similar to `encrypted_12345_key`. Copy that string
+8. Open `.travis.yml` from root directory. Replace the string `encrypted_12345_key` with the name of your generated environment variable from the last step
+9. Also replace the string `encrypted_12345_iv` with the name of your generated environment variable, but modify the string from `_key` to `_iv`
+10. Commit the changes you made to the `.travis.yml` file and push to Github. Travis-CI pipeline should automatically start running
+
+The config file `.travis.yml` contains all the instructions necessary to run the recommended build. Each step is described below.
+
+The `before_install` step runs the instructions to decrypt the `ibm-credentials.env.enc` file. It only does for *pushes* to a branch. This is done so that integration tests only run on *push* builds and not on *pull request* builds.
+
+The `script` section runs the generated unit tests for the generated SDK. It will also run the command to lint go files. To run integration tests, first tag integration tests with the tag `integration` by adding the line `// +build integration` to the [top of the integration test file](exampleservicev1/example_service_v1_integration_test.go). The, uncomment the line ```go test `go list ./...` -tags integration``` to run both unit tests and integration tests in `.travis.yml`.

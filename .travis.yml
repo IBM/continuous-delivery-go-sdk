@@ -11,6 +11,9 @@ env:
   global:
     - GO111MODULE=on
 
+before_install:
+  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && openssl aes-256-cbc -K $encrypted_12345_key
+  -iv $encrypted_12345_iv -in ibm-credentials.env.enc -out ibm-credentials.env -d || true'
 install:
 - curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s -- -b $(go env GOPATH)/bin v1.21.0
 

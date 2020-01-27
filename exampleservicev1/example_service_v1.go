@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -76,8 +76,8 @@ func NewExampleServiceV1UsingExternalConfig(options *ExampleServiceV1Options) (e
 // NewExampleServiceV1 : constructs an instance of ExampleServiceV1 with passed in options.
 func NewExampleServiceV1(options *ExampleServiceV1Options) (service *ExampleServiceV1, err error) {
 	serviceOptions := &core.ServiceOptions{
-		URL:             DefaultServiceURL,
-		Authenticator:   options.Authenticator,
+		URL:           DefaultServiceURL,
+		Authenticator: options.Authenticator,
 	}
 
 	baseService, err := core.NewBaseService(serviceOptions)
@@ -87,9 +87,9 @@ func NewExampleServiceV1(options *ExampleServiceV1Options) (service *ExampleServ
 
 	if options.URL != "" {
 		err = baseService.SetServiceURL(options.URL)
-	if err != nil {
-		return
-	}
+		if err != nil {
+			return
+		}
 	}
 
 	service = &ExampleServiceV1{
@@ -103,7 +103,6 @@ func NewExampleServiceV1(options *ExampleServiceV1Options) (service *ExampleServ
 func (exampleService *ExampleServiceV1) SetServiceURL(url string) error {
 	return exampleService.Service.SetServiceURL(url)
 }
-
 
 // ListResources : List all resources
 func (exampleService *ExampleServiceV1) ListResources(listResourcesOptions *ListResourcesOptions) (result *Resources, response *core.DetailedResponse, err error) {
@@ -141,18 +140,19 @@ func (exampleService *ExampleServiceV1) ListResources(listResourcesOptions *List
 		return
 	}
 
-	response, err = exampleService.Service.Request(request, new(Resources))
+	response, err = exampleService.Service.Request(request, make(map[string]interface{}))
 	if err == nil {
-		var ok bool
-		result, ok = response.Result.(*Resources)
+		m, ok := response.Result.(map[string]interface{})
 		if !ok {
 			err = fmt.Errorf("an error occurred while processing the operation response")
+			return
 		}
+		result, err = UnmarshalResources(m)
+		response.Result = result
 	}
 
 	return
 }
-
 
 // CreateResource : Create a resource
 func (exampleService *ExampleServiceV1) CreateResource(createResourceOptions *CreateResourceOptions) (result *Resource, response *core.DetailedResponse, err error) {
@@ -202,18 +202,19 @@ func (exampleService *ExampleServiceV1) CreateResource(createResourceOptions *Cr
 		return
 	}
 
-	response, err = exampleService.Service.Request(request, new(Resource))
+	response, err = exampleService.Service.Request(request, make(map[string]interface{}))
 	if err == nil {
-		var ok bool
-		result, ok = response.Result.(*Resource)
+		m, ok := response.Result.(map[string]interface{})
 		if !ok {
 			err = fmt.Errorf("an error occurred while processing the operation response")
+			return
 		}
+		result, err = UnmarshalResource(m)
+		response.Result = result
 	}
 
 	return
 }
-
 
 // GetResource : Info for a specific resource
 func (exampleService *ExampleServiceV1) GetResource(getResourceOptions *GetResourceOptions) (result *Resource, response *core.DetailedResponse, err error) {
@@ -251,22 +252,22 @@ func (exampleService *ExampleServiceV1) GetResource(getResourceOptions *GetResou
 		return
 	}
 
-	response, err = exampleService.Service.Request(request, new(Resource))
+	response, err = exampleService.Service.Request(request, make(map[string]interface{}))
 	if err == nil {
-		var ok bool
-		result, ok = response.Result.(*Resource)
+		m, ok := response.Result.(map[string]interface{})
 		if !ok {
 			err = fmt.Errorf("an error occurred while processing the operation response")
+			return
 		}
+		result, err = UnmarshalResource(m)
+		response.Result = result
 	}
 
 	return
 }
 
-
 // CreateResourceOptions : The CreateResource options.
 type CreateResourceOptions struct {
-
 	// The id of the resource.
 	ResourceID *string `json:"resource_id,omitempty"`
 
@@ -276,7 +277,7 @@ type CreateResourceOptions struct {
 	// A tag value for the resource.
 	Tag *string `json:"tag,omitempty"`
 
-	// Allows users to set headers to be GDPR compliant
+	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
@@ -311,11 +312,10 @@ func (options *CreateResourceOptions) SetHeaders(param map[string]string) *Creat
 
 // GetResourceOptions : The GetResource options.
 type GetResourceOptions struct {
-
 	// The id of the resource to retrieve.
 	ResourceID *string `json:"resource_id" validate:"required"`
 
-	// Allows users to set headers to be GDPR compliant
+	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
@@ -340,11 +340,10 @@ func (options *GetResourceOptions) SetHeaders(param map[string]string) *GetResou
 
 // ListResourcesOptions : The ListResources options.
 type ListResourcesOptions struct {
-
 	// How many items to return at one time (max 100).
 	Limit *int64 `json:"limit,omitempty"`
 
-	// Allows users to set headers to be GDPR compliant
+	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
@@ -367,7 +366,6 @@ func (options *ListResourcesOptions) SetHeaders(param map[string]string) *ListRe
 
 // Resource : A resource.
 type Resource struct {
-
 	// The id of the resource.
 	ResourceID *string `json:"resource_id" validate:"required"`
 
@@ -376,7 +374,11 @@ type Resource struct {
 
 	// A tag value for the resource.
 	Tag *string `json:"tag,omitempty"`
+
+	// This is a read only string.
+	ReadOnly *string `json:"read_only,omitempty"`
 }
+
 
 // NewResource : Instantiate Resource (Generic Model Constructor)
 func (*ExampleServiceV1) NewResource(resourceID string, name string) (model *Resource, err error) {
@@ -388,9 +390,79 @@ func (*ExampleServiceV1) NewResource(resourceID string, name string) (model *Res
 	return
 }
 
+// UnmarshalResource constructs an instance of Resource from the specified map.
+func UnmarshalResource(m map[string]interface{}) (result *Resource, err error) {
+	obj := new(Resource)
+	obj.ResourceID, err = core.UnmarshalString(m, "resource_id")
+	if err != nil {
+		return
+	}
+	obj.Name, err = core.UnmarshalString(m, "name")
+	if err != nil {
+		return
+	}
+	obj.Tag, err = core.UnmarshalString(m, "tag")
+	if err != nil {
+		return
+	}
+	obj.ReadOnly, err = core.UnmarshalString(m, "read_only")
+	if err != nil {
+		return
+	}
+	result = obj
+	return
+}
+
+// UnmarshalResourceSlice unmarshals a slice of Resource instances from the specified list of maps.
+func UnmarshalResourceSlice(s []interface{}) (slice []Resource, err error) {
+	for _, v := range s {
+		objMap, ok := v.(map[string]interface{})
+		if !ok {
+			err = fmt.Errorf("slice element should be a map containing an instance of 'Resource'")
+			return
+		}
+		obj, e := UnmarshalResource(objMap)
+		if e != nil {
+			err = e
+			return
+		}
+		slice = append(slice, *obj)
+	}
+	return
+}
+
+// UnmarshalResourceAsProperty unmarshals an instance of Resource that is stored as a property
+// within the specified map.
+func UnmarshalResourceAsProperty(m map[string]interface{}, propertyName string) (result *Resource, err error) {
+	v, foundIt := m[propertyName]
+	if foundIt {
+		objMap, ok := v.(map[string]interface{})
+		if !ok {
+			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'Resource'", propertyName)
+			return
+		}
+		result, err = UnmarshalResource(objMap)
+	}
+	return
+}
+
+// UnmarshalResourceSliceAsProperty unmarshals a slice of Resource instances that are stored as a property
+// within the specified map.
+func UnmarshalResourceSliceAsProperty(m map[string]interface{}, propertyName string) (slice []Resource, err error) {
+	v, foundIt := m[propertyName]
+	if foundIt {
+		vSlice, ok := v.([]interface{})
+		if !ok {
+			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'Resource'", propertyName)
+			return
+		}
+		slice, err = UnmarshalResourceSlice(vSlice)
+	}
+	return
+}
+
 // Resources : List of resources.
 type Resources struct {
-
 	// Offset value for this portion of the resource list.
 	Offset *int64 `json:"offset,omitempty"`
 
@@ -399,4 +471,72 @@ type Resources struct {
 
 	// A list of resources.
 	Resources []Resource `json:"resources,omitempty"`
+}
+
+
+// UnmarshalResources constructs an instance of Resources from the specified map.
+func UnmarshalResources(m map[string]interface{}) (result *Resources, err error) {
+	obj := new(Resources)
+	obj.Offset, err = core.UnmarshalInt64(m, "offset")
+	if err != nil {
+		return
+	}
+	obj.Limit, err = core.UnmarshalInt64(m, "limit")
+	if err != nil {
+		return
+	}
+	obj.Resources, err = UnmarshalResourceSliceAsProperty(m, "resources")
+	if err != nil {
+		return
+	}
+	result = obj
+	return
+}
+
+// UnmarshalResourcesSlice unmarshals a slice of Resources instances from the specified list of maps.
+func UnmarshalResourcesSlice(s []interface{}) (slice []Resources, err error) {
+	for _, v := range s {
+		objMap, ok := v.(map[string]interface{})
+		if !ok {
+			err = fmt.Errorf("slice element should be a map containing an instance of 'Resources'")
+			return
+		}
+		obj, e := UnmarshalResources(objMap)
+		if e != nil {
+			err = e
+			return
+		}
+		slice = append(slice, *obj)
+	}
+	return
+}
+
+// UnmarshalResourcesAsProperty unmarshals an instance of Resources that is stored as a property
+// within the specified map.
+func UnmarshalResourcesAsProperty(m map[string]interface{}, propertyName string) (result *Resources, err error) {
+	v, foundIt := m[propertyName]
+	if foundIt {
+		objMap, ok := v.(map[string]interface{})
+		if !ok {
+			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'Resources'", propertyName)
+			return
+		}
+		result, err = UnmarshalResources(objMap)
+	}
+	return
+}
+
+// UnmarshalResourcesSliceAsProperty unmarshals a slice of Resources instances that are stored as a property
+// within the specified map.
+func UnmarshalResourcesSliceAsProperty(m map[string]interface{}, propertyName string) (slice []Resources, err error) {
+	v, foundIt := m[propertyName]
+	if foundIt {
+		vSlice, ok := v.([]interface{})
+		if !ok {
+			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'Resources'", propertyName)
+			return
+		}
+		slice, err = UnmarshalResourcesSlice(vSlice)
+	}
+	return
 }

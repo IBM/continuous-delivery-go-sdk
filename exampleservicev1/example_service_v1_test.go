@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@ import (
 var _ = Describe(`ExampleServiceV1`, func() {
 	Describe(`ListResources(listResourcesOptions *ListResourcesOptions)`, func() {
 		listResourcesPath := "/resources"
-		Context(`Successfully - List all resources`, func() {
+		Context(`Using mock server endpoint`, func() {
 			testServer := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 				defer GinkgoRecover()
 
@@ -46,13 +46,13 @@ var _ = Describe(`ExampleServiceV1`, func() {
 
 				res.Header().Set("Content-type", "application/json")
 				res.WriteHeader(200)
-				fmt.Fprintf(res, `{"offset": 6, "limit": 5, "resources": []}`)
+				fmt.Fprintf(res, `{"offset": 6, "limit": 5, "resources": [{"resource_id": "ResourceID", "name": "Name", "tag": "Tag", "read_only": "ReadOnly"}]}`)
 			}))
-			It(`Succeed to call ListResources`, func() {
+			It(`Invoke ListResources successfully`, func() {
 				defer testServer.Close()
 
 				testService, testServiceErr := exampleservicev1.NewExampleServiceV1(&exampleservicev1.ExampleServiceV1Options{
-					URL: testServer.URL,
+					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(testServiceErr).To(BeNil())
@@ -78,7 +78,7 @@ var _ = Describe(`ExampleServiceV1`, func() {
 	})
 	Describe(`CreateResource(createResourceOptions *CreateResourceOptions)`, func() {
 		createResourcePath := "/resources"
-		Context(`Successfully - Create a resource`, func() {
+		Context(`Using mock server endpoint`, func() {
 			testServer := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 				defer GinkgoRecover()
 
@@ -87,13 +87,13 @@ var _ = Describe(`ExampleServiceV1`, func() {
 				Expect(req.Method).To(Equal("POST"))
 				res.Header().Set("Content-type", "application/json")
 				res.WriteHeader(201)
-				fmt.Fprintf(res, `{"resource_id": "fake_ResourceID", "name": "fake_Name", "tag": "fake_Tag"}`)
+				fmt.Fprintf(res, `{"resource_id": "ResourceID", "name": "Name", "tag": "Tag", "read_only": "ReadOnly"}`)
 			}))
-			It(`Succeed to call CreateResource`, func() {
+			It(`Invoke CreateResource successfully`, func() {
 				defer testServer.Close()
 
 				testService, testServiceErr := exampleservicev1.NewExampleServiceV1(&exampleservicev1.ExampleServiceV1Options{
-					URL: testServer.URL,
+					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(testServiceErr).To(BeNil())
@@ -122,7 +122,7 @@ var _ = Describe(`ExampleServiceV1`, func() {
 	Describe(`GetResource(getResourceOptions *GetResourceOptions)`, func() {
 		getResourcePath := "/resources/{resource_id}"
 		getResourcePath = strings.Replace(getResourcePath, "{resource_id}", "testString", 1)
-		Context(`Successfully - Info for a specific resource`, func() {
+		Context(`Using mock server endpoint`, func() {
 			testServer := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 				defer GinkgoRecover()
 
@@ -131,13 +131,13 @@ var _ = Describe(`ExampleServiceV1`, func() {
 				Expect(req.Method).To(Equal("GET"))
 				res.Header().Set("Content-type", "application/json")
 				res.WriteHeader(200)
-				fmt.Fprintf(res, `{"resource_id": "fake_ResourceID", "name": "fake_Name", "tag": "fake_Tag"}`)
+				fmt.Fprintf(res, `{"resource_id": "ResourceID", "name": "Name", "tag": "Tag", "read_only": "ReadOnly"}`)
 			}))
-			It(`Succeed to call GetResource`, func() {
+			It(`Invoke GetResource successfully`, func() {
 				defer testServer.Close()
 
 				testService, testServiceErr := exampleservicev1.NewExampleServiceV1(&exampleservicev1.ExampleServiceV1Options{
-					URL: testServer.URL,
+					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(testServiceErr).To(BeNil())
@@ -161,13 +161,13 @@ var _ = Describe(`ExampleServiceV1`, func() {
 			})
 		})
 	})
-	Describe("Model constructor tests", func () {
-		Context("with a sample service", func () {
+	Describe(`Model constructor tests`, func() {
+		Context(`Using a sample service client instance`, func() {
 			testService, _ := exampleservicev1.NewExampleServiceV1(&exampleservicev1.ExampleServiceV1Options{
-				URL: "http://exampleservicev1modelgenerator.com",
+				URL:           "http://exampleservicev1modelgenerator.com",
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
-			It("should call NewResource successfully", func () {
+			It(`Invoke NewResource successfully`, func() {
 				resourceID := "testString"
 				name := "testString"
 				model, err := testService.NewResource(resourceID, name)
@@ -176,28 +176,28 @@ var _ = Describe(`ExampleServiceV1`, func() {
 			})
 		})
 	})
-	Describe("Utility function tests", func () {
-		It("Call CreateMockMap successfully", func () {
+	Describe(`Utility function tests`, func() {
+		It(`Invoke CreateMockMap() successfully`, func() {
 			mockMap := CreateMockMap()
 			Expect(mockMap).ToNot(BeNil())
 		})
-		It("Call CreateMockByteArray successfully", func () {
+		It(`Invoke CreateMockByteArray() successfully`, func() {
 			mockByteArray := CreateMockByteArray("This is a test")
 			Expect(mockByteArray).ToNot(BeNil())
 		})
-		It("Call CreateMockUUID successfully", func () {
+		It(`Invoke CreateMockUUID() successfully`, func() {
 			mockUUID := CreateMockUUID("9fab83da-98cb-4f18-a7ba-b6f0435c9673")
 			Expect(mockUUID).ToNot(BeNil())
 		})
-		It("Call CreateMockReader successfully", func () {
+		It(`Invoke CreateMockReader() successfully`, func() {
 			mockReader := CreateMockReader("This is a test.")
 			Expect(mockReader).ToNot(BeNil())
 		})
-		It("Call CreateMockDate successfully", func () {
+		It(`Invoke CreateMockDate() successfully`, func() {
 			mockDate := CreateMockDate()
 			Expect(mockDate).ToNot(BeNil())
 		})
-		It("Call CreateMockDateTime successfully", func () {
+		It(`Invoke CreateMockDateTime() successfully`, func() {
 			mockDateTime := CreateMockDateTime()
 			Expect(mockDateTime).ToNot(BeNil())
 		})
