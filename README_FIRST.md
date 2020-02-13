@@ -38,7 +38,7 @@ go test ./...
 You should see output like this:
 ```
 $ go test ./...
-go: finding github.com/IBM/go-sdk-core v1.0.0
+go: finding github.com/IBM/go-sdk-core/v3 v3.2.2
 go: finding github.com/go-playground/locales v0.12.1
 go: finding github.com/stretchr/testify v1.4.0
 .
@@ -68,7 +68,7 @@ Next, make modifications to various files as instructed below:
 * __go.mod__ - [Very important] Set the version of the `go-sdk-core` module to be used with
 your SDK project. This is defined in the line that looks like this:
 ```
-    github.com/IBM/go-sdk-core v1.0.0
+    github.com/IBM/go-sdk-core/v3 v3.2.2
 ```
 You must use a version of the Go SDK Core that is compatible with the version of the SDK generator
 used to generate your SDK code.

@@ -73,7 +73,7 @@ construct instances of the service client.
 Here's an example of how to construct an instance of "My Service":
 ```go
 import {
-    "github.com/IBM/go-sdk-core/core"
+    "github.com/IBM/go-sdk-core/v3/core"
     "github.com/my-org/my-sdk/myservicev1"
 }
 
@@ -117,7 +117,7 @@ For details, see [Authenticating with IAM tokens](https://cloud.ibm.com/docs/ser
 ```go
 // letting the SDK manage the IAM access token
 import {
-    "github.com/IBM/go-sdk-core/core"
+    "github.com/IBM/go-sdk-core/v3/core"
     "github.com/my-org/my-sdk/myservicev1"
 }
 ...
@@ -140,7 +140,7 @@ service, err := myservicev1.NewMyServiceV1(options)
 
 ```go
 import {
-    "github.com/IBM/go-sdk-core/core"
+    "github.com/IBM/go-sdk-core/v3/core"
     "github.com/my-org/my-sdk/myservicev1"
 }
 ...
