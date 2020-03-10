@@ -96,7 +96,7 @@ to your `Gopkg.toml` file.  Here is an example:
 ```
 [[constraint]]
   name = "github.ibm.com/CloudEngineering/go-sdk-template"
-  version = "0.0.2"
+  version = "0.0.1"
 
 ```
 
