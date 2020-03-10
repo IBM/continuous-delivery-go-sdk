@@ -22,18 +22,22 @@ import (
 	"testing"
 )
 
+func TestGetSystemInfo(t *testing.T) {
+	var sysinfo = GetSystemInfo()
+	assert.NotNil(t, sysinfo)
+	assert.True(t, strings.Contains(sysinfo, "lang="))
+	assert.True(t, strings.Contains(sysinfo, "arch="))
+	assert.True(t, strings.Contains(sysinfo, "os="))
+	assert.True(t, strings.Contains(sysinfo, "go.version="))
+}
+
 func TestGetSdkHeaders(t *testing.T) {
 	var headers = GetSdkHeaders("myService", "v123", "myOperation")
 	assert.NotNil(t, headers)
 
 	var foundIt bool
-	var headerVal string
 
-	headerVal, foundIt = headers["User-Agent"]
+	_, foundIt = headers[headerNameUserAgent]
 	assert.True(t, foundIt)
-
-	assert.NotNil(t, headerVal)
-	assert.True(t, strings.Contains(headerVal, "arch="))
-	assert.True(t, strings.Contains(headerVal, "os="))
-	assert.True(t, strings.Contains(headerVal, "go.version="))
+	t.Logf("user agent: %s\n", headers[headerNameUserAgent])
 }
