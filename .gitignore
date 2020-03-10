@@ -9,5 +9,7 @@ vendor/
 .openapi-generator/VERSION
 /.project
 
-# IBM Credential File
-ibm-credentials.env
+# credentials files
+*.env
+
+package-lock.json
