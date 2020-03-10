@@ -28,7 +28,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
-	"strings"
 	"time"
 )
 
@@ -120,8 +119,7 @@ var _ = Describe(`ExampleServiceV1`, func() {
 		})
 	})
 	Describe(`GetResource(getResourceOptions *GetResourceOptions)`, func() {
-		getResourcePath := "/resources/{resource_id}"
-		getResourcePath = strings.Replace(getResourcePath, "{resource_id}", "testString", 1)
+		getResourcePath := "/resources/testString"
 		Context(`Using mock server endpoint`, func() {
 			testServer := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 				defer GinkgoRecover()

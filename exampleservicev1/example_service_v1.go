@@ -128,7 +128,6 @@ func (exampleService *ExampleServiceV1) ListResources(listResourcesOptions *List
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
-
 	builder.AddHeader("Accept", "application/json")
 
 	if listResourcesOptions.Limit != nil {
@@ -178,7 +177,6 @@ func (exampleService *ExampleServiceV1) CreateResource(createResourceOptions *Cr
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
-
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
 
@@ -244,7 +242,6 @@ func (exampleService *ExampleServiceV1) GetResource(getResourceOptions *GetResou
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
-
 	builder.AddHeader("Accept", "application/json")
 
 	request, err := builder.Build()
