@@ -1,6 +1,8 @@
-# IBM Cloud MySDK Go SDK Version 0.0.1
+[![Build Status](https://travis.ibm.com/CloudEngineering/go-sdk-template.svg?token=eW5FVD71iyte6tTby8gr&branch=master)](https://travis.ibm.com/CloudEngineering/go-sdk-template.svg?token=eW5FVD71iyte6tTby8gr&branch=master)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-Go client library to interact with the "MySDK" Services.
+# IBM Cloud MySDK Go SDK Version 0.0.1
+Go client library to interact with the various [MySDK Service APIs](https://cloud.ibm.com/apidocs?category=platform_services).
 
 ## Table of Contents
 <!--
