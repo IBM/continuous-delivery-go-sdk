@@ -308,6 +308,7 @@ type GetResourceOptions struct {
 
 	...
 }
+```
 
 In this example, the `GetResource` operation has one parameter - `ResourceID`.
 When invoking this operation, the application first creates an instance of the `GetResourceOptions`
