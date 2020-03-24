@@ -96,6 +96,11 @@ If you are having difficulties using this SDK or have a question about the IBM C
 please ask a question at [dW Answers](https://developer.ibm.com/answers/questions/ask/?topics=ibm-cloud) or
 [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-cloud).
 
+# Issues
+If you encounter an issue with the project, you are welcome to submit a
+[bug report](issues).
+Before that, please search for similar issues. It's possible that someone has already reported the problem.
+
 ## Open source @ IBM
 Find more open source projects on the [IBM Github Page](http://ibm.github.io/)
 
