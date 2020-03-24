@@ -22,7 +22,7 @@ import (
 )
 
 const (
-	sdkName = "go-sdk-template"
+	sdkName = "my-go-sdk"
 	headerNameUserAgent = "User-Agent"
 )
 
@@ -38,6 +38,20 @@ const (
 // function, it is recommended that you initialize the returned map just once (perhaps by using
 // lazy initialization) and simply return it each time the function is invoked, instead of building it each time
 // as in the example below.
+//
+// If you plan to gather metrics for your SDK, the User-Agent header value must
+// be a string similar to the following:
+// my-go-sdk/0.0.1 (lang=go; arch=x86_64; os=Linux; go.version=1.12.9)
+//
+// In the example above, the analytics tool will parse the user-agent header and
+// use the following properties:
+// "my-go-sdk" - the name of your sdk
+// "0.0.1"- the version of your sdk
+// "lang=go" - the language of the current sdk
+// "arch=x86_64; os=Linux; go.version=1.12.9" - system information
+//
+// Note: It is very important that the sdk name ends with the string `-sdk`,
+// as the analytics data collector uses this to gather usage data.
 //
 // Parameters:
 //   serviceName - the name of the service as defined in the API definition (e.g. "MyService1")

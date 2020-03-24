@@ -82,7 +82,7 @@ need to implement a package called "common" which contains a function called `Ge
 The `GetSdkHeaders` function is invoked by the generated service methods and should be modified to
 suit the needs of your particular SDK. The default implementation of `GetSdkHeaders` will return a map
 containing the "User-Agent" header with a value of the form
-`go-sdk-template-0.0.1 (arch=x86_64; os=Linux; go.version=1.12.9)`.
+`my-go-sdk/0.0.1 (lang=go; arch=x86_64; os=Linux; go.version=1.12.9)`.
 You can modify this function to customize the value of the `User-Agent` header or add additional
 headers to the map that is returned.  The headers returned in the map will be added to each
 outgoing request invoked by applications using your SDK.
@@ -240,3 +240,30 @@ The config file `.travis.yml` contains all the instructions necessary to run the
 The `before_install` step runs the instructions to decrypt the `ibm-credentials.env.enc` file. It only does for *pushes* to a branch. This is done so that integration tests only run on *push* builds and not on *pull request* builds.
 
 The `script` section runs the generated unit tests for the generated SDK. It will also run the command to lint go files. To run integration tests, first tag integration tests with the tag `integration` by adding the line `// +build integration` to the [top of the integration test file](exampleservicev1/example_service_v1_integration_test.go). The, uncomment the line ```go test `go list ./...` -tags integration``` to run both unit tests and integration tests in `.travis.yml`.
+
+## Setting the ``User-Agent`` Header In Preparation for SDK Metrics Gathering
+
+If you plan to gather metrics for your SDK, the `User-Agent` header value must be
+a string similar to the following:
+   `my-go-sdk/0.0.1 (lang=go; arch=x86_64; os=Linux; go.version=1.12.9)`
+
+The key parts are the sdk name (`my-go-sdk`), version (`0.0.1`) and the
+language name (`lang=go`).
+This is required because the analytics data collector uses the User-Agent header included
+with each request to gather usage data for IBM Cloud services.
+
+The default implementation of the `common.GetSDKHeaders()` method provided in this SDK template
+repository will need to be modified slightly for your SDK.
+Replace the `my-go-sdk/0.0.1` part with the name and version of your
+Go SDK. The rest of the system information should remain as-is.
+
+For example, suppose your Go SDK project is called `platform-services-go-sdk` and its
+version is `2.3.1`.
+The `User-Agent` header value should be:
+   `platform-services-go-sdk/2.3.1 (lang=go; arch=x86_64; os=Linux; go.version=1.12.9)`
+
+__Note__: It is very important that the sdk name ends with the string `-sdk`,
+as the analytics data collector uses this to gather usage data.
+
+More information about the analytics tool, and other steps you should take to start gathering
+metrics for your SDK can be found [here](https://github.ibm.com/CloudEngineering/sdk-analytics).
