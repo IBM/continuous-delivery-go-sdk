@@ -155,7 +155,7 @@ that will guide you in the required modifications:
 
   - `common/headers.go`:
     - modify the `sdkName` constant to reflect your project name (e.g. `platform-services-go-sdk`)
-    - read the comments in the `GetSdkHeaders()` function
+    - read the comments in the `GetSdkHeaders()` function and follow as appropriate
 
   - `common/version.go`:
     - make sure the `Version` constant is set to "0.0.1", as this will be the starting version
@@ -176,8 +176,8 @@ that will guide you in the required modifications:
     - Change the title to reflect your project; leave the version in the title as `0.0.1`
     - Change the `cloud.ibm.com/apidocs` link to reflect the correct service category
       (e.g. `platform-services`)
-    - In the Overview section, modify `IBM Cloud MySDK Python SDK` to reflect your project
-      (e.g. `IBM Cloud Platform Services Python SDK`)
+    - In the Overview section, modify `IBM Cloud MySDK Go SDK` to reflect your project
+      (e.g. `IBM Cloud Platform Services Go SDK`)
     - In the table of services, remove the entry for the example service; later you'll list each
       service contained in your SDK project in this table, along with a link to the online reference docs
       and the name of the generated service struct.
@@ -202,152 +202,127 @@ git commit -m "chore: initial SDK project setup"
 ```
 
 
-##### 4. Generate the Go code with the IBM OpenAPI SDK Generator
+### 4. Generate the Go code with the IBM OpenAPI SDK Generator
 This is the step that you've been waiting for!
 
 In this step, you'll invoke the IBM OpenAPI SDK Generator to process your API definition(s).
 
-###### Generator setup
-1. Install an official release of the OpenAPI SDK Generator.
-Details are [here](https://github.ibm.com/CloudEngineering/openapi-sdkgen/blob/master/README.md#using-a-pre-built-installer).
-You might want to also add the installation directory to your shell PATH environment variable.
-2. Determine the correct API package prefix to use for your Go SDK project.  This value will also be
-used as the Go module prefix in step 6 below.
-This is typically a string of the form `github.com/my-org/my-sdk` or `github.ibm.com/my-org/my-sdk` (the url of your SDK repository),
-depending on the github server where your Go SDK project will be located.
-Suppose your SDK project (named "cloud-go-sdk") is going to be housed in the IBM internal github
-server under the "ibmcloud" github organization.  In that case, the API package prefix would be `github.ibm.com/ibmcloud/cloud-go-sdk`.
-3. Modify your API definition(s) to include the API package prefix.  Details on the `apiPackage`
-configuration property can be found [here](https://github.ibm.com/CloudEngineering/openapi-sdkgen/wiki/Config-Options).  
-Here's an example of an API definition that has this property defined:
-```
-openapi: "3.0.0"
-info:
-  version: 1.0.0
-  title: Example service
-  x-alternate-name: ExampleService
-  license:
-    name: MIT
-  x-codegen-config:
-    go:
-      apiPackage: 'github.ibm.com/ibmcloud/cloud-go-sdk'
-```
-###### Generating the code for your service(s)
-For each service that you want to include in your Go SDK project, process the
-service's API definition with the SDK Generator, like this:
-```
-openapi-sdkgen.sh generate -i <API-definition-filename> -g watson-go -o <output-directory>
-```
-For the output directory, you can specify the root directory of your Go SDK project, and the generator
-will create a directory underneath that to represent the package associated with the generated service,
-then it will write the generated source files to that package directory.
+This will generate a collection of Go source files which you will need to include in your SDK project.
 
-##### 5. Remove `exampleservicev1` package
-The `go-sdk-template` repository includes an example service in the `exampleservicev1` package.
-This is an example of a service that was generated with the IBM OpenAPI SDK Generator.
-Once you have generated the Go code for your own service(s) and added those packages to your SDK
-project, you'll want to remove the `exampleservice1` package so that it is not included in your SDK.
-To remove the package, simply remove the `exampleservicev1` directory and the files contained within it:
-```
-rm -fr exampleservicev1
-```
-##### 6. Update the dependencies specified in the go.mod file
-The `go-sdk-template` repository uses Go modules to manage dependencies.
-[For more information on Go modules, see [this](https://github.com/golang/go/wiki/Modules)].
+You'll find instructions on how to do this on the [generator repository wiki](https://github.ibm.com/CloudEngineering/openapi-sdkgen/wiki/Usage-Instructions).
 
-The `go.mod` file supplied with this repository reflects the dependencies associated with the actual
-code delivered with the repository (i.e. the "common" and "exampleservicev1" packages).
-After you have generated the Go code for your own service(s) and added those packages to the project
-(and removed the `exampleservicev1` package), you'll need to update the `go.mod` file to reflect
-your own project's module prefix and the dependencies of the new code in your project.
-The easiest way to do this is to simply remove the existing `go.mod` and `go.sum` files,
-and then use the Go engine to re-create them:
+**Recommended**: Modify each of your API definition files to configure the `apiPackage` property.
+The value of this property should be module import path for your new project
+(e.g. `github.ibm.com/ibmcloud/platform-services-go-sdk`).
+Here's an example of the configuration properties that you can add to each API definition:
+```yaml
+  info:
+    x-codegen-config:
+      go:
+        apiPackage: '<module-import-path>'
 ```
-rm go.mod
-rm go.sum
-go mod init github.com/my-org/my-sdk-repo
-go mod tidy
+Details about SDK generator configuration properties can be found
+[here](https://github.ibm.com/CloudEngineering/openapi-sdkgen/wiki/Config-Options)
+
+Set the output location for the generated files to be the root directory of the project.
+
+If you did not configure the `apiPackage` configuration property in your API definition file(s), then
+be sure to use the `--api-package <module-import-path>` command line option when running the generator to
+ensure that source files are generated correctly.
+
+Here is an example of how to generate the SDK code for an API definition.
+Suppose your API definition file is named `my-service.json` and contains the definition of the "My Service"
+service.
+To generate the code into your project, run these commands:
+```sh
+cd <project-root>
+
+openapi-sdkgen.sh generate -g ibm-go -i my-service.json -o . --api-package <module-import-path>
+
 ```
-In the `go mod init...` command above, be sure to use the correct module prefix for your own Go SDK
-project.
-##### 7. Build and test the project
+The generated service and unit test code will be written to a **package** directory under your
+project root directory that reflects the Go package name associated with the service.
+For the example above, the package directory would be named `myservicev1`.  You should have a service
+package directory for each of the services contained in your project, plus the `common` directory for
+the common package.
+
+Update the service table in the `README.md` file to add an entry for the new service.
+
+Repeat the steps in this section for each service to be included in your project.
+
+### 5. Build and test the project
 If you made it this far, congratulate yourself!
 
-After modifying the template repository to form your new Go SDK project and then generating the Go
-code for your service(s) and adding the resulting package(s) to your project, it's time to build
-and test your project.
-
-The OpenAPI SDK Generator will generate unit tests for your service(s) in addition to the client
-SDK code, so you should have generated test cases in each of your service package(s).
+After preparing your new Go SDK project and then generating the Go
+code for your service(s), it's time to build and test your project.
 
 To build and test all of the code within your project, you can run these commands in the project
 root directory:
 ```
-go build ./...
 go test ./...
 ```
-Technically, you only need to run the second command because the `go test` command will build
-all the code (non-test and test code) as needed before running the tests.
 If everything builds and tests cleanly, you should see output like this:
 ```
 $ go test ./...
 ok  	github.ibm.com/CloudEngineering/go-sdk-template/common	0.002s
 ok  	github.ibm.com/CloudEngineering/go-sdk-template/exampleservicev1	0.006s
 ```
-Note: The above output reflects the module prefix for the `go-sdk-template` repository and the
+Note: The above output reflects the module import path for the `go-sdk-template` repository and the
 example service that is shipped with it.  Your output should reflect your Go SDK project's
 module prefix and your project's set of packages.
 
-If you encounter compile issues with either the client SDK or test code generated by the SDK Generator,
-please let us know by posting on the `#wcp-sdk-generation` slack channel or by opening an issue
+If you encounter compile issues with the service or unit test code generated by the SDK Generator,
+please let us know by posting on the `#ibm-sdk-generation` slack channel or by opening an issue
 in the [`github.ibm.com/arf/arf-planning-sdk`](https://github.ibm.com/arf/planning-sdk-squad/)
 issue repository.
 
-Our goal is to generate the client SDK and test code that can be built and tested without manual intervention.  If we fall short of that goal, we'd love to hear about it.
+Our goal is to generate the SDK service and unit test code that can be built and tested without
+manual intervention.  If we fall short of that goal, we'd love to hear about it.
 
-##### 8. Running Example Service Integration Test
 
-To set up and run the integration tests, clone the [Example Service repo](https://github.ibm.com/CloudEngineering/example-service) and follow the instructions there for how to start up an instance of the example service
+## Integration tests
+Integration tests must be developed by hand.
+For integration tests to run properly with an actual running instance of the service,
+credentials (e.g. IAM api key, etc.) must be provided as external configuration properties.
+Details about this can be found
+[here](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/README.md#using-external-configuration).
 
-Integration test code can be found [here](exampleservicev1/example_service_v1_integration_test.go)
+An example integration test is located at `exampleservicev1/example_service_v1_integration_test.go`.
+In order to run the "example service" integration test,
+you'll need an actual running instance of the example service.
+To run this service, clone the [Example Service repo](https://github.ibm.com/CloudEngineering/example-service)
+and follow the instructions there for how to start up an instance of the example service.
 
-To run only the integration tests, run this command from the project root directory:
-```sh
-go test exampleservicev1/example_service_v1_integration_test.go
-```
 
-##### 9. Continuous Integration
-This repository is set up to use [Travis](https://travis-ci.org/) for continuous integration.
+## Continuous Integration
+This repository is set up to use [Travis](https://travis-ci.com/)
+or [Travis Enterprise](https://travis.ibm.com) for continuous integration.
 
-Note - to pass credentials to Travis and run integration tests, create a file named `ibm-credentials.env` at the root of the project directory, then encrypt the `ibm-credentials.env` file with the Travis CLI to store the decryption keys in Travis setting. For more information on the format of the `ibm-credentials.env` file, see (example credentials file here)[https://github.com/IBM/go-sdk-core/blob/master/resources/ibm-credentials.env]. To encrypt `ibm-credentials.env` and set decryption keys on Travis config:
+The `.travis.yml` file contains all the instructions necessary to run the build.
 
-1. Enable Travis-CI for your repository in Travis.
-2. Make sure Ruby and Ruby Gem are installed and up to date on your local machine. You can [install Ruby here](https://www.ruby-lang.org/en/documentation/installation/)
-3. Install Travis CLI (`gem install travis`). To verify installation, type `travis -v`
-4. Log into Travis through CLI. Depending on whether you're trying to connect to Travis Enterprise, or Public Travis, the commands will be different.
+For details related to the `travis.yml` file, see
+[this](https://docs.travis-ci.com/user/customizing-the-build/)
 
-Here's the command for logging into Travis Enterprise:
-```sh
-travis login -X --github-token <your-github-enterprise-token> --api-endpoint https://travis.ibm.com/api
-```
+### Release management with semantic-release
+The `.travis.yml` file included in this template repository is configured to
+perform automated release management with
+[semantic-release](https://semantic-release.gitbook.io/semantic-release/).
 
-Here's the command for logging into Public Travis
-```sh
-travis login --github-token <your-public-github-token> --com
-```
+When you configure your SDK project in Travis, be sure to set this environment variable in your
+Travis build settings:  
+- `GH_TOKEN`: set this to the Github oauth token for a user having "push" access to your repository
 
-5. From the root of the project, run the command `travis encrypt-file ibm-credentials.env`
-6. The command will generate a file called `ibm-credentials.env.enc` in the project folder root directory. Commit the file to your repository
-7. Terminal should print out a command to add to your build script. In that command is a string with the format similar to `encrypted_12345_key`. Copy that string
-8. Open `.travis.yml` from root directory. Replace the string `encrypted_12345_key` with the name of your generated environment variable from the last step
-9. Also replace the string `encrypted_12345_iv` with the name of your generated environment variable, but modify the string from `_key` to `_iv`
-10. Commit the changes you made to the `.travis.yml` file and push to Github. Travis-CI pipeline should automatically start running
+If you are using `Travis Enterprise` (travis.ibm.com), you'll need to add these environment variables
+as well:  
+- `GH_URL`: set this to the string `https://github.ibm.com`
+- `GH_PREFIX`: set this to the string `/api/v3`
 
-The config file `.travis.yml` contains all the instructions necessary to run the recommended build. Each step is described below.
+### Encrypting secrets
+To run integration tests within a Travis build, you'll need to encrypt the file containing the
+required external configuration properties.
+For details on how to do this, please see
+[this](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/EncryptingSecrets.md)
 
-The `before_install` step runs the instructions to decrypt the `ibm-credentials.env.enc` file. It only does for *pushes* to a branch. This is done so that integration tests only run on *push* builds and not on *pull request* builds.
-
-The `script` section runs the generated unit tests for the generated SDK. It will also run the command to lint go files. To run integration tests, first tag integration tests with the tag `integration` by adding the line `// +build integration` to the [top of the integration test file](exampleservicev1/example_service_v1_integration_test.go). The, uncomment the line ```go test `go list ./...` -tags integration``` to run both unit tests and integration tests in `.travis.yml`.
 
 ## Setting the ``User-Agent`` Header In Preparation for SDK Metrics Gathering
 
