@@ -1,44 +1,127 @@
-# IBM Cloud Go SDK Template
+# IBM Cloud Go SDK Template Usage Instructions
+
 This repository serves as a template for Go SDKs that are produced with the
 [IBM OpenAPI SDK Generator](https://github.ibm.com/CloudEngineering/openapi-sdkgen).
 
-You can use the contents of this repository to create your own Go SDKs.
+You can use the contents of this repository to create your own Go SDK repository.
 
 ## How to use this repository
-##### 1. Copy or clone the repository
-Copy the files contained in this repository as a starting point when building your own Go SDK
-for one or more IBM Cloud services.
-You can copy the repository using one of the following methods:
-1. Download the zip file from the git repository main page
-(click on the `Clone or download` button, then click on `Download ZIP`).
-After downloading the zip file, unzip it into a suitable location where you want the project to exist.
-The unzip command will create the `go-sdk-template-master` directory, which you might want to rename
-to something that reflects the Go SDK project that you're trying to build.
-2. Clone this git repository using a command like this:
-```
-git clone git@github.ibm.com:CloudEngineering/go-sdk-template.git my-sdk
-```
-where `my-sdk` is the name of the directory to clone the repository into.  If you omit that option, git
-will clone the repo into the `go-sdk-template` directory.  In that case, you might want to rename the
-directory to something that reflects the Go SDK project that you're trying to build.
 
-Note: If you use the `git clone` method of copying the repository, be sure to change the URL
-associated with the `origin` remote, like this:
-```
-git remote set-url origin <your project's git URL>
-```
-If you don't do this, you might inadvertently try to push your changes back to the `go-sdk-template` repository.
+### 1. Create your new github repository from this template
+This SDK template repository is implemented as a
+[github template](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template),
+which makes it easy to create new projects from it.
 
-##### 2. Sanity-check your copy of the `go-sdk-template` repository
-After copying or cloning this repository, you can do a quick sanity check by running this command in
-the project root directory:
+To create a new SDK repository from this template, follow these instructions:  
+1. In your browser, open the link for this
+[template repository](https://github.ibm.com/CloudEngineering/go-sdk-template).
+
+2. Click on the `Use this template` button that appears next to the `Clone or download` button.
+
+3. In the next window:  
+- Select the `Owner`. This is the github id or organization where the new repository should be created
+- Enter the respository name (e.g. `platform-services-go-sdk`):  
+  - Recommendation: use a name of the form `<service-category>-<language>-sdk`, where:  
+    - `<service-category>` refers to the IBM Cloud service category associated with the services that
+	  will be included in the project (e.g. `platform-services`)
+    - `<language>` is the language associated with the SDK project (e.g. `go`)
+	
+4. Click the `Create repository from template` button to create the new repository  
+If your goal is to create the new SDK repository on the `Github Enterprise` server (github.ibm.com),
+then you are finished creating the new repository and you can proceed to section 2.
+
+On the other hand, if your goal is to create the new SDK repository on the `Public Github` server (github.com),
+then perform these additional steps:
+
+5. Create a new **EMPTY** repository on the Public Github server:  
+- Select "No template" for the "Repository template" option
+- Select the `Owner` (your personal id or an organization)
+- Enter the same respository name that you used when creating the new repository above (e.g. my-go-sdk)
+- Do NOT select the `Initialize this repository with a README` option
+- Select `None` for the `Add .gitignore` and `Add a license` options
+- Click the `Create repository` button.
+- After the new empty repository has been created, you will be at the main page
+of your new repository, which will include this text:
+```
+...or push an existing repository from the command line
+
+git remote add origin git@github.com:padamstx/my-go-sdk.git
+git push -u origin master
+```
+- Take note of the two git commands listed above for your new repository, as we'll execute these later
+
+6. Clone your new `Github Enterprise` repository (created in steps 1-3 above)
+to your local development environment:  
+
+```sh
+[/work/demos]
+$ git clone git@github.ibm.com:phil-adams/my-go-sdk.git
+Cloning into 'my-go-sdk'...
+remote: Enumerating objects: 36, done.
+remote: Counting objects: 100% (36/36), done.
+remote: Compressing objects: 100% (32/32), done.
+remote: Total 36 (delta 1), reused 0 (delta 0), pack-reused 0
+Receiving objects: 100% (36/36), 28.74 KiB | 577.00 KiB/s, done.
+Resolving deltas: 100% (1/1), done.
+```
+
+7. "cd" into your project's root directory:
+
+```sh
+[/work/demos]
+$ cd my-go-sdk
+[/work/demos/my-go-sdk]
+$ 
+```
+
+8. Remove the existing remote:  
+```sh
+[/work/demos/my-go-sdk]
+$ git remote remove origin
+```
+
+9. Add a new remote which reflects your new `Public Github` repository:
+
+```sh
+[/work/demos/my-go-sdk]
+$ git remote add origin git@github.com:padamstx/my-go-sdk.git
+```
+
+10. Push your local repository to the new remote (Public Github):  
+
+```sh
+[/work/demos/my-go-sdk]
+$ git push -u origin master
+Enumerating objects: 36, done.
+Counting objects: 100% (36/36), done.
+Delta compression using up to 12 threads
+Compressing objects: 100% (31/31), done.
+Writing objects: 100% (36/36), 28.74 KiB | 28.74 MiB/s, done.
+Total 36 (delta 1), reused 36 (delta 1)
+remote: Resolving deltas: 100% (1/1), done.
+To github.com:padamstx/my-go-sdk.git
+ * [new branch]      master -> master
+Branch 'master' set up to track remote branch 'master' from 'origin'.
+```
+
+You have now created your new SDK repository on the `Public Github` server.
+
+You may want to now delete the new SDK repository that you created on the `Github Enterprise`
+server since it will no longer be used now that you have created your repository on `Public Github`.
+
+
+### 2. Sanity-check your new repository
+
+After creating your new SDK repository from the template repository, and cloning it
+into your local development environment, you can do a quick sanity check by
+running this command in the project root directory:
 ```
 go test ./...
 ```
 You should see output like this:
 ```
 $ go test ./...
-go: finding github.com/IBM/go-sdk-core/v3 v3.2.2
+go: finding github.com/IBM/go-sdk-core/v3 v3.2.4
 go: finding github.com/go-playground/locales v0.12.1
 go: finding github.com/stretchr/testify v1.4.0
 .
@@ -56,43 +139,67 @@ Note: this project uses go "modules" for dependency management.
 For this reason, make sure the `GOPATH` environment variable is not set in
 your shell when executing the `go` commands above.
 
-##### 3. Modify your copy of the repository to reflect your SDK project
-Once you have verified that your copy of this template repository builds and tests cleanly, it's time to
-transform it into your new Go SDK project.
-Make sure you have done the following:
-1. Rename the root directory to reflect your Go SDK project (e.g. `mv go-sdk-template my-go-sdk`)
-2. If you previously cloned the `go-sdk-template` git repository, be sure to change the url associated
-with the remote named `origin`, like this: `git remote set-url origin <your project's git URL>`
 
-Next, make modifications to various files as instructed below:
-* __go.mod__ - [Very important] Set the version of the `go-sdk-core` module to be used with
-your SDK project. This is defined in the line that looks like this:
+### 3. Modify selected files
+
+- In this section, you'll modify various files within your new SDK repository to reflect
+the proper names and settings for your specific project.
+
+- The template repository comes with an example service included, but this should be removed
+from your project.  Remove the following directory and its contents:
+  - exampleservicev1
+
+- Next, here is a list of the various files within the project with comments
+that will guide you in the required modifications:
+
+  - `common/headers.go`:
+    - modify the `sdkName` constant to reflect your project name (e.g. `platform-services-go-sdk`)
+    - read the comments in the `GetSdkHeaders()` function
+
+  - `common/version.go`:
+    - make sure the `Version` constant is set to "0.0.1", as this will be the starting version
+      number (release) of the project.
+
+  - `go.mod`/`go.sum`:
+    - Remove the `go.mod` and `go.sum` files
+    - Run this command to create a new `go.mod` file which will contain your project's
+      github url as the module import path:
+      ```sh
+         go mod init <module-import-path>
+      ```
+      where `<module-import-path>` should be the correct module import path for your project.
+      This will be the github repository URL without the `https` scheme
+      (e.g. `github.ibm.com/ibmcloud/platform-services-go-sdk`).
+
+  - `README.md`:
+    - Change the title to reflect your project; leave the version in the title as `0.0.1`
+    - Change the `cloud.ibm.com/apidocs` link to reflect the correct service category
+      (e.g. `platform-services`)
+    - In the Overview section, modify `IBM Cloud MySDK Python SDK` to reflect your project
+      (e.g. `IBM Cloud Platform Services Python SDK`)
+    - In the table of services, remove the entry for the example service; later you'll list each
+      service contained in your SDK project in this table, along with a link to the online reference docs
+      and the name of the generated service struct.
+    - In the Installation section, update the examples to reflect your new
+      project's module import path (e.g. `github.ibm.com/ibmcloud/platform-services-go-sdk`).
+    - In the "Issues" section, modify `<github-repo-url>` to reflect the Github URL for your project.
+    - Note that the README.md file contains a link to a common README document where general
+      SDK usage information can be found.
+    - When finished read through the document and make any other changes that might be necessary.
+
+  - `CONTRIBUTING.md`:
+    - In the "Issues" section, modify `<github-repo-url>` to reflect the Github URL for your project.
+
+At this point, it's probably a good idea to commit the changes that you have made so far.
+Be sure to use proper commit messages when committing changes (follow the link in `CONTRIBUTING.md`
+to the common CONTRIBUTING document).  
+Example:
+```sh
+cd <project-root>
+git add .
+git commit -m "chore: initial SDK project setup"
 ```
-    github.com/IBM/go-sdk-core/v3 v3.2.2
-```
-You must use a version of the Go SDK Core that is compatible with the version of the SDK generator
-used to generate your SDK code.
-See [this link](https://github.ibm.com/CloudEngineering/openapi-sdkgen/wiki/Compatibility-Chart) for details.
-* __README.md__ - This file is intended to be customized to form the `README.md` file for your new
-Go SDK project, so modify it as needed to reflect your project.  
-* __.travis.yml__ - This file contains a basic set of commands to automate Travis builds for your Go SDK
-project.  Modify this file as needed to incorporate any other build steps needed by your project.
-* __common/headers.go__ - Go SDKs built with the IBM OpenAPI SDK Generator
-need to implement a package called "common" which contains a function called `GetSdkHeaders`.  
-The `GetSdkHeaders` function is invoked by the generated service methods and should be modified to
-suit the needs of your particular SDK. The default implementation of `GetSdkHeaders` will return a map
-containing the "User-Agent" header with a value of the form
-`my-go-sdk/0.0.1 (lang=go; arch=x86_64; os=Linux; go.version=1.12.9)`.
-You can modify this function to customize the value of the `User-Agent` header or add additional
-headers to the map that is returned.  The headers returned in the map will be added to each
-outgoing request invoked by applications using your SDK.
-After modifying the `common/headers.go` file, be sure to also update the accompanying testcase
-(`common/headers_test.go`) to properly test the new version of `headers.go`.
-* __common/version.go__ - this file contains a single constant named `Version` which represents the
-version of the SDK project.  The initial value is `0.0.1` which implies a pre-release version.
-Be sure to update this value as appropriate to reflect the correct version of your Go SDK.
-We highly recommend the use of [semantic versioning](https://semver.org/), which works nicely with the
-Go engine's module and dependency management.
+
 
 ##### 4. Generate the Go code with the IBM OpenAPI SDK Generator
 This is the step that you've been waiting for!
