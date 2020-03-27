@@ -1,7 +1,7 @@
 # Questions
-If you are having problems using the APIs or have a question about IBM Cloud services, please ask a question on
-[dW Answers](https://developer.ibm.com/answers/questions/ask/?topics=ibm-cloud)
-or [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-cloud).
+If you are having problems using the APIs or have a question about IBM Cloud services,
+please ask a question at
+[Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-cloud).
 
 # Issues
 If you encounter an issue with the project, you are welcome to submit a
