@@ -27,6 +27,7 @@ To create a new SDK repository from this template, follow these instructions:
     - `<language>` is the language associated with the SDK project (e.g. `go`)
 	
 4. Click the `Create repository from template` button to create the new repository  
+
 If your goal is to create the new SDK repository on the `Github Enterprise` server (github.ibm.com),
 then you are finished creating the new repository and you can proceed to section 2.
 
