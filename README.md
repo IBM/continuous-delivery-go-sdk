@@ -42,7 +42,7 @@ Service Name | Package name
 
 ## Prerequisites
 
-[ibm-cloud-onboarding]: https://cloud.ibm.com/registration?target=%2Fdeveloper%2Fwatson&
+[ibm-cloud-onboarding]: https://cloud.ibm.com/registration
 
 * An [IBM Cloud][ibm-cloud-onboarding] account.
 * An IAM API key to allow the SDK to access your account. Create one [here](https://cloud.ibm.com/iam/apikeys).
