@@ -186,7 +186,7 @@ that will guide you in the required modifications:
     - In the "Issues" section, modify `<github-repo-url>` to reflect the Github URL for your project.
     - Note that the README.md file contains a link to a common README document where general
       SDK usage information can be found.
-    - When finished read through the document and make any other changes that might be necessary.
+    - When finished, read through the document and make any other changes that might be necessary.
 
   - `CONTRIBUTING.md`:
     - In the "Issues" section, modify `<github-repo-url>` to reflect the Github URL for your project.
