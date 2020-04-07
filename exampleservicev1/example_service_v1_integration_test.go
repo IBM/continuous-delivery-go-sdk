@@ -21,7 +21,7 @@ import (
  * 2. Before running this test:
  *    a. "cp example-service.env.hide example-service.env"
  *    b. start up the ExampleService service by following the instructions here:
- *    https://github.ibm.com/CloudEngineering/java-sdk-template/blob/master/README_FIRST.md#integration-tests
+ *    https://github.ibm.com/CloudEngineering/go-sdk-template/blob/master/README_FIRST.md#integration-tests
  */
 const externalConfigFile = "../example-service.env"
 
