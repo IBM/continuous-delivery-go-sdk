@@ -2,8 +2,16 @@ language: go
 
 dist: xenial
 
-go:
-- 1.12.x
+jobs:
+  include:
+    - stage: Build and run tests
+      go: 1.12.x
+    - stage: Run system test with template
+      script:
+        - git clone git@github.ibm.com:CloudEngineering/sdkgen-systest.git
+        - cd sdkgen-systest
+        - ./install_scripts/install_deps_ubuntu.sh
+        - ./setup_and_generate.sh -l ibm-go -t $TRAVIS_BRANCH
 
 notifications:
   email: true
