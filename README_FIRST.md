@@ -172,6 +172,9 @@ that will guide you in the required modifications:
       This will be the github repository URL without the `https` scheme
       (e.g. `github.ibm.com/ibmcloud/platform-services-go-sdk`).
 
+  - `.travis.yml`:
+    - Remove the `jobs:` section, as this is applicable only to the template repository's build.
+
   - `README.md`:
     - Change the title to reflect your project; leave the version in the title as `0.0.1`
     - Change the `cloud.ibm.com/apidocs` link to reflect the correct service category

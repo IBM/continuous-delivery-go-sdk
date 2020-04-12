@@ -2,6 +2,9 @@ language: go
 
 dist: xenial
 
+# After creating your SDK project from this template repository,
+# remove this entire "jobs" section as this is only applicable
+# to the template repo's travis build.
 jobs:
   include:
     - stage: Build and run tests
@@ -25,18 +28,16 @@ before_install:
 - sudo apt-get install python
 - nvm install 12
 - npm install -g npm@6.x
+#- '[ "${TRAVIS_PULL_REQUEST}" == "false" ] && openssl aes-256-cbc -K $my_key -iv $my_iv -in myservice.env.enc -out myservice.env -d || true'
 
 install:
 - curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s -- -b $(go env GOPATH)/bin v1.21.0
 
-#before_script:
-#- 'openssl aes-256-cbc -K $my_key -iv $my_iv -in myservice.env.enc -out myservice.env -d || true'
-
 script:
-- go test `go list ./...`
-#- go test `go list ./...` -tags integration
+- go test `go list ./...` -tags integration
 - golangci-lint run
 
+# To enable semantic-release, uncomment these sections.
 # before_deploy:
 # - pip install --user bump2version
 # - npm install @semantic-release/changelog
