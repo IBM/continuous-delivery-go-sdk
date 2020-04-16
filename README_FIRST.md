@@ -5,6 +5,33 @@ This repository serves as a template for Go SDKs that are produced with the
 
 You can use the contents of this repository to create your own Go SDK repository.
 
+## Table of Contents
+<!--
+  The TOC below is generated using the `markdown-toc` node package.
+
+      https://github.com/jonschlinkert/markdown-toc
+
+  You should regenerate the TOC after making changes to this file.
+
+      markdown-toc -i --maxdepth 4 README_FIRST.md
+  -->
+
+<!-- toc -->
+
+- [How to use this repository](#how-to-use-this-repository)
+  * [1. Create your new github repository from this template](#1-create-your-new-github-repository-from-this-template)
+  * [2. Sanity-check your new repository](#2-sanity-check-your-new-repository)
+  * [3. Modify selected files](#3-modify-selected-files)
+  * [4. Add one or more services to the project](#4-add-one-or-more-services-to-the-project)
+  * [5. Build and test the project](#5-build-and-test-the-project)
+- [Integration tests](#integration-tests)
+- [Continuous Integration](#continuous-integration)
+  * [Release management with semantic-release](#release-management-with-semantic-release)
+  * [Encrypting secrets](#encrypting-secrets)
+- [Setting the ``User-Agent`` Header In Preparation for SDK Metrics Gathering](#setting-the-user-agent-header-in-preparation-for-sdk-metrics-gathering)
+
+<!-- tocstop -->
+
 ## How to use this repository
 
 ### 1. Create your new github repository from this template
@@ -205,53 +232,9 @@ git commit -m "chore: initial SDK project setup"
 ```
 
 
-### 4. Generate the Go code with the IBM OpenAPI SDK Generator
-This is the step that you've been waiting for!
-
-In this step, you'll invoke the IBM OpenAPI SDK Generator to process your API definition(s).
-
-This will generate a collection of Go source files which you will need to include in your SDK project.
-
-You'll find instructions on how to do this on the [generator repository wiki](https://github.ibm.com/CloudEngineering/openapi-sdkgen/wiki/Usage-Instructions).
-
-**Recommended**: Modify each of your API definition files to configure the `apiPackage` property.
-The value of this property should be module import path for your new project
-(e.g. `github.ibm.com/ibmcloud/platform-services-go-sdk`).
-Here's an example of the configuration properties that you can add to each API definition:
-```yaml
-  info:
-    x-codegen-config:
-      go:
-        apiPackage: '<module-import-path>'
-```
-Details about SDK generator configuration properties can be found
-[here](https://github.ibm.com/CloudEngineering/openapi-sdkgen/wiki/Config-Options)
-
-Set the output location for the generated files to be the root directory of the project.
-
-If you did not configure the `apiPackage` configuration property in your API definition file(s), then
-be sure to use the `--api-package <module-import-path>` command line option when running the generator to
-ensure that source files are generated correctly.
-
-Here is an example of how to generate the SDK code for an API definition.
-Suppose your API definition file is named `my-service.json` and contains the definition of the "My Service"
-service.
-To generate the code into your project, run these commands:
-```sh
-cd <project-root>
-
-openapi-sdkgen.sh generate -g ibm-go -i my-service.json -o . --api-package <module-import-path>
-
-```
-The generated service and unit test code will be written to a **package** directory under your
-project root directory that reflects the Go package name associated with the service.
-For the example above, the package directory would be named `myservicev1`.  You should have a service
-package directory for each of the services contained in your project, plus the `common` directory for
-the common package.
-
-Update the service table in the `README.md` file to add an entry for the new service.
-
-Repeat the steps in this section for each service to be included in your project.
+### 4. Add one or more services to the project
+For each service that you'd like to add to your SDK project, follow
+[these instructions](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/CONTRIBUTING_go.md#adding-a-new-service).
 
 ### 5. Build and test the project
 If you made it this far, congratulate yourself!
