@@ -3,6 +3,7 @@
 package exampleservicev1_test
 
 import (
+	"fmt"
 	"github.com/joho/godotenv"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -62,6 +63,7 @@ var _ = Describe(`ExampleServiceV1`, func() {
 		Expect(err).To(BeNil())
 		Expect(service).ToNot(BeNil())
 		Expect(service.Service.Options.URL).To(Not(Equal("")))
+		fmt.Printf("Service base URL: %s\n", service.Service.Options.URL)
 	})
 
 	Describe(`ListResources(listResourcesOptions *ListResourcesOptions)`, func() {
@@ -126,9 +128,7 @@ var _ = Describe(`ExampleServiceV1`, func() {
 		It(`Successfully create new resource`, func() {
 			shouldSkipTest()
 
-			createResourceOptions := service.NewCreateResourceOptions().
-				SetResourceID("3").
-				SetName("To Kill a Mockingbird").
+			createResourceOptions := service.NewCreateResourceOptions("3", "To Kill a Mockingbird").
 				SetTag("Book")
 			result, detailedResponse, err := service.CreateResource(createResourceOptions)
 			Expect(err).To(BeNil())
