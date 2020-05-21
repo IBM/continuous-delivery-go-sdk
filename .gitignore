@@ -11,5 +11,3 @@ vendor/
 
 # credentials files
 *.env
-
-package-lock.json

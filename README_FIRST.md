@@ -52,7 +52,7 @@ To create a new SDK repository from this template, follow these instructions:
     - `<service-category>` refers to the IBM Cloud service category associated with the services that
 	  will be included in the project (e.g. `platform-services`)
     - `<language>` is the language associated with the SDK project (e.g. `go`)
-	
+
 4. Click the `Create repository from template` button to create the new repository  
 
 If your goal is to create the new SDK repository on the `Github Enterprise` server (github.ibm.com),
@@ -99,7 +99,7 @@ Resolving deltas: 100% (1/1), done.
 [/work/demos]
 $ cd my-go-sdk
 [/work/demos/my-go-sdk]
-$ 
+$
 ```
 
 8. Remove the existing remote:  
@@ -170,6 +170,32 @@ your shell when executing the `go` commands above.
 
 ### 3. Modify selected files
 
+#### Automatic Script
+Use the `prepare_project.sh` script to perform the below modifications automatically. 
+It will delete the `example service` files and update the corresponding sections with the specified values.
+Read through the manual steps below to understand the changes performed by the `prepare_project.sh` script.
+
+Here is a description of the various options that you can pass to the script:
+```bash
+prepare_project.sh -p <sdk-project-name> -d <project-description> \
+        -g <git-repo-url> -s <service-category-description> -c <service-category-name>
+```
+
+Here is an example of how to run the script for the `platform-services-go-sdk` project:  
+```bash
+cd <project-root>
+./prepare_project.sh -p platform-services-go-sdk -d "IBM Cloud Platform Services Go SDK" \
+       -g https://github.com/IBM/platform-services-go-sdk -s "Platform Services" -c platform-services
+```
+
+- To list the files changed by the script, run : `git status`  
+- To view the changes made by this script, run: `git diff`  
+- To discard the changes made by the script, run `git checkout .`, or `git stash`  
+- If satisfied with the changes, then just commit the changes (e.g. `git commit -a -m "chore: prepare SDK project"`)
+
+
+#### Manual Steps
+
 - In this section, you'll modify various files within your new SDK repository to reflect
 the proper names and settings for your specific project.
 
@@ -227,8 +253,7 @@ to the common CONTRIBUTING document).
 Example:
 ```sh
 cd <project-root>
-git add .
-git commit -m "chore: initial SDK project setup"
+git commit -a -m "chore: prepare SDK project"
 ```
 
 
@@ -293,6 +318,19 @@ For details related to the `travis.yml` file, see
 The `.travis.yml` file included in this template repository is configured to
 perform automated release management with
 [semantic-release](https://semantic-release.gitbook.io/semantic-release/).
+You can see the deployment-related steps in the `deploy` stage of the `.travis.yml` file.
+
+BEFORE you enable automated builds in Travis and AFTER you perform the initial project preparation,
+you should add an initial tag (`v0.0.1`) to your repo and push it to remote:  
+```sh
+cd <project-root>
+git tag v0.0.1
+git push --tags
+```
+This creates an initial "baseline" which `semantic-release` will use when merging the initial set of
+commits into the master branch.   This tag represents the initial version of the project.
+After adding this tag, be sure to use proper commit messages when making changes to the project.
+See the CONTRIBUTING document for information about commit messages.
 
 When you configure your SDK project in Travis, be sure to set this environment variable in your
 Travis build settings:  
@@ -302,6 +340,15 @@ If you are using `Travis Enterprise` (travis.ibm.com), you'll need to add these 
 as well:  
 - `GH_URL`: set this to the string `https://github.ibm.com`
 - `GH_PREFIX`: set this to the string `/api/v3`
+
+As a final step, be sure to uncomment the `deploy` stage within `.travis.yml`.
+
+Once these steps have been completed, your project should be ready for automated release management
+with `semantic-release`.  This means that whenever you merge a PR into the master branch, the commit
+messages are analyzed by `semantic-release` to determine the next version number for the project
+(i.e. a new patch, minor or major version).  Once that is determined, `semantic-release` will perform
+actions to modify certain files within the project to reflect the new version, as well as 
+build a new entry in the project's changelog and add a tag for the new version.
 
 ### Encrypting secrets
 To run integration tests within a Travis build, you'll need to encrypt the file containing the
