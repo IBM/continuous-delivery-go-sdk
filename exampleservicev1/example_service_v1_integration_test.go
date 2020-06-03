@@ -1,13 +1,30 @@
 // +build integration
 
+/**
+ * (C) Copyright IBM Corp. 2020.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package exampleservicev1_test
 
 import (
 	"fmt"
-	"github.com/joho/godotenv"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
+	"os"
 
+	"github.com/IBM/go-sdk-core/v4/core"
 	"github.ibm.com/CloudEngineering/go-sdk-template/exampleservicev1"
 )
 
@@ -27,91 +44,96 @@ import (
 const externalConfigFile = "../example-service.env"
 
 var (
-	service      *exampleservicev1.ExampleServiceV1
 	err          error
+	service      *exampleservicev1.ExampleServiceV1
+	serviceURL   string
+	config       map[string]string
 	configLoaded bool = false
 )
 
 func shouldSkipTest() {
 	if !configLoaded {
-		Skip("External configuration is not available, skipping...")
+		Skip("External configuration is not available, skipping tests...")
 	}
 }
 
-var _ = Describe(`ExampleServiceV1`, func() {
-	It("Successfully load the configuration", func() {
-		err = godotenv.Load(externalConfigFile)
-		if err == nil {
-			//
-			// Retrieve any test-specific properties from the environment.
-			// ...
+var _ = Describe(`ExampleServiceV1 Integration Tests`, func() {
+	Describe(`External configuration`, func() {
+		It("Successfully load the configuration", func() {
+			_, err = os.Stat(externalConfigFile)
+			if err != nil {
+				Skip("External configuration file not found, skipping tests: " + err.Error())
+			}
 
-			// Set the flag to allow tests to execute.
+			os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
+			config, err = core.GetServiceProperties(exampleservicev1.DefaultServiceName)
+			if err != nil {
+				Skip("Error loading service properties, skipping tests: " + err.Error())
+			}
+
+			serviceURL = config["URL"]
+			if serviceURL == "" {
+				Skip("Unable to load service URL configuration property, skipping tests")
+			}
+
 			configLoaded = true
-		}
-
-		if !configLoaded {
-			Skip("External configuration could not be loaded, skipping...")
-		}
-	})
-
-	It("Successfully create the service client instance", func() {
-		shouldSkipTest()
-
-		service, err = exampleservicev1.NewExampleServiceV1UsingExternalConfig(
-			&exampleservicev1.ExampleServiceV1Options{})
-		Expect(err).To(BeNil())
-		Expect(service).ToNot(BeNil())
-		Expect(service.Service.Options.URL).To(Not(Equal("")))
-		fmt.Printf("Service base URL: %s\n", service.Service.Options.URL)
-	})
-
-	Describe(`ListResources(listResourcesOptions *ListResourcesOptions)`, func() {
-		It(`Successfully list all resources`, func() {
-			shouldSkipTest()
-
-			result, detailedResponse, err := service.ListResources(&exampleservicev1.ListResourcesOptions{})
-			Expect(err).To(BeNil())
-			Expect(detailedResponse).ToNot(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(200))
-			Expect(result).ToNot(BeNil())
-
-			resources := result.Resources
-			Expect(resources).ToNot(BeNil())
-			Expect(len(resources)).Should(BeNumerically(">=", 2))
-
-			firstResource := resources[0]
-			Expect(*firstResource.ResourceID).To(Equal("1"))
-			Expect(*firstResource.Name).To(Equal("The Great Gatsby"))
-			Expect(*firstResource.Tag).To(Equal("Book"))
-
-			secondResource := resources[1]
-			Expect(*secondResource.ResourceID).To(Equal("2"))
-			Expect(*secondResource.Name).To(Equal("Pride and Prejudice"))
-			Expect(*secondResource.Tag).To(Equal("Book"))
+			fmt.Printf("Service URL: %s\n", serviceURL)
 		})
 	})
 
-	Describe(`GetResource(getResourceOptions *GetResourceOptions)`, func() {
-		It(`Successfully get resource by ResourceID`, func() {
+	Describe(`Service-level tests`, func() {
+		BeforeEach(func() {
 			shouldSkipTest()
+		})
+		It("Successfully construct the service client instance", func() {
+			service, err = exampleservicev1.NewExampleServiceV1UsingExternalConfig(
+				&exampleservicev1.ExampleServiceV1Options{})
+			Expect(err).To(BeNil())
+			Expect(service).ToNot(BeNil())
+			Expect(service.Service.Options.URL).To(Equal(serviceURL))
+		})
+	})
 
-			resourceID := "1"
+	Describe(`CreateResource() - create a resource`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`Successfully invoke CreateResource()`, func() {
+			createResourceOptions := &exampleservicev1.CreateResourceOptions{
+				ResourceID: core.StringPtr("3"),
+				Name:       core.StringPtr("To Kill a Mockingbird"),
+				Tag:        core.StringPtr("Book"),
+			}
+			result, detailedResponse, err := service.CreateResource(createResourceOptions)
+			Expect(err).To(BeNil())
+			Expect(detailedResponse.StatusCode).To(Equal(201))
+			Expect(result).ToNot(BeNil())
+
+			Expect(*result.ResourceID).To(Equal("3"))
+			Expect(*result.Name).To(Equal("To Kill a Mockingbird"))
+			Expect(*result.Tag).To(Equal("Book"))
+		})
+	})
+
+	Describe(`GetResource() - get a resource`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`Successfully invoke GetResource()`, func() {
 			getResourceOptions := &exampleservicev1.GetResourceOptions{
-				ResourceID: &resourceID,
+				ResourceID: core.StringPtr("1"),
 			}
 			result, detailedResponse, err := service.GetResource(getResourceOptions)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
 
 			Expect(*result.ResourceID).To(Equal("1"))
 			Expect(*result.Name).To(Equal("The Great Gatsby"))
 			Expect(*result.Tag).To(Equal("Book"))
 		})
 
-		It(`Negative test - retrieve resource with incorrect resource id`, func() {
-			shouldSkipTest()
-
+		It(`Negative test - invoke GetResource() with error`, func() {
 			resourceID := "BAD_RESOURCE_ID"
 			getResourceOptions := &exampleservicev1.GetResourceOptions{
 				ResourceID: &resourceID,
@@ -124,18 +146,17 @@ var _ = Describe(`ExampleServiceV1`, func() {
 		})
 	})
 
-	Describe(`CreateResource(createResourceOptions *CreateResourceOptions)`, func() {
-		It(`Successfully create new resource`, func() {
+	Describe(`ListResources() - list resources`, func() {
+		BeforeEach(func() {
 			shouldSkipTest()
-
-			createResourceOptions := service.NewCreateResourceOptions("3", "To Kill a Mockingbird").
-				SetTag("Book")
-			result, detailedResponse, err := service.CreateResource(createResourceOptions)
+		})
+		It(`Successfully invoke ListResources()`, func() {
+			listResourcesOptions := &exampleservicev1.ListResourcesOptions{}
+			result, detailedResponse, err := service.ListResources(listResourcesOptions)
 			Expect(err).To(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(201))
-			Expect(*result.ResourceID).To(Equal("3"))
-			Expect(*result.Name).To(Equal("To Kill a Mockingbird"))
-			Expect(*result.Tag).To(Equal("Book"))
+			Expect(detailedResponse).ToNot(BeNil())
+			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
 		})
 	})
 })
