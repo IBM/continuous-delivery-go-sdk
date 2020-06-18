@@ -34,7 +34,7 @@ install:
 - curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s -- -b $(go env GOPATH)/bin v1.21.0
 
 script:
-  - make all
+  - make travis-ci
 
 # To enable semantic-release, uncomment these sections.
 # before_deploy:
