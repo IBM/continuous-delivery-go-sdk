@@ -39,12 +39,12 @@ else
 
     # Remove sample files
     rm -r exampleservicev1
-    printf "\n>>>>> Example Service files removed."
+    printf "\n>>>>> Example Service files removed.\n"
 
     # Update common Go files
     sed -i.bak 's/my-go-sdk/'${PROJECT_NAME}'/' common/headers.go
     rm go.mod go.sum common/headers.go.bak
-    echo "module ${IMPORT_PATH}" > go.mod
+    go mod init ${IMPORT_PATH}
 
     printf "\n>>>>> common Go files updated."
 
