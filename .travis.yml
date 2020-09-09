@@ -10,6 +10,8 @@ jobs:
     - stage: Build and run tests
       go: 1.12.x
     - stage: Run system test with template
+      before_install:
+        - echo -e "machine github.ibm.com\n  login $GITHUB_OAUTH_TOKEN" > ~/.netrc
       script:
         - git clone git@github.ibm.com:CloudEngineering/sdkgen-systest.git
         - cd sdkgen-systest
