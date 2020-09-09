@@ -2,13 +2,14 @@ language: go
 
 dist: xenial
 
+go: 1.12.x
+
 # After creating your SDK project from this template repository,
 # remove this entire "jobs" section as this is only applicable
 # to the template repo's travis build.
 jobs:
   include:
     - stage: Build and run tests
-      go: 1.12.x
     - stage: Run system test with template
       before_install:
         - echo -e "machine github.ibm.com\n  login $GITHUB_OAUTH_TOKEN" > ~/.netrc
