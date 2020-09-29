@@ -17,7 +17,7 @@ jobs:
         - git clone https://github.ibm.com/CloudEngineering/sdkgen-systest.git
         - cd sdkgen-systest
         - ./install_scripts/install_deps_ubuntu.sh
-        - ./setup_and_generate.sh -l ibm-go -t $TRAVIS_BRANCH
+        - ./setup_and_generate.sh -l ibm-go -t $TRAVIS_BRANCH -s
 
 notifications:
   email: true
