@@ -18,6 +18,7 @@ package exampleservicev1_test
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"github.com/IBM/go-sdk-core/v4/core"
 	"github.com/go-openapi/strfmt"
@@ -34,31 +35,31 @@ import (
 
 var _ = Describe(`ExampleServiceV1`, func() {
 	var testServer *httptest.Server
-    Describe(`Service constructor tests`, func() {
+	Describe(`Service constructor tests`, func() {
 		It(`Instantiate service client`, func() {
-			testService, testServiceErr := exampleservicev1.NewExampleServiceV1(&exampleservicev1.ExampleServiceV1Options{
+			exampleServiceService, serviceErr := exampleservicev1.NewExampleServiceV1(&exampleservicev1.ExampleServiceV1Options{
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
-			Expect(testService).ToNot(BeNil())
-			Expect(testServiceErr).To(BeNil())
+			Expect(exampleServiceService).ToNot(BeNil())
+			Expect(serviceErr).To(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid URL`, func() {
-			testService, testServiceErr := exampleservicev1.NewExampleServiceV1(&exampleservicev1.ExampleServiceV1Options{
+			exampleServiceService, serviceErr := exampleservicev1.NewExampleServiceV1(&exampleservicev1.ExampleServiceV1Options{
 				URL: "{BAD_URL_STRING",
 			})
-			Expect(testService).To(BeNil())
-			Expect(testServiceErr).ToNot(BeNil())
+			Expect(exampleServiceService).To(BeNil())
+			Expect(serviceErr).ToNot(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid Auth`, func() {
-			testService, testServiceErr := exampleservicev1.NewExampleServiceV1(&exampleservicev1.ExampleServiceV1Options{
+			exampleServiceService, serviceErr := exampleservicev1.NewExampleServiceV1(&exampleservicev1.ExampleServiceV1Options{
 				URL: "https://exampleservicev1/api",
 				Authenticator: &core.BasicAuthenticator{
 					Username: "",
 					Password: "",
 				},
 			})
-			Expect(testService).To(BeNil())
-			Expect(testServiceErr).ToNot(BeNil())
+			Expect(exampleServiceService).To(BeNil())
+			Expect(serviceErr).ToNot(BeNil())
 		})
 	})
 	Describe(`Service constructor tests using external config`, func() {
@@ -71,31 +72,31 @@ var _ = Describe(`ExampleServiceV1`, func() {
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := exampleservicev1.NewExampleServiceV1UsingExternalConfig(&exampleservicev1.ExampleServiceV1Options{
+				exampleServiceService, serviceErr := exampleservicev1.NewExampleServiceV1UsingExternalConfig(&exampleservicev1.ExampleServiceV1Options{
 				})
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
+				Expect(exampleServiceService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := exampleservicev1.NewExampleServiceV1UsingExternalConfig(&exampleservicev1.ExampleServiceV1Options{
+				exampleServiceService, serviceErr := exampleservicev1.NewExampleServiceV1UsingExternalConfig(&exampleservicev1.ExampleServiceV1Options{
 					URL: "https://testService/api",
 				})
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				Expect(exampleServiceService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(exampleServiceService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := exampleservicev1.NewExampleServiceV1UsingExternalConfig(&exampleservicev1.ExampleServiceV1Options{
+				exampleServiceService, serviceErr := exampleservicev1.NewExampleServiceV1UsingExternalConfig(&exampleservicev1.ExampleServiceV1Options{
 				})
-				err := testService.SetServiceURL("https://testService/api")
+				err := exampleServiceService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				Expect(exampleServiceService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(exampleServiceService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -107,12 +108,12 @@ var _ = Describe(`ExampleServiceV1`, func() {
 			}
 
 			SetTestEnvironment(testEnvironment)
-			testService, testServiceErr := exampleservicev1.NewExampleServiceV1UsingExternalConfig(&exampleservicev1.ExampleServiceV1Options{
+			exampleServiceService, serviceErr := exampleservicev1.NewExampleServiceV1UsingExternalConfig(&exampleservicev1.ExampleServiceV1Options{
 			})
 
 			It(`Instantiate service client with error`, func() {
-				Expect(testService).To(BeNil())
-				Expect(testServiceErr).ToNot(BeNil())
+				Expect(exampleServiceService).To(BeNil())
+				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -123,13 +124,13 @@ var _ = Describe(`ExampleServiceV1`, func() {
 			}
 
 			SetTestEnvironment(testEnvironment)
-			testService, testServiceErr := exampleservicev1.NewExampleServiceV1UsingExternalConfig(&exampleservicev1.ExampleServiceV1Options{
+			exampleServiceService, serviceErr := exampleservicev1.NewExampleServiceV1UsingExternalConfig(&exampleservicev1.ExampleServiceV1Options{
 				URL: "{BAD_URL_STRING",
 			})
 
 			It(`Instantiate service client with error`, func() {
-				Expect(testService).To(BeNil())
-				Expect(testServiceErr).ToNot(BeNil())
+				Expect(exampleServiceService).To(BeNil())
+				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -139,10 +140,10 @@ var _ = Describe(`ExampleServiceV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(listResourcesPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listResourcesPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 
@@ -152,19 +153,26 @@ var _ = Describe(`ExampleServiceV1`, func() {
 				}))
 			})
 			It(`Invoke ListResources with error: Operation response processing error`, func() {
-				testService, testServiceErr := exampleservicev1.NewExampleServiceV1(&exampleservicev1.ExampleServiceV1Options{
+				exampleServiceService, serviceErr := exampleservicev1.NewExampleServiceV1(&exampleservicev1.ExampleServiceV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(exampleServiceService).ToNot(BeNil())
 
 				// Construct an instance of the ListResourcesOptions model
 				listResourcesOptionsModel := new(exampleservicev1.ListResourcesOptions)
 				listResourcesOptionsModel.Limit = core.Int64Ptr(int64(38))
 				listResourcesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.ListResources(listResourcesOptionsModel)
+				result, response, operationErr := exampleServiceService.ListResources(listResourcesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				exampleServiceService.EnableRetries(0, 0)
+				result, response, operationErr = exampleServiceService.ListResources(listResourcesOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -177,31 +185,39 @@ var _ = Describe(`ExampleServiceV1`, func() {
 
 	Describe(`ListResources(listResourcesOptions *ListResourcesOptions)`, func() {
 		listResourcesPath := "/resources"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(listResourcesPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listResourcesPath))
 					Expect(req.Method).To(Equal("GET"))
+
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"offset": 6, "limit": 5, "resources": [{"resource_id": "ResourceID", "name": "Name", "tag": "Tag", "read_only": "ReadOnly"}]}`)
+					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "resources": [{"resource_id": "ResourceID", "name": "Name", "tag": "Tag", "read_only": "ReadOnly"}]}`)
 				}))
 			})
 			It(`Invoke ListResources successfully`, func() {
-				testService, testServiceErr := exampleservicev1.NewExampleServiceV1(&exampleservicev1.ExampleServiceV1Options{
+				exampleServiceService, serviceErr := exampleservicev1.NewExampleServiceV1(&exampleservicev1.ExampleServiceV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(exampleServiceService).ToNot(BeNil())
+				exampleServiceService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.ListResources(nil)
+				result, response, operationErr := exampleServiceService.ListResources(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -209,30 +225,55 @@ var _ = Describe(`ExampleServiceV1`, func() {
 				// Construct an instance of the ListResourcesOptions model
 				listResourcesOptionsModel := new(exampleservicev1.ListResourcesOptions)
 				listResourcesOptionsModel.Limit = core.Int64Ptr(int64(38))
- 				listResourcesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				listResourcesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.ListResources(listResourcesOptionsModel)
+				result, response, operationErr = exampleServiceService.ListResources(listResourcesOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = exampleServiceService.ListResourcesWithContext(ctx, listResourcesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				exampleServiceService.DisableRetries()
+				result, response, operationErr = exampleServiceService.ListResources(listResourcesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = exampleServiceService.ListResourcesWithContext(ctx, listResourcesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke ListResources with error: Operation request error`, func() {
-				testService, testServiceErr := exampleservicev1.NewExampleServiceV1(&exampleservicev1.ExampleServiceV1Options{
+				exampleServiceService, serviceErr := exampleservicev1.NewExampleServiceV1(&exampleservicev1.ExampleServiceV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(exampleServiceService).ToNot(BeNil())
 
 				// Construct an instance of the ListResourcesOptions model
 				listResourcesOptionsModel := new(exampleservicev1.ListResourcesOptions)
 				listResourcesOptionsModel.Limit = core.Int64Ptr(int64(38))
 				listResourcesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := exampleServiceService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.ListResources(listResourcesOptionsModel)
+				result, response, operationErr := exampleServiceService.ListResources(listResourcesOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -248,10 +289,10 @@ var _ = Describe(`ExampleServiceV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(createResourcePath))
+					Expect(req.URL.EscapedPath()).To(Equal(createResourcePath))
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
@@ -259,12 +300,12 @@ var _ = Describe(`ExampleServiceV1`, func() {
 				}))
 			})
 			It(`Invoke CreateResource with error: Operation response processing error`, func() {
-				testService, testServiceErr := exampleservicev1.NewExampleServiceV1(&exampleservicev1.ExampleServiceV1Options{
+				exampleServiceService, serviceErr := exampleservicev1.NewExampleServiceV1(&exampleservicev1.ExampleServiceV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(exampleServiceService).ToNot(BeNil())
 
 				// Construct an instance of the CreateResourceOptions model
 				createResourceOptionsModel := new(exampleservicev1.CreateResourceOptions)
@@ -273,7 +314,14 @@ var _ = Describe(`ExampleServiceV1`, func() {
 				createResourceOptionsModel.Tag = core.StringPtr("testString")
 				createResourceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.CreateResource(createResourceOptionsModel)
+				result, response, operationErr := exampleServiceService.CreateResource(createResourceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				exampleServiceService.EnableRetries(0, 0)
+				result, response, operationErr = exampleServiceService.CreateResource(createResourceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -286,29 +334,53 @@ var _ = Describe(`ExampleServiceV1`, func() {
 
 	Describe(`CreateResource(createResourceOptions *CreateResourceOptions)`, func() {
 		createResourcePath := "/resources"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(createResourcePath))
+					Expect(req.URL.EscapedPath()).To(Equal(createResourcePath))
 					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, `{"resource_id": "ResourceID", "name": "Name", "tag": "Tag", "read_only": "ReadOnly"}`)
+					fmt.Fprintf(res, "%s", `{"resource_id": "ResourceID", "name": "Name", "tag": "Tag", "read_only": "ReadOnly"}`)
 				}))
 			})
 			It(`Invoke CreateResource successfully`, func() {
-				testService, testServiceErr := exampleservicev1.NewExampleServiceV1(&exampleservicev1.ExampleServiceV1Options{
+				exampleServiceService, serviceErr := exampleservicev1.NewExampleServiceV1(&exampleservicev1.ExampleServiceV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(exampleServiceService).ToNot(BeNil())
+				exampleServiceService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.CreateResource(nil)
+				result, response, operationErr := exampleServiceService.CreateResource(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -318,21 +390,46 @@ var _ = Describe(`ExampleServiceV1`, func() {
 				createResourceOptionsModel.ResourceID = core.StringPtr("testString")
 				createResourceOptionsModel.Name = core.StringPtr("testString")
 				createResourceOptionsModel.Tag = core.StringPtr("testString")
- 				createResourceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				createResourceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.CreateResource(createResourceOptionsModel)
+				result, response, operationErr = exampleServiceService.CreateResource(createResourceOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = exampleServiceService.CreateResourceWithContext(ctx, createResourceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				exampleServiceService.DisableRetries()
+				result, response, operationErr = exampleServiceService.CreateResource(createResourceOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = exampleServiceService.CreateResourceWithContext(ctx, createResourceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke CreateResource with error: Operation validation and request error`, func() {
-				testService, testServiceErr := exampleservicev1.NewExampleServiceV1(&exampleservicev1.ExampleServiceV1Options{
+				exampleServiceService, serviceErr := exampleservicev1.NewExampleServiceV1(&exampleservicev1.ExampleServiceV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(exampleServiceService).ToNot(BeNil())
 
 				// Construct an instance of the CreateResourceOptions model
 				createResourceOptionsModel := new(exampleservicev1.CreateResourceOptions)
@@ -341,9 +438,9 @@ var _ = Describe(`ExampleServiceV1`, func() {
 				createResourceOptionsModel.Tag = core.StringPtr("testString")
 				createResourceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := exampleServiceService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.CreateResource(createResourceOptionsModel)
+				result, response, operationErr := exampleServiceService.CreateResource(createResourceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -351,7 +448,7 @@ var _ = Describe(`ExampleServiceV1`, func() {
 				// Construct a second instance of the CreateResourceOptions model with no property values
 				createResourceOptionsModelNew := new(exampleservicev1.CreateResourceOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.CreateResource(createResourceOptionsModelNew)
+				result, response, operationErr = exampleServiceService.CreateResource(createResourceOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -366,10 +463,10 @@ var _ = Describe(`ExampleServiceV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(getResourcePath))
+					Expect(req.URL.EscapedPath()).To(Equal(getResourcePath))
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -377,19 +474,26 @@ var _ = Describe(`ExampleServiceV1`, func() {
 				}))
 			})
 			It(`Invoke GetResource with error: Operation response processing error`, func() {
-				testService, testServiceErr := exampleservicev1.NewExampleServiceV1(&exampleservicev1.ExampleServiceV1Options{
+				exampleServiceService, serviceErr := exampleservicev1.NewExampleServiceV1(&exampleservicev1.ExampleServiceV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(exampleServiceService).ToNot(BeNil())
 
 				// Construct an instance of the GetResourceOptions model
 				getResourceOptionsModel := new(exampleservicev1.GetResourceOptions)
 				getResourceOptionsModel.ResourceID = core.StringPtr("testString")
 				getResourceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.GetResource(getResourceOptionsModel)
+				result, response, operationErr := exampleServiceService.GetResource(getResourceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				exampleServiceService.EnableRetries(0, 0)
+				result, response, operationErr = exampleServiceService.GetResource(getResourceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -402,29 +506,37 @@ var _ = Describe(`ExampleServiceV1`, func() {
 
 	Describe(`GetResource(getResourceOptions *GetResourceOptions)`, func() {
 		getResourcePath := "/resources/testString"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(getResourcePath))
+					Expect(req.URL.EscapedPath()).To(Equal(getResourcePath))
 					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"resource_id": "ResourceID", "name": "Name", "tag": "Tag", "read_only": "ReadOnly"}`)
+					fmt.Fprintf(res, "%s", `{"resource_id": "ResourceID", "name": "Name", "tag": "Tag", "read_only": "ReadOnly"}`)
 				}))
 			})
 			It(`Invoke GetResource successfully`, func() {
-				testService, testServiceErr := exampleservicev1.NewExampleServiceV1(&exampleservicev1.ExampleServiceV1Options{
+				exampleServiceService, serviceErr := exampleservicev1.NewExampleServiceV1(&exampleservicev1.ExampleServiceV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(exampleServiceService).ToNot(BeNil())
+				exampleServiceService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.GetResource(nil)
+				result, response, operationErr := exampleServiceService.GetResource(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -432,30 +544,55 @@ var _ = Describe(`ExampleServiceV1`, func() {
 				// Construct an instance of the GetResourceOptions model
 				getResourceOptionsModel := new(exampleservicev1.GetResourceOptions)
 				getResourceOptionsModel.ResourceID = core.StringPtr("testString")
- 				getResourceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				getResourceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.GetResource(getResourceOptionsModel)
+				result, response, operationErr = exampleServiceService.GetResource(getResourceOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = exampleServiceService.GetResourceWithContext(ctx, getResourceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				exampleServiceService.DisableRetries()
+				result, response, operationErr = exampleServiceService.GetResource(getResourceOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = exampleServiceService.GetResourceWithContext(ctx, getResourceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke GetResource with error: Operation validation and request error`, func() {
-				testService, testServiceErr := exampleservicev1.NewExampleServiceV1(&exampleservicev1.ExampleServiceV1Options{
+				exampleServiceService, serviceErr := exampleservicev1.NewExampleServiceV1(&exampleservicev1.ExampleServiceV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(exampleServiceService).ToNot(BeNil())
 
 				// Construct an instance of the GetResourceOptions model
 				getResourceOptionsModel := new(exampleservicev1.GetResourceOptions)
 				getResourceOptionsModel.ResourceID = core.StringPtr("testString")
 				getResourceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := exampleServiceService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.GetResource(getResourceOptionsModel)
+				result, response, operationErr := exampleServiceService.GetResource(getResourceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -463,7 +600,159 @@ var _ = Describe(`ExampleServiceV1`, func() {
 				// Construct a second instance of the GetResourceOptions model with no property values
 				getResourceOptionsModelNew := new(exampleservicev1.GetResourceOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.GetResource(getResourceOptionsModelNew)
+				result, response, operationErr = exampleServiceService.GetResource(getResourceOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetResourceEncoded(getResourceEncodedOptions *GetResourceEncodedOptions) - Operation response error`, func() {
+		getResourceEncodedPath := "/resources/encoded/url%253encoded%253resource%253id"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getResourceEncodedPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetResourceEncoded with error: Operation response processing error`, func() {
+				exampleServiceService, serviceErr := exampleservicev1.NewExampleServiceV1(&exampleservicev1.ExampleServiceV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(exampleServiceService).ToNot(BeNil())
+
+				// Construct an instance of the GetResourceEncodedOptions model
+				getResourceEncodedOptionsModel := new(exampleservicev1.GetResourceEncodedOptions)
+				getResourceEncodedOptionsModel.UrlEncodedResourceID = core.StringPtr("url%3encoded%3resource%3id")
+				getResourceEncodedOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := exampleServiceService.GetResourceEncoded(getResourceEncodedOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				exampleServiceService.EnableRetries(0, 0)
+				result, response, operationErr = exampleServiceService.GetResourceEncoded(getResourceEncodedOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+
+	Describe(`GetResourceEncoded(getResourceEncodedOptions *GetResourceEncodedOptions)`, func() {
+		getResourceEncodedPath := "/resources/encoded/url%253encoded%253resource%253id"
+		var serverSleepTime time.Duration
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				serverSleepTime = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getResourceEncodedPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"resource_id": "ResourceID", "name": "Name", "tag": "Tag", "read_only": "ReadOnly"}`)
+				}))
+			})
+			It(`Invoke GetResourceEncoded successfully`, func() {
+				exampleServiceService, serviceErr := exampleservicev1.NewExampleServiceV1(&exampleservicev1.ExampleServiceV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(exampleServiceService).ToNot(BeNil())
+				exampleServiceService.EnableRetries(0, 0)
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := exampleServiceService.GetResourceEncoded(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetResourceEncodedOptions model
+				getResourceEncodedOptionsModel := new(exampleservicev1.GetResourceEncodedOptions)
+				getResourceEncodedOptionsModel.UrlEncodedResourceID = core.StringPtr("url%3encoded%3resource%3id")
+				getResourceEncodedOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = exampleServiceService.GetResourceEncoded(getResourceEncodedOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = exampleServiceService.GetResourceEncodedWithContext(ctx, getResourceEncodedOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				exampleServiceService.DisableRetries()
+				result, response, operationErr = exampleServiceService.GetResourceEncoded(getResourceEncodedOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = exampleServiceService.GetResourceEncodedWithContext(ctx, getResourceEncodedOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+			})
+			It(`Invoke GetResourceEncoded with error: Operation validation and request error`, func() {
+				exampleServiceService, serviceErr := exampleservicev1.NewExampleServiceV1(&exampleservicev1.ExampleServiceV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(exampleServiceService).ToNot(BeNil())
+
+				// Construct an instance of the GetResourceEncodedOptions model
+				getResourceEncodedOptionsModel := new(exampleservicev1.GetResourceEncodedOptions)
+				getResourceEncodedOptionsModel.UrlEncodedResourceID = core.StringPtr("url%3encoded%3resource%3id")
+				getResourceEncodedOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := exampleServiceService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := exampleServiceService.GetResourceEncoded(getResourceEncodedOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetResourceEncodedOptions model with no property values
+				getResourceEncodedOptionsModelNew := new(exampleservicev1.GetResourceEncodedOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = exampleServiceService.GetResourceEncoded(getResourceEncodedOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -475,7 +764,7 @@ var _ = Describe(`ExampleServiceV1`, func() {
 	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
-			testService, _ := exampleservicev1.NewExampleServiceV1(&exampleservicev1.ExampleServiceV1Options{
+			exampleServiceService, _ := exampleservicev1.NewExampleServiceV1(&exampleservicev1.ExampleServiceV1Options{
 				URL:           "http://exampleservicev1modelgenerator.com",
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
@@ -483,7 +772,7 @@ var _ = Describe(`ExampleServiceV1`, func() {
 				// Construct an instance of the CreateResourceOptions model
 				createResourceOptionsResourceID := "testString"
 				createResourceOptionsName := "testString"
-				createResourceOptionsModel := testService.NewCreateResourceOptions(createResourceOptionsResourceID, createResourceOptionsName)
+				createResourceOptionsModel := exampleServiceService.NewCreateResourceOptions(createResourceOptionsResourceID, createResourceOptionsName)
 				createResourceOptionsModel.SetResourceID("testString")
 				createResourceOptionsModel.SetName("testString")
 				createResourceOptionsModel.SetTag("testString")
@@ -494,10 +783,20 @@ var _ = Describe(`ExampleServiceV1`, func() {
 				Expect(createResourceOptionsModel.Tag).To(Equal(core.StringPtr("testString")))
 				Expect(createResourceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewGetResourceEncodedOptions successfully`, func() {
+				// Construct an instance of the GetResourceEncodedOptions model
+				urlEncodedResourceID := "url%3encoded%3resource%3id"
+				getResourceEncodedOptionsModel := exampleServiceService.NewGetResourceEncodedOptions(urlEncodedResourceID)
+				getResourceEncodedOptionsModel.SetUrlEncodedResourceID("url%3encoded%3resource%3id")
+				getResourceEncodedOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getResourceEncodedOptionsModel).ToNot(BeNil())
+				Expect(getResourceEncodedOptionsModel.UrlEncodedResourceID).To(Equal(core.StringPtr("url%3encoded%3resource%3id")))
+				Expect(getResourceEncodedOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewGetResourceOptions successfully`, func() {
 				// Construct an instance of the GetResourceOptions model
 				resourceID := "testString"
-				getResourceOptionsModel := testService.NewGetResourceOptions(resourceID)
+				getResourceOptionsModel := exampleServiceService.NewGetResourceOptions(resourceID)
 				getResourceOptionsModel.SetResourceID("testString")
 				getResourceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getResourceOptionsModel).ToNot(BeNil())
@@ -506,7 +805,7 @@ var _ = Describe(`ExampleServiceV1`, func() {
 			})
 			It(`Invoke NewListResourcesOptions successfully`, func() {
 				// Construct an instance of the ListResourcesOptions model
-				listResourcesOptionsModel := testService.NewListResourcesOptions()
+				listResourcesOptionsModel := exampleServiceService.NewListResourcesOptions()
 				listResourcesOptionsModel.SetLimit(int64(38))
 				listResourcesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listResourcesOptionsModel).ToNot(BeNil())
@@ -516,7 +815,7 @@ var _ = Describe(`ExampleServiceV1`, func() {
 			It(`Invoke NewResource successfully`, func() {
 				resourceID := "testString"
 				name := "testString"
-				model, err := testService.NewResource(resourceID, name)
+				model, err := exampleServiceService.NewResource(resourceID, name)
 				Expect(model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
