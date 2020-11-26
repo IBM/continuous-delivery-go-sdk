@@ -4,7 +4,7 @@ set -e
 print_usage () {
     echo "
 usage:
-   ./prepare_project.sh -p <sdk-project-name> -d <project-description> -g <git-repo-url> -s <service-category-description> -c <service-category-name>
+   ./prepare_project.sh [-p <sdk-project-name>] [-d <project-description>] [-g <git-repo-url>] [-s <service-category-description>] [-c <service-category-name>]
 where:
    -p: specify project name (e.g. platform-services-go-sdk)
    -d: specify project description string (e.g. \"IBM Cloud Platform Services Go SDK\")
@@ -28,11 +28,27 @@ while getopts 'p:d:g:s:c:h' flag; do
   esac
 done
 
-if [[ -z "$PROJECT_NAME" || -z "$PROJECT_DESCRIPTION" || -z "$PROJECT_GIT_URL" || -z "$SDK_NAME" || -z "$SERVICE_CATEGORY" ]]; then
-    printf "Please provide all required inputs.\n\n"
-    print_usage
+if [[ -z "$PROJECT_NAME" ]]; then
+    PROJECT_NAME=$(basename $PWD)
+fi
 
-else
+if [[ -z "$SERVICE_CATEGORY" ]]; then
+    SERVICE_CATEGORY=$(echo $PROJECT_NAME | sed 's/-go-sdk//')
+fi
+
+if [[ -z "$SDK_NAME" ]]; then
+    SDK_NAME=$(echo $SERVICE_CATEGORY | tr '-' ' ' |  awk '{for (i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) substr($i,2)} 1')
+fi
+
+if [[ -z "$PROJECT_DESCRIPTION" ]]; then
+    PROJECT_DESCRIPTION="Go SDK for IBM Cloud ${SDK_NAME} services"
+fi
+
+if [[ -z "$PROJECT_GIT_URL" ]]; then
+    url=$(git config --get remote.origin.url | sed 's/git@//' | sed 's/com:/com\//' | sed 's/.git$//')
+    PROJECT_GIT_URL=${url}
+fi
+
     IMPORT_PATH="$( sed 's~.*://~~' <<< "$PROJECT_GIT_URL" )"
 
     printf "\n>>>>> Project Initialization In Progress...\n\t IMPORT_PATH: ${IMPORT_PATH}\n\t PROJECT_NAME: ${PROJECT_NAME}\n\t PROJECT_DESCRIPTION: ${PROJECT_DESCRIPTION}\n\t PROJECT_GIT_URL: ${PROJECT_GIT_URL}\n\t SDK_NAME: ${SDK_NAME}\n"
@@ -74,4 +90,3 @@ else
     printf "\n>>>>> CONTRIBUTING.md updated."
 
     printf "\n>>>>> Project Initialized Successfully!\n"
-fi
