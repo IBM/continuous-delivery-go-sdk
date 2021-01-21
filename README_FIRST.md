@@ -22,6 +22,8 @@ You can use the contents of this repository to create your own Go SDK repository
   * [1. Create your new github repository from this template](#1-create-your-new-github-repository-from-this-template)
   * [2. Sanity-check your new repository](#2-sanity-check-your-new-repository)
   * [3. Modify selected files](#3-modify-selected-files)
+    + [Automatic Script](#automatic-script)
+    + [Manual Steps](#manual-steps)
   * [4. Add one or more services to the project](#4-add-one-or-more-services-to-the-project)
   * [5. Build and test the project](#5-build-and-test-the-project)
 - [Integration tests](#integration-tests)
@@ -29,6 +31,7 @@ You can use the contents of this repository to create your own Go SDK repository
   * [Release management with semantic-release](#release-management-with-semantic-release)
   * [Encrypting secrets](#encrypting-secrets)
 - [Setting the ``User-Agent`` Header In Preparation for SDK Metrics Gathering](#setting-the-user-agent-header-in-preparation-for-sdk-metrics-gathering)
+- [Go version selection](#go-version-selection)
 
 <!-- tocstop -->
 
@@ -388,3 +391,55 @@ as the analytics data collector uses this to gather usage data.
 
 More information about the analytics tool, and other steps you should take to start gathering
 metrics for your SDK can be found [here](https://github.ibm.com/CloudEngineering/sdk-analytics).
+
+## Go version selection
+When you use the `prepare_project.sh` script to create your SDK project from this template repository,
+the `go.mod` file will initially contain only the `module <module-import-path>` statement.
+Then when you first build/test your project, the Go engine will update the `go.mod` file to add the
+following lines:
+```
+go <go version>
+
+require (
+  <dependencies>
+)
+```
+Note that the `<go version>` value will reflect the version of the Go engine that was used to build/test
+the project.  If this does not match the minimum version of Go that you would like to support with your
+SDK project, then you should manually change the `go.mod` file to reflect that.
+For example, suppose that you have Go version 1.15 installed in your local environment and your `go.mod` 
+file looks like this after you initially build/test your new SDK project:
+```
+module github.com/IBM/my-go-sdk
+
+go 1.15
+
+require (
+	github.com/IBM/go-sdk-core/v5 v5.0.0
+	github.com/go-openapi/strfmt v0.19.10
+	github.com/onsi/ginkgo v1.14.2
+	github.com/onsi/gomega v1.10.3
+	github.com/stretchr/testify v1.6.1
+)
+```
+Also, suppose that you'd like your SDK project to support 1.14 as the minimum version of Go.
+In this case, you should manually change the `go 1.15` line to be `go 1.14`.  The resulting file would
+look like this:
+```
+module github.com/IBM/my-go-sdk
+
+go 1.14
+
+require (
+	github.com/IBM/go-sdk-core/v5 v5.0.0
+	github.com/go-openapi/strfmt v0.19.10
+	github.com/onsi/ginkgo v1.14.2
+	github.com/onsi/gomega v1.10.3
+	github.com/stretchr/testify v1.6.1
+)
+```
+Note: don't be overly concerned with the dependencies listed in the `require` directive.
+The Go engine will select the latest available version for each package imported by the
+code contained in your SDK project. 
+However, from time to time, as new versions of dependencies become available, 
+you might want to update the version number within the `go.mod` file.

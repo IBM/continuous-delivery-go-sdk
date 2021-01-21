@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-f47e5a86-20201027-153546
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-72b011b4-20210120-141351
  */
  
 
@@ -26,7 +26,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	common "github.ibm.com/CloudEngineering/go-sdk-template/common"
 	"net/http"
 	"reflect"
@@ -108,6 +108,21 @@ func NewExampleServiceV1(options *ExampleServiceV1Options) (service *ExampleServ
 	}
 
 	return
+}
+
+// GetServiceURLForRegion returns the service URL to be used for the specified region
+func GetServiceURLForRegion(region string) (string, error) {
+	return "", fmt.Errorf("service does not support regional URLs")
+}
+
+// Clone makes a copy of "exampleService" suitable for processing requests.
+func (exampleService *ExampleServiceV1) Clone() *ExampleServiceV1 {
+	if core.IsNil(exampleService) {
+		return nil
+	}
+	clone := *exampleService
+	clone.Service = exampleService.Service.Clone()
+	return &clone
 }
 
 // SetServiceURL sets the service URL
@@ -385,13 +400,13 @@ func (exampleService *ExampleServiceV1) GetResourceEncodedWithContext(ctx contex
 // CreateResourceOptions : The CreateResource options.
 type CreateResourceOptions struct {
 	// The id of the resource.
-	ResourceID *string `json:"resource_id" validate:"required"`
+	ResourceID *string `validate:"required"`
 
 	// The name of the resource.
-	Name *string `json:"name" validate:"required"`
+	Name *string `validate:"required"`
 
 	// A tag value for the resource.
-	Tag *string `json:"tag,omitempty"`
+	Tag *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -432,7 +447,7 @@ func (options *CreateResourceOptions) SetHeaders(param map[string]string) *Creat
 // GetResourceEncodedOptions : The GetResourceEncoded options.
 type GetResourceEncodedOptions struct {
 	// The id of the resource to retrieve.
-	UrlEncodedResourceID *string `json:"url_encoded_resource_id" validate:"required,ne="`
+	UrlEncodedResourceID *string `validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -460,7 +475,7 @@ func (options *GetResourceEncodedOptions) SetHeaders(param map[string]string) *G
 // GetResourceOptions : The GetResource options.
 type GetResourceOptions struct {
 	// The id of the resource to retrieve.
-	ResourceID *string `json:"resource_id" validate:"required,ne="`
+	ResourceID *string `validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -488,7 +503,7 @@ func (options *GetResourceOptions) SetHeaders(param map[string]string) *GetResou
 // ListResourcesOptions : The ListResources options.
 type ListResourcesOptions struct {
 	// How many items to return at one time (max 100).
-	Limit *int64 `json:"limit,omitempty"`
+	Limit *int64
 
 	// Allows users to set headers on API requests
 	Headers map[string]string

@@ -2,7 +2,7 @@ language: go
 
 dist: xenial
 
-go: 1.12.x
+go: "1.14.x"
 
 # After creating your SDK project from this template repository,
 # remove this entire "jobs" section as this is only applicable
