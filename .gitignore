@@ -11,3 +11,11 @@ vendor/
 
 # credentials files
 *.env
+
+# IDE files
+*.idea
+.vscode/
+*.log
+
+# coverage
+coverage.txt
