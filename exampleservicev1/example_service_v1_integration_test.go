@@ -40,7 +40,7 @@ import (
  * Before running this test:
  * a. "cp example-service.env.hide example-service.env"
  * b. start up the ExampleService service by following the instructions here:
- * https://github.ibm.com/CloudEngineering/go-sdk-template/blob/master/README_FIRST.md#integration-tests
+ * https://github.ibm.com/CloudEngineering/go-sdk-template/blob/main/README_FIRST.md#integration-tests
  */
 
 var _ = Describe(`ExampleServiceV1 Integration Tests`, func() {

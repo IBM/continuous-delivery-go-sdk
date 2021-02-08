@@ -77,7 +77,7 @@ of your new repository, which will include this text:
 ...or push an existing repository from the command line
 
 git remote add origin git@github.com:padamstx/my-go-sdk.git
-git push -u origin master
+git push -u origin main
 ```
 - Take note of the two git commands listed above for your new repository, as we'll execute these later
 
@@ -122,7 +122,7 @@ $ git remote add origin git@github.com:padamstx/my-go-sdk.git
 
 ```sh
 [/work/demos/my-go-sdk]
-$ git push -u origin master
+$ git push -u origin main
 Enumerating objects: 36, done.
 Counting objects: 100% (36/36), done.
 Delta compression using up to 12 threads
@@ -131,8 +131,8 @@ Writing objects: 100% (36/36), 28.74 KiB | 28.74 MiB/s, done.
 Total 36 (delta 1), reused 36 (delta 1)
 remote: Resolving deltas: 100% (1/1), done.
 To github.com:padamstx/my-go-sdk.git
- * [new branch]      master -> master
-Branch 'master' set up to track remote branch 'master' from 'origin'.
+ * [new branch]      main -> main
+Branch 'main' set up to track remote branch 'main' from 'origin'.
 ```
 
 You have now created your new SDK repository on the `Public Github` server.
@@ -262,7 +262,7 @@ git commit -a -m "chore: prepare SDK project"
 
 ### 4. Add one or more services to the project
 For each service that you'd like to add to your SDK project, follow
-[these instructions](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/CONTRIBUTING_go.md#adding-a-new-service).
+[these instructions](https://github.com/IBM/ibm-cloud-sdk-common/blob/main/CONTRIBUTING_go.md#adding-a-new-service).
 
 ### 5. Build and test the project
 If you made it this far, congratulate yourself!
@@ -304,7 +304,7 @@ integration tests, please see
 For integration tests to run properly with an actual running instance of the service,
 credentials (e.g. IAM api key, etc.) must be provided as external configuration properties.
 Details about this can be found
-[here](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/README.md#using-external-configuration).
+[here](https://github.com/IBM/ibm-cloud-sdk-common/blob/main/README.md#using-external-configuration).
 
 An example integration test is located at `exampleservicev1/example_service_v1_integration_test.go`.
 In order to run the "example service" integration test,
@@ -336,7 +336,7 @@ git tag v0.0.1
 git push --tags
 ```
 This creates an initial "baseline" which `semantic-release` will use when merging the initial set of
-commits into the master branch.   This tag represents the initial version of the project.
+commits into the main branch.   This tag represents the initial version of the project.
 After adding this tag, be sure to use proper commit messages when making changes to the project.
 See the CONTRIBUTING document for information about commit messages.
 
@@ -352,7 +352,7 @@ as well:
 As a final step, be sure to uncomment the `deploy` stage within `.travis.yml`.
 
 Once these steps have been completed, your project should be ready for automated release management
-with `semantic-release`.  This means that whenever you merge a PR into the master branch, the commit
+with `semantic-release`.  This means that whenever you merge a PR into the main branch, the commit
 messages are analyzed by `semantic-release` to determine the next version number for the project
 (i.e. a new patch, minor or major version).  Once that is determined, `semantic-release` will perform
 actions to modify certain files within the project to reflect the new version, as well as 
@@ -362,7 +362,7 @@ build a new entry in the project's changelog and add a tag for the new version.
 To run integration tests within a Travis build, you'll need to encrypt the file containing the
 required external configuration properties.
 For details on how to do this, please see
-[this](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/EncryptingSecrets.md)
+[this](https://github.com/IBM/ibm-cloud-sdk-common/blob/main/EncryptingSecrets.md)
 
 
 ## Setting the ``User-Agent`` Header In Preparation for SDK Metrics Gathering
