@@ -1,8 +1,12 @@
 language: go
 
-dist: xenial
+dist: bionic
 
-go: "1.14.x"
+go:
+- 1.14.x
+- 1.16.x
+- 1.17.x
+
 
 # After creating your SDK project from this template repository,
 # remove this entire "jobs" section as this is only applicable
@@ -31,7 +35,6 @@ before_install:
   - sudo apt-get install python
   - nvm install 12
   - npm install -g npm@6.x
-  #- '[ "${TRAVIS_PULL_REQUEST}" == "false" ] && openssl aes-256-cbc -K $my_key -iv $my_iv -in myservice.env.enc -out myservice.env -d || true'
 
 install:
   - curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s -- -b $(go env GOPATH)/bin v1.41.1
@@ -59,4 +62,5 @@ script:
 #     script: npx semantic-release
 #     skip_cleanup: true
 #     on:
+#       go: '1.14.x'
 #       branch: main
