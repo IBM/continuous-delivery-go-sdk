@@ -59,8 +59,11 @@ fi
 
     # Update common Go files
     sed -i.bak 's/my-go-sdk/'${PROJECT_NAME}'/' common/headers.go
-    rm go.mod go.sum common/headers.go.bak
-    go mod init ${IMPORT_PATH}
+    rm common/headers.go.bak
+
+    # Update go.mod to contain correct import path
+    sed -i.bak 's~^module.*~module '${IMPORT_PATH}'~' go.mod
+    rm go.mod.bak
 
     printf "\n>>>>> common Go files updated."
 
