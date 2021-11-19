@@ -13,7 +13,6 @@ go:
 # to the template repo's travis build.
 jobs:
   include:
-    - stage: Build and run tests
     - stage: Run system test with template
       before_install:
         - echo -e "machine github.ibm.com\n  login $GITHUB_OAUTH_TOKEN" > ~/.netrc
