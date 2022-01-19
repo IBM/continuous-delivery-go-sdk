@@ -1,8 +1,6 @@
 ## PR summary
 <!-- please include a brief summary of the changes in this PR -->
 
-**Fixes:** <! -- link to issue -->
-
 ## PR Checklist
 Please make sure that your PR fulfills the following requirements:  
 - [ ] The commit message follows the [Angular Commit Message Guidelines](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#-commit-message-guidelines).
