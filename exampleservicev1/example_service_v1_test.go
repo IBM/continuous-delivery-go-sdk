@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,17 +20,18 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v5/core"
-	"github.com/go-openapi/strfmt"
-	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/gomega"
-	"github.ibm.com/CloudEngineering/go-sdk-template/exampleservicev1"
 	"io"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"os"
 	"time"
+
+	"github.com/IBM/go-sdk-core/v5/core"
+	"github.com/go-openapi/strfmt"
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
+	"github.ibm.com/CloudEngineering/go-sdk-template/exampleservicev1"
 )
 
 var _ = Describe(`ExampleServiceV1`, func() {
@@ -165,7 +166,7 @@ var _ = Describe(`ExampleServiceV1`, func() {
 	})
 	Describe(`ListResources(listResourcesOptions *ListResourcesOptions) - Operation response error`, func() {
 		listResourcesPath := "/resources"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -173,11 +174,10 @@ var _ = Describe(`ExampleServiceV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(listResourcesPath))
 					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke ListResources with error: Operation response processing error`, func() {
@@ -190,7 +190,7 @@ var _ = Describe(`ExampleServiceV1`, func() {
 
 				// Construct an instance of the ListResourcesOptions model
 				listResourcesOptionsModel := new(exampleservicev1.ListResourcesOptions)
-				listResourcesOptionsModel.Limit = core.Int64Ptr(int64(38))
+				listResourcesOptionsModel.Limit = core.Int64Ptr(int64(1))
 				listResourcesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := exampleServiceService.ListResources(listResourcesOptionsModel)
@@ -210,7 +210,6 @@ var _ = Describe(`ExampleServiceV1`, func() {
 			})
 		})
 	})
-
 	Describe(`ListResources(listResourcesOptions *ListResourcesOptions)`, func() {
 		listResourcesPath := "/resources"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -222,8 +221,7 @@ var _ = Describe(`ExampleServiceV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listResourcesPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -244,7 +242,7 @@ var _ = Describe(`ExampleServiceV1`, func() {
 
 				// Construct an instance of the ListResourcesOptions model
 				listResourcesOptionsModel := new(exampleservicev1.ListResourcesOptions)
-				listResourcesOptionsModel.Limit = core.Int64Ptr(int64(38))
+				listResourcesOptionsModel.Limit = core.Int64Ptr(int64(1))
 				listResourcesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -281,8 +279,7 @@ var _ = Describe(`ExampleServiceV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listResourcesPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -305,7 +302,7 @@ var _ = Describe(`ExampleServiceV1`, func() {
 
 				// Construct an instance of the ListResourcesOptions model
 				listResourcesOptionsModel := new(exampleservicev1.ListResourcesOptions)
-				listResourcesOptionsModel.Limit = core.Int64Ptr(int64(38))
+				listResourcesOptionsModel.Limit = core.Int64Ptr(int64(1))
 				listResourcesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -325,7 +322,7 @@ var _ = Describe(`ExampleServiceV1`, func() {
 
 				// Construct an instance of the ListResourcesOptions model
 				listResourcesOptionsModel := new(exampleservicev1.ListResourcesOptions)
-				listResourcesOptionsModel.Limit = core.Int64Ptr(int64(38))
+				listResourcesOptionsModel.Limit = core.Int64Ptr(int64(1))
 				listResourcesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := exampleServiceService.SetServiceURL("")
@@ -340,10 +337,44 @@ var _ = Describe(`ExampleServiceV1`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListResources successfully`, func() {
+				exampleServiceService, serviceErr := exampleservicev1.NewExampleServiceV1(&exampleservicev1.ExampleServiceV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(exampleServiceService).ToNot(BeNil())
+
+				// Construct an instance of the ListResourcesOptions model
+				listResourcesOptionsModel := new(exampleservicev1.ListResourcesOptions)
+				listResourcesOptionsModel.Limit = core.Int64Ptr(int64(1))
+				listResourcesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := exampleServiceService.ListResources(listResourcesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`CreateResource(createResourceOptions *CreateResourceOptions) - Operation response error`, func() {
 		createResourcePath := "/resources"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -353,7 +384,7 @@ var _ = Describe(`ExampleServiceV1`, func() {
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke CreateResource with error: Operation response processing error`, func() {
@@ -366,9 +397,9 @@ var _ = Describe(`ExampleServiceV1`, func() {
 
 				// Construct an instance of the CreateResourceOptions model
 				createResourceOptionsModel := new(exampleservicev1.CreateResourceOptions)
+				createResourceOptionsModel.Name = core.StringPtr("The Hunt for Red October")
+				createResourceOptionsModel.Tag = core.StringPtr("Book")
 				createResourceOptionsModel.ResourceID = core.StringPtr("testString")
-				createResourceOptionsModel.Name = core.StringPtr("testString")
-				createResourceOptionsModel.Tag = core.StringPtr("testString")
 				createResourceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := exampleServiceService.CreateResource(createResourceOptionsModel)
@@ -388,7 +419,6 @@ var _ = Describe(`ExampleServiceV1`, func() {
 			})
 		})
 	})
-
 	Describe(`CreateResource(createResourceOptions *CreateResourceOptions)`, func() {
 		createResourcePath := "/resources"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -436,9 +466,9 @@ var _ = Describe(`ExampleServiceV1`, func() {
 
 				// Construct an instance of the CreateResourceOptions model
 				createResourceOptionsModel := new(exampleservicev1.CreateResourceOptions)
+				createResourceOptionsModel.Name = core.StringPtr("The Hunt for Red October")
+				createResourceOptionsModel.Tag = core.StringPtr("Book")
 				createResourceOptionsModel.ResourceID = core.StringPtr("testString")
-				createResourceOptionsModel.Name = core.StringPtr("testString")
-				createResourceOptionsModel.Tag = core.StringPtr("testString")
 				createResourceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -513,9 +543,9 @@ var _ = Describe(`ExampleServiceV1`, func() {
 
 				// Construct an instance of the CreateResourceOptions model
 				createResourceOptionsModel := new(exampleservicev1.CreateResourceOptions)
+				createResourceOptionsModel.Name = core.StringPtr("The Hunt for Red October")
+				createResourceOptionsModel.Tag = core.StringPtr("Book")
 				createResourceOptionsModel.ResourceID = core.StringPtr("testString")
-				createResourceOptionsModel.Name = core.StringPtr("testString")
-				createResourceOptionsModel.Tag = core.StringPtr("testString")
 				createResourceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -535,9 +565,9 @@ var _ = Describe(`ExampleServiceV1`, func() {
 
 				// Construct an instance of the CreateResourceOptions model
 				createResourceOptionsModel := new(exampleservicev1.CreateResourceOptions)
+				createResourceOptionsModel.Name = core.StringPtr("The Hunt for Red October")
+				createResourceOptionsModel.Tag = core.StringPtr("Book")
 				createResourceOptionsModel.ResourceID = core.StringPtr("testString")
-				createResourceOptionsModel.Name = core.StringPtr("testString")
-				createResourceOptionsModel.Tag = core.StringPtr("testString")
 				createResourceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := exampleServiceService.SetServiceURL("")
@@ -559,10 +589,46 @@ var _ = Describe(`ExampleServiceV1`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(201)
+				}))
+			})
+			It(`Invoke CreateResource successfully`, func() {
+				exampleServiceService, serviceErr := exampleservicev1.NewExampleServiceV1(&exampleservicev1.ExampleServiceV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(exampleServiceService).ToNot(BeNil())
+
+				// Construct an instance of the CreateResourceOptions model
+				createResourceOptionsModel := new(exampleservicev1.CreateResourceOptions)
+				createResourceOptionsModel.Name = core.StringPtr("The Hunt for Red October")
+				createResourceOptionsModel.Tag = core.StringPtr("Book")
+				createResourceOptionsModel.ResourceID = core.StringPtr("testString")
+				createResourceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := exampleServiceService.CreateResource(createResourceOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`GetResource(getResourceOptions *GetResourceOptions) - Operation response error`, func() {
-		getResourcePath := "/resources/testString"
-		Context(`Using mock server endpoint`, func() {
+		getResourcePath := "/resources/1"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -572,7 +638,7 @@ var _ = Describe(`ExampleServiceV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke GetResource with error: Operation response processing error`, func() {
@@ -585,7 +651,7 @@ var _ = Describe(`ExampleServiceV1`, func() {
 
 				// Construct an instance of the GetResourceOptions model
 				getResourceOptionsModel := new(exampleservicev1.GetResourceOptions)
-				getResourceOptionsModel.ResourceID = core.StringPtr("testString")
+				getResourceOptionsModel.ResourceID = core.StringPtr("1")
 				getResourceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := exampleServiceService.GetResource(getResourceOptionsModel)
@@ -605,9 +671,8 @@ var _ = Describe(`ExampleServiceV1`, func() {
 			})
 		})
 	})
-
 	Describe(`GetResource(getResourceOptions *GetResourceOptions)`, func() {
-		getResourcePath := "/resources/testString"
+		getResourcePath := "/resources/1"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -637,7 +702,7 @@ var _ = Describe(`ExampleServiceV1`, func() {
 
 				// Construct an instance of the GetResourceOptions model
 				getResourceOptionsModel := new(exampleservicev1.GetResourceOptions)
-				getResourceOptionsModel.ResourceID = core.StringPtr("testString")
+				getResourceOptionsModel.ResourceID = core.StringPtr("1")
 				getResourceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -696,7 +761,7 @@ var _ = Describe(`ExampleServiceV1`, func() {
 
 				// Construct an instance of the GetResourceOptions model
 				getResourceOptionsModel := new(exampleservicev1.GetResourceOptions)
-				getResourceOptionsModel.ResourceID = core.StringPtr("testString")
+				getResourceOptionsModel.ResourceID = core.StringPtr("1")
 				getResourceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -716,7 +781,7 @@ var _ = Describe(`ExampleServiceV1`, func() {
 
 				// Construct an instance of the GetResourceOptions model
 				getResourceOptionsModel := new(exampleservicev1.GetResourceOptions)
-				getResourceOptionsModel.ResourceID = core.StringPtr("testString")
+				getResourceOptionsModel.ResourceID = core.StringPtr("1")
 				getResourceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := exampleServiceService.SetServiceURL("")
@@ -738,10 +803,44 @@ var _ = Describe(`ExampleServiceV1`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetResource successfully`, func() {
+				exampleServiceService, serviceErr := exampleservicev1.NewExampleServiceV1(&exampleservicev1.ExampleServiceV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(exampleServiceService).ToNot(BeNil())
+
+				// Construct an instance of the GetResourceOptions model
+				getResourceOptionsModel := new(exampleservicev1.GetResourceOptions)
+				getResourceOptionsModel.ResourceID = core.StringPtr("1")
+				getResourceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := exampleServiceService.GetResource(getResourceOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`GetResourceEncoded(getResourceEncodedOptions *GetResourceEncodedOptions) - Operation response error`, func() {
 		getResourceEncodedPath := "/resources/encoded/url%253encoded%253resource%253id"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -751,7 +850,7 @@ var _ = Describe(`ExampleServiceV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke GetResourceEncoded with error: Operation response processing error`, func() {
@@ -784,7 +883,6 @@ var _ = Describe(`ExampleServiceV1`, func() {
 			})
 		})
 	})
-
 	Describe(`GetResourceEncoded(getResourceEncodedOptions *GetResourceEncodedOptions)`, func() {
 		getResourceEncodedPath := "/resources/encoded/url%253encoded%253resource%253id"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -917,6 +1015,40 @@ var _ = Describe(`ExampleServiceV1`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetResourceEncoded successfully`, func() {
+				exampleServiceService, serviceErr := exampleservicev1.NewExampleServiceV1(&exampleservicev1.ExampleServiceV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(exampleServiceService).ToNot(BeNil())
+
+				// Construct an instance of the GetResourceEncodedOptions model
+				getResourceEncodedOptionsModel := new(exampleservicev1.GetResourceEncodedOptions)
+				getResourceEncodedOptionsModel.UrlEncodedResourceID = core.StringPtr("url%3encoded%3resource%3id")
+				getResourceEncodedOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := exampleServiceService.GetResourceEncoded(getResourceEncodedOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
@@ -926,17 +1058,17 @@ var _ = Describe(`ExampleServiceV1`, func() {
 			})
 			It(`Invoke NewCreateResourceOptions successfully`, func() {
 				// Construct an instance of the CreateResourceOptions model
-				createResourceOptionsResourceID := "testString"
-				createResourceOptionsName := "testString"
-				createResourceOptionsModel := exampleServiceService.NewCreateResourceOptions(createResourceOptionsResourceID, createResourceOptionsName)
+				createResourceOptionsName := "The Hunt for Red October"
+				createResourceOptionsTag := "Book"
+				createResourceOptionsModel := exampleServiceService.NewCreateResourceOptions(createResourceOptionsName, createResourceOptionsTag)
+				createResourceOptionsModel.SetName("The Hunt for Red October")
+				createResourceOptionsModel.SetTag("Book")
 				createResourceOptionsModel.SetResourceID("testString")
-				createResourceOptionsModel.SetName("testString")
-				createResourceOptionsModel.SetTag("testString")
 				createResourceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createResourceOptionsModel).ToNot(BeNil())
+				Expect(createResourceOptionsModel.Name).To(Equal(core.StringPtr("The Hunt for Red October")))
+				Expect(createResourceOptionsModel.Tag).To(Equal(core.StringPtr("Book")))
 				Expect(createResourceOptionsModel.ResourceID).To(Equal(core.StringPtr("testString")))
-				Expect(createResourceOptionsModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(createResourceOptionsModel.Tag).To(Equal(core.StringPtr("testString")))
 				Expect(createResourceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetResourceEncodedOptions successfully`, func() {
@@ -951,28 +1083,28 @@ var _ = Describe(`ExampleServiceV1`, func() {
 			})
 			It(`Invoke NewGetResourceOptions successfully`, func() {
 				// Construct an instance of the GetResourceOptions model
-				resourceID := "testString"
+				resourceID := "1"
 				getResourceOptionsModel := exampleServiceService.NewGetResourceOptions(resourceID)
-				getResourceOptionsModel.SetResourceID("testString")
+				getResourceOptionsModel.SetResourceID("1")
 				getResourceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getResourceOptionsModel).ToNot(BeNil())
-				Expect(getResourceOptionsModel.ResourceID).To(Equal(core.StringPtr("testString")))
+				Expect(getResourceOptionsModel.ResourceID).To(Equal(core.StringPtr("1")))
 				Expect(getResourceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListResourcesOptions successfully`, func() {
 				// Construct an instance of the ListResourcesOptions model
 				listResourcesOptionsModel := exampleServiceService.NewListResourcesOptions()
-				listResourcesOptionsModel.SetLimit(int64(38))
+				listResourcesOptionsModel.SetLimit(int64(1))
 				listResourcesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listResourcesOptionsModel).ToNot(BeNil())
-				Expect(listResourcesOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(listResourcesOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(1))))
 				Expect(listResourcesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewResource successfully`, func() {
-				resourceID := "testString"
 				name := "testString"
-				model, err := exampleServiceService.NewResource(resourceID, name)
-				Expect(model).ToNot(BeNil())
+				tag := "testString"
+				_model, err := exampleServiceService.NewResource(name, tag)
+				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
 		})
@@ -991,11 +1123,11 @@ var _ = Describe(`ExampleServiceV1`, func() {
 			Expect(mockReader).ToNot(BeNil())
 		})
 		It(`Invoke CreateMockDate() successfully`, func() {
-			mockDate := CreateMockDate()
+			mockDate := CreateMockDate("2019-01-01")
 			Expect(mockDate).ToNot(BeNil())
 		})
 		It(`Invoke CreateMockDateTime() successfully`, func() {
-			mockDateTime := CreateMockDateTime()
+			mockDateTime := CreateMockDateTime("2019-01-01T12:00:00.000Z")
 			Expect(mockDateTime).ToNot(BeNil())
 		})
 	})
@@ -1020,13 +1152,19 @@ func CreateMockReader(mockData string) io.ReadCloser {
 	return ioutil.NopCloser(bytes.NewReader([]byte(mockData)))
 }
 
-func CreateMockDate() *strfmt.Date {
-	d := strfmt.Date(time.Date(2009, time.November, 10, 23, 0, 0, 0, time.UTC))
+func CreateMockDate(mockData string) *strfmt.Date {
+	d, err := core.ParseDate(mockData)
+	if err != nil {
+		return nil
+	}
 	return &d
 }
 
-func CreateMockDateTime() *strfmt.DateTime {
-	d := strfmt.DateTime(time.Date(2009, time.November, 10, 23, 0, 0, 0, time.UTC))
+func CreateMockDateTime(mockData string) *strfmt.DateTime {
+	d, err := core.ParseDateTime(mockData)
+	if err != nil {
+		return nil
+	}
 	return &d
 }
 

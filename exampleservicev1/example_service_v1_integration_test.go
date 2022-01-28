@@ -1,7 +1,7 @@
 // +build integration
 
 /**
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,14 +38,14 @@ import (
  * The integration test will automatically skip tests if the required config file is not available.
  *
  * Before running this test:
- * a. "cp example-service.env.hide example-service.env"
+ * a. "cp example-service.env.hide example_service_v1.env"
  * b. start up the ExampleService service by following the instructions here:
  * https://github.ibm.com/CloudEngineering/go-sdk-template/blob/main/README_FIRST.md#integration-tests
  */
 
 var _ = Describe(`ExampleServiceV1 Integration Tests`, func() {
 
-	const externalConfigFile = "../example-service.env"
+	const externalConfigFile = "../example_service_v1.env"
 
 	var (
 		err                   error
@@ -99,8 +99,7 @@ var _ = Describe(`ExampleServiceV1 Integration Tests`, func() {
 			Expect(exampleServiceService).ToNot(BeNil())
 			Expect(exampleServiceService.Service.Options.URL).To(Equal(serviceURL))
 
-			goLogger := log.New(GinkgoWriter, "", log.LstdFlags)
-			core.SetLogger(core.NewLogger(core.LevelDebug, goLogger, goLogger))
+			core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags), log.New(GinkgoWriter, "", log.LstdFlags)))
 			exampleServiceService.EnableRetries(4, 30*time.Second)
 		})
 	})
@@ -112,9 +111,8 @@ var _ = Describe(`ExampleServiceV1 Integration Tests`, func() {
 		It(`CreateResource(createResourceOptions *CreateResourceOptions)`, func() {
 
 			createResourceOptions := &exampleservicev1.CreateResourceOptions{
-				ResourceID: core.StringPtr("3"),
-				Name:       core.StringPtr("To Kill a MockingBird"),
-				Tag:        core.StringPtr("Book"),
+				Name: core.StringPtr("The Hunt for Red October"),
+				Tag:  core.StringPtr("Book"),
 			}
 
 			resource, response, err := exampleServiceService.CreateResource(createResourceOptions)
@@ -123,11 +121,8 @@ var _ = Describe(`ExampleServiceV1 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(resource).ToNot(BeNil())
 
-			Expect(*resource.ResourceID).To(Equal("3"))
-			Expect(*resource.Name).To(Equal("To Kill a MockingBird"))
-			Expect(*resource.Tag).To(Equal("Book"))
-
 			getResourceLink = *resource.ResourceID
+
 		})
 	})
 
@@ -138,7 +133,7 @@ var _ = Describe(`ExampleServiceV1 Integration Tests`, func() {
 		It(`ListResources(listResourcesOptions *ListResourcesOptions)`, func() {
 
 			listResourcesOptions := &exampleservicev1.ListResourcesOptions{
-				Limit: core.Int64Ptr(int64(100)),
+				Limit: core.Int64Ptr(int64(1)),
 			}
 
 			resources, response, err := exampleServiceService.ListResources(listResourcesOptions)
@@ -146,6 +141,7 @@ var _ = Describe(`ExampleServiceV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(resources).ToNot(BeNil())
+
 		})
 	})
 
@@ -154,10 +150,9 @@ var _ = Describe(`ExampleServiceV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`GetResource(getResourceOptions *GetResourceOptions)`, func() {
-			Expect(getResourceLink).ToNot(BeEmpty())
 
 			getResourceOptions := &exampleservicev1.GetResourceOptions{
-				ResourceID: core.StringPtr(getResourceLink),
+				ResourceID: &getResourceLink,
 			}
 
 			resource, response, err := exampleServiceService.GetResource(getResourceOptions)
@@ -166,20 +161,46 @@ var _ = Describe(`ExampleServiceV1 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(resource).ToNot(BeNil())
 
-			Expect(*resource.ResourceID).To(Equal("3"))
-			Expect(*resource.Name).To(Equal("To Kill a MockingBird"))
-			Expect(*resource.Tag).To(Equal("Book"))
 		})
-		It(`Negative test - invoke GetResource() with error`, func() {
-			resourceID := "BAD_RESOURCE_ID"
-			getResourceOptions := &exampleservicev1.GetResourceOptions{
-				ResourceID: &resourceID,
+	})
+
+	Describe(`GetResourceEncoded - Info for a specific resource`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`Create resource with special id chars`, func() {
+
+			createResourceOptions := &exampleservicev1.CreateResourceOptions{
+				Name:       core.StringPtr("Debt of Honor"),
+				Tag:        core.StringPtr("Book"),
+				ResourceID: core.StringPtr("url%3encoded%3resource%3id"),
 			}
-			result, detailedResponse, err := exampleServiceService.GetResource(getResourceOptions)
-			Expect(err).ToNot(BeNil())
-			Expect(detailedResponse).ToNot(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(404))
-			Expect(result).To(BeNil())
+
+			resource, response, err := exampleServiceService.CreateResource(createResourceOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(resource).ToNot(BeNil())
+
+			getResourceLink = *resource.ResourceID
+
+		})
+		It(`GetResourceEncoded(getResourceEncodedOptions *GetResourceEncodedOptions)`, func() {
+
+			getResourceEncodedOptions := &exampleservicev1.GetResourceEncodedOptions{
+				UrlEncodedResourceID: core.StringPtr("url%3encoded%3resource%3id"),
+			}
+
+			resource, response, err := exampleServiceService.GetResourceEncoded(getResourceEncodedOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(resource).ToNot(BeNil())
+
 		})
 	})
 })
+
+//
+// Utility functions are declared in the unit test file
+//
