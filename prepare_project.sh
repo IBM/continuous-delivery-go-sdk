@@ -55,7 +55,7 @@ fi
 
     # Remove sample files
     rm -r exampleservicev1
-    rm example-service.env.hide
+    rm example_service_v1.env.hide
     printf "\n>>>>> Example Service files removed.\n"
 
     # Update common Go files
