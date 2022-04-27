@@ -407,12 +407,12 @@ require (
 Note that the `<go version>` value will reflect the version of the Go engine that was used to build/test
 the project.  If this does not match the minimum version of Go that you would like to support with your
 SDK project, then you should manually change the `go.mod` file to reflect that.
-For example, suppose that you have Go version 1.15 installed in your local environment and your `go.mod` 
+For example, suppose that you have Go version 1.18 installed in your local environment and your `go.mod` 
 file looks like this after you initially build/test your new SDK project:
 ```
 module github.com/IBM/my-go-sdk
 
-go 1.15
+go 1.18
 
 require (
 	github.com/IBM/go-sdk-core/v5 v5.3.0
@@ -422,13 +422,13 @@ require (
 	github.com/stretchr/testify v1.6.1
 )
 ```
-Also, suppose that you'd like your SDK project to support 1.14 as the minimum version of Go.
-In this case, you should manually change the `go 1.15` line to be `go 1.14`.  The resulting file would
+Also, suppose that you'd like your SDK project to support 1.16 as the minimum version of Go.
+In this case, you should manually change the `go 1.18` line to be `go 1.16`.  The resulting file would
 look like this:
 ```
 module github.com/IBM/my-go-sdk
 
-go 1.14
+go 1.16
 
 require (
 	github.com/IBM/go-sdk-core/v5 v5.3.0

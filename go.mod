@@ -1,6 +1,6 @@
 module github.ibm.com/CloudEngineering/go-sdk-template
 
-go 1.14
+go 1.16
 
 require (
 	github.com/IBM/go-sdk-core/v5 v5.9.5
