@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package exampleservicev1_test
+package cdtoolchainv2_test
 
 import (
 	"testing"
@@ -23,7 +23,7 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-func TestExampleServiceV1(t *testing.T) {
+func TestCdToolchainV2(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "ExampleServiceV1 Suite")
+	RunSpecs(t, "CdToolchainV2 Suite")
 }

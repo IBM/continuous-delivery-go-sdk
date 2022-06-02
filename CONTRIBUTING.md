@@ -5,7 +5,7 @@ please ask a question at
 
 # Issues
 If you encounter an issue with the project, you are welcome to submit a
-[bug report](<github-repo-url>/issues).
+[bug report](https://github.com/IBM/continuous-delivery-go-sdk/issues).
 Before that, please search for similar issues. It's possible that someone has already reported the problem.
 
 # General Information

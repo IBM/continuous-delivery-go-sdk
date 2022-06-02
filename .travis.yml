@@ -8,19 +8,6 @@ go:
 - 1.18.x
 
 
-# After creating your SDK project from this template repository,
-# remove this entire "jobs" section as this is only applicable
-# to the template repo's travis build.
-jobs:
-  include:
-    - stage: Run system test with template
-      before_install:
-        - echo -e "machine github.ibm.com\n  login $GITHUB_OAUTH_TOKEN" > ~/.netrc
-      script:
-        - git clone https://github.ibm.com/CloudEngineering/sdkgen-systest.git
-        - cd sdkgen-systest
-        - ./install_scripts/install_deps_ubuntu.sh
-        - ./setup_and_generate.sh -l ibm-go -t $TRAVIS_BRANCH -s
 
 notifications:
   email: true
