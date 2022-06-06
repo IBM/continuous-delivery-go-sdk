@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.48.0-e80b60a1-20220414-145125
+ * IBM OpenAPI SDK Code Generator Version: 3.50.0-af9e48c4-20220523-163800
  */
 
 // Package cdtektonpipelinev2 : Operations and models for the CdTektonPipelineV2 service
@@ -31,9 +31,9 @@ import (
 	"strings"
 	"time"
 
-	common "github.com/IBM/continuous-delivery-go-sdk/common"
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/go-openapi/strfmt"
+	common "github.ibm.com/org-ids/tekton-pipeline-go-sdk/common"
 )
 
 // CdTektonPipelineV2 : Continuous Delivery Tekton pipeline API definition <br><br> Maximum request payload size is 512
@@ -47,7 +47,7 @@ type CdTektonPipelineV2 struct {
 }
 
 // DefaultServiceURL is the default URL to make service requests to.
-const DefaultServiceURL = "https://devops-api.us-south.devops.cloud.ibm.com/v2"
+const DefaultServiceURL = "https://api.us-south.devops.cloud.ibm.com/v2"
 
 // DefaultServiceName is the default key used to find external configuration information.
 const DefaultServiceName = "cd_tekton_pipeline"
@@ -117,15 +117,15 @@ func NewCdTektonPipelineV2(options *CdTektonPipelineV2Options) (service *CdTekto
 // GetServiceURLForRegion returns the service URL to be used for the specified region
 func GetServiceURLForRegion(region string) (string, error) {
 	var endpoints = map[string]string{
-		"us-south": "https://devops-api.us-south.devops.cloud.ibm.com/v2", // The host URL for Tekton Pipeline Service in the us-south region.
-		"us-east":  "https://devops-api.us-east.devops.cloud.ibm.com/v2",  // The host URL for Tekton Pipeline Service in the us-east region.
-		"eu-de":    "https://devops-api.eu-de.devops.cloud.ibm.com/v2",    // The host URL for Tekton Pipeline Service in the eu-de region.
-		"eu-gb":    "https://devops-api.eu-gb.devops.cloud.ibm.com/v2",    // The host URL for Tekton Pipeline Service in the eu-gb region.
-		"jp-osa":   "https://devops-api.jp-osa.devops.cloud.ibm.com/v2",   // The host URL for Tekton Pipeline Service in the jp-osa region.
-		"jp-tok":   "https://devops-api.jp-tok.devops.cloud.ibm.com/v2",   // The host URL for Tekton Pipeline Service in the jp-tok region.
-		"au-syd":   "https://devops-api.au-syd.devops.cloud.ibm.com/v2",   // The host URL for Tekton Pipeline Service in the au-syd region.
-		"ca-tor":   "https://devops-api.ca-tor.devops.cloud.ibm.com/v2",   // The host URL for Tekton Pipeline Service in the ca-tor region.
-		"br-sao":   "https://devops-api.br-sao.devops.cloud.ibm.com/v2",   // The host URL for Tekton Pipeline Service in the br-sao region.
+		"us-south": "https://api.us-south.devops.cloud.ibm.com/v2", // The host URL for Tekton Pipeline Service in the us-south region.
+		"us-east": "https://api.us-east.devops.cloud.ibm.com/v2", // The host URL for Tekton Pipeline Service in the us-east region.
+		"eu-de": "https://api.eu-de.devops.cloud.ibm.com/v2", // The host URL for Tekton Pipeline Service in the eu-de region.
+		"eu-gb": "https://api.eu-gb.devops.cloud.ibm.com/v2", // The host URL for Tekton Pipeline Service in the eu-gb region.
+		"jp-osa": "https://api.jp-osa.devops.cloud.ibm.com/v2", // The host URL for Tekton Pipeline Service in the jp-osa region.
+		"jp-tok": "https://api.jp-tok.devops.cloud.ibm.com/v2", // The host URL for Tekton Pipeline Service in the jp-tok region.
+		"au-syd": "https://api.au-syd.devops.cloud.ibm.com/v2", // The host URL for Tekton Pipeline Service in the au-syd region.
+		"ca-tor": "https://api.ca-tor.devops.cloud.ibm.com/v2", // The host URL for Tekton Pipeline Service in the ca-tor region.
+		"br-sao": "https://api.br-sao.devops.cloud.ibm.com/v2", // The host URL for Tekton Pipeline Service in the br-sao region.
 	}
 
 	if url, ok := endpoints[region]; ok {
@@ -602,7 +602,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineRunWithContext(ctx 
 
 	pathParamsMap := map[string]string{
 		"pipeline_id": *getTektonPipelineRunOptions.PipelineID,
-		"id":          *getTektonPipelineRunOptions.ID,
+		"id": *getTektonPipelineRunOptions.ID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -667,7 +667,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelineRunWithContext(c
 
 	pathParamsMap := map[string]string{
 		"pipeline_id": *deleteTektonPipelineRunOptions.PipelineID,
-		"id":          *deleteTektonPipelineRunOptions.ID,
+		"id": *deleteTektonPipelineRunOptions.ID,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -716,7 +716,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) CancelTektonPipelineRunWithContext(c
 
 	pathParamsMap := map[string]string{
 		"pipeline_id": *cancelTektonPipelineRunOptions.PipelineID,
-		"id":          *cancelTektonPipelineRunOptions.ID,
+		"id": *cancelTektonPipelineRunOptions.ID,
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
@@ -787,7 +787,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) RerunTektonPipelineRunWithContext(ct
 
 	pathParamsMap := map[string]string{
 		"pipeline_id": *rerunTektonPipelineRunOptions.PipelineID,
-		"id":          *rerunTektonPipelineRunOptions.ID,
+		"id": *rerunTektonPipelineRunOptions.ID,
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
@@ -848,7 +848,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineRunLogsWithContext(
 
 	pathParamsMap := map[string]string{
 		"pipeline_id": *getTektonPipelineRunLogsOptions.PipelineID,
-		"id":          *getTektonPipelineRunLogsOptions.ID,
+		"id": *getTektonPipelineRunLogsOptions.ID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -909,9 +909,9 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineRunLogContentWithCo
 	}
 
 	pathParamsMap := map[string]string{
-		"pipeline_id":     *getTektonPipelineRunLogContentOptions.PipelineID,
+		"pipeline_id": *getTektonPipelineRunLogContentOptions.PipelineID,
 		"pipeline_run_id": *getTektonPipelineRunLogContentOptions.PipelineRunID,
-		"id":              *getTektonPipelineRunLogContentOptions.ID,
+		"id": *getTektonPipelineRunLogContentOptions.ID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -1103,7 +1103,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineDefinitionWithConte
 	}
 
 	pathParamsMap := map[string]string{
-		"pipeline_id":   *getTektonPipelineDefinitionOptions.PipelineID,
+		"pipeline_id": *getTektonPipelineDefinitionOptions.PipelineID,
 		"definition_id": *getTektonPipelineDefinitionOptions.DefinitionID,
 	}
 
@@ -1165,7 +1165,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) ReplaceTektonPipelineDefinitionWithC
 	}
 
 	pathParamsMap := map[string]string{
-		"pipeline_id":   *replaceTektonPipelineDefinitionOptions.PipelineID,
+		"pipeline_id": *replaceTektonPipelineDefinitionOptions.PipelineID,
 		"definition_id": *replaceTektonPipelineDefinitionOptions.DefinitionID,
 	}
 
@@ -1242,7 +1242,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelineDefinitionWithCo
 	}
 
 	pathParamsMap := map[string]string{
-		"pipeline_id":   *deleteTektonPipelineDefinitionOptions.PipelineID,
+		"pipeline_id": *deleteTektonPipelineDefinitionOptions.PipelineID,
 		"definition_id": *deleteTektonPipelineDefinitionOptions.DefinitionID,
 	}
 
@@ -1446,7 +1446,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelinePropertyWithContext
 	}
 
 	pathParamsMap := map[string]string{
-		"pipeline_id":   *getTektonPipelinePropertyOptions.PipelineID,
+		"pipeline_id": *getTektonPipelinePropertyOptions.PipelineID,
 		"property_name": *getTektonPipelinePropertyOptions.PropertyName,
 	}
 
@@ -1508,7 +1508,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) ReplaceTektonPipelinePropertyWithCon
 	}
 
 	pathParamsMap := map[string]string{
-		"pipeline_id":   *replaceTektonPipelinePropertyOptions.PipelineID,
+		"pipeline_id": *replaceTektonPipelinePropertyOptions.PipelineID,
 		"property_name": *replaceTektonPipelinePropertyOptions.PropertyName,
 	}
 
@@ -1594,7 +1594,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelinePropertyWithCont
 	}
 
 	pathParamsMap := map[string]string{
-		"pipeline_id":   *deleteTektonPipelinePropertyOptions.PipelineID,
+		"pipeline_id": *deleteTektonPipelinePropertyOptions.PipelineID,
 		"property_name": *deleteTektonPipelinePropertyOptions.PropertyName,
 	}
 
@@ -1794,7 +1794,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineTriggerWithContext(
 
 	pathParamsMap := map[string]string{
 		"pipeline_id": *getTektonPipelineTriggerOptions.PipelineID,
-		"trigger_id":  *getTektonPipelineTriggerOptions.TriggerID,
+		"trigger_id": *getTektonPipelineTriggerOptions.TriggerID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -1856,7 +1856,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) UpdateTektonPipelineTriggerWithConte
 
 	pathParamsMap := map[string]string{
 		"pipeline_id": *updateTektonPipelineTriggerOptions.PipelineID,
-		"trigger_id":  *updateTektonPipelineTriggerOptions.TriggerID,
+		"trigger_id": *updateTektonPipelineTriggerOptions.TriggerID,
 	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
@@ -1960,7 +1960,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelineTriggerWithConte
 
 	pathParamsMap := map[string]string{
 		"pipeline_id": *deleteTektonPipelineTriggerOptions.PipelineID,
-		"trigger_id":  *deleteTektonPipelineTriggerOptions.TriggerID,
+		"trigger_id": *deleteTektonPipelineTriggerOptions.TriggerID,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -2009,7 +2009,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineTriggerPropertiesW
 
 	pathParamsMap := map[string]string{
 		"pipeline_id": *listTektonPipelineTriggerPropertiesOptions.PipelineID,
-		"trigger_id":  *listTektonPipelineTriggerPropertiesOptions.TriggerID,
+		"trigger_id": *listTektonPipelineTriggerPropertiesOptions.TriggerID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -2074,7 +2074,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineTriggerPropertie
 
 	pathParamsMap := map[string]string{
 		"pipeline_id": *createTektonPipelineTriggerPropertiesOptions.PipelineID,
-		"trigger_id":  *createTektonPipelineTriggerPropertiesOptions.TriggerID,
+		"trigger_id": *createTektonPipelineTriggerPropertiesOptions.TriggerID,
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
@@ -2159,8 +2159,8 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineTriggerPropertyWith
 	}
 
 	pathParamsMap := map[string]string{
-		"pipeline_id":   *getTektonPipelineTriggerPropertyOptions.PipelineID,
-		"trigger_id":    *getTektonPipelineTriggerPropertyOptions.TriggerID,
+		"pipeline_id": *getTektonPipelineTriggerPropertyOptions.PipelineID,
+		"trigger_id": *getTektonPipelineTriggerPropertyOptions.TriggerID,
 		"property_name": *getTektonPipelineTriggerPropertyOptions.PropertyName,
 	}
 
@@ -2222,8 +2222,8 @@ func (cdTektonPipeline *CdTektonPipelineV2) ReplaceTektonPipelineTriggerProperty
 	}
 
 	pathParamsMap := map[string]string{
-		"pipeline_id":   *replaceTektonPipelineTriggerPropertyOptions.PipelineID,
-		"trigger_id":    *replaceTektonPipelineTriggerPropertyOptions.TriggerID,
+		"pipeline_id": *replaceTektonPipelineTriggerPropertyOptions.PipelineID,
+		"trigger_id": *replaceTektonPipelineTriggerPropertyOptions.TriggerID,
 		"property_name": *replaceTektonPipelineTriggerPropertyOptions.PropertyName,
 	}
 
@@ -2309,8 +2309,8 @@ func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelineTriggerPropertyW
 	}
 
 	pathParamsMap := map[string]string{
-		"pipeline_id":   *deleteTektonPipelineTriggerPropertyOptions.PipelineID,
-		"trigger_id":    *deleteTektonPipelineTriggerPropertyOptions.TriggerID,
+		"pipeline_id": *deleteTektonPipelineTriggerPropertyOptions.PipelineID,
+		"trigger_id": *deleteTektonPipelineTriggerPropertyOptions.TriggerID,
 		"property_name": *deleteTektonPipelineTriggerPropertyOptions.PropertyName,
 	}
 
@@ -2360,7 +2360,7 @@ type CancelTektonPipelineRunOptions struct {
 func (*CdTektonPipelineV2) NewCancelTektonPipelineRunOptions(pipelineID string, id string) *CancelTektonPipelineRunOptions {
 	return &CancelTektonPipelineRunOptions{
 		PipelineID: core.StringPtr(pipelineID),
-		ID:         core.StringPtr(id),
+		ID: core.StringPtr(id),
 	}
 }
 
@@ -2507,11 +2507,11 @@ type CreateTektonPipelinePropertiesOptions struct {
 // Constants associated with the CreateTektonPipelinePropertiesOptions.Type property.
 // Property type.
 const (
-	CreateTektonPipelinePropertiesOptionsTypeAppconfigConst    = "APPCONFIG"
-	CreateTektonPipelinePropertiesOptionsTypeIntegrationConst  = "INTEGRATION"
-	CreateTektonPipelinePropertiesOptionsTypeSecureConst       = "SECURE"
+	CreateTektonPipelinePropertiesOptionsTypeAppconfigConst = "APPCONFIG"
+	CreateTektonPipelinePropertiesOptionsTypeIntegrationConst = "INTEGRATION"
+	CreateTektonPipelinePropertiesOptionsTypeSecureConst = "SECURE"
 	CreateTektonPipelinePropertiesOptionsTypeSingleSelectConst = "SINGLE_SELECT"
-	CreateTektonPipelinePropertiesOptionsTypeTextConst         = "TEXT"
+	CreateTektonPipelinePropertiesOptionsTypeTextConst = "TEXT"
 )
 
 // NewCreateTektonPipelinePropertiesOptions : Instantiate CreateTektonPipelinePropertiesOptions
@@ -2715,18 +2715,18 @@ type CreateTektonPipelineTriggerPropertiesOptions struct {
 // Constants associated with the CreateTektonPipelineTriggerPropertiesOptions.Type property.
 // Property type.
 const (
-	CreateTektonPipelineTriggerPropertiesOptionsTypeAppconfigConst    = "APPCONFIG"
-	CreateTektonPipelineTriggerPropertiesOptionsTypeIntegrationConst  = "INTEGRATION"
-	CreateTektonPipelineTriggerPropertiesOptionsTypeSecureConst       = "SECURE"
+	CreateTektonPipelineTriggerPropertiesOptionsTypeAppconfigConst = "APPCONFIG"
+	CreateTektonPipelineTriggerPropertiesOptionsTypeIntegrationConst = "INTEGRATION"
+	CreateTektonPipelineTriggerPropertiesOptionsTypeSecureConst = "SECURE"
 	CreateTektonPipelineTriggerPropertiesOptionsTypeSingleSelectConst = "SINGLE_SELECT"
-	CreateTektonPipelineTriggerPropertiesOptionsTypeTextConst         = "TEXT"
+	CreateTektonPipelineTriggerPropertiesOptionsTypeTextConst = "TEXT"
 )
 
 // NewCreateTektonPipelineTriggerPropertiesOptions : Instantiate CreateTektonPipelineTriggerPropertiesOptions
 func (*CdTektonPipelineV2) NewCreateTektonPipelineTriggerPropertiesOptions(pipelineID string, triggerID string) *CreateTektonPipelineTriggerPropertiesOptions {
 	return &CreateTektonPipelineTriggerPropertiesOptions{
 		PipelineID: core.StringPtr(pipelineID),
-		TriggerID:  core.StringPtr(triggerID),
+		TriggerID: core.StringPtr(triggerID),
 	}
 }
 
@@ -2799,9 +2799,9 @@ type Definition struct {
 // NewDefinition : Instantiate Definition (Generic Model Constructor)
 func (*CdTektonPipelineV2) NewDefinition(scmSource *DefinitionScmSource, serviceInstanceID string, id string) (_model *Definition, err error) {
 	_model = &Definition{
-		ScmSource:         scmSource,
+		ScmSource: scmSource,
 		ServiceInstanceID: core.StringPtr(serviceInstanceID),
-		ID:                core.StringPtr(id),
+		ID: core.StringPtr(id),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	return
@@ -2844,7 +2844,7 @@ type DefinitionScmSource struct {
 // NewDefinitionScmSource : Instantiate DefinitionScmSource (Generic Model Constructor)
 func (*CdTektonPipelineV2) NewDefinitionScmSource(url string, path string) (_model *DefinitionScmSource, err error) {
 	_model = &DefinitionScmSource{
-		URL:  core.StringPtr(url),
+		URL: core.StringPtr(url),
 		Path: core.StringPtr(path),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -2945,7 +2945,7 @@ type DeleteTektonPipelineDefinitionOptions struct {
 // NewDeleteTektonPipelineDefinitionOptions : Instantiate DeleteTektonPipelineDefinitionOptions
 func (*CdTektonPipelineV2) NewDeleteTektonPipelineDefinitionOptions(pipelineID string, definitionID string) *DeleteTektonPipelineDefinitionOptions {
 	return &DeleteTektonPipelineDefinitionOptions{
-		PipelineID:   core.StringPtr(pipelineID),
+		PipelineID: core.StringPtr(pipelineID),
 		DefinitionID: core.StringPtr(definitionID),
 	}
 }
@@ -3011,7 +3011,7 @@ type DeleteTektonPipelinePropertyOptions struct {
 // NewDeleteTektonPipelinePropertyOptions : Instantiate DeleteTektonPipelinePropertyOptions
 func (*CdTektonPipelineV2) NewDeleteTektonPipelinePropertyOptions(pipelineID string, propertyName string) *DeleteTektonPipelinePropertyOptions {
 	return &DeleteTektonPipelinePropertyOptions{
-		PipelineID:   core.StringPtr(pipelineID),
+		PipelineID: core.StringPtr(pipelineID),
 		PropertyName: core.StringPtr(propertyName),
 	}
 }
@@ -3050,7 +3050,7 @@ type DeleteTektonPipelineRunOptions struct {
 func (*CdTektonPipelineV2) NewDeleteTektonPipelineRunOptions(pipelineID string, id string) *DeleteTektonPipelineRunOptions {
 	return &DeleteTektonPipelineRunOptions{
 		PipelineID: core.StringPtr(pipelineID),
-		ID:         core.StringPtr(id),
+		ID: core.StringPtr(id),
 	}
 }
 
@@ -3088,7 +3088,7 @@ type DeleteTektonPipelineTriggerOptions struct {
 func (*CdTektonPipelineV2) NewDeleteTektonPipelineTriggerOptions(pipelineID string, triggerID string) *DeleteTektonPipelineTriggerOptions {
 	return &DeleteTektonPipelineTriggerOptions{
 		PipelineID: core.StringPtr(pipelineID),
-		TriggerID:  core.StringPtr(triggerID),
+		TriggerID: core.StringPtr(triggerID),
 	}
 }
 
@@ -3128,8 +3128,8 @@ type DeleteTektonPipelineTriggerPropertyOptions struct {
 // NewDeleteTektonPipelineTriggerPropertyOptions : Instantiate DeleteTektonPipelineTriggerPropertyOptions
 func (*CdTektonPipelineV2) NewDeleteTektonPipelineTriggerPropertyOptions(pipelineID string, triggerID string, propertyName string) *DeleteTektonPipelineTriggerPropertyOptions {
 	return &DeleteTektonPipelineTriggerPropertyOptions{
-		PipelineID:   core.StringPtr(pipelineID),
-		TriggerID:    core.StringPtr(triggerID),
+		PipelineID: core.StringPtr(pipelineID),
+		TriggerID: core.StringPtr(triggerID),
 		PropertyName: core.StringPtr(propertyName),
 	}
 }
@@ -3228,29 +3228,29 @@ type GenericSecret struct {
 // Constants associated with the GenericSecret.Type property.
 // Secret type.
 const (
-	GenericSecretTypeDigestmatchesConst      = "digestMatches"
+	GenericSecretTypeDigestmatchesConst = "digestMatches"
 	GenericSecretTypeInternalvalidationConst = "internalValidation"
-	GenericSecretTypeTokenmatchesConst       = "tokenMatches"
+	GenericSecretTypeTokenmatchesConst = "tokenMatches"
 )
 
 // Constants associated with the GenericSecret.Source property.
 // Secret location, not needed if secret type is "internalValidation".
 const (
-	GenericSecretSourceHeaderConst  = "header"
+	GenericSecretSourceHeaderConst = "header"
 	GenericSecretSourcePayloadConst = "payload"
-	GenericSecretSourceQueryConst   = "query"
+	GenericSecretSourceQueryConst = "query"
 )
 
 // Constants associated with the GenericSecret.Algorithm property.
 // Algorithm used for "digestMatches" secret type.
 const (
-	GenericSecretAlgorithmMd4Const       = "md4"
-	GenericSecretAlgorithmMd5Const       = "md5"
+	GenericSecretAlgorithmMd4Const = "md4"
+	GenericSecretAlgorithmMd5Const = "md5"
 	GenericSecretAlgorithmRipemd160Const = "ripemd160"
-	GenericSecretAlgorithmSha1Const      = "sha1"
-	GenericSecretAlgorithmSha256Const    = "sha256"
-	GenericSecretAlgorithmSha384Const    = "sha384"
-	GenericSecretAlgorithmSha512Const    = "sha512"
+	GenericSecretAlgorithmSha1Const = "sha1"
+	GenericSecretAlgorithmSha256Const = "sha256"
+	GenericSecretAlgorithmSha384Const = "sha384"
+	GenericSecretAlgorithmSha512Const = "sha512"
 	GenericSecretAlgorithmSha512224Const = "sha512_224"
 	GenericSecretAlgorithmSha512256Const = "sha512_256"
 )
@@ -3297,7 +3297,7 @@ type GetTektonPipelineDefinitionOptions struct {
 // NewGetTektonPipelineDefinitionOptions : Instantiate GetTektonPipelineDefinitionOptions
 func (*CdTektonPipelineV2) NewGetTektonPipelineDefinitionOptions(pipelineID string, definitionID string) *GetTektonPipelineDefinitionOptions {
 	return &GetTektonPipelineDefinitionOptions{
-		PipelineID:   core.StringPtr(pipelineID),
+		PipelineID: core.StringPtr(pipelineID),
 		DefinitionID: core.StringPtr(definitionID),
 	}
 }
@@ -3363,7 +3363,7 @@ type GetTektonPipelinePropertyOptions struct {
 // NewGetTektonPipelinePropertyOptions : Instantiate GetTektonPipelinePropertyOptions
 func (*CdTektonPipelineV2) NewGetTektonPipelinePropertyOptions(pipelineID string, propertyName string) *GetTektonPipelinePropertyOptions {
 	return &GetTektonPipelinePropertyOptions{
-		PipelineID:   core.StringPtr(pipelineID),
+		PipelineID: core.StringPtr(pipelineID),
 		PropertyName: core.StringPtr(propertyName),
 	}
 }
@@ -3404,9 +3404,9 @@ type GetTektonPipelineRunLogContentOptions struct {
 // NewGetTektonPipelineRunLogContentOptions : Instantiate GetTektonPipelineRunLogContentOptions
 func (*CdTektonPipelineV2) NewGetTektonPipelineRunLogContentOptions(pipelineID string, pipelineRunID string, id string) *GetTektonPipelineRunLogContentOptions {
 	return &GetTektonPipelineRunLogContentOptions{
-		PipelineID:    core.StringPtr(pipelineID),
+		PipelineID: core.StringPtr(pipelineID),
 		PipelineRunID: core.StringPtr(pipelineRunID),
-		ID:            core.StringPtr(id),
+		ID: core.StringPtr(id),
 	}
 }
 
@@ -3450,7 +3450,7 @@ type GetTektonPipelineRunLogsOptions struct {
 func (*CdTektonPipelineV2) NewGetTektonPipelineRunLogsOptions(pipelineID string, id string) *GetTektonPipelineRunLogsOptions {
 	return &GetTektonPipelineRunLogsOptions{
 		PipelineID: core.StringPtr(pipelineID),
-		ID:         core.StringPtr(id),
+		ID: core.StringPtr(id),
 	}
 }
 
@@ -3497,7 +3497,7 @@ const (
 func (*CdTektonPipelineV2) NewGetTektonPipelineRunOptions(pipelineID string, id string) *GetTektonPipelineRunOptions {
 	return &GetTektonPipelineRunOptions{
 		PipelineID: core.StringPtr(pipelineID),
-		ID:         core.StringPtr(id),
+		ID: core.StringPtr(id),
 	}
 }
 
@@ -3541,7 +3541,7 @@ type GetTektonPipelineTriggerOptions struct {
 func (*CdTektonPipelineV2) NewGetTektonPipelineTriggerOptions(pipelineID string, triggerID string) *GetTektonPipelineTriggerOptions {
 	return &GetTektonPipelineTriggerOptions{
 		PipelineID: core.StringPtr(pipelineID),
-		TriggerID:  core.StringPtr(triggerID),
+		TriggerID: core.StringPtr(triggerID),
 	}
 }
 
@@ -3581,8 +3581,8 @@ type GetTektonPipelineTriggerPropertyOptions struct {
 // NewGetTektonPipelineTriggerPropertyOptions : Instantiate GetTektonPipelineTriggerPropertyOptions
 func (*CdTektonPipelineV2) NewGetTektonPipelineTriggerPropertyOptions(pipelineID string, triggerID string, propertyName string) *GetTektonPipelineTriggerPropertyOptions {
 	return &GetTektonPipelineTriggerPropertyOptions{
-		PipelineID:   core.StringPtr(pipelineID),
-		TriggerID:    core.StringPtr(triggerID),
+		PipelineID: core.StringPtr(pipelineID),
+		TriggerID: core.StringPtr(triggerID),
 		PropertyName: core.StringPtr(propertyName),
 	}
 }
@@ -3661,11 +3661,11 @@ type ListTektonPipelinePropertiesOptions struct {
 // Constants associated with the ListTektonPipelinePropertiesOptions.Type property.
 // Query in URL.
 const (
-	ListTektonPipelinePropertiesOptionsTypeAppconfigConst    = "APPCONFIG"
-	ListTektonPipelinePropertiesOptionsTypeIntegrationConst  = "INTEGRATION"
-	ListTektonPipelinePropertiesOptionsTypeSecureConst       = "SECURE"
+	ListTektonPipelinePropertiesOptionsTypeAppconfigConst = "APPCONFIG"
+	ListTektonPipelinePropertiesOptionsTypeIntegrationConst = "INTEGRATION"
+	ListTektonPipelinePropertiesOptionsTypeSecureConst = "SECURE"
 	ListTektonPipelinePropertiesOptionsTypeSingleSelectConst = "SINGLE_SELECT"
-	ListTektonPipelinePropertiesOptionsTypeTextConst         = "TEXT"
+	ListTektonPipelinePropertiesOptionsTypeTextConst = "TEXT"
 )
 
 // NewListTektonPipelinePropertiesOptions : Instantiate ListTektonPipelinePropertiesOptions
@@ -3729,15 +3729,15 @@ type ListTektonPipelineRunsOptions struct {
 // Constants associated with the ListTektonPipelineRunsOptions.Status property.
 // Filters the collection to resources with the specified status.
 const (
-	ListTektonPipelineRunsOptionsStatusCancelledConst  = "cancelled"
+	ListTektonPipelineRunsOptionsStatusCancelledConst = "cancelled"
 	ListTektonPipelineRunsOptionsStatusCancellingConst = "cancelling"
-	ListTektonPipelineRunsOptionsStatusErrorConst      = "error"
-	ListTektonPipelineRunsOptionsStatusFailedConst     = "failed"
-	ListTektonPipelineRunsOptionsStatusPendingConst    = "pending"
-	ListTektonPipelineRunsOptionsStatusQueuedConst     = "queued"
-	ListTektonPipelineRunsOptionsStatusRunningConst    = "running"
-	ListTektonPipelineRunsOptionsStatusSucceededConst  = "succeeded"
-	ListTektonPipelineRunsOptionsStatusWaitingConst    = "waiting"
+	ListTektonPipelineRunsOptionsStatusErrorConst = "error"
+	ListTektonPipelineRunsOptionsStatusFailedConst = "failed"
+	ListTektonPipelineRunsOptionsStatusPendingConst = "pending"
+	ListTektonPipelineRunsOptionsStatusQueuedConst = "queued"
+	ListTektonPipelineRunsOptionsStatusRunningConst = "running"
+	ListTektonPipelineRunsOptionsStatusSucceededConst = "succeeded"
+	ListTektonPipelineRunsOptionsStatusWaitingConst = "waiting"
 )
 
 // NewListTektonPipelineRunsOptions : Instantiate ListTektonPipelineRunsOptions
@@ -3809,10 +3809,10 @@ type ListTektonPipelineTriggerPropertiesOptions struct {
 func (*CdTektonPipelineV2) NewListTektonPipelineTriggerPropertiesOptions(pipelineID string, triggerID string, name string, typeVar string, sort string) *ListTektonPipelineTriggerPropertiesOptions {
 	return &ListTektonPipelineTriggerPropertiesOptions{
 		PipelineID: core.StringPtr(pipelineID),
-		TriggerID:  core.StringPtr(triggerID),
-		Name:       core.StringPtr(name),
-		Type:       core.StringPtr(typeVar),
-		Sort:       core.StringPtr(sort),
+		TriggerID: core.StringPtr(triggerID),
+		Name: core.StringPtr(name),
+		Type: core.StringPtr(typeVar),
+		Sort: core.StringPtr(sort),
 	}
 }
 
@@ -3992,15 +3992,15 @@ type PipelineRun struct {
 // Constants associated with the PipelineRun.Status property.
 // Status of the pipeline run.
 const (
-	PipelineRunStatusCancelledConst  = "cancelled"
+	PipelineRunStatusCancelledConst = "cancelled"
 	PipelineRunStatusCancellingConst = "cancelling"
-	PipelineRunStatusErrorConst      = "error"
-	PipelineRunStatusFailedConst     = "failed"
-	PipelineRunStatusPendingConst    = "pending"
-	PipelineRunStatusQueuedConst     = "queued"
-	PipelineRunStatusRunningConst    = "running"
-	PipelineRunStatusSucceededConst  = "succeeded"
-	PipelineRunStatusWaitingConst    = "waiting"
+	PipelineRunStatusErrorConst = "error"
+	PipelineRunStatusFailedConst = "failed"
+	PipelineRunStatusPendingConst = "pending"
+	PipelineRunStatusQueuedConst = "queued"
+	PipelineRunStatusRunningConst = "running"
+	PipelineRunStatusSucceededConst = "succeeded"
+	PipelineRunStatusWaitingConst = "waiting"
 )
 
 // UnmarshalPipelineRun unmarshals an instance of PipelineRun from the specified map of raw messages.
@@ -4299,15 +4299,15 @@ type PipelineRunsPipelineRunsItem struct {
 // Constants associated with the PipelineRunsPipelineRunsItem.Status property.
 // Status of the pipeline run.
 const (
-	PipelineRunsPipelineRunsItemStatusCancelledConst  = "cancelled"
+	PipelineRunsPipelineRunsItemStatusCancelledConst = "cancelled"
 	PipelineRunsPipelineRunsItemStatusCancellingConst = "cancelling"
-	PipelineRunsPipelineRunsItemStatusErrorConst      = "error"
-	PipelineRunsPipelineRunsItemStatusFailedConst     = "failed"
-	PipelineRunsPipelineRunsItemStatusPendingConst    = "pending"
-	PipelineRunsPipelineRunsItemStatusQueuedConst     = "queued"
-	PipelineRunsPipelineRunsItemStatusRunningConst    = "running"
-	PipelineRunsPipelineRunsItemStatusSucceededConst  = "succeeded"
-	PipelineRunsPipelineRunsItemStatusWaitingConst    = "waiting"
+	PipelineRunsPipelineRunsItemStatusErrorConst = "error"
+	PipelineRunsPipelineRunsItemStatusFailedConst = "failed"
+	PipelineRunsPipelineRunsItemStatusPendingConst = "pending"
+	PipelineRunsPipelineRunsItemStatusQueuedConst = "queued"
+	PipelineRunsPipelineRunsItemStatusRunningConst = "running"
+	PipelineRunsPipelineRunsItemStatusSucceededConst = "succeeded"
+	PipelineRunsPipelineRunsItemStatusWaitingConst = "waiting"
 )
 
 // UnmarshalPipelineRunsPipelineRunsItem unmarshals an instance of PipelineRunsPipelineRunsItem from the specified map of raw messages.
@@ -4401,11 +4401,11 @@ type Property struct {
 // Constants associated with the Property.Type property.
 // Property type.
 const (
-	PropertyTypeAppconfigConst    = "APPCONFIG"
-	PropertyTypeIntegrationConst  = "INTEGRATION"
-	PropertyTypeSecureConst       = "SECURE"
+	PropertyTypeAppconfigConst = "APPCONFIG"
+	PropertyTypeIntegrationConst = "INTEGRATION"
+	PropertyTypeSecureConst = "SECURE"
 	PropertyTypeSingleSelectConst = "SINGLE_SELECT"
-	PropertyTypeTextConst         = "TEXT"
+	PropertyTypeTextConst = "TEXT"
 )
 
 // NewProperty : Instantiate Property (Generic Model Constructor)
@@ -4473,7 +4473,7 @@ type ReplaceTektonPipelineDefinitionOptions struct {
 // NewReplaceTektonPipelineDefinitionOptions : Instantiate ReplaceTektonPipelineDefinitionOptions
 func (*CdTektonPipelineV2) NewReplaceTektonPipelineDefinitionOptions(pipelineID string, definitionID string) *ReplaceTektonPipelineDefinitionOptions {
 	return &ReplaceTektonPipelineDefinitionOptions{
-		PipelineID:   core.StringPtr(pipelineID),
+		PipelineID: core.StringPtr(pipelineID),
 		DefinitionID: core.StringPtr(definitionID),
 	}
 }
@@ -4547,17 +4547,17 @@ type ReplaceTektonPipelinePropertyOptions struct {
 // Constants associated with the ReplaceTektonPipelinePropertyOptions.Type property.
 // Property type.
 const (
-	ReplaceTektonPipelinePropertyOptionsTypeAppconfigConst    = "APPCONFIG"
-	ReplaceTektonPipelinePropertyOptionsTypeIntegrationConst  = "INTEGRATION"
-	ReplaceTektonPipelinePropertyOptionsTypeSecureConst       = "SECURE"
+	ReplaceTektonPipelinePropertyOptionsTypeAppconfigConst = "APPCONFIG"
+	ReplaceTektonPipelinePropertyOptionsTypeIntegrationConst = "INTEGRATION"
+	ReplaceTektonPipelinePropertyOptionsTypeSecureConst = "SECURE"
 	ReplaceTektonPipelinePropertyOptionsTypeSingleSelectConst = "SINGLE_SELECT"
-	ReplaceTektonPipelinePropertyOptionsTypeTextConst         = "TEXT"
+	ReplaceTektonPipelinePropertyOptionsTypeTextConst = "TEXT"
 )
 
 // NewReplaceTektonPipelinePropertyOptions : Instantiate ReplaceTektonPipelinePropertyOptions
 func (*CdTektonPipelineV2) NewReplaceTektonPipelinePropertyOptions(pipelineID string, propertyName string) *ReplaceTektonPipelinePropertyOptions {
 	return &ReplaceTektonPipelinePropertyOptions{
-		PipelineID:   core.StringPtr(pipelineID),
+		PipelineID: core.StringPtr(pipelineID),
 		PropertyName: core.StringPtr(propertyName),
 	}
 }
@@ -4652,18 +4652,18 @@ type ReplaceTektonPipelineTriggerPropertyOptions struct {
 // Constants associated with the ReplaceTektonPipelineTriggerPropertyOptions.Type property.
 // Property type.
 const (
-	ReplaceTektonPipelineTriggerPropertyOptionsTypeAppconfigConst    = "APPCONFIG"
-	ReplaceTektonPipelineTriggerPropertyOptionsTypeIntegrationConst  = "INTEGRATION"
-	ReplaceTektonPipelineTriggerPropertyOptionsTypeSecureConst       = "SECURE"
+	ReplaceTektonPipelineTriggerPropertyOptionsTypeAppconfigConst = "APPCONFIG"
+	ReplaceTektonPipelineTriggerPropertyOptionsTypeIntegrationConst = "INTEGRATION"
+	ReplaceTektonPipelineTriggerPropertyOptionsTypeSecureConst = "SECURE"
 	ReplaceTektonPipelineTriggerPropertyOptionsTypeSingleSelectConst = "SINGLE_SELECT"
-	ReplaceTektonPipelineTriggerPropertyOptionsTypeTextConst         = "TEXT"
+	ReplaceTektonPipelineTriggerPropertyOptionsTypeTextConst = "TEXT"
 )
 
 // NewReplaceTektonPipelineTriggerPropertyOptions : Instantiate ReplaceTektonPipelineTriggerPropertyOptions
 func (*CdTektonPipelineV2) NewReplaceTektonPipelineTriggerPropertyOptions(pipelineID string, triggerID string, propertyName string) *ReplaceTektonPipelineTriggerPropertyOptions {
 	return &ReplaceTektonPipelineTriggerPropertyOptions{
-		PipelineID:   core.StringPtr(pipelineID),
-		TriggerID:    core.StringPtr(triggerID),
+		PipelineID: core.StringPtr(pipelineID),
+		TriggerID: core.StringPtr(triggerID),
 		PropertyName: core.StringPtr(propertyName),
 	}
 }
@@ -4744,7 +4744,7 @@ type RerunTektonPipelineRunOptions struct {
 func (*CdTektonPipelineV2) NewRerunTektonPipelineRunOptions(pipelineID string, id string) *RerunTektonPipelineRunOptions {
 	return &RerunTektonPipelineRunOptions{
 		PipelineID: core.StringPtr(pipelineID),
-		ID:         core.StringPtr(id),
+		ID: core.StringPtr(id),
 	}
 }
 
@@ -4842,7 +4842,7 @@ type TektonPipeline struct {
 // Constants associated with the TektonPipeline.Status property.
 // Pipeline status.
 const (
-	TektonPipelineStatusConfiguredConst  = "configured"
+	TektonPipelineStatusConfiguredConst = "configured"
 	TektonPipelineStatusConfiguringConst = "configuring"
 )
 
@@ -4925,9 +4925,9 @@ type TektonPipelinePipelineDefinition struct {
 // Constants associated with the TektonPipelinePipelineDefinition.Status property.
 // The state of pipeline definition status.
 const (
-	TektonPipelinePipelineDefinitionStatusFailedConst   = "failed"
+	TektonPipelinePipelineDefinitionStatusFailedConst = "failed"
 	TektonPipelinePipelineDefinitionStatusOutdatedConst = "outdated"
-	TektonPipelinePipelineDefinitionStatusUpdatedConst  = "updated"
+	TektonPipelinePipelineDefinitionStatusUpdatedConst = "updated"
 	TektonPipelinePipelineDefinitionStatusUpdatingConst = "updating"
 )
 
@@ -5027,7 +5027,6 @@ type Trigger struct {
 	// Needed only for generic trigger type. Secret used to start generic trigger.
 	Secret *GenericSecret `json:"secret,omitempty"`
 }
-
 func (*Trigger) isaTrigger() bool {
 	return true
 }
@@ -5134,11 +5133,11 @@ type TriggerGenericTriggerPropertiesItem struct {
 // Constants associated with the TriggerGenericTriggerPropertiesItem.Type property.
 // Property type.
 const (
-	TriggerGenericTriggerPropertiesItemTypeAppconfigConst    = "APPCONFIG"
-	TriggerGenericTriggerPropertiesItemTypeIntegrationConst  = "INTEGRATION"
-	TriggerGenericTriggerPropertiesItemTypeSecureConst       = "SECURE"
+	TriggerGenericTriggerPropertiesItemTypeAppconfigConst = "APPCONFIG"
+	TriggerGenericTriggerPropertiesItemTypeIntegrationConst = "INTEGRATION"
+	TriggerGenericTriggerPropertiesItemTypeSecureConst = "SECURE"
 	TriggerGenericTriggerPropertiesItemTypeSingleSelectConst = "SINGLE_SELECT"
-	TriggerGenericTriggerPropertiesItemTypeTextConst         = "TEXT"
+	TriggerGenericTriggerPropertiesItemTypeTextConst = "TEXT"
 )
 
 // NewTriggerGenericTriggerPropertiesItem : Instantiate TriggerGenericTriggerPropertiesItem (Generic Model Constructor)
@@ -5213,11 +5212,11 @@ type TriggerManualTriggerPropertiesItem struct {
 // Constants associated with the TriggerManualTriggerPropertiesItem.Type property.
 // Property type.
 const (
-	TriggerManualTriggerPropertiesItemTypeAppconfigConst    = "APPCONFIG"
-	TriggerManualTriggerPropertiesItemTypeIntegrationConst  = "INTEGRATION"
-	TriggerManualTriggerPropertiesItemTypeSecureConst       = "SECURE"
+	TriggerManualTriggerPropertiesItemTypeAppconfigConst = "APPCONFIG"
+	TriggerManualTriggerPropertiesItemTypeIntegrationConst = "INTEGRATION"
+	TriggerManualTriggerPropertiesItemTypeSecureConst = "SECURE"
 	TriggerManualTriggerPropertiesItemTypeSingleSelectConst = "SINGLE_SELECT"
-	TriggerManualTriggerPropertiesItemTypeTextConst         = "TEXT"
+	TriggerManualTriggerPropertiesItemTypeTextConst = "TEXT"
 )
 
 // NewTriggerManualTriggerPropertiesItem : Instantiate TriggerManualTriggerPropertiesItem (Generic Model Constructor)
@@ -5309,11 +5308,11 @@ type TriggerPropertiesItem struct {
 // Constants associated with the TriggerPropertiesItem.Type property.
 // Property type.
 const (
-	TriggerPropertiesItemTypeAppconfigConst    = "APPCONFIG"
-	TriggerPropertiesItemTypeIntegrationConst  = "INTEGRATION"
-	TriggerPropertiesItemTypeSecureConst       = "SECURE"
+	TriggerPropertiesItemTypeAppconfigConst = "APPCONFIG"
+	TriggerPropertiesItemTypeIntegrationConst = "INTEGRATION"
+	TriggerPropertiesItemTypeSecureConst = "SECURE"
 	TriggerPropertiesItemTypeSingleSelectConst = "SINGLE_SELECT"
-	TriggerPropertiesItemTypeTextConst         = "TEXT"
+	TriggerPropertiesItemTypeTextConst = "TEXT"
 )
 
 // NewTriggerPropertiesItem : Instantiate TriggerPropertiesItem (Generic Model Constructor)
@@ -5388,11 +5387,11 @@ type TriggerPropertiesPropertiesItem struct {
 // Constants associated with the TriggerPropertiesPropertiesItem.Type property.
 // Property type.
 const (
-	TriggerPropertiesPropertiesItemTypeAppconfigConst    = "APPCONFIG"
-	TriggerPropertiesPropertiesItemTypeIntegrationConst  = "INTEGRATION"
-	TriggerPropertiesPropertiesItemTypeSecureConst       = "SECURE"
+	TriggerPropertiesPropertiesItemTypeAppconfigConst = "APPCONFIG"
+	TriggerPropertiesPropertiesItemTypeIntegrationConst = "INTEGRATION"
+	TriggerPropertiesPropertiesItemTypeSecureConst = "SECURE"
 	TriggerPropertiesPropertiesItemTypeSingleSelectConst = "SINGLE_SELECT"
-	TriggerPropertiesPropertiesItemTypeTextConst         = "TEXT"
+	TriggerPropertiesPropertiesItemTypeTextConst = "TEXT"
 )
 
 // UnmarshalTriggerPropertiesPropertiesItem unmarshals an instance of TriggerPropertiesPropertiesItem from the specified map of raw messages.
@@ -5454,11 +5453,11 @@ type TriggerProperty struct {
 // Constants associated with the TriggerProperty.Type property.
 // Property type.
 const (
-	TriggerPropertyTypeAppconfigConst    = "APPCONFIG"
-	TriggerPropertyTypeIntegrationConst  = "INTEGRATION"
-	TriggerPropertyTypeSecureConst       = "SECURE"
+	TriggerPropertyTypeAppconfigConst = "APPCONFIG"
+	TriggerPropertyTypeIntegrationConst = "INTEGRATION"
+	TriggerPropertyTypeSecureConst = "SECURE"
 	TriggerPropertyTypeSingleSelectConst = "SINGLE_SELECT"
-	TriggerPropertyTypeTextConst         = "TEXT"
+	TriggerPropertyTypeTextConst = "TEXT"
 )
 
 // NewTriggerProperty : Instantiate TriggerProperty (Generic Model Constructor)
@@ -5575,11 +5574,11 @@ type TriggerScmTriggerPropertiesItem struct {
 // Constants associated with the TriggerScmTriggerPropertiesItem.Type property.
 // Property type.
 const (
-	TriggerScmTriggerPropertiesItemTypeAppconfigConst    = "APPCONFIG"
-	TriggerScmTriggerPropertiesItemTypeIntegrationConst  = "INTEGRATION"
-	TriggerScmTriggerPropertiesItemTypeSecureConst       = "SECURE"
+	TriggerScmTriggerPropertiesItemTypeAppconfigConst = "APPCONFIG"
+	TriggerScmTriggerPropertiesItemTypeIntegrationConst = "INTEGRATION"
+	TriggerScmTriggerPropertiesItemTypeSecureConst = "SECURE"
 	TriggerScmTriggerPropertiesItemTypeSingleSelectConst = "SINGLE_SELECT"
-	TriggerScmTriggerPropertiesItemTypeTextConst         = "TEXT"
+	TriggerScmTriggerPropertiesItemTypeTextConst = "TEXT"
 )
 
 // NewTriggerScmTriggerPropertiesItem : Instantiate TriggerScmTriggerPropertiesItem (Generic Model Constructor)
@@ -5654,11 +5653,11 @@ type TriggerTimerTriggerPropertiesItem struct {
 // Constants associated with the TriggerTimerTriggerPropertiesItem.Type property.
 // Property type.
 const (
-	TriggerTimerTriggerPropertiesItemTypeAppconfigConst    = "APPCONFIG"
-	TriggerTimerTriggerPropertiesItemTypeIntegrationConst  = "INTEGRATION"
-	TriggerTimerTriggerPropertiesItemTypeSecureConst       = "SECURE"
+	TriggerTimerTriggerPropertiesItemTypeAppconfigConst = "APPCONFIG"
+	TriggerTimerTriggerPropertiesItemTypeIntegrationConst = "INTEGRATION"
+	TriggerTimerTriggerPropertiesItemTypeSecureConst = "SECURE"
 	TriggerTimerTriggerPropertiesItemTypeSingleSelectConst = "SINGLE_SELECT"
-	TriggerTimerTriggerPropertiesItemTypeTextConst         = "TEXT"
+	TriggerTimerTriggerPropertiesItemTypeTextConst = "TEXT"
 )
 
 // NewTriggerTimerTriggerPropertiesItem : Instantiate TriggerTimerTriggerPropertiesItem (Generic Model Constructor)
@@ -5783,7 +5782,6 @@ type TriggersTriggersItem struct {
 	// General href URL.
 	Href *string `json:"href,omitempty"`
 }
-
 func (*TriggersTriggersItem) isaTriggersTriggersItem() bool {
 	return true
 }
@@ -5894,11 +5892,11 @@ type TriggersTriggersItemTriggerGenericTriggerPropertiesItem struct {
 // Constants associated with the TriggersTriggersItemTriggerGenericTriggerPropertiesItem.Type property.
 // Property type.
 const (
-	TriggersTriggersItemTriggerGenericTriggerPropertiesItemTypeAppconfigConst    = "APPCONFIG"
-	TriggersTriggersItemTriggerGenericTriggerPropertiesItemTypeIntegrationConst  = "INTEGRATION"
-	TriggersTriggersItemTriggerGenericTriggerPropertiesItemTypeSecureConst       = "SECURE"
+	TriggersTriggersItemTriggerGenericTriggerPropertiesItemTypeAppconfigConst = "APPCONFIG"
+	TriggersTriggersItemTriggerGenericTriggerPropertiesItemTypeIntegrationConst = "INTEGRATION"
+	TriggersTriggersItemTriggerGenericTriggerPropertiesItemTypeSecureConst = "SECURE"
 	TriggersTriggersItemTriggerGenericTriggerPropertiesItemTypeSingleSelectConst = "SINGLE_SELECT"
-	TriggersTriggersItemTriggerGenericTriggerPropertiesItemTypeTextConst         = "TEXT"
+	TriggersTriggersItemTriggerGenericTriggerPropertiesItemTypeTextConst = "TEXT"
 )
 
 // UnmarshalTriggersTriggersItemTriggerGenericTriggerPropertiesItem unmarshals an instance of TriggersTriggersItemTriggerGenericTriggerPropertiesItem from the specified map of raw messages.
@@ -5963,11 +5961,11 @@ type TriggersTriggersItemTriggerManualTriggerPropertiesItem struct {
 // Constants associated with the TriggersTriggersItemTriggerManualTriggerPropertiesItem.Type property.
 // Property type.
 const (
-	TriggersTriggersItemTriggerManualTriggerPropertiesItemTypeAppconfigConst    = "APPCONFIG"
-	TriggersTriggersItemTriggerManualTriggerPropertiesItemTypeIntegrationConst  = "INTEGRATION"
-	TriggersTriggersItemTriggerManualTriggerPropertiesItemTypeSecureConst       = "SECURE"
+	TriggersTriggersItemTriggerManualTriggerPropertiesItemTypeAppconfigConst = "APPCONFIG"
+	TriggersTriggersItemTriggerManualTriggerPropertiesItemTypeIntegrationConst = "INTEGRATION"
+	TriggersTriggersItemTriggerManualTriggerPropertiesItemTypeSecureConst = "SECURE"
 	TriggersTriggersItemTriggerManualTriggerPropertiesItemTypeSingleSelectConst = "SINGLE_SELECT"
-	TriggersTriggersItemTriggerManualTriggerPropertiesItemTypeTextConst         = "TEXT"
+	TriggersTriggersItemTriggerManualTriggerPropertiesItemTypeTextConst = "TEXT"
 )
 
 // UnmarshalTriggersTriggersItemTriggerManualTriggerPropertiesItem unmarshals an instance of TriggersTriggersItemTriggerManualTriggerPropertiesItem from the specified map of raw messages.
@@ -6032,11 +6030,11 @@ type TriggersTriggersItemTriggerScmTriggerPropertiesItem struct {
 // Constants associated with the TriggersTriggersItemTriggerScmTriggerPropertiesItem.Type property.
 // Property type.
 const (
-	TriggersTriggersItemTriggerScmTriggerPropertiesItemTypeAppconfigConst    = "APPCONFIG"
-	TriggersTriggersItemTriggerScmTriggerPropertiesItemTypeIntegrationConst  = "INTEGRATION"
-	TriggersTriggersItemTriggerScmTriggerPropertiesItemTypeSecureConst       = "SECURE"
+	TriggersTriggersItemTriggerScmTriggerPropertiesItemTypeAppconfigConst = "APPCONFIG"
+	TriggersTriggersItemTriggerScmTriggerPropertiesItemTypeIntegrationConst = "INTEGRATION"
+	TriggersTriggersItemTriggerScmTriggerPropertiesItemTypeSecureConst = "SECURE"
 	TriggersTriggersItemTriggerScmTriggerPropertiesItemTypeSingleSelectConst = "SINGLE_SELECT"
-	TriggersTriggersItemTriggerScmTriggerPropertiesItemTypeTextConst         = "TEXT"
+	TriggersTriggersItemTriggerScmTriggerPropertiesItemTypeTextConst = "TEXT"
 )
 
 // UnmarshalTriggersTriggersItemTriggerScmTriggerPropertiesItem unmarshals an instance of TriggersTriggersItemTriggerScmTriggerPropertiesItem from the specified map of raw messages.
@@ -6101,11 +6099,11 @@ type TriggersTriggersItemTriggerTimerTriggerPropertiesItem struct {
 // Constants associated with the TriggersTriggersItemTriggerTimerTriggerPropertiesItem.Type property.
 // Property type.
 const (
-	TriggersTriggersItemTriggerTimerTriggerPropertiesItemTypeAppconfigConst    = "APPCONFIG"
-	TriggersTriggersItemTriggerTimerTriggerPropertiesItemTypeIntegrationConst  = "INTEGRATION"
-	TriggersTriggersItemTriggerTimerTriggerPropertiesItemTypeSecureConst       = "SECURE"
+	TriggersTriggersItemTriggerTimerTriggerPropertiesItemTypeAppconfigConst = "APPCONFIG"
+	TriggersTriggersItemTriggerTimerTriggerPropertiesItemTypeIntegrationConst = "INTEGRATION"
+	TriggersTriggersItemTriggerTimerTriggerPropertiesItemTypeSecureConst = "SECURE"
 	TriggersTriggersItemTriggerTimerTriggerPropertiesItemTypeSingleSelectConst = "SINGLE_SELECT"
-	TriggersTriggersItemTriggerTimerTriggerPropertiesItemTypeTextConst         = "TEXT"
+	TriggersTriggersItemTriggerTimerTriggerPropertiesItemTypeTextConst = "TEXT"
 )
 
 // UnmarshalTriggersTriggersItemTriggerTimerTriggerPropertiesItem unmarshals an instance of TriggersTriggersItemTriggerTimerTriggerPropertiesItem from the specified map of raw messages.
@@ -6232,16 +6230,16 @@ type UpdateTektonPipelineTriggerOptions struct {
 // Trigger type.
 const (
 	UpdateTektonPipelineTriggerOptionsTypeGenericConst = "generic"
-	UpdateTektonPipelineTriggerOptionsTypeManualConst  = "manual"
-	UpdateTektonPipelineTriggerOptionsTypeScmConst     = "scm"
-	UpdateTektonPipelineTriggerOptionsTypeTimerConst   = "timer"
+	UpdateTektonPipelineTriggerOptionsTypeManualConst = "manual"
+	UpdateTektonPipelineTriggerOptionsTypeScmConst = "scm"
+	UpdateTektonPipelineTriggerOptionsTypeTimerConst = "timer"
 )
 
 // NewUpdateTektonPipelineTriggerOptions : Instantiate UpdateTektonPipelineTriggerOptions
 func (*CdTektonPipelineV2) NewUpdateTektonPipelineTriggerOptions(pipelineID string, triggerID string) *UpdateTektonPipelineTriggerOptions {
 	return &UpdateTektonPipelineTriggerOptions{
 		PipelineID: core.StringPtr(pipelineID),
-		TriggerID:  core.StringPtr(triggerID),
+		TriggerID: core.StringPtr(triggerID),
 	}
 }
 
@@ -6374,7 +6372,7 @@ type Worker struct {
 // worker type.
 const (
 	WorkerTypePrivateConst = "private"
-	WorkerTypePublicConst  = "public"
+	WorkerTypePublicConst = "public"
 )
 
 // NewWorker : Instantiate Worker (Generic Model Constructor)
@@ -6444,7 +6442,7 @@ type TriggerDuplicateTrigger struct {
 func (*CdTektonPipelineV2) NewTriggerDuplicateTrigger(sourceTriggerID string, name string) (_model *TriggerDuplicateTrigger, err error) {
 	_model = &TriggerDuplicateTrigger{
 		SourceTriggerID: core.StringPtr(sourceTriggerID),
-		Name:            core.StringPtr(name),
+		Name: core.StringPtr(name),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	return
@@ -6507,10 +6505,10 @@ type TriggerGenericTrigger struct {
 // NewTriggerGenericTrigger : Instantiate TriggerGenericTrigger (Generic Model Constructor)
 func (*CdTektonPipelineV2) NewTriggerGenericTrigger(typeVar string, name string, eventListener string, disabled bool) (_model *TriggerGenericTrigger, err error) {
 	_model = &TriggerGenericTrigger{
-		Type:          core.StringPtr(typeVar),
-		Name:          core.StringPtr(name),
+		Type: core.StringPtr(typeVar),
+		Name: core.StringPtr(name),
 		EventListener: core.StringPtr(eventListener),
-		Disabled:      core.BoolPtr(disabled),
+		Disabled: core.BoolPtr(disabled),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	return
@@ -6602,10 +6600,10 @@ type TriggerManualTrigger struct {
 // NewTriggerManualTrigger : Instantiate TriggerManualTrigger (Generic Model Constructor)
 func (*CdTektonPipelineV2) NewTriggerManualTrigger(typeVar string, name string, eventListener string, disabled bool) (_model *TriggerManualTrigger, err error) {
 	_model = &TriggerManualTrigger{
-		Type:          core.StringPtr(typeVar),
-		Name:          core.StringPtr(name),
+		Type: core.StringPtr(typeVar),
+		Name: core.StringPtr(name),
 		EventListener: core.StringPtr(eventListener),
-		Disabled:      core.BoolPtr(disabled),
+		Disabled: core.BoolPtr(disabled),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	return
@@ -6703,10 +6701,10 @@ type TriggerScmTrigger struct {
 // NewTriggerScmTrigger : Instantiate TriggerScmTrigger (Generic Model Constructor)
 func (*CdTektonPipelineV2) NewTriggerScmTrigger(typeVar string, name string, eventListener string, disabled bool) (_model *TriggerScmTrigger, err error) {
 	_model = &TriggerScmTrigger{
-		Type:          core.StringPtr(typeVar),
-		Name:          core.StringPtr(name),
+		Type: core.StringPtr(typeVar),
+		Name: core.StringPtr(name),
 		EventListener: core.StringPtr(eventListener),
-		Disabled:      core.BoolPtr(disabled),
+		Disabled: core.BoolPtr(disabled),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	return
@@ -6812,10 +6810,10 @@ type TriggerTimerTrigger struct {
 // NewTriggerTimerTrigger : Instantiate TriggerTimerTrigger (Generic Model Constructor)
 func (*CdTektonPipelineV2) NewTriggerTimerTrigger(typeVar string, name string, eventListener string, disabled bool) (_model *TriggerTimerTrigger, err error) {
 	_model = &TriggerTimerTrigger{
-		Type:          core.StringPtr(typeVar),
-		Name:          core.StringPtr(name),
+		Type: core.StringPtr(typeVar),
+		Name: core.StringPtr(name),
 		EventListener: core.StringPtr(eventListener),
-		Disabled:      core.BoolPtr(disabled),
+		Disabled: core.BoolPtr(disabled),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	return

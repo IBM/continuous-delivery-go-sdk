@@ -27,11 +27,11 @@ import (
 	"os"
 	"time"
 
-	"github.com/IBM/continuous-delivery-go-sdk/cdtektonpipelinev2"
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/go-openapi/strfmt"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
+	"github.ibm.com/org-ids/tekton-pipeline-go-sdk/cdtektonpipelinev2"
 )
 
 var _ = Describe(`CdTektonPipelineV2`, func() {
@@ -67,13 +67,14 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"CD_TEKTON_PIPELINE_URL":       "https://cdtektonpipelinev2/api",
+				"CD_TEKTON_PIPELINE_URL": "https://cdtektonpipelinev2/api",
 				"CD_TEKTON_PIPELINE_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				cdTektonPipelineService, serviceErr := cdtektonpipelinev2.NewCdTektonPipelineV2UsingExternalConfig(&cdtektonpipelinev2.CdTektonPipelineV2Options{})
+				cdTektonPipelineService, serviceErr := cdtektonpipelinev2.NewCdTektonPipelineV2UsingExternalConfig(&cdtektonpipelinev2.CdTektonPipelineV2Options{
+				})
 				Expect(cdTektonPipelineService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -102,7 +103,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				cdTektonPipelineService, serviceErr := cdtektonpipelinev2.NewCdTektonPipelineV2UsingExternalConfig(&cdtektonpipelinev2.CdTektonPipelineV2Options{})
+				cdTektonPipelineService, serviceErr := cdtektonpipelinev2.NewCdTektonPipelineV2UsingExternalConfig(&cdtektonpipelinev2.CdTektonPipelineV2Options{
+				})
 				err := cdTektonPipelineService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(cdTektonPipelineService).ToNot(BeNil())
@@ -120,12 +122,13 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"CD_TEKTON_PIPELINE_URL":       "https://cdtektonpipelinev2/api",
+				"CD_TEKTON_PIPELINE_URL": "https://cdtektonpipelinev2/api",
 				"CD_TEKTON_PIPELINE_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			cdTektonPipelineService, serviceErr := cdtektonpipelinev2.NewCdTektonPipelineV2UsingExternalConfig(&cdtektonpipelinev2.CdTektonPipelineV2Options{})
+			cdTektonPipelineService, serviceErr := cdtektonpipelinev2.NewCdTektonPipelineV2UsingExternalConfig(&cdtektonpipelinev2.CdTektonPipelineV2Options{
+			})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(cdTektonPipelineService).To(BeNil())
@@ -136,7 +139,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"CD_TEKTON_PIPELINE_AUTH_TYPE": "NOAuth",
+				"CD_TEKTON_PIPELINE_AUTH_TYPE":   "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -156,39 +159,39 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 			var url string
 			var err error
 			url, err = cdtektonpipelinev2.GetServiceURLForRegion("us-south")
-			Expect(url).To(Equal("https://devops-api.us-south.devops.cloud.ibm.com/v2"))
+			Expect(url).To(Equal("https://api.us-south.devops.cloud.ibm.com/v2"))
 			Expect(err).To(BeNil())
 
 			url, err = cdtektonpipelinev2.GetServiceURLForRegion("us-east")
-			Expect(url).To(Equal("https://devops-api.us-east.devops.cloud.ibm.com/v2"))
+			Expect(url).To(Equal("https://api.us-east.devops.cloud.ibm.com/v2"))
 			Expect(err).To(BeNil())
 
 			url, err = cdtektonpipelinev2.GetServiceURLForRegion("eu-de")
-			Expect(url).To(Equal("https://devops-api.eu-de.devops.cloud.ibm.com/v2"))
+			Expect(url).To(Equal("https://api.eu-de.devops.cloud.ibm.com/v2"))
 			Expect(err).To(BeNil())
 
 			url, err = cdtektonpipelinev2.GetServiceURLForRegion("eu-gb")
-			Expect(url).To(Equal("https://devops-api.eu-gb.devops.cloud.ibm.com/v2"))
+			Expect(url).To(Equal("https://api.eu-gb.devops.cloud.ibm.com/v2"))
 			Expect(err).To(BeNil())
 
 			url, err = cdtektonpipelinev2.GetServiceURLForRegion("jp-osa")
-			Expect(url).To(Equal("https://devops-api.jp-osa.devops.cloud.ibm.com/v2"))
+			Expect(url).To(Equal("https://api.jp-osa.devops.cloud.ibm.com/v2"))
 			Expect(err).To(BeNil())
 
 			url, err = cdtektonpipelinev2.GetServiceURLForRegion("jp-tok")
-			Expect(url).To(Equal("https://devops-api.jp-tok.devops.cloud.ibm.com/v2"))
+			Expect(url).To(Equal("https://api.jp-tok.devops.cloud.ibm.com/v2"))
 			Expect(err).To(BeNil())
 
 			url, err = cdtektonpipelinev2.GetServiceURLForRegion("au-syd")
-			Expect(url).To(Equal("https://devops-api.au-syd.devops.cloud.ibm.com/v2"))
+			Expect(url).To(Equal("https://api.au-syd.devops.cloud.ibm.com/v2"))
 			Expect(err).To(BeNil())
 
 			url, err = cdtektonpipelinev2.GetServiceURLForRegion("ca-tor")
-			Expect(url).To(Equal("https://devops-api.ca-tor.devops.cloud.ibm.com/v2"))
+			Expect(url).To(Equal("https://api.ca-tor.devops.cloud.ibm.com/v2"))
 			Expect(err).To(BeNil())
 
 			url, err = cdtektonpipelinev2.GetServiceURLForRegion("br-sao")
-			Expect(url).To(Equal("https://devops-api.br-sao.devops.cloud.ibm.com/v2"))
+			Expect(url).To(Equal("https://api.br-sao.devops.cloud.ibm.com/v2"))
 			Expect(err).To(BeNil())
 
 			url, err = cdtektonpipelinev2.GetServiceURLForRegion("INVALID_REGION")
@@ -1251,45 +1254,45 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				testServer.Close()
 			})
 		})
-		Context(`Test pagination helper method on response`, func() {
-			It(`Invoke GetNextOffset successfully`, func() {
-				responseObject := new(cdtektonpipelinev2.PipelineRuns)
-				nextObject := new(cdtektonpipelinev2.PipelineRunsNext)
-				nextObject.Href = core.StringPtr("ibm.com?offset=135")
-				responseObject.Next = nextObject
+	Context(`Test pagination helper method on response`, func() {
+		It(`Invoke GetNextOffset successfully`, func() {
+			responseObject := new(cdtektonpipelinev2.PipelineRuns)
+			nextObject := new(cdtektonpipelinev2.PipelineRunsNext)
+			nextObject.Href = core.StringPtr("ibm.com?offset=135")
+			responseObject.Next = nextObject
 
-				value, err := responseObject.GetNextOffset()
-				Expect(err).To(BeNil())
-				Expect(value).To(Equal(core.Int64Ptr(int64(135))))
-			})
-			It(`Invoke GetNextOffset without a "Next" property in the response`, func() {
-				responseObject := new(cdtektonpipelinev2.PipelineRuns)
-
-				value, err := responseObject.GetNextOffset()
-				Expect(err).To(BeNil())
-				Expect(value).To(BeNil())
-			})
-			It(`Invoke GetNextOffset without any query params in the "Next" URL`, func() {
-				responseObject := new(cdtektonpipelinev2.PipelineRuns)
-				nextObject := new(cdtektonpipelinev2.PipelineRunsNext)
-				nextObject.Href = core.StringPtr("ibm.com")
-				responseObject.Next = nextObject
-
-				value, err := responseObject.GetNextOffset()
-				Expect(err).To(BeNil())
-				Expect(value).To(BeNil())
-			})
-			It(`Invoke GetNextOffset with a non-integer query param in the "Next" URL`, func() {
-				responseObject := new(cdtektonpipelinev2.PipelineRuns)
-				nextObject := new(cdtektonpipelinev2.PipelineRunsNext)
-				nextObject.Href = core.StringPtr("ibm.com?offset=tiger")
-				responseObject.Next = nextObject
-
-				value, err := responseObject.GetNextOffset()
-				Expect(err).NotTo(BeNil())
-				Expect(value).To(BeNil())
-			})
+			value, err := responseObject.GetNextOffset()
+			Expect(err).To(BeNil())
+			Expect(value).To(Equal(core.Int64Ptr(int64(135))))
 		})
+		It(`Invoke GetNextOffset without a "Next" property in the response`, func() {
+			responseObject := new(cdtektonpipelinev2.PipelineRuns)
+
+			value, err := responseObject.GetNextOffset()
+			Expect(err).To(BeNil())
+			Expect(value).To(BeNil())
+		})
+		It(`Invoke GetNextOffset without any query params in the "Next" URL`, func() {
+			responseObject := new(cdtektonpipelinev2.PipelineRuns)
+			nextObject := new(cdtektonpipelinev2.PipelineRunsNext)
+			nextObject.Href = core.StringPtr("ibm.com")
+			responseObject.Next = nextObject
+
+			value, err := responseObject.GetNextOffset()
+			Expect(err).To(BeNil())
+			Expect(value).To(BeNil())
+		})
+		It(`Invoke GetNextOffset with a non-integer query param in the "Next" URL`, func() {
+			responseObject := new(cdtektonpipelinev2.PipelineRuns)
+			nextObject := new(cdtektonpipelinev2.PipelineRunsNext)
+			nextObject.Href = core.StringPtr("ibm.com?offset=tiger")
+			responseObject.Next = nextObject
+
+			value, err := responseObject.GetNextOffset()
+			Expect(err).NotTo(BeNil())
+			Expect(value).To(BeNil())
+		})
+	})
 	})
 	Describe(`CreateTektonPipelineRun(createTektonPipelineRunOptions *CreateTektonPipelineRunOptions) - Operation response error`, func() {
 		createTektonPipelineRunPath := "/tekton_pipelines/94619026-912b-4d92-8f51-6c74f0692d90/pipeline_runs"

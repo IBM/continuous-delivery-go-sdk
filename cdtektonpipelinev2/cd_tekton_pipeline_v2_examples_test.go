@@ -1,4 +1,3 @@
-//go:build examples
 // +build examples
 
 /**
@@ -24,10 +23,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/IBM/continuous-delivery-go-sdk/cdtektonpipelinev2"
 	"github.com/IBM/go-sdk-core/v5/core"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
+	"github.ibm.com/org-ids/tekton-pipeline-go-sdk/cdtektonpipelinev2"
 )
 
 //
@@ -49,7 +48,7 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 
 	var (
 		cdTektonPipelineService *cdtektonpipelinev2.CdTektonPipelineV2
-		config                  map[string]string
+		config       map[string]string
 	)
 
 	var shouldSkipTest = func() {
@@ -370,9 +369,9 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 			// begin-create_tekton_pipeline_definition
 
 			definitionScmSourceModel := &cdtektonpipelinev2.DefinitionScmSource{
-				URL:    core.StringPtr("https://github.com/IBM/tekton-tutorial.git"),
+				URL: core.StringPtr("https://github.com/IBM/tekton-tutorial.git"),
 				Branch: core.StringPtr("master"),
-				Path:   core.StringPtr(".tekton"),
+				Path: core.StringPtr(".tekton"),
 			}
 
 			createTektonPipelineDefinitionOptions := cdTektonPipelineService.NewCreateTektonPipelineDefinitionOptions(
@@ -422,9 +421,9 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 			// begin-replace_tekton_pipeline_definition
 
 			definitionScmSourceModel := &cdtektonpipelinev2.DefinitionScmSource{
-				URL:    core.StringPtr("https://github.com/IBM/tekton-tutorial.git"),
+				URL: core.StringPtr("https://github.com/IBM/tekton-tutorial.git"),
 				Branch: core.StringPtr("master"),
-				Path:   core.StringPtr(".tekton"),
+				Path: core.StringPtr(".tekton"),
 			}
 
 			replaceTektonPipelineDefinitionOptions := cdTektonPipelineService.NewReplaceTektonPipelineDefinitionOptions(
@@ -579,7 +578,7 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 
 			triggerModel := &cdtektonpipelinev2.TriggerDuplicateTrigger{
 				SourceTriggerID: core.StringPtr("b3a8228f-1c82-409b-b249-7639166a0300"),
-				Name:            core.StringPtr("Generic Trigger- duplicated"),
+				Name: core.StringPtr("Generic Trigger- duplicated"),
 			}
 
 			createTektonPipelineTriggerOptions := cdTektonPipelineService.NewCreateTektonPipelineTriggerOptions(
