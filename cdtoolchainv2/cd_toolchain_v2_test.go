@@ -1100,15 +1100,15 @@ var _ = Describe(`CdToolchainV2`, func() {
 			})
 		})
 	})
-	Describe(`ListIntegrations(listIntegrationsOptions *ListIntegrationsOptions) - Operation response error`, func() {
-		listIntegrationsPath := "/api/v2/toolchains/testString/integrations"
+	Describe(`ListTools(listToolsOptions *ListToolsOptions) - Operation response error`, func() {
+		listToolsPath := "/api/v2/toolchains/testString/tools"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listIntegrationsPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listToolsPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(0))}))
@@ -1117,7 +1117,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke ListIntegrations with error: Operation response processing error`, func() {
+			It(`Invoke ListTools with error: Operation response processing error`, func() {
 				cdToolchainService, serviceErr := cdtoolchainv2.NewCdToolchainV2(&cdtoolchainv2.CdToolchainV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1125,21 +1125,21 @@ var _ = Describe(`CdToolchainV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(cdToolchainService).ToNot(BeNil())
 
-				// Construct an instance of the ListIntegrationsOptions model
-				listIntegrationsOptionsModel := new(cdtoolchainv2.ListIntegrationsOptions)
-				listIntegrationsOptionsModel.ToolchainID = core.StringPtr("testString")
-				listIntegrationsOptionsModel.Limit = core.Int64Ptr(int64(1))
-				listIntegrationsOptionsModel.Offset = core.Int64Ptr(int64(0))
-				listIntegrationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListToolsOptions model
+				listToolsOptionsModel := new(cdtoolchainv2.ListToolsOptions)
+				listToolsOptionsModel.ToolchainID = core.StringPtr("testString")
+				listToolsOptionsModel.Limit = core.Int64Ptr(int64(1))
+				listToolsOptionsModel.Offset = core.Int64Ptr(int64(0))
+				listToolsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := cdToolchainService.ListIntegrations(listIntegrationsOptionsModel)
+				result, response, operationErr := cdToolchainService.ListTools(listToolsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
 				cdToolchainService.EnableRetries(0, 0)
-				result, response, operationErr = cdToolchainService.ListIntegrations(listIntegrationsOptionsModel)
+				result, response, operationErr = cdToolchainService.ListTools(listToolsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -1149,15 +1149,15 @@ var _ = Describe(`CdToolchainV2`, func() {
 			})
 		})
 	})
-	Describe(`ListIntegrations(listIntegrationsOptions *ListIntegrationsOptions)`, func() {
-		listIntegrationsPath := "/api/v2/toolchains/testString/integrations"
+	Describe(`ListTools(listToolsOptions *ListToolsOptions)`, func() {
+		listToolsPath := "/api/v2/toolchains/testString/tools"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listIntegrationsPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listToolsPath))
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
@@ -1168,10 +1168,10 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "integrations": [{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_id": "ToolID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"mapKey": "anyValue"}, "state": "configured"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "tools": [{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"mapKey": "anyValue"}, "state": "configured"}]}`)
 				}))
 			})
-			It(`Invoke ListIntegrations successfully with retries`, func() {
+			It(`Invoke ListTools successfully with retries`, func() {
 				cdToolchainService, serviceErr := cdtoolchainv2.NewCdToolchainV2(&cdtoolchainv2.CdToolchainV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1180,23 +1180,23 @@ var _ = Describe(`CdToolchainV2`, func() {
 				Expect(cdToolchainService).ToNot(BeNil())
 				cdToolchainService.EnableRetries(0, 0)
 
-				// Construct an instance of the ListIntegrationsOptions model
-				listIntegrationsOptionsModel := new(cdtoolchainv2.ListIntegrationsOptions)
-				listIntegrationsOptionsModel.ToolchainID = core.StringPtr("testString")
-				listIntegrationsOptionsModel.Limit = core.Int64Ptr(int64(1))
-				listIntegrationsOptionsModel.Offset = core.Int64Ptr(int64(0))
-				listIntegrationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListToolsOptions model
+				listToolsOptionsModel := new(cdtoolchainv2.ListToolsOptions)
+				listToolsOptionsModel.ToolchainID = core.StringPtr("testString")
+				listToolsOptionsModel.Limit = core.Int64Ptr(int64(1))
+				listToolsOptionsModel.Offset = core.Int64Ptr(int64(0))
+				listToolsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := cdToolchainService.ListIntegrationsWithContext(ctx, listIntegrationsOptionsModel)
+				_, _, operationErr := cdToolchainService.ListToolsWithContext(ctx, listToolsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
 				cdToolchainService.DisableRetries()
-				result, response, operationErr := cdToolchainService.ListIntegrations(listIntegrationsOptionsModel)
+				result, response, operationErr := cdToolchainService.ListTools(listToolsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -1204,7 +1204,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = cdToolchainService.ListIntegrationsWithContext(ctx, listIntegrationsOptionsModel)
+				_, _, operationErr = cdToolchainService.ListToolsWithContext(ctx, listToolsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -1218,7 +1218,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listIntegrationsPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listToolsPath))
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
@@ -1226,10 +1226,10 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "integrations": [{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_id": "ToolID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"mapKey": "anyValue"}, "state": "configured"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "tools": [{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"mapKey": "anyValue"}, "state": "configured"}]}`)
 				}))
 			})
-			It(`Invoke ListIntegrations successfully`, func() {
+			It(`Invoke ListTools successfully`, func() {
 				cdToolchainService, serviceErr := cdtoolchainv2.NewCdToolchainV2(&cdtoolchainv2.CdToolchainV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1238,26 +1238,26 @@ var _ = Describe(`CdToolchainV2`, func() {
 				Expect(cdToolchainService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := cdToolchainService.ListIntegrations(nil)
+				result, response, operationErr := cdToolchainService.ListTools(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the ListIntegrationsOptions model
-				listIntegrationsOptionsModel := new(cdtoolchainv2.ListIntegrationsOptions)
-				listIntegrationsOptionsModel.ToolchainID = core.StringPtr("testString")
-				listIntegrationsOptionsModel.Limit = core.Int64Ptr(int64(1))
-				listIntegrationsOptionsModel.Offset = core.Int64Ptr(int64(0))
-				listIntegrationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListToolsOptions model
+				listToolsOptionsModel := new(cdtoolchainv2.ListToolsOptions)
+				listToolsOptionsModel.ToolchainID = core.StringPtr("testString")
+				listToolsOptionsModel.Limit = core.Int64Ptr(int64(1))
+				listToolsOptionsModel.Offset = core.Int64Ptr(int64(0))
+				listToolsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = cdToolchainService.ListIntegrations(listIntegrationsOptionsModel)
+				result, response, operationErr = cdToolchainService.ListTools(listToolsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke ListIntegrations with error: Operation validation and request error`, func() {
+			It(`Invoke ListTools with error: Operation validation and request error`, func() {
 				cdToolchainService, serviceErr := cdtoolchainv2.NewCdToolchainV2(&cdtoolchainv2.CdToolchainV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1265,24 +1265,24 @@ var _ = Describe(`CdToolchainV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(cdToolchainService).ToNot(BeNil())
 
-				// Construct an instance of the ListIntegrationsOptions model
-				listIntegrationsOptionsModel := new(cdtoolchainv2.ListIntegrationsOptions)
-				listIntegrationsOptionsModel.ToolchainID = core.StringPtr("testString")
-				listIntegrationsOptionsModel.Limit = core.Int64Ptr(int64(1))
-				listIntegrationsOptionsModel.Offset = core.Int64Ptr(int64(0))
-				listIntegrationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListToolsOptions model
+				listToolsOptionsModel := new(cdtoolchainv2.ListToolsOptions)
+				listToolsOptionsModel.ToolchainID = core.StringPtr("testString")
+				listToolsOptionsModel.Limit = core.Int64Ptr(int64(1))
+				listToolsOptionsModel.Offset = core.Int64Ptr(int64(0))
+				listToolsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := cdToolchainService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := cdToolchainService.ListIntegrations(listIntegrationsOptionsModel)
+				result, response, operationErr := cdToolchainService.ListTools(listToolsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the ListIntegrationsOptions model with no property values
-				listIntegrationsOptionsModelNew := new(cdtoolchainv2.ListIntegrationsOptions)
+				// Construct a second instance of the ListToolsOptions model with no property values
+				listToolsOptionsModelNew := new(cdtoolchainv2.ListToolsOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = cdToolchainService.ListIntegrations(listIntegrationsOptionsModelNew)
+				result, response, operationErr = cdToolchainService.ListTools(listToolsOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1300,7 +1300,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					res.WriteHeader(200)
 				}))
 			})
-			It(`Invoke ListIntegrations successfully`, func() {
+			It(`Invoke ListTools successfully`, func() {
 				cdToolchainService, serviceErr := cdtoolchainv2.NewCdToolchainV2(&cdtoolchainv2.CdToolchainV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1308,15 +1308,15 @@ var _ = Describe(`CdToolchainV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(cdToolchainService).ToNot(BeNil())
 
-				// Construct an instance of the ListIntegrationsOptions model
-				listIntegrationsOptionsModel := new(cdtoolchainv2.ListIntegrationsOptions)
-				listIntegrationsOptionsModel.ToolchainID = core.StringPtr("testString")
-				listIntegrationsOptionsModel.Limit = core.Int64Ptr(int64(1))
-				listIntegrationsOptionsModel.Offset = core.Int64Ptr(int64(0))
-				listIntegrationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListToolsOptions model
+				listToolsOptionsModel := new(cdtoolchainv2.ListToolsOptions)
+				listToolsOptionsModel.ToolchainID = core.StringPtr("testString")
+				listToolsOptionsModel.Limit = core.Int64Ptr(int64(1))
+				listToolsOptionsModel.Offset = core.Int64Ptr(int64(0))
+				listToolsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := cdToolchainService.ListIntegrations(listIntegrationsOptionsModel)
+				result, response, operationErr := cdToolchainService.ListTools(listToolsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -1329,8 +1329,8 @@ var _ = Describe(`CdToolchainV2`, func() {
 		})
 	Context(`Test pagination helper method on response`, func() {
 		It(`Invoke GetNextOffset successfully`, func() {
-			responseObject := new(cdtoolchainv2.GetIntegrationsResponse)
-			nextObject := new(cdtoolchainv2.GetIntegrationsResponseNext)
+			responseObject := new(cdtoolchainv2.GetToolsResponse)
+			nextObject := new(cdtoolchainv2.GetToolsResponseNext)
 			nextObject.Href = core.StringPtr("ibm.com?offset=135")
 			responseObject.Next = nextObject
 
@@ -1339,15 +1339,15 @@ var _ = Describe(`CdToolchainV2`, func() {
 			Expect(value).To(Equal(core.Int64Ptr(int64(135))))
 		})
 		It(`Invoke GetNextOffset without a "Next" property in the response`, func() {
-			responseObject := new(cdtoolchainv2.GetIntegrationsResponse)
+			responseObject := new(cdtoolchainv2.GetToolsResponse)
 
 			value, err := responseObject.GetNextOffset()
 			Expect(err).To(BeNil())
 			Expect(value).To(BeNil())
 		})
 		It(`Invoke GetNextOffset without any query params in the "Next" URL`, func() {
-			responseObject := new(cdtoolchainv2.GetIntegrationsResponse)
-			nextObject := new(cdtoolchainv2.GetIntegrationsResponseNext)
+			responseObject := new(cdtoolchainv2.GetToolsResponse)
+			nextObject := new(cdtoolchainv2.GetToolsResponseNext)
 			nextObject.Href = core.StringPtr("ibm.com")
 			responseObject.Next = nextObject
 
@@ -1356,8 +1356,8 @@ var _ = Describe(`CdToolchainV2`, func() {
 			Expect(value).To(BeNil())
 		})
 		It(`Invoke GetNextOffset with a non-integer query param in the "Next" URL`, func() {
-			responseObject := new(cdtoolchainv2.GetIntegrationsResponse)
-			nextObject := new(cdtoolchainv2.GetIntegrationsResponseNext)
+			responseObject := new(cdtoolchainv2.GetToolsResponse)
+			nextObject := new(cdtoolchainv2.GetToolsResponseNext)
 			nextObject.Href = core.StringPtr("ibm.com?offset=tiger")
 			responseObject.Next = nextObject
 
@@ -1367,22 +1367,22 @@ var _ = Describe(`CdToolchainV2`, func() {
 		})
 	})
 	})
-	Describe(`CreateIntegration(createIntegrationOptions *CreateIntegrationOptions) - Operation response error`, func() {
-		createIntegrationPath := "/api/v2/toolchains/testString/integrations"
+	Describe(`CreateTool(createToolOptions *CreateToolOptions) - Operation response error`, func() {
+		createToolPath := "/api/v2/toolchains/testString/tools"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createIntegrationPath))
+					Expect(req.URL.EscapedPath()).To(Equal(createToolPath))
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
 					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke CreateIntegration with error: Operation response processing error`, func() {
+			It(`Invoke CreateTool with error: Operation response processing error`, func() {
 				cdToolchainService, serviceErr := cdtoolchainv2.NewCdToolchainV2(&cdtoolchainv2.CdToolchainV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1390,23 +1390,23 @@ var _ = Describe(`CdToolchainV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(cdToolchainService).ToNot(BeNil())
 
-				// Construct an instance of the CreateIntegrationOptions model
-				createIntegrationOptionsModel := new(cdtoolchainv2.CreateIntegrationOptions)
-				createIntegrationOptionsModel.ToolchainID = core.StringPtr("testString")
-				createIntegrationOptionsModel.ToolID = core.StringPtr("todolist")
-				createIntegrationOptionsModel.Name = core.StringPtr("testString")
-				createIntegrationOptionsModel.Parameters = make(map[string]interface{})
-				createIntegrationOptionsModel.ParametersReferences = make(map[string]interface{})
-				createIntegrationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the CreateToolOptions model
+				createToolOptionsModel := new(cdtoolchainv2.CreateToolOptions)
+				createToolOptionsModel.ToolchainID = core.StringPtr("testString")
+				createToolOptionsModel.ToolTypeID = core.StringPtr("todolist")
+				createToolOptionsModel.Name = core.StringPtr("testString")
+				createToolOptionsModel.Parameters = make(map[string]interface{})
+				createToolOptionsModel.ParametersReferences = make(map[string]interface{})
+				createToolOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := cdToolchainService.CreateIntegration(createIntegrationOptionsModel)
+				result, response, operationErr := cdToolchainService.CreateTool(createToolOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
 				cdToolchainService.EnableRetries(0, 0)
-				result, response, operationErr = cdToolchainService.CreateIntegration(createIntegrationOptionsModel)
+				result, response, operationErr = cdToolchainService.CreateTool(createToolOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -1416,15 +1416,15 @@ var _ = Describe(`CdToolchainV2`, func() {
 			})
 		})
 	})
-	Describe(`CreateIntegration(createIntegrationOptions *CreateIntegrationOptions)`, func() {
-		createIntegrationPath := "/api/v2/toolchains/testString/integrations"
+	Describe(`CreateTool(createToolOptions *CreateToolOptions)`, func() {
+		createToolPath := "/api/v2/toolchains/testString/tools"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createIntegrationPath))
+					Expect(req.URL.EscapedPath()).To(Equal(createToolPath))
 					Expect(req.Method).To(Equal("POST"))
 
 					// For gzip-disabled operation, verify Content-Encoding is not set.
@@ -1449,10 +1449,10 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_id": "ToolID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "MyToolIntegration", "parameters": {"mapKey": "anyValue"}, "state": "configured"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "MyTool", "parameters": {"mapKey": "anyValue"}, "state": "configured"}`)
 				}))
 			})
-			It(`Invoke CreateIntegration successfully with retries`, func() {
+			It(`Invoke CreateTool successfully with retries`, func() {
 				cdToolchainService, serviceErr := cdtoolchainv2.NewCdToolchainV2(&cdtoolchainv2.CdToolchainV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1461,25 +1461,25 @@ var _ = Describe(`CdToolchainV2`, func() {
 				Expect(cdToolchainService).ToNot(BeNil())
 				cdToolchainService.EnableRetries(0, 0)
 
-				// Construct an instance of the CreateIntegrationOptions model
-				createIntegrationOptionsModel := new(cdtoolchainv2.CreateIntegrationOptions)
-				createIntegrationOptionsModel.ToolchainID = core.StringPtr("testString")
-				createIntegrationOptionsModel.ToolID = core.StringPtr("todolist")
-				createIntegrationOptionsModel.Name = core.StringPtr("testString")
-				createIntegrationOptionsModel.Parameters = make(map[string]interface{})
-				createIntegrationOptionsModel.ParametersReferences = make(map[string]interface{})
-				createIntegrationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the CreateToolOptions model
+				createToolOptionsModel := new(cdtoolchainv2.CreateToolOptions)
+				createToolOptionsModel.ToolchainID = core.StringPtr("testString")
+				createToolOptionsModel.ToolTypeID = core.StringPtr("todolist")
+				createToolOptionsModel.Name = core.StringPtr("testString")
+				createToolOptionsModel.Parameters = make(map[string]interface{})
+				createToolOptionsModel.ParametersReferences = make(map[string]interface{})
+				createToolOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := cdToolchainService.CreateIntegrationWithContext(ctx, createIntegrationOptionsModel)
+				_, _, operationErr := cdToolchainService.CreateToolWithContext(ctx, createToolOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
 				cdToolchainService.DisableRetries()
-				result, response, operationErr := cdToolchainService.CreateIntegration(createIntegrationOptionsModel)
+				result, response, operationErr := cdToolchainService.CreateTool(createToolOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -1487,7 +1487,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = cdToolchainService.CreateIntegrationWithContext(ctx, createIntegrationOptionsModel)
+				_, _, operationErr = cdToolchainService.CreateToolWithContext(ctx, createToolOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -1501,7 +1501,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createIntegrationPath))
+					Expect(req.URL.EscapedPath()).To(Equal(createToolPath))
 					Expect(req.Method).To(Equal("POST"))
 
 					// For gzip-disabled operation, verify Content-Encoding is not set.
@@ -1523,10 +1523,10 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_id": "ToolID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "MyToolIntegration", "parameters": {"mapKey": "anyValue"}, "state": "configured"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "MyTool", "parameters": {"mapKey": "anyValue"}, "state": "configured"}`)
 				}))
 			})
-			It(`Invoke CreateIntegration successfully`, func() {
+			It(`Invoke CreateTool successfully`, func() {
 				cdToolchainService, serviceErr := cdtoolchainv2.NewCdToolchainV2(&cdtoolchainv2.CdToolchainV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1535,28 +1535,28 @@ var _ = Describe(`CdToolchainV2`, func() {
 				Expect(cdToolchainService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := cdToolchainService.CreateIntegration(nil)
+				result, response, operationErr := cdToolchainService.CreateTool(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the CreateIntegrationOptions model
-				createIntegrationOptionsModel := new(cdtoolchainv2.CreateIntegrationOptions)
-				createIntegrationOptionsModel.ToolchainID = core.StringPtr("testString")
-				createIntegrationOptionsModel.ToolID = core.StringPtr("todolist")
-				createIntegrationOptionsModel.Name = core.StringPtr("testString")
-				createIntegrationOptionsModel.Parameters = make(map[string]interface{})
-				createIntegrationOptionsModel.ParametersReferences = make(map[string]interface{})
-				createIntegrationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the CreateToolOptions model
+				createToolOptionsModel := new(cdtoolchainv2.CreateToolOptions)
+				createToolOptionsModel.ToolchainID = core.StringPtr("testString")
+				createToolOptionsModel.ToolTypeID = core.StringPtr("todolist")
+				createToolOptionsModel.Name = core.StringPtr("testString")
+				createToolOptionsModel.Parameters = make(map[string]interface{})
+				createToolOptionsModel.ParametersReferences = make(map[string]interface{})
+				createToolOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = cdToolchainService.CreateIntegration(createIntegrationOptionsModel)
+				result, response, operationErr = cdToolchainService.CreateTool(createToolOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke CreateIntegration with error: Operation validation and request error`, func() {
+			It(`Invoke CreateTool with error: Operation validation and request error`, func() {
 				cdToolchainService, serviceErr := cdtoolchainv2.NewCdToolchainV2(&cdtoolchainv2.CdToolchainV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1564,26 +1564,26 @@ var _ = Describe(`CdToolchainV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(cdToolchainService).ToNot(BeNil())
 
-				// Construct an instance of the CreateIntegrationOptions model
-				createIntegrationOptionsModel := new(cdtoolchainv2.CreateIntegrationOptions)
-				createIntegrationOptionsModel.ToolchainID = core.StringPtr("testString")
-				createIntegrationOptionsModel.ToolID = core.StringPtr("todolist")
-				createIntegrationOptionsModel.Name = core.StringPtr("testString")
-				createIntegrationOptionsModel.Parameters = make(map[string]interface{})
-				createIntegrationOptionsModel.ParametersReferences = make(map[string]interface{})
-				createIntegrationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the CreateToolOptions model
+				createToolOptionsModel := new(cdtoolchainv2.CreateToolOptions)
+				createToolOptionsModel.ToolchainID = core.StringPtr("testString")
+				createToolOptionsModel.ToolTypeID = core.StringPtr("todolist")
+				createToolOptionsModel.Name = core.StringPtr("testString")
+				createToolOptionsModel.Parameters = make(map[string]interface{})
+				createToolOptionsModel.ParametersReferences = make(map[string]interface{})
+				createToolOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := cdToolchainService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := cdToolchainService.CreateIntegration(createIntegrationOptionsModel)
+				result, response, operationErr := cdToolchainService.CreateTool(createToolOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the CreateIntegrationOptions model with no property values
-				createIntegrationOptionsModelNew := new(cdtoolchainv2.CreateIntegrationOptions)
+				// Construct a second instance of the CreateToolOptions model with no property values
+				createToolOptionsModelNew := new(cdtoolchainv2.CreateToolOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = cdToolchainService.CreateIntegration(createIntegrationOptionsModelNew)
+				result, response, operationErr = cdToolchainService.CreateTool(createToolOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1601,7 +1601,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					res.WriteHeader(201)
 				}))
 			})
-			It(`Invoke CreateIntegration successfully`, func() {
+			It(`Invoke CreateTool successfully`, func() {
 				cdToolchainService, serviceErr := cdtoolchainv2.NewCdToolchainV2(&cdtoolchainv2.CdToolchainV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1609,17 +1609,17 @@ var _ = Describe(`CdToolchainV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(cdToolchainService).ToNot(BeNil())
 
-				// Construct an instance of the CreateIntegrationOptions model
-				createIntegrationOptionsModel := new(cdtoolchainv2.CreateIntegrationOptions)
-				createIntegrationOptionsModel.ToolchainID = core.StringPtr("testString")
-				createIntegrationOptionsModel.ToolID = core.StringPtr("todolist")
-				createIntegrationOptionsModel.Name = core.StringPtr("testString")
-				createIntegrationOptionsModel.Parameters = make(map[string]interface{})
-				createIntegrationOptionsModel.ParametersReferences = make(map[string]interface{})
-				createIntegrationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the CreateToolOptions model
+				createToolOptionsModel := new(cdtoolchainv2.CreateToolOptions)
+				createToolOptionsModel.ToolchainID = core.StringPtr("testString")
+				createToolOptionsModel.ToolTypeID = core.StringPtr("todolist")
+				createToolOptionsModel.Name = core.StringPtr("testString")
+				createToolOptionsModel.Parameters = make(map[string]interface{})
+				createToolOptionsModel.ParametersReferences = make(map[string]interface{})
+				createToolOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := cdToolchainService.CreateIntegration(createIntegrationOptionsModel)
+				result, response, operationErr := cdToolchainService.CreateTool(createToolOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -1631,22 +1631,22 @@ var _ = Describe(`CdToolchainV2`, func() {
 			})
 		})
 	})
-	Describe(`GetIntegrationByID(getIntegrationByIDOptions *GetIntegrationByIDOptions) - Operation response error`, func() {
-		getIntegrationByIDPath := "/api/v2/toolchains/testString/integrations/testString"
+	Describe(`GetToolByID(getToolByIDOptions *GetToolByIDOptions) - Operation response error`, func() {
+		getToolByIDPath := "/api/v2/toolchains/testString/tools/testString"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getIntegrationByIDPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getToolByIDPath))
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke GetIntegrationByID with error: Operation response processing error`, func() {
+			It(`Invoke GetToolByID with error: Operation response processing error`, func() {
 				cdToolchainService, serviceErr := cdtoolchainv2.NewCdToolchainV2(&cdtoolchainv2.CdToolchainV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1654,20 +1654,20 @@ var _ = Describe(`CdToolchainV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(cdToolchainService).ToNot(BeNil())
 
-				// Construct an instance of the GetIntegrationByIDOptions model
-				getIntegrationByIDOptionsModel := new(cdtoolchainv2.GetIntegrationByIDOptions)
-				getIntegrationByIDOptionsModel.ToolchainID = core.StringPtr("testString")
-				getIntegrationByIDOptionsModel.IntegrationID = core.StringPtr("testString")
-				getIntegrationByIDOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetToolByIDOptions model
+				getToolByIDOptionsModel := new(cdtoolchainv2.GetToolByIDOptions)
+				getToolByIDOptionsModel.ToolchainID = core.StringPtr("testString")
+				getToolByIDOptionsModel.ToolID = core.StringPtr("testString")
+				getToolByIDOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := cdToolchainService.GetIntegrationByID(getIntegrationByIDOptionsModel)
+				result, response, operationErr := cdToolchainService.GetToolByID(getToolByIDOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
 				cdToolchainService.EnableRetries(0, 0)
-				result, response, operationErr = cdToolchainService.GetIntegrationByID(getIntegrationByIDOptionsModel)
+				result, response, operationErr = cdToolchainService.GetToolByID(getToolByIDOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -1677,15 +1677,15 @@ var _ = Describe(`CdToolchainV2`, func() {
 			})
 		})
 	})
-	Describe(`GetIntegrationByID(getIntegrationByIDOptions *GetIntegrationByIDOptions)`, func() {
-		getIntegrationByIDPath := "/api/v2/toolchains/testString/integrations/testString"
+	Describe(`GetToolByID(getToolByIDOptions *GetToolByIDOptions)`, func() {
+		getToolByIDPath := "/api/v2/toolchains/testString/tools/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getIntegrationByIDPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getToolByIDPath))
 					Expect(req.Method).To(Equal("GET"))
 
 					// Sleep a short time to support a timeout test
@@ -1694,10 +1694,10 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_id": "ToolID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"mapKey": "anyValue"}, "state": "configured"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"mapKey": "anyValue"}, "state": "configured"}`)
 				}))
 			})
-			It(`Invoke GetIntegrationByID successfully with retries`, func() {
+			It(`Invoke GetToolByID successfully with retries`, func() {
 				cdToolchainService, serviceErr := cdtoolchainv2.NewCdToolchainV2(&cdtoolchainv2.CdToolchainV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1706,22 +1706,22 @@ var _ = Describe(`CdToolchainV2`, func() {
 				Expect(cdToolchainService).ToNot(BeNil())
 				cdToolchainService.EnableRetries(0, 0)
 
-				// Construct an instance of the GetIntegrationByIDOptions model
-				getIntegrationByIDOptionsModel := new(cdtoolchainv2.GetIntegrationByIDOptions)
-				getIntegrationByIDOptionsModel.ToolchainID = core.StringPtr("testString")
-				getIntegrationByIDOptionsModel.IntegrationID = core.StringPtr("testString")
-				getIntegrationByIDOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetToolByIDOptions model
+				getToolByIDOptionsModel := new(cdtoolchainv2.GetToolByIDOptions)
+				getToolByIDOptionsModel.ToolchainID = core.StringPtr("testString")
+				getToolByIDOptionsModel.ToolID = core.StringPtr("testString")
+				getToolByIDOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := cdToolchainService.GetIntegrationByIDWithContext(ctx, getIntegrationByIDOptionsModel)
+				_, _, operationErr := cdToolchainService.GetToolByIDWithContext(ctx, getToolByIDOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
 				cdToolchainService.DisableRetries()
-				result, response, operationErr := cdToolchainService.GetIntegrationByID(getIntegrationByIDOptionsModel)
+				result, response, operationErr := cdToolchainService.GetToolByID(getToolByIDOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -1729,7 +1729,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = cdToolchainService.GetIntegrationByIDWithContext(ctx, getIntegrationByIDOptionsModel)
+				_, _, operationErr = cdToolchainService.GetToolByIDWithContext(ctx, getToolByIDOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -1743,16 +1743,16 @@ var _ = Describe(`CdToolchainV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getIntegrationByIDPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getToolByIDPath))
 					Expect(req.Method).To(Equal("GET"))
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_id": "ToolID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"mapKey": "anyValue"}, "state": "configured"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"mapKey": "anyValue"}, "state": "configured"}`)
 				}))
 			})
-			It(`Invoke GetIntegrationByID successfully`, func() {
+			It(`Invoke GetToolByID successfully`, func() {
 				cdToolchainService, serviceErr := cdtoolchainv2.NewCdToolchainV2(&cdtoolchainv2.CdToolchainV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1761,25 +1761,25 @@ var _ = Describe(`CdToolchainV2`, func() {
 				Expect(cdToolchainService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := cdToolchainService.GetIntegrationByID(nil)
+				result, response, operationErr := cdToolchainService.GetToolByID(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the GetIntegrationByIDOptions model
-				getIntegrationByIDOptionsModel := new(cdtoolchainv2.GetIntegrationByIDOptions)
-				getIntegrationByIDOptionsModel.ToolchainID = core.StringPtr("testString")
-				getIntegrationByIDOptionsModel.IntegrationID = core.StringPtr("testString")
-				getIntegrationByIDOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetToolByIDOptions model
+				getToolByIDOptionsModel := new(cdtoolchainv2.GetToolByIDOptions)
+				getToolByIDOptionsModel.ToolchainID = core.StringPtr("testString")
+				getToolByIDOptionsModel.ToolID = core.StringPtr("testString")
+				getToolByIDOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = cdToolchainService.GetIntegrationByID(getIntegrationByIDOptionsModel)
+				result, response, operationErr = cdToolchainService.GetToolByID(getToolByIDOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke GetIntegrationByID with error: Operation validation and request error`, func() {
+			It(`Invoke GetToolByID with error: Operation validation and request error`, func() {
 				cdToolchainService, serviceErr := cdtoolchainv2.NewCdToolchainV2(&cdtoolchainv2.CdToolchainV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1787,23 +1787,23 @@ var _ = Describe(`CdToolchainV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(cdToolchainService).ToNot(BeNil())
 
-				// Construct an instance of the GetIntegrationByIDOptions model
-				getIntegrationByIDOptionsModel := new(cdtoolchainv2.GetIntegrationByIDOptions)
-				getIntegrationByIDOptionsModel.ToolchainID = core.StringPtr("testString")
-				getIntegrationByIDOptionsModel.IntegrationID = core.StringPtr("testString")
-				getIntegrationByIDOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetToolByIDOptions model
+				getToolByIDOptionsModel := new(cdtoolchainv2.GetToolByIDOptions)
+				getToolByIDOptionsModel.ToolchainID = core.StringPtr("testString")
+				getToolByIDOptionsModel.ToolID = core.StringPtr("testString")
+				getToolByIDOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := cdToolchainService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := cdToolchainService.GetIntegrationByID(getIntegrationByIDOptionsModel)
+				result, response, operationErr := cdToolchainService.GetToolByID(getToolByIDOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the GetIntegrationByIDOptions model with no property values
-				getIntegrationByIDOptionsModelNew := new(cdtoolchainv2.GetIntegrationByIDOptions)
+				// Construct a second instance of the GetToolByIDOptions model with no property values
+				getToolByIDOptionsModelNew := new(cdtoolchainv2.GetToolByIDOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = cdToolchainService.GetIntegrationByID(getIntegrationByIDOptionsModelNew)
+				result, response, operationErr = cdToolchainService.GetToolByID(getToolByIDOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1821,7 +1821,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					res.WriteHeader(200)
 				}))
 			})
-			It(`Invoke GetIntegrationByID successfully`, func() {
+			It(`Invoke GetToolByID successfully`, func() {
 				cdToolchainService, serviceErr := cdtoolchainv2.NewCdToolchainV2(&cdtoolchainv2.CdToolchainV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1829,14 +1829,14 @@ var _ = Describe(`CdToolchainV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(cdToolchainService).ToNot(BeNil())
 
-				// Construct an instance of the GetIntegrationByIDOptions model
-				getIntegrationByIDOptionsModel := new(cdtoolchainv2.GetIntegrationByIDOptions)
-				getIntegrationByIDOptionsModel.ToolchainID = core.StringPtr("testString")
-				getIntegrationByIDOptionsModel.IntegrationID = core.StringPtr("testString")
-				getIntegrationByIDOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetToolByIDOptions model
+				getToolByIDOptionsModel := new(cdtoolchainv2.GetToolByIDOptions)
+				getToolByIDOptionsModel.ToolchainID = core.StringPtr("testString")
+				getToolByIDOptionsModel.ToolID = core.StringPtr("testString")
+				getToolByIDOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := cdToolchainService.GetIntegrationByID(getIntegrationByIDOptionsModel)
+				result, response, operationErr := cdToolchainService.GetToolByID(getToolByIDOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -1848,21 +1848,21 @@ var _ = Describe(`CdToolchainV2`, func() {
 			})
 		})
 	})
-	Describe(`DeleteIntegration(deleteIntegrationOptions *DeleteIntegrationOptions)`, func() {
-		deleteIntegrationPath := "/api/v2/toolchains/testString/integrations/testString"
+	Describe(`DeleteTool(deleteToolOptions *DeleteToolOptions)`, func() {
+		deleteToolPath := "/api/v2/toolchains/testString/tools/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(deleteIntegrationPath))
+					Expect(req.URL.EscapedPath()).To(Equal(deleteToolPath))
 					Expect(req.Method).To(Equal("DELETE"))
 
 					res.WriteHeader(204)
 				}))
 			})
-			It(`Invoke DeleteIntegration successfully`, func() {
+			It(`Invoke DeleteTool successfully`, func() {
 				cdToolchainService, serviceErr := cdtoolchainv2.NewCdToolchainV2(&cdtoolchainv2.CdToolchainV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1871,22 +1871,22 @@ var _ = Describe(`CdToolchainV2`, func() {
 				Expect(cdToolchainService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				response, operationErr := cdToolchainService.DeleteIntegration(nil)
+				response, operationErr := cdToolchainService.DeleteTool(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 
-				// Construct an instance of the DeleteIntegrationOptions model
-				deleteIntegrationOptionsModel := new(cdtoolchainv2.DeleteIntegrationOptions)
-				deleteIntegrationOptionsModel.ToolchainID = core.StringPtr("testString")
-				deleteIntegrationOptionsModel.IntegrationID = core.StringPtr("testString")
-				deleteIntegrationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the DeleteToolOptions model
+				deleteToolOptionsModel := new(cdtoolchainv2.DeleteToolOptions)
+				deleteToolOptionsModel.ToolchainID = core.StringPtr("testString")
+				deleteToolOptionsModel.ToolID = core.StringPtr("testString")
+				deleteToolOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				response, operationErr = cdToolchainService.DeleteIntegration(deleteIntegrationOptionsModel)
+				response, operationErr = cdToolchainService.DeleteTool(deleteToolOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 			})
-			It(`Invoke DeleteIntegration with error: Operation validation and request error`, func() {
+			It(`Invoke DeleteTool with error: Operation validation and request error`, func() {
 				cdToolchainService, serviceErr := cdtoolchainv2.NewCdToolchainV2(&cdtoolchainv2.CdToolchainV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1894,22 +1894,22 @@ var _ = Describe(`CdToolchainV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(cdToolchainService).ToNot(BeNil())
 
-				// Construct an instance of the DeleteIntegrationOptions model
-				deleteIntegrationOptionsModel := new(cdtoolchainv2.DeleteIntegrationOptions)
-				deleteIntegrationOptionsModel.ToolchainID = core.StringPtr("testString")
-				deleteIntegrationOptionsModel.IntegrationID = core.StringPtr("testString")
-				deleteIntegrationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the DeleteToolOptions model
+				deleteToolOptionsModel := new(cdtoolchainv2.DeleteToolOptions)
+				deleteToolOptionsModel.ToolchainID = core.StringPtr("testString")
+				deleteToolOptionsModel.ToolID = core.StringPtr("testString")
+				deleteToolOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := cdToolchainService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				response, operationErr := cdToolchainService.DeleteIntegration(deleteIntegrationOptionsModel)
+				response, operationErr := cdToolchainService.DeleteTool(deleteToolOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
-				// Construct a second instance of the DeleteIntegrationOptions model with no property values
-				deleteIntegrationOptionsModelNew := new(cdtoolchainv2.DeleteIntegrationOptions)
+				// Construct a second instance of the DeleteToolOptions model with no property values
+				deleteToolOptionsModelNew := new(cdtoolchainv2.DeleteToolOptions)
 				// Invoke operation with invalid model (negative test)
-				response, operationErr = cdToolchainService.DeleteIntegration(deleteIntegrationOptionsModelNew)
+				response, operationErr = cdToolchainService.DeleteTool(deleteToolOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 			})
@@ -1918,15 +1918,15 @@ var _ = Describe(`CdToolchainV2`, func() {
 			})
 		})
 	})
-	Describe(`UpdateIntegration(updateIntegrationOptions *UpdateIntegrationOptions)`, func() {
-		updateIntegrationPath := "/api/v2/toolchains/testString/integrations/testString"
+	Describe(`UpdateTool(updateToolOptions *UpdateToolOptions)`, func() {
+		updateToolPath := "/api/v2/toolchains/testString/tools/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateIntegrationPath))
+					Expect(req.URL.EscapedPath()).To(Equal(updateToolPath))
 					Expect(req.Method).To(Equal("PATCH"))
 
 					// For gzip-disabled operation, verify Content-Encoding is not set.
@@ -1948,7 +1948,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					res.WriteHeader(204)
 				}))
 			})
-			It(`Invoke UpdateIntegration successfully`, func() {
+			It(`Invoke UpdateTool successfully`, func() {
 				cdToolchainService, serviceErr := cdtoolchainv2.NewCdToolchainV2(&cdtoolchainv2.CdToolchainV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1957,26 +1957,26 @@ var _ = Describe(`CdToolchainV2`, func() {
 				Expect(cdToolchainService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				response, operationErr := cdToolchainService.UpdateIntegration(nil)
+				response, operationErr := cdToolchainService.UpdateTool(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 
-				// Construct an instance of the UpdateIntegrationOptions model
-				updateIntegrationOptionsModel := new(cdtoolchainv2.UpdateIntegrationOptions)
-				updateIntegrationOptionsModel.ToolchainID = core.StringPtr("testString")
-				updateIntegrationOptionsModel.IntegrationID = core.StringPtr("testString")
-				updateIntegrationOptionsModel.Name = core.StringPtr("MyToolIntegration")
-				updateIntegrationOptionsModel.ToolID = core.StringPtr("todolist")
-				updateIntegrationOptionsModel.Parameters = make(map[string]interface{})
-				updateIntegrationOptionsModel.ParametersReferences = make(map[string]interface{})
-				updateIntegrationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the UpdateToolOptions model
+				updateToolOptionsModel := new(cdtoolchainv2.UpdateToolOptions)
+				updateToolOptionsModel.ToolchainID = core.StringPtr("testString")
+				updateToolOptionsModel.ToolID = core.StringPtr("testString")
+				updateToolOptionsModel.Name = core.StringPtr("MyTool")
+				updateToolOptionsModel.ToolTypeID = core.StringPtr("todolist")
+				updateToolOptionsModel.Parameters = make(map[string]interface{})
+				updateToolOptionsModel.ParametersReferences = make(map[string]interface{})
+				updateToolOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				response, operationErr = cdToolchainService.UpdateIntegration(updateIntegrationOptionsModel)
+				response, operationErr = cdToolchainService.UpdateTool(updateToolOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 			})
-			It(`Invoke UpdateIntegration with error: Operation validation and request error`, func() {
+			It(`Invoke UpdateTool with error: Operation validation and request error`, func() {
 				cdToolchainService, serviceErr := cdtoolchainv2.NewCdToolchainV2(&cdtoolchainv2.CdToolchainV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1984,26 +1984,26 @@ var _ = Describe(`CdToolchainV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(cdToolchainService).ToNot(BeNil())
 
-				// Construct an instance of the UpdateIntegrationOptions model
-				updateIntegrationOptionsModel := new(cdtoolchainv2.UpdateIntegrationOptions)
-				updateIntegrationOptionsModel.ToolchainID = core.StringPtr("testString")
-				updateIntegrationOptionsModel.IntegrationID = core.StringPtr("testString")
-				updateIntegrationOptionsModel.Name = core.StringPtr("MyToolIntegration")
-				updateIntegrationOptionsModel.ToolID = core.StringPtr("todolist")
-				updateIntegrationOptionsModel.Parameters = make(map[string]interface{})
-				updateIntegrationOptionsModel.ParametersReferences = make(map[string]interface{})
-				updateIntegrationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the UpdateToolOptions model
+				updateToolOptionsModel := new(cdtoolchainv2.UpdateToolOptions)
+				updateToolOptionsModel.ToolchainID = core.StringPtr("testString")
+				updateToolOptionsModel.ToolID = core.StringPtr("testString")
+				updateToolOptionsModel.Name = core.StringPtr("MyTool")
+				updateToolOptionsModel.ToolTypeID = core.StringPtr("todolist")
+				updateToolOptionsModel.Parameters = make(map[string]interface{})
+				updateToolOptionsModel.ParametersReferences = make(map[string]interface{})
+				updateToolOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := cdToolchainService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				response, operationErr := cdToolchainService.UpdateIntegration(updateIntegrationOptionsModel)
+				response, operationErr := cdToolchainService.UpdateTool(updateToolOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
-				// Construct a second instance of the UpdateIntegrationOptions model with no property values
-				updateIntegrationOptionsModelNew := new(cdtoolchainv2.UpdateIntegrationOptions)
+				// Construct a second instance of the UpdateToolOptions model with no property values
+				updateToolOptionsModelNew := new(cdtoolchainv2.UpdateToolOptions)
 				// Invoke operation with invalid model (negative test)
-				response, operationErr = cdToolchainService.UpdateIntegration(updateIntegrationOptionsModelNew)
+				response, operationErr = cdToolchainService.UpdateTool(updateToolOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 			})
@@ -2018,24 +2018,24 @@ var _ = Describe(`CdToolchainV2`, func() {
 				URL:           "http://cdtoolchainv2modelgenerator.com",
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
-			It(`Invoke NewCreateIntegrationOptions successfully`, func() {
-				// Construct an instance of the CreateIntegrationOptions model
+			It(`Invoke NewCreateToolOptions successfully`, func() {
+				// Construct an instance of the CreateToolOptions model
 				toolchainID := "testString"
-				createIntegrationOptionsToolID := "todolist"
-				createIntegrationOptionsModel := cdToolchainService.NewCreateIntegrationOptions(toolchainID, createIntegrationOptionsToolID)
-				createIntegrationOptionsModel.SetToolchainID("testString")
-				createIntegrationOptionsModel.SetToolID("todolist")
-				createIntegrationOptionsModel.SetName("testString")
-				createIntegrationOptionsModel.SetParameters(make(map[string]interface{}))
-				createIntegrationOptionsModel.SetParametersReferences(make(map[string]interface{}))
-				createIntegrationOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(createIntegrationOptionsModel).ToNot(BeNil())
-				Expect(createIntegrationOptionsModel.ToolchainID).To(Equal(core.StringPtr("testString")))
-				Expect(createIntegrationOptionsModel.ToolID).To(Equal(core.StringPtr("todolist")))
-				Expect(createIntegrationOptionsModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(createIntegrationOptionsModel.Parameters).To(Equal(make(map[string]interface{})))
-				Expect(createIntegrationOptionsModel.ParametersReferences).To(Equal(make(map[string]interface{})))
-				Expect(createIntegrationOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+				createToolOptionsToolTypeID := "todolist"
+				createToolOptionsModel := cdToolchainService.NewCreateToolOptions(toolchainID, createToolOptionsToolTypeID)
+				createToolOptionsModel.SetToolchainID("testString")
+				createToolOptionsModel.SetToolTypeID("todolist")
+				createToolOptionsModel.SetName("testString")
+				createToolOptionsModel.SetParameters(make(map[string]interface{}))
+				createToolOptionsModel.SetParametersReferences(make(map[string]interface{}))
+				createToolOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(createToolOptionsModel).ToNot(BeNil())
+				Expect(createToolOptionsModel.ToolchainID).To(Equal(core.StringPtr("testString")))
+				Expect(createToolOptionsModel.ToolTypeID).To(Equal(core.StringPtr("todolist")))
+				Expect(createToolOptionsModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(createToolOptionsModel.Parameters).To(Equal(make(map[string]interface{})))
+				Expect(createToolOptionsModel.ParametersReferences).To(Equal(make(map[string]interface{})))
+				Expect(createToolOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateToolchainOptions successfully`, func() {
 				// Construct an instance of the CreateToolchainOptions model
@@ -2052,18 +2052,18 @@ var _ = Describe(`CdToolchainV2`, func() {
 				Expect(createToolchainOptionsModel.Description).To(Equal(core.StringPtr("A sample toolchain to test the API")))
 				Expect(createToolchainOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewDeleteIntegrationOptions successfully`, func() {
-				// Construct an instance of the DeleteIntegrationOptions model
+			It(`Invoke NewDeleteToolOptions successfully`, func() {
+				// Construct an instance of the DeleteToolOptions model
 				toolchainID := "testString"
-				integrationID := "testString"
-				deleteIntegrationOptionsModel := cdToolchainService.NewDeleteIntegrationOptions(toolchainID, integrationID)
-				deleteIntegrationOptionsModel.SetToolchainID("testString")
-				deleteIntegrationOptionsModel.SetIntegrationID("testString")
-				deleteIntegrationOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(deleteIntegrationOptionsModel).ToNot(BeNil())
-				Expect(deleteIntegrationOptionsModel.ToolchainID).To(Equal(core.StringPtr("testString")))
-				Expect(deleteIntegrationOptionsModel.IntegrationID).To(Equal(core.StringPtr("testString")))
-				Expect(deleteIntegrationOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+				toolID := "testString"
+				deleteToolOptionsModel := cdToolchainService.NewDeleteToolOptions(toolchainID, toolID)
+				deleteToolOptionsModel.SetToolchainID("testString")
+				deleteToolOptionsModel.SetToolID("testString")
+				deleteToolOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(deleteToolOptionsModel).ToNot(BeNil())
+				Expect(deleteToolOptionsModel.ToolchainID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteToolOptionsModel.ToolID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteToolOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteToolchainOptions successfully`, func() {
 				// Construct an instance of the DeleteToolchainOptions model
@@ -2075,18 +2075,18 @@ var _ = Describe(`CdToolchainV2`, func() {
 				Expect(deleteToolchainOptionsModel.ToolchainID).To(Equal(core.StringPtr("testString")))
 				Expect(deleteToolchainOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewGetIntegrationByIDOptions successfully`, func() {
-				// Construct an instance of the GetIntegrationByIDOptions model
+			It(`Invoke NewGetToolByIDOptions successfully`, func() {
+				// Construct an instance of the GetToolByIDOptions model
 				toolchainID := "testString"
-				integrationID := "testString"
-				getIntegrationByIDOptionsModel := cdToolchainService.NewGetIntegrationByIDOptions(toolchainID, integrationID)
-				getIntegrationByIDOptionsModel.SetToolchainID("testString")
-				getIntegrationByIDOptionsModel.SetIntegrationID("testString")
-				getIntegrationByIDOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(getIntegrationByIDOptionsModel).ToNot(BeNil())
-				Expect(getIntegrationByIDOptionsModel.ToolchainID).To(Equal(core.StringPtr("testString")))
-				Expect(getIntegrationByIDOptionsModel.IntegrationID).To(Equal(core.StringPtr("testString")))
-				Expect(getIntegrationByIDOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+				toolID := "testString"
+				getToolByIDOptionsModel := cdToolchainService.NewGetToolByIDOptions(toolchainID, toolID)
+				getToolByIDOptionsModel.SetToolchainID("testString")
+				getToolByIDOptionsModel.SetToolID("testString")
+				getToolByIDOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getToolByIDOptionsModel).ToNot(BeNil())
+				Expect(getToolByIDOptionsModel.ToolchainID).To(Equal(core.StringPtr("testString")))
+				Expect(getToolByIDOptionsModel.ToolID).To(Equal(core.StringPtr("testString")))
+				Expect(getToolByIDOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetToolchainByIDOptions successfully`, func() {
 				// Construct an instance of the GetToolchainByIDOptions model
@@ -2097,20 +2097,6 @@ var _ = Describe(`CdToolchainV2`, func() {
 				Expect(getToolchainByIDOptionsModel).ToNot(BeNil())
 				Expect(getToolchainByIDOptionsModel.ToolchainID).To(Equal(core.StringPtr("testString")))
 				Expect(getToolchainByIDOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
-			It(`Invoke NewListIntegrationsOptions successfully`, func() {
-				// Construct an instance of the ListIntegrationsOptions model
-				toolchainID := "testString"
-				listIntegrationsOptionsModel := cdToolchainService.NewListIntegrationsOptions(toolchainID)
-				listIntegrationsOptionsModel.SetToolchainID("testString")
-				listIntegrationsOptionsModel.SetLimit(int64(1))
-				listIntegrationsOptionsModel.SetOffset(int64(0))
-				listIntegrationsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(listIntegrationsOptionsModel).ToNot(BeNil())
-				Expect(listIntegrationsOptionsModel.ToolchainID).To(Equal(core.StringPtr("testString")))
-				Expect(listIntegrationsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(1))))
-				Expect(listIntegrationsOptionsModel.Offset).To(Equal(core.Int64Ptr(int64(0))))
-				Expect(listIntegrationsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListToolchainsOptions successfully`, func() {
 				// Construct an instance of the ListToolchainsOptions model
@@ -2126,26 +2112,40 @@ var _ = Describe(`CdToolchainV2`, func() {
 				Expect(listToolchainsOptionsModel.Offset).To(Equal(core.Int64Ptr(int64(0))))
 				Expect(listToolchainsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewUpdateIntegrationOptions successfully`, func() {
-				// Construct an instance of the UpdateIntegrationOptions model
+			It(`Invoke NewListToolsOptions successfully`, func() {
+				// Construct an instance of the ListToolsOptions model
 				toolchainID := "testString"
-				integrationID := "testString"
-				updateIntegrationOptionsModel := cdToolchainService.NewUpdateIntegrationOptions(toolchainID, integrationID)
-				updateIntegrationOptionsModel.SetToolchainID("testString")
-				updateIntegrationOptionsModel.SetIntegrationID("testString")
-				updateIntegrationOptionsModel.SetName("MyToolIntegration")
-				updateIntegrationOptionsModel.SetToolID("todolist")
-				updateIntegrationOptionsModel.SetParameters(make(map[string]interface{}))
-				updateIntegrationOptionsModel.SetParametersReferences(make(map[string]interface{}))
-				updateIntegrationOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(updateIntegrationOptionsModel).ToNot(BeNil())
-				Expect(updateIntegrationOptionsModel.ToolchainID).To(Equal(core.StringPtr("testString")))
-				Expect(updateIntegrationOptionsModel.IntegrationID).To(Equal(core.StringPtr("testString")))
-				Expect(updateIntegrationOptionsModel.Name).To(Equal(core.StringPtr("MyToolIntegration")))
-				Expect(updateIntegrationOptionsModel.ToolID).To(Equal(core.StringPtr("todolist")))
-				Expect(updateIntegrationOptionsModel.Parameters).To(Equal(make(map[string]interface{})))
-				Expect(updateIntegrationOptionsModel.ParametersReferences).To(Equal(make(map[string]interface{})))
-				Expect(updateIntegrationOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+				listToolsOptionsModel := cdToolchainService.NewListToolsOptions(toolchainID)
+				listToolsOptionsModel.SetToolchainID("testString")
+				listToolsOptionsModel.SetLimit(int64(1))
+				listToolsOptionsModel.SetOffset(int64(0))
+				listToolsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listToolsOptionsModel).ToNot(BeNil())
+				Expect(listToolsOptionsModel.ToolchainID).To(Equal(core.StringPtr("testString")))
+				Expect(listToolsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(1))))
+				Expect(listToolsOptionsModel.Offset).To(Equal(core.Int64Ptr(int64(0))))
+				Expect(listToolsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewUpdateToolOptions successfully`, func() {
+				// Construct an instance of the UpdateToolOptions model
+				toolchainID := "testString"
+				toolID := "testString"
+				updateToolOptionsModel := cdToolchainService.NewUpdateToolOptions(toolchainID, toolID)
+				updateToolOptionsModel.SetToolchainID("testString")
+				updateToolOptionsModel.SetToolID("testString")
+				updateToolOptionsModel.SetName("MyTool")
+				updateToolOptionsModel.SetToolTypeID("todolist")
+				updateToolOptionsModel.SetParameters(make(map[string]interface{}))
+				updateToolOptionsModel.SetParametersReferences(make(map[string]interface{}))
+				updateToolOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(updateToolOptionsModel).ToNot(BeNil())
+				Expect(updateToolOptionsModel.ToolchainID).To(Equal(core.StringPtr("testString")))
+				Expect(updateToolOptionsModel.ToolID).To(Equal(core.StringPtr("testString")))
+				Expect(updateToolOptionsModel.Name).To(Equal(core.StringPtr("MyTool")))
+				Expect(updateToolOptionsModel.ToolTypeID).To(Equal(core.StringPtr("todolist")))
+				Expect(updateToolOptionsModel.Parameters).To(Equal(make(map[string]interface{})))
+				Expect(updateToolOptionsModel.ParametersReferences).To(Equal(make(map[string]interface{})))
+				Expect(updateToolOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateToolchainOptions successfully`, func() {
 				// Construct an instance of the UpdateToolchainOptions model
