@@ -35,17 +35,11 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// CdToolchainV2 : This swagger document describes the options and endpoints of the early Toolchain API.<br><br> All
-// calls require an <strong>Authorization</strong> HTTP header to be set. <br><br> Following are the accepted
-// authentication mechanisms and required credentials for each: <ul><li><b>Bearer:</b> an IBM Cloud IAM token
-// (authorized for all endpoints)</li><li><b>Basic:</b> 'target_credentials' obtained from Section 3.1.4 or 3.2.5 in <a
-// href="https://w3-connections.ibm.com/wikis/home?lang=en-us#!/wiki/W4e7425c664ea_4859_93fb_660b3ab8388b/page/TIAM%20Service%20and%20Broker%20Authentication">TIAM
-// Service Vault wiki</a> using 'service_credentials'/'toolchain_credentials' or a fabric (id, secret) pair
-// respectively. Refer to the 'Implementation Notes' of each endpoint below to determine how authorization is done based
-// on the provided credentials.<br><br>Note: Requests can include the gzip,deflate encoding header.<br>Note: Resources
-// can only have <b>one</b> owning organization_guid or resource_group_id, not both. If the organization_guid is
-// provided, it will be returned in the response.</li></ul> <br><br> An optional 'transcation-id' header can be
-// provided, otherwise, one will be generated and included in the response header.
+// CdToolchainV2 : This swagger document describes the options and endpoints of the Toolchain API.<br><br> All calls
+// require an <strong>Authorization</strong> HTTP header to be set with a bearer token, which can be generated using the
+// <a href="https://cloud.ibm.com/apidocs/iam-identity-token-api">Identity and Access Management (IAM)
+// API</a>.<br><br>Note that all resources must have a corresponding <b>resource_group_id</b> to use the API, resources
+// within a Cloud Foundry organization cannot be accessed or modified using the API.
 //
 // API Version: 2.0.0
 type CdToolchainV2 struct {
@@ -190,7 +184,6 @@ func (cdToolchain *CdToolchainV2) DisableRetries() {
 
 // ListToolchains : Returns a list of toolchains
 // Returns a list of toolchains that the caller is authorized to access and that meet the provided query parameters.
-// <br><br><b>Basic Authorization:</b>'target_credentials' obtained using 'toolchain_credentials'.
 func (cdToolchain *CdToolchainV2) ListToolchains(listToolchainsOptions *ListToolchainsOptions) (result *GetToolchainsResponse, response *core.DetailedResponse, err error) {
 	return cdToolchain.ListToolchainsWithContext(context.Background(), listToolchainsOptions)
 }
@@ -254,8 +247,7 @@ func (cdToolchain *CdToolchainV2) ListToolchainsWithContext(ctx context.Context,
 }
 
 // CreateToolchain : Create a toolchain
-// Creates a new toolchain based off of provided parameters in the POST body. <br><br><b>Basic Authorization:</b>
-// Unauthorized.
+// Creates a new toolchain based off of provided parameters in the POST body.
 func (cdToolchain *CdToolchainV2) CreateToolchain(createToolchainOptions *CreateToolchainOptions) (result *PostToolchainResponse, response *core.DetailedResponse, err error) {
 	return cdToolchain.CreateToolchainWithContext(context.Background(), createToolchainOptions)
 }
@@ -327,8 +319,7 @@ func (cdToolchain *CdToolchainV2) CreateToolchainWithContext(ctx context.Context
 }
 
 // GetToolchainByID : Fetch a toolchain
-// Returns data for a single toolchain identified by id. <br><br><b>Basic Authorization:</b> 'target_credentials'
-// obtained using 'toolchain_credentials' scoped to this toolchain.
+// Returns data for a single toolchain identified by id.
 func (cdToolchain *CdToolchainV2) GetToolchainByID(getToolchainByIDOptions *GetToolchainByIDOptions) (result *GetToolchainByIDResponse, response *core.DetailedResponse, err error) {
 	return cdToolchain.GetToolchainByIDWithContext(context.Background(), getToolchainByIDOptions)
 }
@@ -388,7 +379,7 @@ func (cdToolchain *CdToolchainV2) GetToolchainByIDWithContext(ctx context.Contex
 }
 
 // DeleteToolchain : Delete a toolchain
-// Delete the toolchain with the specified ID. <br><br><b>Basic Authorization:</b> Unauthorized.
+// Delete the toolchain with the specified ID.
 func (cdToolchain *CdToolchainV2) DeleteToolchain(deleteToolchainOptions *DeleteToolchainOptions) (response *core.DetailedResponse, err error) {
 	return cdToolchain.DeleteToolchainWithContext(context.Background(), deleteToolchainOptions)
 }
@@ -436,7 +427,7 @@ func (cdToolchain *CdToolchainV2) DeleteToolchainWithContext(ctx context.Context
 }
 
 // UpdateToolchain : Update a toolchain
-// Update the toolchain with the specified ID. <br><br><b>Basic Authorization:</b> Unauthorized.
+// Update the toolchain with the specified ID.
 func (cdToolchain *CdToolchainV2) UpdateToolchain(updateToolchainOptions *UpdateToolchainOptions) (response *core.DetailedResponse, err error) {
 	return cdToolchain.UpdateToolchainWithContext(context.Background(), updateToolchainOptions)
 }
@@ -496,52 +487,51 @@ func (cdToolchain *CdToolchainV2) UpdateToolchainWithContext(ctx context.Context
 	return
 }
 
-// ListIntegrations : Returns a list of tool integrations bound to toolchain
-// Returns a list of tool integrations bound to toolchain that the caller is authorized to access and that meet the
-// provided query parameters. <br><br><b>Basic Authorization:</b>'target_credentials' obtained using
-// 'toolchain_credentials'.
-func (cdToolchain *CdToolchainV2) ListIntegrations(listIntegrationsOptions *ListIntegrationsOptions) (result *GetIntegrationsResponse, response *core.DetailedResponse, err error) {
-	return cdToolchain.ListIntegrationsWithContext(context.Background(), listIntegrationsOptions)
+// ListTools : Returns a list of tools bound to toolchain
+// Returns a list of tools bound to toolchain that the caller is authorized to access and that meet the provided query
+// parameters.
+func (cdToolchain *CdToolchainV2) ListTools(listToolsOptions *ListToolsOptions) (result *GetToolsResponse, response *core.DetailedResponse, err error) {
+	return cdToolchain.ListToolsWithContext(context.Background(), listToolsOptions)
 }
 
-// ListIntegrationsWithContext is an alternate form of the ListIntegrations method which supports a Context parameter
-func (cdToolchain *CdToolchainV2) ListIntegrationsWithContext(ctx context.Context, listIntegrationsOptions *ListIntegrationsOptions) (result *GetIntegrationsResponse, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(listIntegrationsOptions, "listIntegrationsOptions cannot be nil")
+// ListToolsWithContext is an alternate form of the ListTools method which supports a Context parameter
+func (cdToolchain *CdToolchainV2) ListToolsWithContext(ctx context.Context, listToolsOptions *ListToolsOptions) (result *GetToolsResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(listToolsOptions, "listToolsOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(listIntegrationsOptions, "listIntegrationsOptions")
+	err = core.ValidateStruct(listToolsOptions, "listToolsOptions")
 	if err != nil {
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"toolchain_id": *listIntegrationsOptions.ToolchainID,
+		"toolchain_id": *listToolsOptions.ToolchainID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = cdToolchain.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/api/v2/toolchains/{toolchain_id}/integrations`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/api/v2/toolchains/{toolchain_id}/tools`, pathParamsMap)
 	if err != nil {
 		return
 	}
 
-	for headerName, headerValue := range listIntegrationsOptions.Headers {
+	for headerName, headerValue := range listToolsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("cd_toolchain", "V2", "ListIntegrations")
+	sdkHeaders := common.GetSdkHeaders("cd_toolchain", "V2", "ListTools")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
 
-	if listIntegrationsOptions.Limit != nil {
-		builder.AddQuery("limit", fmt.Sprint(*listIntegrationsOptions.Limit))
+	if listToolsOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*listToolsOptions.Limit))
 	}
-	if listIntegrationsOptions.Offset != nil {
-		builder.AddQuery("offset", fmt.Sprint(*listIntegrationsOptions.Offset))
+	if listToolsOptions.Offset != nil {
+		builder.AddQuery("offset", fmt.Sprint(*listToolsOptions.Offset))
 	}
 
 	request, err := builder.Build()
@@ -555,7 +545,7 @@ func (cdToolchain *CdToolchainV2) ListIntegrationsWithContext(ctx context.Contex
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGetIntegrationsResponse)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGetToolsResponse)
 		if err != nil {
 			return
 		}
@@ -565,41 +555,40 @@ func (cdToolchain *CdToolchainV2) ListIntegrationsWithContext(ctx context.Contex
 	return
 }
 
-// CreateIntegration : Create a tool integration
-// Provisions a new tool integration based off of provided parameters in the POST body and binds it to the specified
-// toolchain. <br><br><b>Basic Authorization:</b> Unauthorized.
-func (cdToolchain *CdToolchainV2) CreateIntegration(createIntegrationOptions *CreateIntegrationOptions) (result *PostIntegrationResponse, response *core.DetailedResponse, err error) {
-	return cdToolchain.CreateIntegrationWithContext(context.Background(), createIntegrationOptions)
+// CreateTool : Create a tool
+// Provisions a new tool based off of provided parameters in the POST body and binds it to the specified toolchain.
+func (cdToolchain *CdToolchainV2) CreateTool(createToolOptions *CreateToolOptions) (result *PostToolResponse, response *core.DetailedResponse, err error) {
+	return cdToolchain.CreateToolWithContext(context.Background(), createToolOptions)
 }
 
-// CreateIntegrationWithContext is an alternate form of the CreateIntegration method which supports a Context parameter
-func (cdToolchain *CdToolchainV2) CreateIntegrationWithContext(ctx context.Context, createIntegrationOptions *CreateIntegrationOptions) (result *PostIntegrationResponse, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(createIntegrationOptions, "createIntegrationOptions cannot be nil")
+// CreateToolWithContext is an alternate form of the CreateTool method which supports a Context parameter
+func (cdToolchain *CdToolchainV2) CreateToolWithContext(ctx context.Context, createToolOptions *CreateToolOptions) (result *PostToolResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(createToolOptions, "createToolOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(createIntegrationOptions, "createIntegrationOptions")
+	err = core.ValidateStruct(createToolOptions, "createToolOptions")
 	if err != nil {
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"toolchain_id": *createIntegrationOptions.ToolchainID,
+		"toolchain_id": *createToolOptions.ToolchainID,
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = cdToolchain.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/api/v2/toolchains/{toolchain_id}/integrations`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/api/v2/toolchains/{toolchain_id}/tools`, pathParamsMap)
 	if err != nil {
 		return
 	}
 
-	for headerName, headerValue := range createIntegrationOptions.Headers {
+	for headerName, headerValue := range createToolOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("cd_toolchain", "V2", "CreateIntegration")
+	sdkHeaders := common.GetSdkHeaders("cd_toolchain", "V2", "CreateTool")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -607,17 +596,17 @@ func (cdToolchain *CdToolchainV2) CreateIntegrationWithContext(ctx context.Conte
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
-	if createIntegrationOptions.ToolID != nil {
-		body["tool_id"] = createIntegrationOptions.ToolID
+	if createToolOptions.ToolTypeID != nil {
+		body["tool_type_id"] = createToolOptions.ToolTypeID
 	}
-	if createIntegrationOptions.Name != nil {
-		body["name"] = createIntegrationOptions.Name
+	if createToolOptions.Name != nil {
+		body["name"] = createToolOptions.Name
 	}
-	if createIntegrationOptions.Parameters != nil {
-		body["parameters"] = createIntegrationOptions.Parameters
+	if createToolOptions.Parameters != nil {
+		body["parameters"] = createToolOptions.Parameters
 	}
-	if createIntegrationOptions.ParametersReferences != nil {
-		body["parameters_references"] = createIntegrationOptions.ParametersReferences
+	if createToolOptions.ParametersReferences != nil {
+		body["parameters_references"] = createToolOptions.ParametersReferences
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -635,7 +624,7 @@ func (cdToolchain *CdToolchainV2) CreateIntegrationWithContext(ctx context.Conte
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPostIntegrationResponse)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPostToolResponse)
 		if err != nil {
 			return
 		}
@@ -645,44 +634,41 @@ func (cdToolchain *CdToolchainV2) CreateIntegrationWithContext(ctx context.Conte
 	return
 }
 
-// GetIntegrationByID : Fetch a tool integration
-// Returns a tool integration that is bound to the provided toolchain. <br><br><b>Basic
-// Authorization:</b>'target_credentials' obtained using:<br> - 'service_credentials' scoped to this service instance.
-// <br> - 'toolchain_credentials' scoped to the toolchain (if any) that this service instance is bound to. <br> - fabric
-// (id, secret) pair.
-func (cdToolchain *CdToolchainV2) GetIntegrationByID(getIntegrationByIDOptions *GetIntegrationByIDOptions) (result *GetIntegrationByIDResponse, response *core.DetailedResponse, err error) {
-	return cdToolchain.GetIntegrationByIDWithContext(context.Background(), getIntegrationByIDOptions)
+// GetToolByID : Fetch a tool
+// Returns a tool that is bound to the provided toolchain.
+func (cdToolchain *CdToolchainV2) GetToolByID(getToolByIDOptions *GetToolByIDOptions) (result *GetToolByIDResponse, response *core.DetailedResponse, err error) {
+	return cdToolchain.GetToolByIDWithContext(context.Background(), getToolByIDOptions)
 }
 
-// GetIntegrationByIDWithContext is an alternate form of the GetIntegrationByID method which supports a Context parameter
-func (cdToolchain *CdToolchainV2) GetIntegrationByIDWithContext(ctx context.Context, getIntegrationByIDOptions *GetIntegrationByIDOptions) (result *GetIntegrationByIDResponse, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(getIntegrationByIDOptions, "getIntegrationByIDOptions cannot be nil")
+// GetToolByIDWithContext is an alternate form of the GetToolByID method which supports a Context parameter
+func (cdToolchain *CdToolchainV2) GetToolByIDWithContext(ctx context.Context, getToolByIDOptions *GetToolByIDOptions) (result *GetToolByIDResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getToolByIDOptions, "getToolByIDOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(getIntegrationByIDOptions, "getIntegrationByIDOptions")
+	err = core.ValidateStruct(getToolByIDOptions, "getToolByIDOptions")
 	if err != nil {
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"toolchain_id": *getIntegrationByIDOptions.ToolchainID,
-		"integration_id": *getIntegrationByIDOptions.IntegrationID,
+		"toolchain_id": *getToolByIDOptions.ToolchainID,
+		"tool_id": *getToolByIDOptions.ToolID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = cdToolchain.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/api/v2/toolchains/{toolchain_id}/integrations/{integration_id}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/api/v2/toolchains/{toolchain_id}/tools/{tool_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
 
-	for headerName, headerValue := range getIntegrationByIDOptions.Headers {
+	for headerName, headerValue := range getToolByIDOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("cd_toolchain", "V2", "GetIntegrationByID")
+	sdkHeaders := common.GetSdkHeaders("cd_toolchain", "V2", "GetToolByID")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -699,7 +685,7 @@ func (cdToolchain *CdToolchainV2) GetIntegrationByIDWithContext(ctx context.Cont
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGetIntegrationByIDResponse)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGetToolByIDResponse)
 		if err != nil {
 			return
 		}
@@ -709,41 +695,41 @@ func (cdToolchain *CdToolchainV2) GetIntegrationByIDWithContext(ctx context.Cont
 	return
 }
 
-// DeleteIntegration : Delete a tool integration
-// Delete the tool integration with the specified ID. <br><br><b>Basic Authorization:</b> Unauthorized.
-func (cdToolchain *CdToolchainV2) DeleteIntegration(deleteIntegrationOptions *DeleteIntegrationOptions) (response *core.DetailedResponse, err error) {
-	return cdToolchain.DeleteIntegrationWithContext(context.Background(), deleteIntegrationOptions)
+// DeleteTool : Delete a tool
+// Delete the tool with the specified ID.
+func (cdToolchain *CdToolchainV2) DeleteTool(deleteToolOptions *DeleteToolOptions) (response *core.DetailedResponse, err error) {
+	return cdToolchain.DeleteToolWithContext(context.Background(), deleteToolOptions)
 }
 
-// DeleteIntegrationWithContext is an alternate form of the DeleteIntegration method which supports a Context parameter
-func (cdToolchain *CdToolchainV2) DeleteIntegrationWithContext(ctx context.Context, deleteIntegrationOptions *DeleteIntegrationOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(deleteIntegrationOptions, "deleteIntegrationOptions cannot be nil")
+// DeleteToolWithContext is an alternate form of the DeleteTool method which supports a Context parameter
+func (cdToolchain *CdToolchainV2) DeleteToolWithContext(ctx context.Context, deleteToolOptions *DeleteToolOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteToolOptions, "deleteToolOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(deleteIntegrationOptions, "deleteIntegrationOptions")
+	err = core.ValidateStruct(deleteToolOptions, "deleteToolOptions")
 	if err != nil {
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"toolchain_id": *deleteIntegrationOptions.ToolchainID,
-		"integration_id": *deleteIntegrationOptions.IntegrationID,
+		"toolchain_id": *deleteToolOptions.ToolchainID,
+		"tool_id": *deleteToolOptions.ToolID,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = cdToolchain.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/api/v2/toolchains/{toolchain_id}/integrations/{integration_id}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/api/v2/toolchains/{toolchain_id}/tools/{tool_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
 
-	for headerName, headerValue := range deleteIntegrationOptions.Headers {
+	for headerName, headerValue := range deleteToolOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("cd_toolchain", "V2", "DeleteIntegration")
+	sdkHeaders := common.GetSdkHeaders("cd_toolchain", "V2", "DeleteTool")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -758,58 +744,58 @@ func (cdToolchain *CdToolchainV2) DeleteIntegrationWithContext(ctx context.Conte
 	return
 }
 
-// UpdateIntegration : Update a tool integration
-// Update the tool integration with the specified ID. <br><br><b>Basic Authorization:</b> Unauthorized.
-func (cdToolchain *CdToolchainV2) UpdateIntegration(updateIntegrationOptions *UpdateIntegrationOptions) (response *core.DetailedResponse, err error) {
-	return cdToolchain.UpdateIntegrationWithContext(context.Background(), updateIntegrationOptions)
+// UpdateTool : Update a tool
+// Update the tool with the specified ID.
+func (cdToolchain *CdToolchainV2) UpdateTool(updateToolOptions *UpdateToolOptions) (response *core.DetailedResponse, err error) {
+	return cdToolchain.UpdateToolWithContext(context.Background(), updateToolOptions)
 }
 
-// UpdateIntegrationWithContext is an alternate form of the UpdateIntegration method which supports a Context parameter
-func (cdToolchain *CdToolchainV2) UpdateIntegrationWithContext(ctx context.Context, updateIntegrationOptions *UpdateIntegrationOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(updateIntegrationOptions, "updateIntegrationOptions cannot be nil")
+// UpdateToolWithContext is an alternate form of the UpdateTool method which supports a Context parameter
+func (cdToolchain *CdToolchainV2) UpdateToolWithContext(ctx context.Context, updateToolOptions *UpdateToolOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(updateToolOptions, "updateToolOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(updateIntegrationOptions, "updateIntegrationOptions")
+	err = core.ValidateStruct(updateToolOptions, "updateToolOptions")
 	if err != nil {
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"toolchain_id": *updateIntegrationOptions.ToolchainID,
-		"integration_id": *updateIntegrationOptions.IntegrationID,
+		"toolchain_id": *updateToolOptions.ToolchainID,
+		"tool_id": *updateToolOptions.ToolID,
 	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = cdToolchain.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/api/v2/toolchains/{toolchain_id}/integrations/{integration_id}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/api/v2/toolchains/{toolchain_id}/tools/{tool_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
 
-	for headerName, headerValue := range updateIntegrationOptions.Headers {
+	for headerName, headerValue := range updateToolOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("cd_toolchain", "V2", "UpdateIntegration")
+	sdkHeaders := common.GetSdkHeaders("cd_toolchain", "V2", "UpdateTool")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
-	if updateIntegrationOptions.Name != nil {
-		body["name"] = updateIntegrationOptions.Name
+	if updateToolOptions.Name != nil {
+		body["name"] = updateToolOptions.Name
 	}
-	if updateIntegrationOptions.ToolID != nil {
-		body["tool_id"] = updateIntegrationOptions.ToolID
+	if updateToolOptions.ToolTypeID != nil {
+		body["tool_type_id"] = updateToolOptions.ToolTypeID
 	}
-	if updateIntegrationOptions.Parameters != nil {
-		body["parameters"] = updateIntegrationOptions.Parameters
+	if updateToolOptions.Parameters != nil {
+		body["parameters"] = updateToolOptions.Parameters
 	}
-	if updateIntegrationOptions.ParametersReferences != nil {
-		body["parameters_references"] = updateIntegrationOptions.ParametersReferences
+	if updateToolOptions.ParametersReferences != nil {
+		body["parameters_references"] = updateToolOptions.ParametersReferences
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -826,18 +812,18 @@ func (cdToolchain *CdToolchainV2) UpdateIntegrationWithContext(ctx context.Conte
 	return
 }
 
-// CreateIntegrationOptions : The CreateIntegration options.
-type CreateIntegrationOptions struct {
-	// ID of the toolchain to bind integration to.
+// CreateToolOptions : The CreateTool options.
+type CreateToolOptions struct {
+	// ID of the toolchain to bind tool to.
 	ToolchainID *string `json:"toolchain_id" validate:"required,ne="`
 
-	// The unique short name of the integration that should be provisioned.
-	ToolID *string `json:"tool_id" validate:"required"`
+	// The unique short name of the tool that should be provisioned.
+	ToolTypeID *string `json:"tool_type_id" validate:"required"`
 
-	// Name of tool integration.
+	// Name of tool.
 	Name *string `json:"name,omitempty"`
 
-	// Parameters to be used to create the integration.
+	// Parameters to be used to create the tool.
 	Parameters map[string]interface{} `json:"parameters,omitempty"`
 
 	// Decoded values used on provision in the broker that reference fields in the parameters.
@@ -847,46 +833,46 @@ type CreateIntegrationOptions struct {
 	Headers map[string]string
 }
 
-// NewCreateIntegrationOptions : Instantiate CreateIntegrationOptions
-func (*CdToolchainV2) NewCreateIntegrationOptions(toolchainID string, toolID string) *CreateIntegrationOptions {
-	return &CreateIntegrationOptions{
+// NewCreateToolOptions : Instantiate CreateToolOptions
+func (*CdToolchainV2) NewCreateToolOptions(toolchainID string, toolTypeID string) *CreateToolOptions {
+	return &CreateToolOptions{
 		ToolchainID: core.StringPtr(toolchainID),
-		ToolID: core.StringPtr(toolID),
+		ToolTypeID: core.StringPtr(toolTypeID),
 	}
 }
 
 // SetToolchainID : Allow user to set ToolchainID
-func (_options *CreateIntegrationOptions) SetToolchainID(toolchainID string) *CreateIntegrationOptions {
+func (_options *CreateToolOptions) SetToolchainID(toolchainID string) *CreateToolOptions {
 	_options.ToolchainID = core.StringPtr(toolchainID)
 	return _options
 }
 
-// SetToolID : Allow user to set ToolID
-func (_options *CreateIntegrationOptions) SetToolID(toolID string) *CreateIntegrationOptions {
-	_options.ToolID = core.StringPtr(toolID)
+// SetToolTypeID : Allow user to set ToolTypeID
+func (_options *CreateToolOptions) SetToolTypeID(toolTypeID string) *CreateToolOptions {
+	_options.ToolTypeID = core.StringPtr(toolTypeID)
 	return _options
 }
 
 // SetName : Allow user to set Name
-func (_options *CreateIntegrationOptions) SetName(name string) *CreateIntegrationOptions {
+func (_options *CreateToolOptions) SetName(name string) *CreateToolOptions {
 	_options.Name = core.StringPtr(name)
 	return _options
 }
 
 // SetParameters : Allow user to set Parameters
-func (_options *CreateIntegrationOptions) SetParameters(parameters map[string]interface{}) *CreateIntegrationOptions {
+func (_options *CreateToolOptions) SetParameters(parameters map[string]interface{}) *CreateToolOptions {
 	_options.Parameters = parameters
 	return _options
 }
 
 // SetParametersReferences : Allow user to set ParametersReferences
-func (_options *CreateIntegrationOptions) SetParametersReferences(parametersReferences map[string]interface{}) *CreateIntegrationOptions {
+func (_options *CreateToolOptions) SetParametersReferences(parametersReferences map[string]interface{}) *CreateToolOptions {
 	_options.ParametersReferences = parametersReferences
 	return _options
 }
 
 // SetHeaders : Allow user to set Headers
-func (options *CreateIntegrationOptions) SetHeaders(param map[string]string) *CreateIntegrationOptions {
+func (options *CreateToolOptions) SetHeaders(param map[string]string) *CreateToolOptions {
 	options.Headers = param
 	return options
 }
@@ -938,40 +924,40 @@ func (options *CreateToolchainOptions) SetHeaders(param map[string]string) *Crea
 	return options
 }
 
-// DeleteIntegrationOptions : The DeleteIntegration options.
-type DeleteIntegrationOptions struct {
+// DeleteToolOptions : The DeleteTool options.
+type DeleteToolOptions struct {
 	// ID of the toolchain.
 	ToolchainID *string `json:"toolchain_id" validate:"required,ne="`
 
-	// ID of the tool integration bound to the toolchain.
-	IntegrationID *string `json:"integration_id" validate:"required,ne="`
+	// ID of the tool bound to the toolchain.
+	ToolID *string `json:"tool_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
-// NewDeleteIntegrationOptions : Instantiate DeleteIntegrationOptions
-func (*CdToolchainV2) NewDeleteIntegrationOptions(toolchainID string, integrationID string) *DeleteIntegrationOptions {
-	return &DeleteIntegrationOptions{
+// NewDeleteToolOptions : Instantiate DeleteToolOptions
+func (*CdToolchainV2) NewDeleteToolOptions(toolchainID string, toolID string) *DeleteToolOptions {
+	return &DeleteToolOptions{
 		ToolchainID: core.StringPtr(toolchainID),
-		IntegrationID: core.StringPtr(integrationID),
+		ToolID: core.StringPtr(toolID),
 	}
 }
 
 // SetToolchainID : Allow user to set ToolchainID
-func (_options *DeleteIntegrationOptions) SetToolchainID(toolchainID string) *DeleteIntegrationOptions {
+func (_options *DeleteToolOptions) SetToolchainID(toolchainID string) *DeleteToolOptions {
 	_options.ToolchainID = core.StringPtr(toolchainID)
 	return _options
 }
 
-// SetIntegrationID : Allow user to set IntegrationID
-func (_options *DeleteIntegrationOptions) SetIntegrationID(integrationID string) *DeleteIntegrationOptions {
-	_options.IntegrationID = core.StringPtr(integrationID)
+// SetToolID : Allow user to set ToolID
+func (_options *DeleteToolOptions) SetToolID(toolID string) *DeleteToolOptions {
+	_options.ToolID = core.StringPtr(toolID)
 	return _options
 }
 
 // SetHeaders : Allow user to set Headers
-func (options *DeleteIntegrationOptions) SetHeaders(param map[string]string) *DeleteIntegrationOptions {
+func (options *DeleteToolOptions) SetHeaders(param map[string]string) *DeleteToolOptions {
 	options.Headers = param
 	return options
 }
@@ -1004,40 +990,40 @@ func (options *DeleteToolchainOptions) SetHeaders(param map[string]string) *Dele
 	return options
 }
 
-// GetIntegrationByIDOptions : The GetIntegrationByID options.
-type GetIntegrationByIDOptions struct {
+// GetToolByIDOptions : The GetToolByID options.
+type GetToolByIDOptions struct {
 	// ID of the toolchain.
 	ToolchainID *string `json:"toolchain_id" validate:"required,ne="`
 
-	// ID of the tool integration bound to the toolchain.
-	IntegrationID *string `json:"integration_id" validate:"required,ne="`
+	// ID of the tool bound to the toolchain.
+	ToolID *string `json:"tool_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
-// NewGetIntegrationByIDOptions : Instantiate GetIntegrationByIDOptions
-func (*CdToolchainV2) NewGetIntegrationByIDOptions(toolchainID string, integrationID string) *GetIntegrationByIDOptions {
-	return &GetIntegrationByIDOptions{
+// NewGetToolByIDOptions : Instantiate GetToolByIDOptions
+func (*CdToolchainV2) NewGetToolByIDOptions(toolchainID string, toolID string) *GetToolByIDOptions {
+	return &GetToolByIDOptions{
 		ToolchainID: core.StringPtr(toolchainID),
-		IntegrationID: core.StringPtr(integrationID),
+		ToolID: core.StringPtr(toolID),
 	}
 }
 
 // SetToolchainID : Allow user to set ToolchainID
-func (_options *GetIntegrationByIDOptions) SetToolchainID(toolchainID string) *GetIntegrationByIDOptions {
+func (_options *GetToolByIDOptions) SetToolchainID(toolchainID string) *GetToolByIDOptions {
 	_options.ToolchainID = core.StringPtr(toolchainID)
 	return _options
 }
 
-// SetIntegrationID : Allow user to set IntegrationID
-func (_options *GetIntegrationByIDOptions) SetIntegrationID(integrationID string) *GetIntegrationByIDOptions {
-	_options.IntegrationID = core.StringPtr(integrationID)
+// SetToolID : Allow user to set ToolID
+func (_options *GetToolByIDOptions) SetToolID(toolID string) *GetToolByIDOptions {
+	_options.ToolID = core.StringPtr(toolID)
 	return _options
 }
 
 // SetHeaders : Allow user to set Headers
-func (options *GetIntegrationByIDOptions) SetHeaders(param map[string]string) *GetIntegrationByIDOptions {
+func (options *GetToolByIDOptions) SetHeaders(param map[string]string) *GetToolByIDOptions {
 	options.Headers = param
 	return options
 }
@@ -1066,52 +1052,6 @@ func (_options *GetToolchainByIDOptions) SetToolchainID(toolchainID string) *Get
 
 // SetHeaders : Allow user to set Headers
 func (options *GetToolchainByIDOptions) SetHeaders(param map[string]string) *GetToolchainByIDOptions {
-	options.Headers = param
-	return options
-}
-
-// ListIntegrationsOptions : The ListIntegrations options.
-type ListIntegrationsOptions struct {
-	// ID of the toolchain that integrations are bound to.
-	ToolchainID *string `json:"toolchain_id" validate:"required,ne="`
-
-	// Limit the number of results. Valid value 0 < limit <= 200.
-	Limit *int64 `json:"limit,omitempty"`
-
-	// Offset the number of results from the beginning of the list. Valid value 0 <= offset < 200.
-	Offset *int64 `json:"offset,omitempty"`
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewListIntegrationsOptions : Instantiate ListIntegrationsOptions
-func (*CdToolchainV2) NewListIntegrationsOptions(toolchainID string) *ListIntegrationsOptions {
-	return &ListIntegrationsOptions{
-		ToolchainID: core.StringPtr(toolchainID),
-	}
-}
-
-// SetToolchainID : Allow user to set ToolchainID
-func (_options *ListIntegrationsOptions) SetToolchainID(toolchainID string) *ListIntegrationsOptions {
-	_options.ToolchainID = core.StringPtr(toolchainID)
-	return _options
-}
-
-// SetLimit : Allow user to set Limit
-func (_options *ListIntegrationsOptions) SetLimit(limit int64) *ListIntegrationsOptions {
-	_options.Limit = core.Int64Ptr(limit)
-	return _options
-}
-
-// SetOffset : Allow user to set Offset
-func (_options *ListIntegrationsOptions) SetOffset(offset int64) *ListIntegrationsOptions {
-	_options.Offset = core.Int64Ptr(offset)
-	return _options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *ListIntegrationsOptions) SetHeaders(param map[string]string) *ListIntegrationsOptions {
 	options.Headers = param
 	return options
 }
@@ -1162,8 +1102,54 @@ func (options *ListToolchainsOptions) SetHeaders(param map[string]string) *ListT
 	return options
 }
 
-// ToolIntegrationReferent : Information on URIs to access this resource through the UI or API.
-type ToolIntegrationReferent struct {
+// ListToolsOptions : The ListTools options.
+type ListToolsOptions struct {
+	// ID of the toolchain that tools are bound to.
+	ToolchainID *string `json:"toolchain_id" validate:"required,ne="`
+
+	// Limit the number of results. Valid value 0 < limit <= 200.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// Offset the number of results from the beginning of the list. Valid value 0 <= offset < 200.
+	Offset *int64 `json:"offset,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewListToolsOptions : Instantiate ListToolsOptions
+func (*CdToolchainV2) NewListToolsOptions(toolchainID string) *ListToolsOptions {
+	return &ListToolsOptions{
+		ToolchainID: core.StringPtr(toolchainID),
+	}
+}
+
+// SetToolchainID : Allow user to set ToolchainID
+func (_options *ListToolsOptions) SetToolchainID(toolchainID string) *ListToolsOptions {
+	_options.ToolchainID = core.StringPtr(toolchainID)
+	return _options
+}
+
+// SetLimit : Allow user to set Limit
+func (_options *ListToolsOptions) SetLimit(limit int64) *ListToolsOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
+}
+
+// SetOffset : Allow user to set Offset
+func (_options *ListToolsOptions) SetOffset(offset int64) *ListToolsOptions {
+	_options.Offset = core.Int64Ptr(offset)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ListToolsOptions) SetHeaders(param map[string]string) *ListToolsOptions {
+	options.Headers = param
+	return options
+}
+
+// ToolReferent : Information on URIs to access this resource through the UI or API.
+type ToolReferent struct {
 	// URI representing the this resource through the UI.
 	UIHref *string `json:"ui_href,omitempty"`
 
@@ -1171,9 +1157,9 @@ type ToolIntegrationReferent struct {
 	APIHref *string `json:"api_href,omitempty"`
 }
 
-// UnmarshalToolIntegrationReferent unmarshals an instance of ToolIntegrationReferent from the specified map of raw messages.
-func UnmarshalToolIntegrationReferent(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ToolIntegrationReferent)
+// UnmarshalToolReferent unmarshals an instance of ToolReferent from the specified map of raw messages.
+func UnmarshalToolReferent(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ToolReferent)
 	err = core.UnmarshalPrimitive(m, "ui_href", &obj.UIHref)
 	if err != nil {
 		return
@@ -1186,21 +1172,21 @@ func UnmarshalToolIntegrationReferent(m map[string]json.RawMessage, result inter
 	return
 }
 
-// UpdateIntegrationOptions : The UpdateIntegration options.
-type UpdateIntegrationOptions struct {
+// UpdateToolOptions : The UpdateTool options.
+type UpdateToolOptions struct {
 	// ID of the toolchain.
 	ToolchainID *string `json:"toolchain_id" validate:"required,ne="`
 
-	// ID of the tool integration bound to the toolchain.
-	IntegrationID *string `json:"integration_id" validate:"required,ne="`
+	// ID of the tool bound to the toolchain.
+	ToolID *string `json:"tool_id" validate:"required,ne="`
 
-	// Name of tool integration.
+	// Name of tool.
 	Name *string `json:"name,omitempty"`
 
-	// The unique short name of the integration that should be provisioned or updated.
-	ToolID *string `json:"tool_id,omitempty"`
+	// The unique short name of the tool that should be provisioned or updated.
+	ToolTypeID *string `json:"tool_type_id,omitempty"`
 
-	// Parameters to be used to create the integration.
+	// Parameters to be used to create the tool.
 	Parameters map[string]interface{} `json:"parameters,omitempty"`
 
 	// Decoded values used on provision in the broker that reference fields in the parameters.
@@ -1210,52 +1196,52 @@ type UpdateIntegrationOptions struct {
 	Headers map[string]string
 }
 
-// NewUpdateIntegrationOptions : Instantiate UpdateIntegrationOptions
-func (*CdToolchainV2) NewUpdateIntegrationOptions(toolchainID string, integrationID string) *UpdateIntegrationOptions {
-	return &UpdateIntegrationOptions{
+// NewUpdateToolOptions : Instantiate UpdateToolOptions
+func (*CdToolchainV2) NewUpdateToolOptions(toolchainID string, toolID string) *UpdateToolOptions {
+	return &UpdateToolOptions{
 		ToolchainID: core.StringPtr(toolchainID),
-		IntegrationID: core.StringPtr(integrationID),
+		ToolID: core.StringPtr(toolID),
 	}
 }
 
 // SetToolchainID : Allow user to set ToolchainID
-func (_options *UpdateIntegrationOptions) SetToolchainID(toolchainID string) *UpdateIntegrationOptions {
+func (_options *UpdateToolOptions) SetToolchainID(toolchainID string) *UpdateToolOptions {
 	_options.ToolchainID = core.StringPtr(toolchainID)
 	return _options
 }
 
-// SetIntegrationID : Allow user to set IntegrationID
-func (_options *UpdateIntegrationOptions) SetIntegrationID(integrationID string) *UpdateIntegrationOptions {
-	_options.IntegrationID = core.StringPtr(integrationID)
-	return _options
-}
-
-// SetName : Allow user to set Name
-func (_options *UpdateIntegrationOptions) SetName(name string) *UpdateIntegrationOptions {
-	_options.Name = core.StringPtr(name)
-	return _options
-}
-
 // SetToolID : Allow user to set ToolID
-func (_options *UpdateIntegrationOptions) SetToolID(toolID string) *UpdateIntegrationOptions {
+func (_options *UpdateToolOptions) SetToolID(toolID string) *UpdateToolOptions {
 	_options.ToolID = core.StringPtr(toolID)
 	return _options
 }
 
+// SetName : Allow user to set Name
+func (_options *UpdateToolOptions) SetName(name string) *UpdateToolOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetToolTypeID : Allow user to set ToolTypeID
+func (_options *UpdateToolOptions) SetToolTypeID(toolTypeID string) *UpdateToolOptions {
+	_options.ToolTypeID = core.StringPtr(toolTypeID)
+	return _options
+}
+
 // SetParameters : Allow user to set Parameters
-func (_options *UpdateIntegrationOptions) SetParameters(parameters map[string]interface{}) *UpdateIntegrationOptions {
+func (_options *UpdateToolOptions) SetParameters(parameters map[string]interface{}) *UpdateToolOptions {
 	_options.Parameters = parameters
 	return _options
 }
 
 // SetParametersReferences : Allow user to set ParametersReferences
-func (_options *UpdateIntegrationOptions) SetParametersReferences(parametersReferences map[string]interface{}) *UpdateIntegrationOptions {
+func (_options *UpdateToolOptions) SetParametersReferences(parametersReferences map[string]interface{}) *UpdateToolOptions {
 	_options.ParametersReferences = parametersReferences
 	return _options
 }
 
 // SetHeaders : Allow user to set Headers
-func (options *UpdateIntegrationOptions) SetHeaders(param map[string]string) *UpdateIntegrationOptions {
+func (options *UpdateToolOptions) SetHeaders(param map[string]string) *UpdateToolOptions {
 	options.Headers = param
 	return options
 }
@@ -1306,57 +1292,57 @@ func (options *UpdateToolchainOptions) SetHeaders(param map[string]string) *Upda
 	return options
 }
 
-// GetIntegrationByIDResponse : Response structure for GET tool integration.
-type GetIntegrationByIDResponse struct {
-	// Tool integration ID.
+// GetToolByIDResponse : Response structure for GET tool.
+type GetToolByIDResponse struct {
+	// Tool ID.
 	ID *string `json:"id" validate:"required"`
 
-	// Resource group where tool integration can be found.
+	// Resource group where tool can be found.
 	ResourceGroupID *string `json:"resource_group_id" validate:"required"`
 
-	// Tool integration CRN.
+	// Tool CRN.
 	CRN *string `json:"crn" validate:"required"`
 
-	// The unique name of the provisioned integration.
-	ToolID *string `json:"tool_id" validate:"required"`
+	// The unique name of the provisioned tool.
+	ToolTypeID *string `json:"tool_type_id" validate:"required"`
 
-	// ID of toolchain which the integration is bound to.
+	// ID of toolchain which the tool is bound to.
 	ToolchainID *string `json:"toolchain_id" validate:"required"`
 
-	// CRN of toolchain which the integration is bound to.
+	// CRN of toolchain which the tool is bound to.
 	ToolchainCRN *string `json:"toolchain_crn" validate:"required"`
 
-	// URI representing the tool integration.
+	// URI representing the tool.
 	Href *string `json:"href" validate:"required"`
 
 	// Information on URIs to access this resource through the UI or API.
-	Referent *ToolIntegrationReferent `json:"referent" validate:"required"`
+	Referent *ToolReferent `json:"referent" validate:"required"`
 
-	// Tool integration name.
+	// Tool name.
 	Name *string `json:"name,omitempty"`
 
-	// Latest tool integration update timestamp.
+	// Latest tool update timestamp.
 	UpdatedAt *strfmt.DateTime `json:"updated_at" validate:"required"`
 
-	// Parameters to be used to create the integration.
+	// Parameters to be used to create the tool.
 	Parameters map[string]interface{} `json:"parameters" validate:"required"`
 
-	// Current configuration state of the tool integration.
+	// Current configuration state of the tool.
 	State *string `json:"state" validate:"required"`
 }
 
-// Constants associated with the GetIntegrationByIDResponse.State property.
-// Current configuration state of the tool integration.
+// Constants associated with the GetToolByIDResponse.State property.
+// Current configuration state of the tool.
 const (
-	GetIntegrationByIDResponseStateConfiguredConst = "configured"
-	GetIntegrationByIDResponseStateConfiguringConst = "configuring"
-	GetIntegrationByIDResponseStateMisconfiguredConst = "misconfigured"
-	GetIntegrationByIDResponseStateUnconfiguredConst = "unconfigured"
+	GetToolByIDResponseStateConfiguredConst = "configured"
+	GetToolByIDResponseStateConfiguringConst = "configuring"
+	GetToolByIDResponseStateMisconfiguredConst = "misconfigured"
+	GetToolByIDResponseStateUnconfiguredConst = "unconfigured"
 )
 
-// UnmarshalGetIntegrationByIDResponse unmarshals an instance of GetIntegrationByIDResponse from the specified map of raw messages.
-func UnmarshalGetIntegrationByIDResponse(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(GetIntegrationByIDResponse)
+// UnmarshalGetToolByIDResponse unmarshals an instance of GetToolByIDResponse from the specified map of raw messages.
+func UnmarshalGetToolByIDResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(GetToolByIDResponse)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
 		return
@@ -1369,7 +1355,7 @@ func UnmarshalGetIntegrationByIDResponse(m map[string]json.RawMessage, result in
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "tool_id", &obj.ToolID)
+	err = core.UnmarshalPrimitive(m, "tool_type_id", &obj.ToolTypeID)
 	if err != nil {
 		return
 	}
@@ -1385,7 +1371,7 @@ func UnmarshalGetIntegrationByIDResponse(m map[string]json.RawMessage, result in
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "referent", &obj.Referent, UnmarshalToolIntegrationReferent)
+	err = core.UnmarshalModel(m, "referent", &obj.Referent, UnmarshalToolReferent)
 	if err != nil {
 		return
 	}
@@ -1402,157 +1388,6 @@ func UnmarshalGetIntegrationByIDResponse(m map[string]json.RawMessage, result in
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "state", &obj.State)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// GetIntegrationsResponse : Response structure for GET tool integrations.
-type GetIntegrationsResponse struct {
-	// Maximum number of tool integrations returned from collection.
-	Limit *int64 `json:"limit" validate:"required"`
-
-	// Offset applied to tool integrations collection.
-	Offset *int64 `json:"offset" validate:"required"`
-
-	// Total number of tool integrations found in collection.
-	TotalCount *int64 `json:"total_count" validate:"required"`
-
-	// Information about retrieving first tool integration results from the collection.
-	First *GetIntegrationsResponseFirst `json:"first" validate:"required"`
-
-	// Information about retrieving previous tool integration results from the collection.
-	Previous *GetIntegrationsResponsePrevious `json:"previous,omitempty"`
-
-	// Information about retrieving next tool integration results from the collection.
-	Next *GetIntegrationsResponseNext `json:"next,omitempty"`
-
-	// Information about retrieving last tool integration results from the collection.
-	Last *GetIntegrationsResponseLast `json:"last" validate:"required"`
-
-	// Tool integration results returned from the collection.
-	Integrations []ToolIntegration `json:"integrations" validate:"required"`
-}
-
-// UnmarshalGetIntegrationsResponse unmarshals an instance of GetIntegrationsResponse from the specified map of raw messages.
-func UnmarshalGetIntegrationsResponse(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(GetIntegrationsResponse)
-	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "offset", &obj.Offset)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "total_count", &obj.TotalCount)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalGetIntegrationsResponseFirst)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "previous", &obj.Previous, UnmarshalGetIntegrationsResponsePrevious)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalGetIntegrationsResponseNext)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "last", &obj.Last, UnmarshalGetIntegrationsResponseLast)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "integrations", &obj.Integrations, UnmarshalToolIntegration)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// Retrieve the value to be passed to a request to access the next page of results
-func (resp *GetIntegrationsResponse) GetNextOffset() (*int64, error) {
-	if core.IsNil(resp.Next) {
-		return nil, nil
-	}
-	offset, err := core.GetQueryParam(resp.Next.Href, "offset")
-	if err != nil || offset == nil {
-		return nil, err
-	}
-	var offsetValue int64
-	offsetValue, err = strconv.ParseInt(*offset, 10, 64)
-	if err != nil {
-		return nil, err
-	}
-	return core.Int64Ptr(offsetValue), nil
-}
-
-// GetIntegrationsResponseFirst : Information about retrieving first tool integration results from the collection.
-type GetIntegrationsResponseFirst struct {
-	// URI that can be used to get first results from the collection.
-	Href *string `json:"href,omitempty"`
-}
-
-// UnmarshalGetIntegrationsResponseFirst unmarshals an instance of GetIntegrationsResponseFirst from the specified map of raw messages.
-func UnmarshalGetIntegrationsResponseFirst(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(GetIntegrationsResponseFirst)
-	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// GetIntegrationsResponseLast : Information about retrieving last tool integration results from the collection.
-type GetIntegrationsResponseLast struct {
-	// URI that can be used to get last results from the collection.
-	Href *string `json:"href,omitempty"`
-}
-
-// UnmarshalGetIntegrationsResponseLast unmarshals an instance of GetIntegrationsResponseLast from the specified map of raw messages.
-func UnmarshalGetIntegrationsResponseLast(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(GetIntegrationsResponseLast)
-	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// GetIntegrationsResponseNext : Information about retrieving next tool integration results from the collection.
-type GetIntegrationsResponseNext struct {
-	// URI that can be used to get next results from the collection.
-	Href *string `json:"href,omitempty"`
-}
-
-// UnmarshalGetIntegrationsResponseNext unmarshals an instance of GetIntegrationsResponseNext from the specified map of raw messages.
-func UnmarshalGetIntegrationsResponseNext(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(GetIntegrationsResponseNext)
-	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// GetIntegrationsResponsePrevious : Information about retrieving previous tool integration results from the collection.
-type GetIntegrationsResponsePrevious struct {
-	// URI that can be used to get previous results from the collection.
-	Href *string `json:"href,omitempty"`
-}
-
-// UnmarshalGetIntegrationsResponsePrevious unmarshals an instance of GetIntegrationsResponsePrevious from the specified map of raw messages.
-func UnmarshalGetIntegrationsResponsePrevious(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(GetIntegrationsResponsePrevious)
-	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
 		return
 	}
@@ -1805,54 +1640,205 @@ func UnmarshalGetToolchainsResponsePrevious(m map[string]json.RawMessage, result
 	return
 }
 
-// PostIntegrationResponse : Response structure for POST tool integration.
-type PostIntegrationResponse struct {
-	// ID of created tool integration.
+// GetToolsResponse : Response structure for GET tools.
+type GetToolsResponse struct {
+	// Maximum number of tools returned from collection.
+	Limit *int64 `json:"limit" validate:"required"`
+
+	// Offset applied to tools collection.
+	Offset *int64 `json:"offset" validate:"required"`
+
+	// Total number of tools found in collection.
+	TotalCount *int64 `json:"total_count" validate:"required"`
+
+	// Information about retrieving first tool results from the collection.
+	First *GetToolsResponseFirst `json:"first" validate:"required"`
+
+	// Information about retrieving previous tool results from the collection.
+	Previous *GetToolsResponsePrevious `json:"previous,omitempty"`
+
+	// Information about retrieving next tool results from the collection.
+	Next *GetToolsResponseNext `json:"next,omitempty"`
+
+	// Information about retrieving last tool results from the collection.
+	Last *GetToolsResponseLast `json:"last" validate:"required"`
+
+	// Tool results returned from the collection.
+	Tools []Tool `json:"tools" validate:"required"`
+}
+
+// UnmarshalGetToolsResponse unmarshals an instance of GetToolsResponse from the specified map of raw messages.
+func UnmarshalGetToolsResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(GetToolsResponse)
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "offset", &obj.Offset)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "total_count", &obj.TotalCount)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalGetToolsResponseFirst)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "previous", &obj.Previous, UnmarshalGetToolsResponsePrevious)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalGetToolsResponseNext)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "last", &obj.Last, UnmarshalGetToolsResponseLast)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "tools", &obj.Tools, UnmarshalTool)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *GetToolsResponse) GetNextOffset() (*int64, error) {
+	if core.IsNil(resp.Next) {
+		return nil, nil
+	}
+	offset, err := core.GetQueryParam(resp.Next.Href, "offset")
+	if err != nil || offset == nil {
+		return nil, err
+	}
+	var offsetValue int64
+	offsetValue, err = strconv.ParseInt(*offset, 10, 64)
+	if err != nil {
+		return nil, err
+	}
+	return core.Int64Ptr(offsetValue), nil
+}
+
+// GetToolsResponseFirst : Information about retrieving first tool results from the collection.
+type GetToolsResponseFirst struct {
+	// URI that can be used to get first results from the collection.
+	Href *string `json:"href,omitempty"`
+}
+
+// UnmarshalGetToolsResponseFirst unmarshals an instance of GetToolsResponseFirst from the specified map of raw messages.
+func UnmarshalGetToolsResponseFirst(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(GetToolsResponseFirst)
+	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// GetToolsResponseLast : Information about retrieving last tool results from the collection.
+type GetToolsResponseLast struct {
+	// URI that can be used to get last results from the collection.
+	Href *string `json:"href,omitempty"`
+}
+
+// UnmarshalGetToolsResponseLast unmarshals an instance of GetToolsResponseLast from the specified map of raw messages.
+func UnmarshalGetToolsResponseLast(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(GetToolsResponseLast)
+	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// GetToolsResponseNext : Information about retrieving next tool results from the collection.
+type GetToolsResponseNext struct {
+	// URI that can be used to get next results from the collection.
+	Href *string `json:"href,omitempty"`
+}
+
+// UnmarshalGetToolsResponseNext unmarshals an instance of GetToolsResponseNext from the specified map of raw messages.
+func UnmarshalGetToolsResponseNext(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(GetToolsResponseNext)
+	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// GetToolsResponsePrevious : Information about retrieving previous tool results from the collection.
+type GetToolsResponsePrevious struct {
+	// URI that can be used to get previous results from the collection.
+	Href *string `json:"href,omitempty"`
+}
+
+// UnmarshalGetToolsResponsePrevious unmarshals an instance of GetToolsResponsePrevious from the specified map of raw messages.
+func UnmarshalGetToolsResponsePrevious(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(GetToolsResponsePrevious)
+	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// PostToolResponse : Response structure for POST tool.
+type PostToolResponse struct {
+	// ID of created tool.
 	ID *string `json:"id" validate:"required"`
 
-	// Resource group where tool integration was created.
+	// Resource group where tool was created.
 	ResourceGroupID *string `json:"resource_group_id" validate:"required"`
 
-	// CRN of created tool integration.
+	// CRN of created tool.
 	CRN *string `json:"crn" validate:"required"`
 
-	// The unique name of the provisioned integration.
-	ToolID *string `json:"tool_id" validate:"required"`
+	// The unique name of the provisioned tool.
+	ToolTypeID *string `json:"tool_type_id" validate:"required"`
 
-	// ID of toolchain which the created integration was bound to.
+	// ID of toolchain which the created tool was bound to.
 	ToolchainID *string `json:"toolchain_id" validate:"required"`
 
-	// CRN of toolchain which the created integration was bound to.
+	// CRN of toolchain which the created tool was bound to.
 	ToolchainCRN *string `json:"toolchain_crn" validate:"required"`
 
-	// URI representing the created tool integration.
+	// URI representing the created tool.
 	Href *string `json:"href" validate:"required"`
 
 	// Information on URIs to access this resource through the UI or API.
 	Referent *Referent `json:"referent" validate:"required"`
 
-	// Name of tool integration.
+	// Name of tool.
 	Name *string `json:"name,omitempty"`
 
-	// Parameters to be used to create the integration.
+	// Parameters to be used to create the tool.
 	Parameters map[string]interface{} `json:"parameters" validate:"required"`
 
-	// Current configuration state of the tool integration.
+	// Current configuration state of the tool.
 	State *string `json:"state" validate:"required"`
 }
 
-// Constants associated with the PostIntegrationResponse.State property.
-// Current configuration state of the tool integration.
+// Constants associated with the PostToolResponse.State property.
+// Current configuration state of the tool.
 const (
-	PostIntegrationResponseStateConfiguredConst = "configured"
-	PostIntegrationResponseStateConfiguringConst = "configuring"
-	PostIntegrationResponseStateMisconfiguredConst = "misconfigured"
-	PostIntegrationResponseStateUnconfiguredConst = "unconfigured"
+	PostToolResponseStateConfiguredConst = "configured"
+	PostToolResponseStateConfiguringConst = "configuring"
+	PostToolResponseStateMisconfiguredConst = "misconfigured"
+	PostToolResponseStateUnconfiguredConst = "unconfigured"
 )
 
-// UnmarshalPostIntegrationResponse unmarshals an instance of PostIntegrationResponse from the specified map of raw messages.
-func UnmarshalPostIntegrationResponse(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(PostIntegrationResponse)
+// UnmarshalPostToolResponse unmarshals an instance of PostToolResponse from the specified map of raw messages.
+func UnmarshalPostToolResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(PostToolResponse)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
 		return
@@ -1865,7 +1851,7 @@ func UnmarshalPostIntegrationResponse(m map[string]json.RawMessage, result inter
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "tool_id", &obj.ToolID)
+	err = core.UnmarshalPrimitive(m, "tool_type_id", &obj.ToolTypeID)
 	if err != nil {
 		return
 	}
@@ -2005,57 +1991,57 @@ func UnmarshalReferent(m map[string]json.RawMessage, result interface{}) (err er
 	return
 }
 
-// ToolIntegration : Model describing tool integration resource.
-type ToolIntegration struct {
-	// Tool integration ID.
+// Tool : Model describing tool resource.
+type Tool struct {
+	// Tool ID.
 	ID *string `json:"id" validate:"required"`
 
-	// Resource group where tool integration can be found.
+	// Resource group where tool can be found.
 	ResourceGroupID *string `json:"resource_group_id" validate:"required"`
 
-	// Tool integration CRN.
+	// Tool CRN.
 	CRN *string `json:"crn" validate:"required"`
 
-	// The unique name of the provisioned integration.
-	ToolID *string `json:"tool_id" validate:"required"`
+	// The unique name of the provisioned tool.
+	ToolTypeID *string `json:"tool_type_id" validate:"required"`
 
-	// ID of toolchain which the integration is bound to.
+	// ID of toolchain which the tool is bound to.
 	ToolchainID *string `json:"toolchain_id" validate:"required"`
 
-	// CRN of toolchain which the integration is bound to.
+	// CRN of toolchain which the tool is bound to.
 	ToolchainCRN *string `json:"toolchain_crn" validate:"required"`
 
-	// URI representing the tool integration.
+	// URI representing the tool.
 	Href *string `json:"href" validate:"required"`
 
 	// Information on URIs to access this resource through the UI or API.
-	Referent *ToolIntegrationReferent `json:"referent" validate:"required"`
+	Referent *ToolReferent `json:"referent" validate:"required"`
 
-	// Tool integration name.
+	// Tool name.
 	Name *string `json:"name,omitempty"`
 
-	// Latest tool integration update timestamp.
+	// Latest tool update timestamp.
 	UpdatedAt *strfmt.DateTime `json:"updated_at" validate:"required"`
 
-	// Parameters to be used to create the integration.
+	// Parameters to be used to create the tool.
 	Parameters map[string]interface{} `json:"parameters" validate:"required"`
 
-	// Current configuration state of the tool integration.
+	// Current configuration state of the tool.
 	State *string `json:"state" validate:"required"`
 }
 
-// Constants associated with the ToolIntegration.State property.
-// Current configuration state of the tool integration.
+// Constants associated with the Tool.State property.
+// Current configuration state of the tool.
 const (
-	ToolIntegrationStateConfiguredConst = "configured"
-	ToolIntegrationStateConfiguringConst = "configuring"
-	ToolIntegrationStateMisconfiguredConst = "misconfigured"
-	ToolIntegrationStateUnconfiguredConst = "unconfigured"
+	ToolStateConfiguredConst = "configured"
+	ToolStateConfiguringConst = "configuring"
+	ToolStateMisconfiguredConst = "misconfigured"
+	ToolStateUnconfiguredConst = "unconfigured"
 )
 
-// UnmarshalToolIntegration unmarshals an instance of ToolIntegration from the specified map of raw messages.
-func UnmarshalToolIntegration(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ToolIntegration)
+// UnmarshalTool unmarshals an instance of Tool from the specified map of raw messages.
+func UnmarshalTool(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Tool)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
 		return
@@ -2068,7 +2054,7 @@ func UnmarshalToolIntegration(m map[string]json.RawMessage, result interface{}) 
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "tool_id", &obj.ToolID)
+	err = core.UnmarshalPrimitive(m, "tool_type_id", &obj.ToolTypeID)
 	if err != nil {
 		return
 	}
@@ -2084,7 +2070,7 @@ func UnmarshalToolIntegration(m map[string]json.RawMessage, result interface{}) 
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "referent", &obj.Referent, UnmarshalToolIntegrationReferent)
+	err = core.UnmarshalModel(m, "referent", &obj.Referent, UnmarshalToolReferent)
 	if err != nil {
 		return
 	}
