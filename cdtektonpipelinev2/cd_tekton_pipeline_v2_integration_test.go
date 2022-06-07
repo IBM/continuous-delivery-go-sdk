@@ -24,10 +24,10 @@ import (
 	"os"
 	"time"
 
+	"github.com/IBM/continuous-delivery-go-sdk/cdtektonpipelinev2"
 	"github.com/IBM/go-sdk-core/v5/core"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"github.ibm.com/org-ids/tekton-pipeline-go-sdk/cdtektonpipelinev2"
 )
 
 /**

@@ -31,9 +31,9 @@ import (
 	"strings"
 	"time"
 
+	common "github.com/IBM/continuous-delivery-go-sdk/common"
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/go-openapi/strfmt"
-	common "github.ibm.com/org-ids/tekton-pipeline-go-sdk/common"
 )
 
 // CdTektonPipelineV2 : Continuous Delivery Tekton pipeline API definition <br><br> Maximum request payload size is 512
