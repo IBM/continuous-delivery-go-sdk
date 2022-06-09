@@ -159,47 +159,47 @@ var _ = Describe(`CdToolchainV2`, func() {
 			var url string
 			var err error
 			url, err = cdtoolchainv2.GetServiceURLForRegion("us-south")
-			Expect(url).To(Equal("https://otc-api.us-south.devops.cloud.ibm.com"))
+			Expect(url).To(Equal("https://api.us-south.devops.cloud.ibm.com"))
 			Expect(err).To(BeNil())
 
 			url, err = cdtoolchainv2.GetServiceURLForRegion("us-east")
-			Expect(url).To(Equal("https://otc-api.us-east.devops.cloud.ibm.com"))
+			Expect(url).To(Equal("https://api.us-east.devops.cloud.ibm.com"))
 			Expect(err).To(BeNil())
 
 			url, err = cdtoolchainv2.GetServiceURLForRegion("eu-de")
-			Expect(url).To(Equal("https://otc-api.eu-de.devops.cloud.ibm.com"))
+			Expect(url).To(Equal("https://api.eu-de.devops.cloud.ibm.com"))
 			Expect(err).To(BeNil())
 
 			url, err = cdtoolchainv2.GetServiceURLForRegion("eu-gb")
-			Expect(url).To(Equal("https://otc-api.eu-gb.devops.cloud.ibm.com"))
+			Expect(url).To(Equal("https://api.eu-gb.devops.cloud.ibm.com"))
 			Expect(err).To(BeNil())
 
 			url, err = cdtoolchainv2.GetServiceURLForRegion("jp-osa")
-			Expect(url).To(Equal("https://otc-api.jp-osa.devops.cloud.ibm.com"))
+			Expect(url).To(Equal("https://api.jp-osa.devops.cloud.ibm.com"))
 			Expect(err).To(BeNil())
 
 			url, err = cdtoolchainv2.GetServiceURLForRegion("jp-tok")
-			Expect(url).To(Equal("https://otc-api.jp-tok.devops.cloud.ibm.com"))
+			Expect(url).To(Equal("https://api.jp-tok.devops.cloud.ibm.com"))
 			Expect(err).To(BeNil())
 
 			url, err = cdtoolchainv2.GetServiceURLForRegion("au-syd")
-			Expect(url).To(Equal("https://otc-api.au-syd.devops.cloud.ibm.com"))
+			Expect(url).To(Equal("https://api.au-syd.devops.cloud.ibm.com"))
 			Expect(err).To(BeNil())
 
 			url, err = cdtoolchainv2.GetServiceURLForRegion("ca-tor")
-			Expect(url).To(Equal("https://otc-api.ca-tor.devops.cloud.ibm.com"))
+			Expect(url).To(Equal("https://api.ca-tor.devops.cloud.ibm.com"))
 			Expect(err).To(BeNil())
 
 			url, err = cdtoolchainv2.GetServiceURLForRegion("br-sao")
-			Expect(url).To(Equal("https://otc-api.br-sao.devops.cloud.ibm.com"))
+			Expect(url).To(Equal("https://api.br-sao.devops.cloud.ibm.com"))
 			Expect(err).To(BeNil())
 
 			url, err = cdtoolchainv2.GetServiceURLForRegion("mon01")
-			Expect(url).To(Equal("https://otc-api.mon01.devops.cloud.ibm.com"))
+			Expect(url).To(Equal("https://api.mon01.devops.cloud.ibm.com"))
 			Expect(err).To(BeNil())
 
 			url, err = cdtoolchainv2.GetServiceURLForRegion("eu-fr2")
-			Expect(url).To(Equal("https://otc-api.eu-fr2.devops.cloud.ibm.com"))
+			Expect(url).To(Equal("https://api.eu-fr2.devops.cloud.ibm.com"))
 			Expect(err).To(BeNil())
 
 			url, err = cdtoolchainv2.GetServiceURLForRegion("INVALID_REGION")
@@ -209,7 +209,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 		})
 	})
 	Describe(`ListToolchains(listToolchainsOptions *ListToolchainsOptions) - Operation response error`, func() {
-		listToolchainsPath := "/api/v2/toolchains"
+		listToolchainsPath := "/v2/toolchains"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -259,7 +259,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 		})
 	})
 	Describe(`ListToolchains(listToolchainsOptions *ListToolchainsOptions)`, func() {
-		listToolchainsPath := "/api/v2/toolchains"
+		listToolchainsPath := "/v2/toolchains"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -479,7 +479,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 	})
 	})
 	Describe(`CreateToolchain(createToolchainOptions *CreateToolchainOptions) - Operation response error`, func() {
-		createToolchainPath := "/api/v2/toolchains"
+		createToolchainPath := "/v2/toolchains"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -526,7 +526,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 		})
 	})
 	Describe(`CreateToolchain(createToolchainOptions *CreateToolchainOptions)`, func() {
-		createToolchainPath := "/api/v2/toolchains"
+		createToolchainPath := "/v2/toolchains"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -733,7 +733,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 		})
 	})
 	Describe(`GetToolchainByID(getToolchainByIDOptions *GetToolchainByIDOptions) - Operation response error`, func() {
-		getToolchainByIDPath := "/api/v2/toolchains/testString"
+		getToolchainByIDPath := "/v2/toolchains/testString"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -778,7 +778,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 		})
 	})
 	Describe(`GetToolchainByID(getToolchainByIDOptions *GetToolchainByIDOptions)`, func() {
-		getToolchainByIDPath := "/api/v2/toolchains/testString"
+		getToolchainByIDPath := "/v2/toolchains/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -945,7 +945,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 		})
 	})
 	Describe(`DeleteToolchain(deleteToolchainOptions *DeleteToolchainOptions)`, func() {
-		deleteToolchainPath := "/api/v2/toolchains/testString"
+		deleteToolchainPath := "/v2/toolchains/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1013,7 +1013,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 		})
 	})
 	Describe(`UpdateToolchain(updateToolchainOptions *UpdateToolchainOptions)`, func() {
-		updateToolchainPath := "/api/v2/toolchains/testString"
+		updateToolchainPath := "/v2/toolchains/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1101,7 +1101,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 		})
 	})
 	Describe(`ListTools(listToolsOptions *ListToolsOptions) - Operation response error`, func() {
-		listToolsPath := "/api/v2/toolchains/testString/tools"
+		listToolsPath := "/v2/toolchains/testString/tools"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1150,7 +1150,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 		})
 	})
 	Describe(`ListTools(listToolsOptions *ListToolsOptions)`, func() {
-		listToolsPath := "/api/v2/toolchains/testString/tools"
+		listToolsPath := "/v2/toolchains/testString/tools"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1368,7 +1368,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 	})
 	})
 	Describe(`CreateTool(createToolOptions *CreateToolOptions) - Operation response error`, func() {
-		createToolPath := "/api/v2/toolchains/testString/tools"
+		createToolPath := "/v2/toolchains/testString/tools"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1417,7 +1417,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 		})
 	})
 	Describe(`CreateTool(createToolOptions *CreateToolOptions)`, func() {
-		createToolPath := "/api/v2/toolchains/testString/tools"
+		createToolPath := "/v2/toolchains/testString/tools"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1632,7 +1632,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 		})
 	})
 	Describe(`GetToolByID(getToolByIDOptions *GetToolByIDOptions) - Operation response error`, func() {
-		getToolByIDPath := "/api/v2/toolchains/testString/tools/testString"
+		getToolByIDPath := "/v2/toolchains/testString/tools/testString"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1678,7 +1678,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 		})
 	})
 	Describe(`GetToolByID(getToolByIDOptions *GetToolByIDOptions)`, func() {
-		getToolByIDPath := "/api/v2/toolchains/testString/tools/testString"
+		getToolByIDPath := "/v2/toolchains/testString/tools/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1849,7 +1849,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 		})
 	})
 	Describe(`DeleteTool(deleteToolOptions *DeleteToolOptions)`, func() {
-		deleteToolPath := "/api/v2/toolchains/testString/tools/testString"
+		deleteToolPath := "/v2/toolchains/testString/tools/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1919,7 +1919,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 		})
 	})
 	Describe(`UpdateTool(updateToolOptions *UpdateToolOptions)`, func() {
-		updateToolPath := "/api/v2/toolchains/testString/tools/testString"
+		updateToolPath := "/v2/toolchains/testString/tools/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {

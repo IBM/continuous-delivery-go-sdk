@@ -47,7 +47,7 @@ type CdToolchainV2 struct {
 }
 
 // DefaultServiceURL is the default URL to make service requests to.
-const DefaultServiceURL = "https://otc-api.us-south.devops.cloud.ibm.com"
+const DefaultServiceURL = "https://api.us-south.devops.cloud.ibm.com"
 
 // DefaultServiceName is the default key used to find external configuration information.
 const DefaultServiceName = "cd_toolchain"
@@ -117,17 +117,17 @@ func NewCdToolchainV2(options *CdToolchainV2Options) (service *CdToolchainV2, er
 // GetServiceURLForRegion returns the service URL to be used for the specified region
 func GetServiceURLForRegion(region string) (string, error) {
 	var endpoints = map[string]string{
-		"us-south": "https://otc-api.us-south.devops.cloud.ibm.com", // The otc-api enpoint in the us-south region
-		"us-east": "https://otc-api.us-east.devops.cloud.ibm.com", // The otc-api enpoint in the us-east region
-		"eu-de": "https://otc-api.eu-de.devops.cloud.ibm.com", // The otc-api enpoint in the eu-de region
-		"eu-gb": "https://otc-api.eu-gb.devops.cloud.ibm.com", // The otc-api enpoint in the eu-gb region
-		"jp-osa": "https://otc-api.jp-osa.devops.cloud.ibm.com", // The otc-api enpoint in the jp-osa region
-		"jp-tok": "https://otc-api.jp-tok.devops.cloud.ibm.com", // The otc-api enpoint in the jp-tok region
-		"au-syd": "https://otc-api.au-syd.devops.cloud.ibm.com", // The otc-api enpoint in the au-syd region
-		"ca-tor": "https://otc-api.ca-tor.devops.cloud.ibm.com", // The otc-api enpoint in the ca-tor region
-		"br-sao": "https://otc-api.br-sao.devops.cloud.ibm.com", // The otc-api enpoint in the br-sao region
-		"mon01": "https://otc-api.mon01.devops.cloud.ibm.com", // The otc-api enpoint in the mon01 region
-		"eu-fr2": "https://otc-api.eu-fr2.devops.cloud.ibm.com", // The otc-api enpoint in the eu-fr2 region
+		"us-south": "https://api.us-south.devops.cloud.ibm.com", // The toolchain API endpoint in the us-south region
+		"us-east": "https://api.us-east.devops.cloud.ibm.com", // The toolchain API endpoint in the us-east region
+		"eu-de": "https://api.eu-de.devops.cloud.ibm.com", // The toolchain API endpoint in the eu-de region
+		"eu-gb": "https://api.eu-gb.devops.cloud.ibm.com", // The toolchain API endpoint in the eu-gb region
+		"jp-osa": "https://api.jp-osa.devops.cloud.ibm.com", // The toolchain API endpoint in the jp-osa region
+		"jp-tok": "https://api.jp-tok.devops.cloud.ibm.com", // The toolchain API endpoint in the jp-tok region
+		"au-syd": "https://api.au-syd.devops.cloud.ibm.com", // The toolchain API endpoint in the au-syd region
+		"ca-tor": "https://api.ca-tor.devops.cloud.ibm.com", // The toolchain API endpoint in the ca-tor region
+		"br-sao": "https://api.br-sao.devops.cloud.ibm.com", // The toolchain API endpoint in the br-sao region
+		"mon01": "https://api.mon01.devops.cloud.ibm.com", // The toolchain API endpoint in the mon01 region
+		"eu-fr2": "https://api.eu-fr2.devops.cloud.ibm.com", // The toolchain API endpoint in the eu-fr2 region
 	}
 
 	if url, ok := endpoints[region]; ok {
@@ -202,7 +202,7 @@ func (cdToolchain *CdToolchainV2) ListToolchainsWithContext(ctx context.Context,
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = cdToolchain.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/api/v2/toolchains`, nil)
+	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/v2/toolchains`, nil)
 	if err != nil {
 		return
 	}
@@ -266,7 +266,7 @@ func (cdToolchain *CdToolchainV2) CreateToolchainWithContext(ctx context.Context
 	builder := core.NewRequestBuilder(core.POST)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = cdToolchain.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/api/v2/toolchains`, nil)
+	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/v2/toolchains`, nil)
 	if err != nil {
 		return
 	}
@@ -342,7 +342,7 @@ func (cdToolchain *CdToolchainV2) GetToolchainByIDWithContext(ctx context.Contex
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = cdToolchain.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/api/v2/toolchains/{toolchain_id}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/v2/toolchains/{toolchain_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -402,7 +402,7 @@ func (cdToolchain *CdToolchainV2) DeleteToolchainWithContext(ctx context.Context
 	builder := core.NewRequestBuilder(core.DELETE)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = cdToolchain.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/api/v2/toolchains/{toolchain_id}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/v2/toolchains/{toolchain_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -450,7 +450,7 @@ func (cdToolchain *CdToolchainV2) UpdateToolchainWithContext(ctx context.Context
 	builder := core.NewRequestBuilder(core.PATCH)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = cdToolchain.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/api/v2/toolchains/{toolchain_id}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/v2/toolchains/{toolchain_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -512,7 +512,7 @@ func (cdToolchain *CdToolchainV2) ListToolsWithContext(ctx context.Context, list
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = cdToolchain.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/api/v2/toolchains/{toolchain_id}/tools`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/v2/toolchains/{toolchain_id}/tools`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -579,7 +579,7 @@ func (cdToolchain *CdToolchainV2) CreateToolWithContext(ctx context.Context, cre
 	builder := core.NewRequestBuilder(core.POST)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = cdToolchain.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/api/v2/toolchains/{toolchain_id}/tools`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/v2/toolchains/{toolchain_id}/tools`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -659,7 +659,7 @@ func (cdToolchain *CdToolchainV2) GetToolByIDWithContext(ctx context.Context, ge
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = cdToolchain.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/api/v2/toolchains/{toolchain_id}/tools/{tool_id}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/v2/toolchains/{toolchain_id}/tools/{tool_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -720,7 +720,7 @@ func (cdToolchain *CdToolchainV2) DeleteToolWithContext(ctx context.Context, del
 	builder := core.NewRequestBuilder(core.DELETE)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = cdToolchain.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/api/v2/toolchains/{toolchain_id}/tools/{tool_id}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/v2/toolchains/{toolchain_id}/tools/{tool_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -769,7 +769,7 @@ func (cdToolchain *CdToolchainV2) UpdateToolWithContext(ctx context.Context, upd
 	builder := core.NewRequestBuilder(core.PATCH)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = cdToolchain.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/api/v2/toolchains/{toolchain_id}/tools/{tool_id}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/v2/toolchains/{toolchain_id}/tools/{tool_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
