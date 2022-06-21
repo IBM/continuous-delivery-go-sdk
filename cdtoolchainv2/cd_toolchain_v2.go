@@ -126,8 +126,6 @@ func GetServiceURLForRegion(region string) (string, error) {
 		"au-syd": "https://api.au-syd.devops.cloud.ibm.com", // The toolchain API endpoint in the au-syd region
 		"ca-tor": "https://api.ca-tor.devops.cloud.ibm.com", // The toolchain API endpoint in the ca-tor region
 		"br-sao": "https://api.br-sao.devops.cloud.ibm.com", // The toolchain API endpoint in the br-sao region
-		"mon01": "https://api.mon01.devops.cloud.ibm.com", // The toolchain API endpoint in the mon01 region
-		"eu-fr2": "https://api.eu-fr2.devops.cloud.ibm.com", // The toolchain API endpoint in the eu-fr2 region
 	}
 
 	if url, ok := endpoints[region]; ok {
