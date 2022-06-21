@@ -194,14 +194,6 @@ var _ = Describe(`CdToolchainV2`, func() {
 			Expect(url).To(Equal("https://api.br-sao.devops.cloud.ibm.com"))
 			Expect(err).To(BeNil())
 
-			url, err = cdtoolchainv2.GetServiceURLForRegion("mon01")
-			Expect(url).To(Equal("https://api.mon01.devops.cloud.ibm.com"))
-			Expect(err).To(BeNil())
-
-			url, err = cdtoolchainv2.GetServiceURLForRegion("eu-fr2")
-			Expect(url).To(Equal("https://api.eu-fr2.devops.cloud.ibm.com"))
-			Expect(err).To(BeNil())
-
 			url, err = cdtoolchainv2.GetServiceURLForRegion("INVALID_REGION")
 			Expect(url).To(BeEmpty())
 			Expect(err).ToNot(BeNil())
