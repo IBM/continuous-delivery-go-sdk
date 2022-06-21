@@ -71,13 +71,13 @@ Next, run `go build` or `go mod tidy` to download and install the new dependenci
 `go.mod` file.  
 
 In the example above, the `cdtoolchainv2` part of the import path is the package name
-associated with the Example Service service.
+associated with the Toolchain service.
 See the service table above to find the approprate package name for the services used by your application.
 
 ### `go get` command  
 Alternatively, you can use the `go get` command to download and install the appropriate packages needed by your application:
 ```
-go get -u github.com/IBM/continuous-delivery-go-sdk/exampleservicev1
+go get -u github.com/IBM/continuous-delivery-go-sdk/cdtoolchainv2
 ```
 Be sure to use the appropriate package name from the service table above for the services used by your application.
 
