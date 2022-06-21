@@ -1,10 +1,13 @@
-[![Build Status](https://travis-ci.com/IBM/continuous-delivery-go-sdk.svg?token=eW5FVD71iyte6tTby8gr&branch=main)](https://travis.ibm.com/IBM/continuous-delivery-go-sdk.svg?token=eW5FVD71iyte6tTby8gr&branch=main)
+[![Build Status](https://travis-ci.com/IBM/continuous-delivery-go-sdk.svg?branch=main)](https://travis-ci.com/IBM/continuous-delivery-go-sdk)
+[![Release](https://img.shields.io/github/v/release/IBM/continuous-delivery-go-sdk)](https://github.com/IBM/continuous-delivery-go-sdk/releases/latest)
+![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/IBM/continuous-delivery-go-sdk)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-# IBM Cloud Continuous Delivery Go SDK 0.0.1
-Go client library to interact with the various [IBM Cloud Continuous Delivery APIs](https://cloud.ibm.com/apidocs?category=continuous-delivery).
+# IBM Cloud Continuous Delivery Go SDK 0.0.5
+Go client library to interact with the various [IBM Cloud Continuous Delivery APIs](https://cloud.ibm.com/apidocs/continuous-delivery).
 
-Disclaimer: this SDK is being released initially as a **pre-release** version.
+Disclaimer: this SDK is being released initially as a **beta** version.
 Changes might occur which impact applications that use this SDK.
 
 ## Table of Contents
@@ -40,7 +43,8 @@ The IBM Cloud Continuous Delivery Go SDK allows developers to programmatically i
 
 Service Name | Package name 
 --- | --- 
-<!-- [Example Service](https://cloud.ibm.com/apidocs/example-service) | exampleservicev1 -->
+[Toolchain API](https://cloud.ibm.com/apidocs/continuous-delivery/toolchain) | cdtoolchainv2
+[Tekton Pipeline API](https://cloud.ibm.com/apidocs/continuous-delivery/tekton-pipeline) | cdtektonpipelinev2
 
 ## Prerequisites
 
@@ -51,7 +55,7 @@ Service Name | Package name
 * Go version 1.16 or above.
 
 ## Installation
-The current version of this SDK: 0.0.1
+The current version of this SDK: 0.0.5
 
 ### Go modules  
 If your application uses Go modules for dependency management (recommended), just add an import for each service 
@@ -60,13 +64,13 @@ Here is an example:
 
 ```go
 import (
-	"github.com/IBM/continuous-delivery-go-sdk/exampleservicev1"
+	"github.com/IBM/continuous-delivery-go-sdk/cdtoolchainv2"
 )
 ```
 Next, run `go build` or `go mod tidy` to download and install the new dependencies and update your application's
 `go.mod` file.  
 
-In the example above, the `exampleservicev1` part of the import path is the package name
+In the example above, the `cdtoolchainv2` part of the import path is the package name
 associated with the Example Service service.
 See the service table above to find the approprate package name for the services used by your application.
 
