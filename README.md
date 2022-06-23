@@ -5,10 +5,9 @@
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 # IBM Cloud Continuous Delivery Go SDK 0.0.5
-Go client library to interact with the various [IBM Cloud Continuous Delivery APIs](https://cloud.ibm.com/apidocs/continuous-delivery).
+Go client library to interact with the [IBM Cloud Continuous Delivery Toolchain and Tekton Pipeline APIs](https://cloud.ibm.com/docs?tab=api-docs&category=devops). **Note**: The Toolchain and Tekton Pipeline API docs are not yet published. Please check back soon!
 
-Disclaimer: this SDK is being released initially as a **beta** version.
-Changes might occur which impact applications that use this SDK.
+***Disclaimer***: this SDK is in **Beta**, and is subject to breaking changes that may impact applications that use this SDK.
 
 ## Table of Contents
 <!--
@@ -43,8 +42,8 @@ The IBM Cloud Continuous Delivery Go SDK allows developers to programmatically i
 
 Service Name | Package name 
 --- | --- 
-[Toolchain API](https://cloud.ibm.com/apidocs/continuous-delivery/toolchain) | cdtoolchainv2
-[Tekton Pipeline API](https://cloud.ibm.com/apidocs/continuous-delivery/tekton-pipeline) | cdtektonpipelinev2
+Toolchain API | cdtoolchainv2
+Tekton Pipeline API | cdtektonpipelinev2
 
 ## Prerequisites
 
