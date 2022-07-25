@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.50.0-af9e48c4-20220523-163800
+ * IBM OpenAPI SDK Code Generator Version: 3.53.0-9710cac3-20220713-193508
  */
 
 // Package cdtektonpipelinev2 : Operations and models for the CdTektonPipelineV2 service
@@ -2793,15 +2793,14 @@ type Definition struct {
 	ServiceInstanceID *string `json:"service_instance_id" validate:"required"`
 
 	// UUID.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id,omitempty"`
 }
 
 // NewDefinition : Instantiate Definition (Generic Model Constructor)
-func (*CdTektonPipelineV2) NewDefinition(scmSource *DefinitionScmSource, serviceInstanceID string, id string) (_model *Definition, err error) {
+func (*CdTektonPipelineV2) NewDefinition(scmSource *DefinitionScmSource, serviceInstanceID string) (_model *Definition, err error) {
 	_model = &Definition{
 		ScmSource: scmSource,
 		ServiceInstanceID: core.StringPtr(serviceInstanceID),
-		ID: core.StringPtr(id),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	return
@@ -2901,7 +2900,7 @@ type DefinitionsDefinitionsItem struct {
 	ServiceInstanceID *string `json:"service_instance_id" validate:"required"`
 
 	// UUID.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id,omitempty"`
 
 	// General href URL.
 	Href *string `json:"href,omitempty"`
@@ -4990,7 +4989,7 @@ type Trigger struct {
 	// Event listener name.
 	EventListener *string `json:"event_listener,omitempty"`
 
-	// UUID.
+	// Id.
 	ID *string `json:"id,omitempty"`
 
 	// Trigger properties.
@@ -5504,7 +5503,7 @@ func UnmarshalTriggerProperty(m map[string]json.RawMessage, result interface{}) 
 // TriggerScmSource : Scm source for git type tekton pipeline trigger.
 type TriggerScmSource struct {
 	// Needed only for git trigger type. Repo URL that listening to.
-	URL *string `json:"url,omitempty"`
+	URL *string `json:"url" validate:"required"`
 
 	// Needed only for git trigger type. Branch name of the repo. Branch field doesn't coexist with pattern field.
 	Branch *string `json:"branch,omitempty"`
@@ -5518,6 +5517,15 @@ type TriggerScmSource struct {
 
 	// Webhook ID.
 	HookID *string `json:"hook_id,omitempty"`
+}
+
+// NewTriggerScmSource : Instantiate TriggerScmSource (Generic Model Constructor)
+func (*CdTektonPipelineV2) NewTriggerScmSource(url string) (_model *TriggerScmSource, err error) {
+	_model = &TriggerScmSource{
+		URL: core.StringPtr(url),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	return
 }
 
 // UnmarshalTriggerScmSource unmarshals an instance of TriggerScmSource from the specified map of raw messages.
@@ -5742,7 +5750,7 @@ type TriggersTriggersItem struct {
 	// Event listener name.
 	EventListener *string `json:"event_listener,omitempty"`
 
-	// UUID.
+	// Id.
 	ID *string `json:"id,omitempty"`
 
 	// Trigger properties.
@@ -6365,6 +6373,7 @@ type Worker struct {
 	// worker type.
 	Type *string `json:"type,omitempty"`
 
+	// Id.
 	ID *string `json:"id" validate:"required"`
 }
 
@@ -6479,7 +6488,7 @@ type TriggerGenericTrigger struct {
 	// Event listener name.
 	EventListener *string `json:"event_listener" validate:"required"`
 
-	// UUID.
+	// Id.
 	ID *string `json:"id,omitempty"`
 
 	// Trigger properties.
@@ -6577,7 +6586,7 @@ type TriggerManualTrigger struct {
 	// Event listener name.
 	EventListener *string `json:"event_listener" validate:"required"`
 
-	// UUID.
+	// Id.
 	ID *string `json:"id,omitempty"`
 
 	// Trigger properties.
@@ -6669,7 +6678,7 @@ type TriggerScmTrigger struct {
 	// Event listener name.
 	EventListener *string `json:"event_listener" validate:"required"`
 
-	// UUID.
+	// Id.
 	ID *string `json:"id,omitempty"`
 
 	// Trigger properties.
@@ -6781,7 +6790,7 @@ type TriggerTimerTrigger struct {
 	// Event listener name.
 	EventListener *string `json:"event_listener" validate:"required"`
 
-	// UUID.
+	// Id.
 	ID *string `json:"id,omitempty"`
 
 	// Trigger properties.
@@ -6925,7 +6934,7 @@ type TriggersTriggersItemTriggerGenericTrigger struct {
 	// Event listener name.
 	EventListener *string `json:"event_listener" validate:"required"`
 
-	// UUID.
+	// Id.
 	ID *string `json:"id,omitempty"`
 
 	// Trigger properties.
@@ -7018,7 +7027,7 @@ type TriggersTriggersItemTriggerManualTrigger struct {
 	// Event listener name.
 	EventListener *string `json:"event_listener" validate:"required"`
 
-	// UUID.
+	// Id.
 	ID *string `json:"id,omitempty"`
 
 	// Trigger properties.
@@ -7105,7 +7114,7 @@ type TriggersTriggersItemTriggerScmTrigger struct {
 	// Event listener name.
 	EventListener *string `json:"event_listener" validate:"required"`
 
-	// UUID.
+	// Id.
 	ID *string `json:"id,omitempty"`
 
 	// Trigger properties.
@@ -7212,7 +7221,7 @@ type TriggersTriggersItemTriggerTimerTrigger struct {
 	// Event listener name.
 	EventListener *string `json:"event_listener" validate:"required"`
 
-	// UUID.
+	// Id.
 	ID *string `json:"id,omitempty"`
 
 	// Trigger properties.
@@ -7295,4 +7304,91 @@ func UnmarshalTriggersTriggersItemTriggerTimerTrigger(m map[string]json.RawMessa
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+//
+// TektonPipelineRunsPager can be used to simplify the use of the "ListTektonPipelineRuns" method.
+//
+type TektonPipelineRunsPager struct {
+	hasNext bool
+	options *ListTektonPipelineRunsOptions
+	client  *CdTektonPipelineV2
+	pageContext struct {
+		next *int64
+	}
+}
+
+// NewTektonPipelineRunsPager returns a new TektonPipelineRunsPager instance.
+func (cdTektonPipeline *CdTektonPipelineV2) NewTektonPipelineRunsPager(options *ListTektonPipelineRunsOptions) (pager *TektonPipelineRunsPager, err error) {
+	if options.Offset != nil && *options.Offset != 0 {
+		err = fmt.Errorf("the 'options.Offset' field should not be set")
+		return
+	}
+
+	var optionsCopy ListTektonPipelineRunsOptions = *options
+	pager = &TektonPipelineRunsPager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  cdTektonPipeline,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *TektonPipelineRunsPager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *TektonPipelineRunsPager) GetNextWithContext(ctx context.Context) (page []PipelineRunsPipelineRunsItem, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Offset = pager.pageContext.next
+
+	result, _, err := pager.client.ListTektonPipelineRunsWithContext(ctx, pager.options)
+	if err != nil {
+		return
+	}
+
+	var next *int64
+	if result.Next != nil {
+		var offset *int64
+		offset, err = core.GetQueryParamAsInt(result.Next.Href, "offset")
+		if err != nil {
+			err = fmt.Errorf("error retrieving 'offset' query parameter from URL '%s': %s", *result.Next.Href, err.Error())
+			return
+		}
+		next = offset
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.PipelineRuns
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *TektonPipelineRunsPager) GetAllWithContext(ctx context.Context) (allItems []PipelineRunsPipelineRunsItem, err error) {
+	for pager.HasNext() {
+		var nextPage []PipelineRunsPipelineRunsItem
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *TektonPipelineRunsPager) GetNext() (page []PipelineRunsPipelineRunsItem, err error) {
+	return pager.GetNextWithContext(context.Background())
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *TektonPipelineRunsPager) GetAll() (allItems []PipelineRunsPipelineRunsItem, err error) {
+	return pager.GetAllWithContext(context.Background())
 }
