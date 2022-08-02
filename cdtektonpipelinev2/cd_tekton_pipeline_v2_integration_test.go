@@ -39,7 +39,6 @@ import (
  */
 
 var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
-
 	const externalConfigFile = "../cd_tekton_pipeline_v2.env"
 
 	var (
@@ -80,11 +79,9 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It("Successfully construct the service client instance", func() {
-
 			cdTektonPipelineServiceOptions := &cdtektonpipelinev2.CdTektonPipelineV2Options{}
 
 			cdTektonPipelineService, err = cdtektonpipelinev2.NewCdTektonPipelineV2UsingExternalConfig(cdTektonPipelineServiceOptions)
-
 			Expect(err).To(BeNil())
 			Expect(cdTektonPipelineService).ToNot(BeNil())
 			Expect(cdTektonPipelineService.Service.Options.URL).To(Equal(serviceURL))
@@ -99,7 +96,6 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateTektonPipeline(createTektonPipelineOptions *CreateTektonPipelineOptions)`, func() {
-
 			workerWithIDModel := &cdtektonpipelinev2.WorkerWithID{
 				ID: core.StringPtr("public"),
 			}
@@ -110,19 +106,9 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			}
 
 			tektonPipeline, response, err := cdTektonPipelineService.CreateTektonPipeline(createTektonPipelineOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(tektonPipeline).ToNot(BeNil())
-
-			//
-			// The following status codes aren't covered by tests.
-			// Please provide integration tests for these too.
-			//
-			// 400
-			// 401
-			// 404
-			//
 		})
 	})
 
@@ -131,24 +117,14 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`GetTektonPipeline(getTektonPipelineOptions *GetTektonPipelineOptions)`, func() {
-
 			getTektonPipelineOptions := &cdtektonpipelinev2.GetTektonPipelineOptions{
 				ID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 			}
 
 			tektonPipeline, response, err := cdTektonPipelineService.GetTektonPipeline(getTektonPipelineOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(tektonPipeline).ToNot(BeNil())
-
-			//
-			// The following status codes aren't covered by tests.
-			// Please provide integration tests for these too.
-			//
-			// 401
-			// 404
-			//
 		})
 	})
 
@@ -157,7 +133,6 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`UpdateTektonPipeline(updateTektonPipelineOptions *UpdateTektonPipelineOptions)`, func() {
-
 			workerWithIDModel := &cdtektonpipelinev2.WorkerWithID{
 				ID: core.StringPtr("public"),
 			}
@@ -168,18 +143,9 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			}
 
 			tektonPipeline, response, err := cdTektonPipelineService.UpdateTektonPipeline(updateTektonPipelineOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(tektonPipeline).ToNot(BeNil())
-
-			//
-			// The following status codes aren't covered by tests.
-			// Please provide integration tests for these too.
-			//
-			// 401
-			// 404
-			//
 		})
 	})
 
@@ -188,11 +154,9 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`ListTektonPipelineRuns(listTektonPipelineRunsOptions *ListTektonPipelineRunsOptions) with pagination`, func(){
-			var result cdtektonpipelinev2.PipelineRuns
-
 			listTektonPipelineRunsOptions := &cdtektonpipelinev2.ListTektonPipelineRunsOptions{
 				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
-				Limit: core.Int64Ptr(int64(1)),
+				Limit: core.Int64Ptr(int64(10)),
 				Offset: core.Int64Ptr(int64(38)),
 				Status: core.StringPtr("succeeded"),
 				TriggerName: core.StringPtr("manual-trigger"),
@@ -201,13 +165,13 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			listTektonPipelineRunsOptions.Offset = nil
 			listTektonPipelineRunsOptions.Limit = core.Int64Ptr(1)
 
+			var allResults []cdtektonpipelinev2.PipelineRunsPipelineRunsItem
 			for {
 				pipelineRuns, response, err := cdTektonPipelineService.ListTektonPipelineRuns(listTektonPipelineRunsOptions)
-
 				Expect(err).To(BeNil())
 				Expect(response.StatusCode).To(Equal(200))
 				Expect(pipelineRuns).ToNot(BeNil())
-				result.PipelineRuns = append(result.PipelineRuns, pipelineRuns.PipelineRuns...)
+				allResults = append(allResults, pipelineRuns.PipelineRuns...)
 
 				listTektonPipelineRunsOptions.Offset, err = pipelineRuns.GetNextOffset()
 				Expect(err).To(BeNil())
@@ -215,15 +179,41 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 				if listTektonPipelineRunsOptions.Offset == nil {
 					break
 				}
-
-				//
-				// The following status codes aren't covered by tests.
-				// Please provide integration tests for these too.
-				//
-				// 401
-				// 404
-				//
 			}
+			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
+		})
+		It(`ListTektonPipelineRuns(listTektonPipelineRunsOptions *ListTektonPipelineRunsOptions) using TektonPipelineRunsPager`, func(){
+			listTektonPipelineRunsOptions := &cdtektonpipelinev2.ListTektonPipelineRunsOptions{
+				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
+				Limit: core.Int64Ptr(int64(10)),
+				Status: core.StringPtr("succeeded"),
+				TriggerName: core.StringPtr("manual-trigger"),
+			}
+
+			// Test GetNext().
+			pager, err := cdTektonPipelineService.NewTektonPipelineRunsPager(listTektonPipelineRunsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			var allResults []cdtektonpipelinev2.PipelineRunsPipelineRunsItem
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				Expect(err).To(BeNil())
+				Expect(nextPage).ToNot(BeNil())
+				allResults = append(allResults, nextPage...)
+			}
+
+			// Test GetAll().
+			pager, err = cdTektonPipelineService.NewTektonPipelineRunsPager(listTektonPipelineRunsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			allItems, err := pager.GetAll()
+			Expect(err).To(BeNil())
+			Expect(allItems).ToNot(BeNil())
+
+			Expect(len(allItems)).To(Equal(len(allResults)))
+			fmt.Fprintf(GinkgoWriter, "ListTektonPipelineRuns() returned a total of %d item(s) using TektonPipelineRunsPager.\n", len(allResults))
 		})
 	})
 
@@ -232,7 +222,6 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateTektonPipelineRun(createTektonPipelineRunOptions *CreateTektonPipelineRunOptions)`, func() {
-
 			createTektonPipelineRunOptions := &cdtektonpipelinev2.CreateTektonPipelineRunOptions{
 				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 				TriggerName: core.StringPtr("Generic Webhook Trigger - 0"),
@@ -243,19 +232,9 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			}
 
 			pipelineRun, response, err := cdTektonPipelineService.CreateTektonPipelineRun(createTektonPipelineRunOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(pipelineRun).ToNot(BeNil())
-
-			//
-			// The following status codes aren't covered by tests.
-			// Please provide integration tests for these too.
-			//
-			// 400
-			// 401
-			// 404
-			//
 		})
 	})
 
@@ -264,7 +243,6 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`GetTektonPipelineRun(getTektonPipelineRunOptions *GetTektonPipelineRunOptions)`, func() {
-
 			getTektonPipelineRunOptions := &cdtektonpipelinev2.GetTektonPipelineRunOptions{
 				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 				ID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
@@ -272,18 +250,9 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			}
 
 			pipelineRun, response, err := cdTektonPipelineService.GetTektonPipelineRun(getTektonPipelineRunOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(pipelineRun).ToNot(BeNil())
-
-			//
-			// The following status codes aren't covered by tests.
-			// Please provide integration tests for these too.
-			//
-			// 401
-			// 404
-			//
 		})
 	})
 
@@ -292,7 +261,6 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CancelTektonPipelineRun(cancelTektonPipelineRunOptions *CancelTektonPipelineRunOptions)`, func() {
-
 			cancelTektonPipelineRunOptions := &cdtektonpipelinev2.CancelTektonPipelineRunOptions{
 				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 				ID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
@@ -300,19 +268,9 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			}
 
 			pipelineRun, response, err := cdTektonPipelineService.CancelTektonPipelineRun(cancelTektonPipelineRunOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(pipelineRun).ToNot(BeNil())
-
-			//
-			// The following status codes aren't covered by tests.
-			// Please provide integration tests for these too.
-			//
-			// 400
-			// 401
-			// 404
-			//
 		})
 	})
 
@@ -321,25 +279,15 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`RerunTektonPipelineRun(rerunTektonPipelineRunOptions *RerunTektonPipelineRunOptions)`, func() {
-
 			rerunTektonPipelineRunOptions := &cdtektonpipelinev2.RerunTektonPipelineRunOptions{
 				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 				ID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 			}
 
 			pipelineRun, response, err := cdTektonPipelineService.RerunTektonPipelineRun(rerunTektonPipelineRunOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(pipelineRun).ToNot(BeNil())
-
-			//
-			// The following status codes aren't covered by tests.
-			// Please provide integration tests for these too.
-			//
-			// 401
-			// 404
-			//
 		})
 	})
 
@@ -348,25 +296,15 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`GetTektonPipelineRunLogs(getTektonPipelineRunLogsOptions *GetTektonPipelineRunLogsOptions)`, func() {
-
 			getTektonPipelineRunLogsOptions := &cdtektonpipelinev2.GetTektonPipelineRunLogsOptions{
 				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 				ID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 			}
 
 			pipelineRunLogs, response, err := cdTektonPipelineService.GetTektonPipelineRunLogs(getTektonPipelineRunLogsOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(pipelineRunLogs).ToNot(BeNil())
-
-			//
-			// The following status codes aren't covered by tests.
-			// Please provide integration tests for these too.
-			//
-			// 401
-			// 404
-			//
 		})
 	})
 
@@ -375,7 +313,6 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`GetTektonPipelineRunLogContent(getTektonPipelineRunLogContentOptions *GetTektonPipelineRunLogContentOptions)`, func() {
-
 			getTektonPipelineRunLogContentOptions := &cdtektonpipelinev2.GetTektonPipelineRunLogContentOptions{
 				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 				PipelineRunID: core.StringPtr("bf4b3abd-0c93-416b-911e-9cf42f1a1085"),
@@ -383,18 +320,9 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			}
 
 			stepLog, response, err := cdTektonPipelineService.GetTektonPipelineRunLogContent(getTektonPipelineRunLogContentOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(stepLog).ToNot(BeNil())
-
-			//
-			// The following status codes aren't covered by tests.
-			// Please provide integration tests for these too.
-			//
-			// 401
-			// 404
-			//
 		})
 	})
 
@@ -403,24 +331,14 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`ListTektonPipelineDefinitions(listTektonPipelineDefinitionsOptions *ListTektonPipelineDefinitionsOptions)`, func() {
-
 			listTektonPipelineDefinitionsOptions := &cdtektonpipelinev2.ListTektonPipelineDefinitionsOptions{
 				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 			}
 
 			definitions, response, err := cdTektonPipelineService.ListTektonPipelineDefinitions(listTektonPipelineDefinitionsOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(definitions).ToNot(BeNil())
-
-			//
-			// The following status codes aren't covered by tests.
-			// Please provide integration tests for these too.
-			//
-			// 401
-			// 404
-			//
 		})
 	})
 
@@ -429,7 +347,6 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateTektonPipelineDefinition(createTektonPipelineDefinitionOptions *CreateTektonPipelineDefinitionOptions)`, func() {
-
 			definitionScmSourceModel := &cdtektonpipelinev2.DefinitionScmSource{
 				URL: core.StringPtr("https://github.com/IBM/tekton-tutorial.git"),
 				Branch: core.StringPtr("master"),
@@ -443,19 +360,9 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			}
 
 			definition, response, err := cdTektonPipelineService.CreateTektonPipelineDefinition(createTektonPipelineDefinitionOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(definition).ToNot(BeNil())
-
-			//
-			// The following status codes aren't covered by tests.
-			// Please provide integration tests for these too.
-			//
-			// 400
-			// 401
-			// 404
-			//
 		})
 	})
 
@@ -464,25 +371,15 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`GetTektonPipelineDefinition(getTektonPipelineDefinitionOptions *GetTektonPipelineDefinitionOptions)`, func() {
-
 			getTektonPipelineDefinitionOptions := &cdtektonpipelinev2.GetTektonPipelineDefinitionOptions{
 				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 				DefinitionID: core.StringPtr("94299034-d45f-4e9a-8ed5-6bd5c7bb7ada"),
 			}
 
 			definition, response, err := cdTektonPipelineService.GetTektonPipelineDefinition(getTektonPipelineDefinitionOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(definition).ToNot(BeNil())
-
-			//
-			// The following status codes aren't covered by tests.
-			// Please provide integration tests for these too.
-			//
-			// 401
-			// 404
-			//
 		})
 	})
 
@@ -491,7 +388,6 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`ReplaceTektonPipelineDefinition(replaceTektonPipelineDefinitionOptions *ReplaceTektonPipelineDefinitionOptions)`, func() {
-
 			definitionScmSourceModel := &cdtektonpipelinev2.DefinitionScmSource{
 				URL: core.StringPtr("https://github.com/IBM/tekton-tutorial.git"),
 				Branch: core.StringPtr("master"),
@@ -508,19 +404,9 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			}
 
 			definition, response, err := cdTektonPipelineService.ReplaceTektonPipelineDefinition(replaceTektonPipelineDefinitionOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(definition).ToNot(BeNil())
-
-			//
-			// The following status codes aren't covered by tests.
-			// Please provide integration tests for these too.
-			//
-			// 400
-			// 401
-			// 404
-			//
 		})
 	})
 
@@ -529,7 +415,6 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`ListTektonPipelineProperties(listTektonPipelinePropertiesOptions *ListTektonPipelinePropertiesOptions)`, func() {
-
 			listTektonPipelinePropertiesOptions := &cdtektonpipelinev2.ListTektonPipelinePropertiesOptions{
 				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 				Name: core.StringPtr("prod"),
@@ -538,18 +423,9 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			}
 
 			envProperties, response, err := cdTektonPipelineService.ListTektonPipelineProperties(listTektonPipelinePropertiesOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(envProperties).ToNot(BeNil())
-
-			//
-			// The following status codes aren't covered by tests.
-			// Please provide integration tests for these too.
-			//
-			// 401
-			// 404
-			//
 		})
 	})
 
@@ -558,7 +434,6 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateTektonPipelineProperties(createTektonPipelinePropertiesOptions *CreateTektonPipelinePropertiesOptions)`, func() {
-
 			createTektonPipelinePropertiesOptions := &cdtektonpipelinev2.CreateTektonPipelinePropertiesOptions{
 				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 				Name: core.StringPtr("key1"),
@@ -570,19 +445,9 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			}
 
 			property, response, err := cdTektonPipelineService.CreateTektonPipelineProperties(createTektonPipelinePropertiesOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(property).ToNot(BeNil())
-
-			//
-			// The following status codes aren't covered by tests.
-			// Please provide integration tests for these too.
-			//
-			// 400
-			// 401
-			// 404
-			//
 		})
 	})
 
@@ -591,25 +456,15 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`GetTektonPipelineProperty(getTektonPipelinePropertyOptions *GetTektonPipelinePropertyOptions)`, func() {
-
 			getTektonPipelinePropertyOptions := &cdtektonpipelinev2.GetTektonPipelinePropertyOptions{
 				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 				PropertyName: core.StringPtr("debug-pipeline"),
 			}
 
 			property, response, err := cdTektonPipelineService.GetTektonPipelineProperty(getTektonPipelinePropertyOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(property).ToNot(BeNil())
-
-			//
-			// The following status codes aren't covered by tests.
-			// Please provide integration tests for these too.
-			//
-			// 401
-			// 404
-			//
 		})
 	})
 
@@ -618,7 +473,6 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`ReplaceTektonPipelineProperty(replaceTektonPipelinePropertyOptions *ReplaceTektonPipelinePropertyOptions)`, func() {
-
 			replaceTektonPipelinePropertyOptions := &cdtektonpipelinev2.ReplaceTektonPipelinePropertyOptions{
 				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 				PropertyName: core.StringPtr("debug-pipeline"),
@@ -631,19 +485,9 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			}
 
 			property, response, err := cdTektonPipelineService.ReplaceTektonPipelineProperty(replaceTektonPipelinePropertyOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(property).ToNot(BeNil())
-
-			//
-			// The following status codes aren't covered by tests.
-			// Please provide integration tests for these too.
-			//
-			// 400
-			// 401
-			// 404
-			//
 		})
 	})
 
@@ -652,7 +496,6 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`ListTektonPipelineTriggers(listTektonPipelineTriggersOptions *ListTektonPipelineTriggersOptions)`, func() {
-
 			listTektonPipelineTriggersOptions := &cdtektonpipelinev2.ListTektonPipelineTriggersOptions{
 				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 				Type: core.StringPtr("manual,scm"),
@@ -665,18 +508,9 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			}
 
 			triggers, response, err := cdTektonPipelineService.ListTektonPipelineTriggers(listTektonPipelineTriggersOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(triggers).ToNot(BeNil())
-
-			//
-			// The following status codes aren't covered by tests.
-			// Please provide integration tests for these too.
-			//
-			// 401
-			// 404
-			//
 		})
 	})
 
@@ -685,7 +519,6 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateTektonPipelineTrigger(createTektonPipelineTriggerOptions *CreateTektonPipelineTriggerOptions)`, func() {
-
 			triggerModel := &cdtektonpipelinev2.TriggerDuplicateTrigger{
 				SourceTriggerID: core.StringPtr("b3a8228f-1c82-409b-b249-7639166a0300"),
 				Name: core.StringPtr("Generic Trigger- duplicated"),
@@ -697,19 +530,9 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			}
 
 			trigger, response, err := cdTektonPipelineService.CreateTektonPipelineTrigger(createTektonPipelineTriggerOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(trigger).ToNot(BeNil())
-
-			//
-			// The following status codes aren't covered by tests.
-			// Please provide integration tests for these too.
-			//
-			// 400
-			// 401
-			// 404
-			//
 		})
 	})
 
@@ -718,25 +541,15 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`GetTektonPipelineTrigger(getTektonPipelineTriggerOptions *GetTektonPipelineTriggerOptions)`, func() {
-
 			getTektonPipelineTriggerOptions := &cdtektonpipelinev2.GetTektonPipelineTriggerOptions{
 				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 				TriggerID: core.StringPtr("1bb892a1-2e04-4768-a369-b1159eace147"),
 			}
 
 			trigger, response, err := cdTektonPipelineService.GetTektonPipelineTrigger(getTektonPipelineTriggerOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(trigger).ToNot(BeNil())
-
-			//
-			// The following status codes aren't covered by tests.
-			// Please provide integration tests for these too.
-			//
-			// 401
-			// 404
-			//
 		})
 	})
 
@@ -745,7 +558,6 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`UpdateTektonPipelineTrigger(updateTektonPipelineTriggerOptions *UpdateTektonPipelineTriggerOptions)`, func() {
-
 			workerModel := &cdtektonpipelinev2.Worker{
 				Name: core.StringPtr("testString"),
 				Type: core.StringPtr("private"),
@@ -796,19 +608,9 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			}
 
 			trigger, response, err := cdTektonPipelineService.UpdateTektonPipelineTrigger(updateTektonPipelineTriggerOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(trigger).ToNot(BeNil())
-
-			//
-			// The following status codes aren't covered by tests.
-			// Please provide integration tests for these too.
-			//
-			// 400
-			// 401
-			// 404
-			//
 		})
 	})
 
@@ -817,7 +619,6 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`ListTektonPipelineTriggerProperties(listTektonPipelineTriggerPropertiesOptions *ListTektonPipelineTriggerPropertiesOptions)`, func() {
-
 			listTektonPipelineTriggerPropertiesOptions := &cdtektonpipelinev2.ListTektonPipelineTriggerPropertiesOptions{
 				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 				TriggerID: core.StringPtr("1bb892a1-2e04-4768-a369-b1159eace147"),
@@ -827,18 +628,9 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			}
 
 			triggerProperties, response, err := cdTektonPipelineService.ListTektonPipelineTriggerProperties(listTektonPipelineTriggerPropertiesOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(triggerProperties).ToNot(BeNil())
-
-			//
-			// The following status codes aren't covered by tests.
-			// Please provide integration tests for these too.
-			//
-			// 401
-			// 404
-			//
 		})
 	})
 
@@ -847,7 +639,6 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateTektonPipelineTriggerProperties(createTektonPipelineTriggerPropertiesOptions *CreateTektonPipelineTriggerPropertiesOptions)`, func() {
-
 			createTektonPipelineTriggerPropertiesOptions := &cdtektonpipelinev2.CreateTektonPipelineTriggerPropertiesOptions{
 				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 				TriggerID: core.StringPtr("1bb892a1-2e04-4768-a369-b1159eace147"),
@@ -860,19 +651,9 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			}
 
 			triggerProperty, response, err := cdTektonPipelineService.CreateTektonPipelineTriggerProperties(createTektonPipelineTriggerPropertiesOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(triggerProperty).ToNot(BeNil())
-
-			//
-			// The following status codes aren't covered by tests.
-			// Please provide integration tests for these too.
-			//
-			// 400
-			// 401
-			// 404
-			//
 		})
 	})
 
@@ -881,7 +662,6 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`GetTektonPipelineTriggerProperty(getTektonPipelineTriggerPropertyOptions *GetTektonPipelineTriggerPropertyOptions)`, func() {
-
 			getTektonPipelineTriggerPropertyOptions := &cdtektonpipelinev2.GetTektonPipelineTriggerPropertyOptions{
 				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 				TriggerID: core.StringPtr("1bb892a1-2e04-4768-a369-b1159eace147"),
@@ -889,18 +669,9 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			}
 
 			triggerProperty, response, err := cdTektonPipelineService.GetTektonPipelineTriggerProperty(getTektonPipelineTriggerPropertyOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(triggerProperty).ToNot(BeNil())
-
-			//
-			// The following status codes aren't covered by tests.
-			// Please provide integration tests for these too.
-			//
-			// 401
-			// 404
-			//
 		})
 	})
 
@@ -909,7 +680,6 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`ReplaceTektonPipelineTriggerProperty(replaceTektonPipelineTriggerPropertyOptions *ReplaceTektonPipelineTriggerPropertyOptions)`, func() {
-
 			replaceTektonPipelineTriggerPropertyOptions := &cdtektonpipelinev2.ReplaceTektonPipelineTriggerPropertyOptions{
 				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 				TriggerID: core.StringPtr("1bb892a1-2e04-4768-a369-b1159eace147"),
@@ -923,19 +693,9 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			}
 
 			triggerProperty, response, err := cdTektonPipelineService.ReplaceTektonPipelineTriggerProperty(replaceTektonPipelineTriggerPropertyOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(triggerProperty).ToNot(BeNil())
-
-			//
-			// The following status codes aren't covered by tests.
-			// Please provide integration tests for these too.
-			//
-			// 400
-			// 401
-			// 404
-			//
 		})
 	})
 
@@ -944,7 +704,6 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`DeleteTektonPipelineTriggerProperty(deleteTektonPipelineTriggerPropertyOptions *DeleteTektonPipelineTriggerPropertyOptions)`, func() {
-
 			deleteTektonPipelineTriggerPropertyOptions := &cdtektonpipelinev2.DeleteTektonPipelineTriggerPropertyOptions{
 				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 				TriggerID: core.StringPtr("1bb892a1-2e04-4768-a369-b1159eace147"),
@@ -952,17 +711,8 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			}
 
 			response, err := cdTektonPipelineService.DeleteTektonPipelineTriggerProperty(deleteTektonPipelineTriggerPropertyOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
-
-			//
-			// The following status codes aren't covered by tests.
-			// Please provide integration tests for these too.
-			//
-			// 401
-			// 404
-			//
 		})
 	})
 
@@ -971,24 +721,14 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`DeleteTektonPipelineTrigger(deleteTektonPipelineTriggerOptions *DeleteTektonPipelineTriggerOptions)`, func() {
-
 			deleteTektonPipelineTriggerOptions := &cdtektonpipelinev2.DeleteTektonPipelineTriggerOptions{
 				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 				TriggerID: core.StringPtr("1bb892a1-2e04-4768-a369-b1159eace147"),
 			}
 
 			response, err := cdTektonPipelineService.DeleteTektonPipelineTrigger(deleteTektonPipelineTriggerOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
-
-			//
-			// The following status codes aren't covered by tests.
-			// Please provide integration tests for these too.
-			//
-			// 401
-			// 404
-			//
 		})
 	})
 
@@ -997,24 +737,14 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`DeleteTektonPipelineRun(deleteTektonPipelineRunOptions *DeleteTektonPipelineRunOptions)`, func() {
-
 			deleteTektonPipelineRunOptions := &cdtektonpipelinev2.DeleteTektonPipelineRunOptions{
 				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 				ID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 			}
 
 			response, err := cdTektonPipelineService.DeleteTektonPipelineRun(deleteTektonPipelineRunOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
-
-			//
-			// The following status codes aren't covered by tests.
-			// Please provide integration tests for these too.
-			//
-			// 401
-			// 404
-			//
 		})
 	})
 
@@ -1023,24 +753,14 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`DeleteTektonPipelineProperty(deleteTektonPipelinePropertyOptions *DeleteTektonPipelinePropertyOptions)`, func() {
-
 			deleteTektonPipelinePropertyOptions := &cdtektonpipelinev2.DeleteTektonPipelinePropertyOptions{
 				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 				PropertyName: core.StringPtr("debug-pipeline"),
 			}
 
 			response, err := cdTektonPipelineService.DeleteTektonPipelineProperty(deleteTektonPipelinePropertyOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
-
-			//
-			// The following status codes aren't covered by tests.
-			// Please provide integration tests for these too.
-			//
-			// 401
-			// 404
-			//
 		})
 	})
 
@@ -1049,24 +769,14 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`DeleteTektonPipelineDefinition(deleteTektonPipelineDefinitionOptions *DeleteTektonPipelineDefinitionOptions)`, func() {
-
 			deleteTektonPipelineDefinitionOptions := &cdtektonpipelinev2.DeleteTektonPipelineDefinitionOptions{
 				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 				DefinitionID: core.StringPtr("94299034-d45f-4e9a-8ed5-6bd5c7bb7ada"),
 			}
 
 			response, err := cdTektonPipelineService.DeleteTektonPipelineDefinition(deleteTektonPipelineDefinitionOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
-
-			//
-			// The following status codes aren't covered by tests.
-			// Please provide integration tests for these too.
-			//
-			// 401
-			// 404
-			//
 		})
 	})
 
@@ -1075,23 +785,13 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`DeleteTektonPipeline(deleteTektonPipelineOptions *DeleteTektonPipelineOptions)`, func() {
-
 			deleteTektonPipelineOptions := &cdtektonpipelinev2.DeleteTektonPipelineOptions{
 				ID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 			}
 
 			response, err := cdTektonPipelineService.DeleteTektonPipeline(deleteTektonPipelineOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
-
-			//
-			// The following status codes aren't covered by tests.
-			// Please provide integration tests for these too.
-			//
-			// 401
-			// 404
-			//
 		})
 	})
 })

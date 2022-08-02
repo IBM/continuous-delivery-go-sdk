@@ -1021,7 +1021,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(listTektonPipelineRunsPath))
 					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					Expect(req.URL.Query()["status"]).To(Equal([]string{"succeeded"}))
 					Expect(req.URL.Query()["trigger.name"]).To(Equal([]string{"manual-trigger"}))
@@ -1041,7 +1041,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				// Construct an instance of the ListTektonPipelineRunsOptions model
 				listTektonPipelineRunsOptionsModel := new(cdtektonpipelinev2.ListTektonPipelineRunsOptions)
 				listTektonPipelineRunsOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
-				listTektonPipelineRunsOptionsModel.Limit = core.Int64Ptr(int64(1))
+				listTektonPipelineRunsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listTektonPipelineRunsOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listTektonPipelineRunsOptionsModel.Status = core.StringPtr("succeeded")
 				listTektonPipelineRunsOptionsModel.TriggerName = core.StringPtr("manual-trigger")
@@ -1075,7 +1075,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listTektonPipelineRunsPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					Expect(req.URL.Query()["status"]).To(Equal([]string{"succeeded"}))
 					Expect(req.URL.Query()["trigger.name"]).To(Equal([]string{"manual-trigger"}))
@@ -1100,7 +1100,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				// Construct an instance of the ListTektonPipelineRunsOptions model
 				listTektonPipelineRunsOptionsModel := new(cdtektonpipelinev2.ListTektonPipelineRunsOptions)
 				listTektonPipelineRunsOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
-				listTektonPipelineRunsOptionsModel.Limit = core.Int64Ptr(int64(1))
+				listTektonPipelineRunsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listTektonPipelineRunsOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listTektonPipelineRunsOptionsModel.Status = core.StringPtr("succeeded")
 				listTektonPipelineRunsOptionsModel.TriggerName = core.StringPtr("manual-trigger")
@@ -1140,7 +1140,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listTektonPipelineRunsPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					Expect(req.URL.Query()["status"]).To(Equal([]string{"succeeded"}))
 					Expect(req.URL.Query()["trigger.name"]).To(Equal([]string{"manual-trigger"}))
@@ -1167,7 +1167,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				// Construct an instance of the ListTektonPipelineRunsOptions model
 				listTektonPipelineRunsOptionsModel := new(cdtektonpipelinev2.ListTektonPipelineRunsOptions)
 				listTektonPipelineRunsOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
-				listTektonPipelineRunsOptionsModel.Limit = core.Int64Ptr(int64(1))
+				listTektonPipelineRunsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listTektonPipelineRunsOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listTektonPipelineRunsOptionsModel.Status = core.StringPtr("succeeded")
 				listTektonPipelineRunsOptionsModel.TriggerName = core.StringPtr("manual-trigger")
@@ -1191,7 +1191,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				// Construct an instance of the ListTektonPipelineRunsOptions model
 				listTektonPipelineRunsOptionsModel := new(cdtektonpipelinev2.ListTektonPipelineRunsOptions)
 				listTektonPipelineRunsOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
-				listTektonPipelineRunsOptionsModel.Limit = core.Int64Ptr(int64(1))
+				listTektonPipelineRunsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listTektonPipelineRunsOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listTektonPipelineRunsOptionsModel.Status = core.StringPtr("succeeded")
 				listTektonPipelineRunsOptionsModel.TriggerName = core.StringPtr("manual-trigger")
@@ -1236,7 +1236,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				// Construct an instance of the ListTektonPipelineRunsOptions model
 				listTektonPipelineRunsOptionsModel := new(cdtektonpipelinev2.ListTektonPipelineRunsOptions)
 				listTektonPipelineRunsOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
-				listTektonPipelineRunsOptionsModel.Limit = core.Int64Ptr(int64(1))
+				listTektonPipelineRunsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listTektonPipelineRunsOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listTektonPipelineRunsOptionsModel.Status = core.StringPtr("succeeded")
 				listTektonPipelineRunsOptionsModel.TriggerName = core.StringPtr("manual-trigger")
@@ -1254,45 +1254,121 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				testServer.Close()
 			})
 		})
-	Context(`Test pagination helper method on response`, func() {
-		It(`Invoke GetNextOffset successfully`, func() {
-			responseObject := new(cdtektonpipelinev2.PipelineRuns)
-			nextObject := new(cdtektonpipelinev2.PipelineRunsNext)
-			nextObject.Href = core.StringPtr("ibm.com?offset=135")
-			responseObject.Next = nextObject
-
-			value, err := responseObject.GetNextOffset()
-			Expect(err).To(BeNil())
-			Expect(value).To(Equal(core.Int64Ptr(int64(135))))
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextOffset successfully`, func() {
+				responseObject := new(cdtektonpipelinev2.PipelineRuns)
+				nextObject := new(cdtektonpipelinev2.PipelineRunsNext)
+				nextObject.Href = core.StringPtr("ibm.com?offset=135")
+				responseObject.Next = nextObject
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.Int64Ptr(int64(135))))
+			})
+			It(`Invoke GetNextOffset without a "Next" property in the response`, func() {
+				responseObject := new(cdtektonpipelinev2.PipelineRuns)
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+			It(`Invoke GetNextOffset without any query params in the "Next" URL`, func() {
+				responseObject := new(cdtektonpipelinev2.PipelineRuns)
+				nextObject := new(cdtektonpipelinev2.PipelineRunsNext)
+				nextObject.Href = core.StringPtr("ibm.com")
+				responseObject.Next = nextObject
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+			It(`Invoke GetNextOffset with a non-integer query param in the "Next" URL`, func() {
+				responseObject := new(cdtektonpipelinev2.PipelineRuns)
+				nextObject := new(cdtektonpipelinev2.PipelineRunsNext)
+				nextObject.Href = core.StringPtr("ibm.com?offset=tiger")
+				responseObject.Next = nextObject
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).NotTo(BeNil())
+				Expect(value).To(BeNil())
+			})
 		})
-		It(`Invoke GetNextOffset without a "Next" property in the response`, func() {
-			responseObject := new(cdtektonpipelinev2.PipelineRuns)
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
 
-			value, err := responseObject.GetNextOffset()
-			Expect(err).To(BeNil())
-			Expect(value).To(BeNil())
-		})
-		It(`Invoke GetNextOffset without any query params in the "Next" URL`, func() {
-			responseObject := new(cdtektonpipelinev2.PipelineRuns)
-			nextObject := new(cdtektonpipelinev2.PipelineRunsNext)
-			nextObject.Href = core.StringPtr("ibm.com")
-			responseObject.Next = nextObject
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listTektonPipelineRunsPath))
+					Expect(req.Method).To(Equal("GET"))
 
-			value, err := responseObject.GetNextOffset()
-			Expect(err).To(BeNil())
-			Expect(value).To(BeNil())
-		})
-		It(`Invoke GetNextOffset with a non-integer query param in the "Next" URL`, func() {
-			responseObject := new(cdtektonpipelinev2.PipelineRuns)
-			nextObject := new(cdtektonpipelinev2.PipelineRunsNext)
-			nextObject.Href = core.StringPtr("ibm.com?offset=tiger")
-			responseObject.Next = nextObject
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":{"href":"https://myhost.com/somePath?offset=1"},"total_count":2,"limit":1,"pipeline_runs":[{"id":"ID","user_info":{"iam_id":"IamID","sub":"Sub"},"status":"pending","definition_id":"DefinitionID","worker":{"name":"Name","agent":"Agent","service_id":"ServiceID","id":"ID"},"pipeline_id":"PipelineID","listener_name":"ListenerName","trigger":{"source_trigger_id":"SourceTriggerID","name":"start-deploy"},"event_params_blob":"EventParamsBlob","event_header_params_blob":"EventHeaderParamsBlob","properties":[{"name":"Name","value":"Value","enum":["Enum"],"default":"Default","type":"SECURE","path":"Path"}],"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","html_url":"HTMLURL","href":"Href"}]}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"pipeline_runs":[{"id":"ID","user_info":{"iam_id":"IamID","sub":"Sub"},"status":"pending","definition_id":"DefinitionID","worker":{"name":"Name","agent":"Agent","service_id":"ServiceID","id":"ID"},"pipeline_id":"PipelineID","listener_name":"ListenerName","trigger":{"source_trigger_id":"SourceTriggerID","name":"start-deploy"},"event_params_blob":"EventParamsBlob","event_header_params_blob":"EventHeaderParamsBlob","properties":[{"name":"Name","value":"Value","enum":["Enum"],"default":"Default","type":"SECURE","path":"Path"}],"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","html_url":"HTMLURL","href":"Href"}]}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use TektonPipelineRunsPager.GetNext successfully`, func() {
+				cdTektonPipelineService, serviceErr := cdtektonpipelinev2.NewCdTektonPipelineV2(&cdtektonpipelinev2.CdTektonPipelineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(cdTektonPipelineService).ToNot(BeNil())
 
-			value, err := responseObject.GetNextOffset()
-			Expect(err).NotTo(BeNil())
-			Expect(value).To(BeNil())
+				listTektonPipelineRunsOptionsModel := &cdtektonpipelinev2.ListTektonPipelineRunsOptions{
+					PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
+					Limit: core.Int64Ptr(int64(10)),
+					Status: core.StringPtr("succeeded"),
+					TriggerName: core.StringPtr("manual-trigger"),
+				}
+
+				pager, err := cdTektonPipelineService.NewTektonPipelineRunsPager(listTektonPipelineRunsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []cdtektonpipelinev2.PipelineRunsPipelineRunsItem
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use TektonPipelineRunsPager.GetAll successfully`, func() {
+				cdTektonPipelineService, serviceErr := cdtektonpipelinev2.NewCdTektonPipelineV2(&cdtektonpipelinev2.CdTektonPipelineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(cdTektonPipelineService).ToNot(BeNil())
+
+				listTektonPipelineRunsOptionsModel := &cdtektonpipelinev2.ListTektonPipelineRunsOptions{
+					PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
+					Limit: core.Int64Ptr(int64(10)),
+					Status: core.StringPtr("succeeded"),
+					TriggerName: core.StringPtr("manual-trigger"),
+				}
+
+				pager, err := cdTektonPipelineService.NewTektonPipelineRunsPager(listTektonPipelineRunsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
+			})
 		})
-	})
 	})
 	Describe(`CreateTektonPipelineRun(createTektonPipelineRunOptions *CreateTektonPipelineRunOptions) - Operation response error`, func() {
 		createTektonPipelineRunPath := "/tekton_pipelines/94619026-912b-4d92-8f51-6c74f0692d90/pipeline_runs"
@@ -7471,8 +7547,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 			It(`Invoke NewDefinition successfully`, func() {
 				var scmSource *cdtektonpipelinev2.DefinitionScmSource = nil
 				serviceInstanceID := "testString"
-				id := "testString"
-				_, err := cdTektonPipelineService.NewDefinition(scmSource, serviceInstanceID, id)
+				_, err := cdTektonPipelineService.NewDefinition(scmSource, serviceInstanceID)
 				Expect(err).ToNot(BeNil())
 			})
 			It(`Invoke NewDefinitionScmSource successfully`, func() {
@@ -7700,14 +7775,14 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				pipelineID := "94619026-912b-4d92-8f51-6c74f0692d90"
 				listTektonPipelineRunsOptionsModel := cdTektonPipelineService.NewListTektonPipelineRunsOptions(pipelineID)
 				listTektonPipelineRunsOptionsModel.SetPipelineID("94619026-912b-4d92-8f51-6c74f0692d90")
-				listTektonPipelineRunsOptionsModel.SetLimit(int64(1))
+				listTektonPipelineRunsOptionsModel.SetLimit(int64(10))
 				listTektonPipelineRunsOptionsModel.SetOffset(int64(38))
 				listTektonPipelineRunsOptionsModel.SetStatus("succeeded")
 				listTektonPipelineRunsOptionsModel.SetTriggerName("manual-trigger")
 				listTektonPipelineRunsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listTektonPipelineRunsOptionsModel).ToNot(BeNil())
 				Expect(listTektonPipelineRunsOptionsModel.PipelineID).To(Equal(core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")))
-				Expect(listTektonPipelineRunsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(1))))
+				Expect(listTektonPipelineRunsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
 				Expect(listTektonPipelineRunsOptionsModel.Offset).To(Equal(core.Int64Ptr(int64(38))))
 				Expect(listTektonPipelineRunsOptionsModel.Status).To(Equal(core.StringPtr("succeeded")))
 				Expect(listTektonPipelineRunsOptionsModel.TriggerName).To(Equal(core.StringPtr("manual-trigger")))
@@ -7888,6 +7963,12 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				name := "testString"
 				typeVar := "SECURE"
 				_model, err := cdTektonPipelineService.NewTriggerProperty(name, typeVar)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewTriggerScmSource successfully`, func() {
+				url := "testString"
+				_model, err := cdTektonPipelineService.NewTriggerScmSource(url)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
