@@ -189,7 +189,7 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 				panic(err)
 			}
 
-			var allResults []cdtektonpipelinev2.PipelineRunsPipelineRunsItem
+			var allResults []cdtektonpipelinev2.PipelineRunsCollectionPipelineRunsItem
 			for pager.HasNext() {
 				nextPage, err := pager.GetNext()
 				if err != nil {
@@ -300,18 +300,18 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 				"94619026-912b-4d92-8f51-6c74f0692d90",
 			)
 
-			pipelineRunLogs, response, err := cdTektonPipelineService.GetTektonPipelineRunLogs(getTektonPipelineRunLogsOptions)
+			logsCollection, response, err := cdTektonPipelineService.GetTektonPipelineRunLogs(getTektonPipelineRunLogsOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(pipelineRunLogs, "", "  ")
+			b, _ := json.MarshalIndent(logsCollection, "", "  ")
 			fmt.Println(string(b))
 
 			// end-get_tekton_pipeline_run_logs
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(pipelineRunLogs).ToNot(BeNil())
+			Expect(logsCollection).ToNot(BeNil())
 		})
 		It(`GetTektonPipelineRunLogContent request example`, func() {
 			fmt.Println("\nGetTektonPipelineRunLogContent() result:")
@@ -323,18 +323,18 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 				"94619026-912b-4d92-8f51-6c74f0692d90",
 			)
 
-			stepLog, response, err := cdTektonPipelineService.GetTektonPipelineRunLogContent(getTektonPipelineRunLogContentOptions)
+			log, response, err := cdTektonPipelineService.GetTektonPipelineRunLogContent(getTektonPipelineRunLogContentOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(stepLog, "", "  ")
+			b, _ := json.MarshalIndent(log, "", "  ")
 			fmt.Println(string(b))
 
 			// end-get_tekton_pipeline_run_log_content
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(stepLog).ToNot(BeNil())
+			Expect(log).ToNot(BeNil())
 		})
 		It(`ListTektonPipelineDefinitions request example`, func() {
 			fmt.Println("\nListTektonPipelineDefinitions() result:")
@@ -344,18 +344,18 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 				"94619026-912b-4d92-8f51-6c74f0692d90",
 			)
 
-			definitions, response, err := cdTektonPipelineService.ListTektonPipelineDefinitions(listTektonPipelineDefinitionsOptions)
+			definitionsCollection, response, err := cdTektonPipelineService.ListTektonPipelineDefinitions(listTektonPipelineDefinitionsOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(definitions, "", "  ")
+			b, _ := json.MarshalIndent(definitionsCollection, "", "  ")
 			fmt.Println(string(b))
 
 			// end-list_tekton_pipeline_definitions
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(definitions).ToNot(BeNil())
+			Expect(definitionsCollection).ToNot(BeNil())
 		})
 		It(`CreateTektonPipelineDefinition request example`, func() {
 			fmt.Println("\nCreateTektonPipelineDefinition() result:")
@@ -449,18 +449,18 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 			listTektonPipelinePropertiesOptions.SetType([]string{"SECURE", "TEXT"})
 			listTektonPipelinePropertiesOptions.SetSort("name")
 
-			envProperties, response, err := cdTektonPipelineService.ListTektonPipelineProperties(listTektonPipelinePropertiesOptions)
+			propertiesCollection, response, err := cdTektonPipelineService.ListTektonPipelineProperties(listTektonPipelinePropertiesOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(envProperties, "", "  ")
+			b, _ := json.MarshalIndent(propertiesCollection, "", "  ")
 			fmt.Println(string(b))
 
 			// end-list_tekton_pipeline_properties
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(envProperties).ToNot(BeNil())
+			Expect(propertiesCollection).ToNot(BeNil())
 		})
 		It(`CreateTektonPipelineProperties request example`, func() {
 			fmt.Println("\nCreateTektonPipelineProperties() result:")
@@ -544,18 +544,18 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 			listTektonPipelineTriggersOptions.SetDisabled("true")
 			listTektonPipelineTriggersOptions.SetTags("tag1,tag2")
 
-			triggers, response, err := cdTektonPipelineService.ListTektonPipelineTriggers(listTektonPipelineTriggersOptions)
+			triggersCollection, response, err := cdTektonPipelineService.ListTektonPipelineTriggers(listTektonPipelineTriggersOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(triggers, "", "  ")
+			b, _ := json.MarshalIndent(triggersCollection, "", "  ")
 			fmt.Println(string(b))
 
 			// end-list_tekton_pipeline_triggers
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(triggers).ToNot(BeNil())
+			Expect(triggersCollection).ToNot(BeNil())
 		})
 		It(`CreateTektonPipelineTrigger request example`, func() {
 			fmt.Println("\nCreateTektonPipelineTrigger() result:")
@@ -563,7 +563,7 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 
 			triggerModel := &cdtektonpipelinev2.TriggerDuplicateTrigger{
 				SourceTriggerID: core.StringPtr("b3a8228f-1c82-409b-b249-7639166a0300"),
-				Name: core.StringPtr("Generic Trigger- duplicated"),
+				Name: core.StringPtr("Trigger Name"),
 			}
 
 			createTektonPipelineTriggerOptions := cdTektonPipelineService.NewCreateTektonPipelineTriggerOptions(
@@ -642,18 +642,18 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 				"name",
 			)
 
-			triggerProperties, response, err := cdTektonPipelineService.ListTektonPipelineTriggerProperties(listTektonPipelineTriggerPropertiesOptions)
+			triggerPropertiesCollection, response, err := cdTektonPipelineService.ListTektonPipelineTriggerProperties(listTektonPipelineTriggerPropertiesOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(triggerProperties, "", "  ")
+			b, _ := json.MarshalIndent(triggerPropertiesCollection, "", "  ")
 			fmt.Println(string(b))
 
 			// end-list_tekton_pipeline_trigger_properties
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(triggerProperties).ToNot(BeNil())
+			Expect(triggerPropertiesCollection).ToNot(BeNil())
 		})
 		It(`CreateTektonPipelineTriggerProperties request example`, func() {
 			fmt.Println("\nCreateTektonPipelineTriggerProperties() result:")
