@@ -156,10 +156,16 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 				ID: core.StringPtr("public"),
 			}
 
+			tektonPipelinePatchModel := &cdtektonpipelinev2.TektonPipelinePatch{
+				Worker: workerWithIDModel,
+			}
+			tektonPipelinePatchModelAsPatch, asPatchErr := tektonPipelinePatchModel.AsPatch()
+			Expect(asPatchErr).To(BeNil())
+
 			updateTektonPipelineOptions := cdTektonPipelineService.NewUpdateTektonPipelineOptions(
 				"94619026-912b-4d92-8f51-6c74f0692d90",
 			)
-			updateTektonPipelineOptions.SetWorker(workerWithIDModel)
+			updateTektonPipelineOptions.SetTektonPipelinePatch(tektonPipelinePatchModelAsPatch)
 
 			tektonPipeline, response, err := cdTektonPipelineService.UpdateTektonPipeline(updateTektonPipelineOptions)
 			if err != nil {
@@ -415,6 +421,7 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 				URL: core.StringPtr("https://github.com/IBM/tekton-tutorial.git"),
 				Branch: core.StringPtr("master"),
 				Path: core.StringPtr(".tekton"),
+				ServiceInstanceID: core.StringPtr("071d8049-d984-4feb-a2ed-2a1e938918ba"),
 			}
 
 			replaceTektonPipelineDefinitionOptions := cdTektonPipelineService.NewReplaceTektonPipelineDefinitionOptions(
@@ -422,7 +429,6 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 				"94299034-d45f-4e9a-8ed5-6bd5c7bb7ada",
 			)
 			replaceTektonPipelineDefinitionOptions.SetScmSource(definitionScmSourceModel)
-			replaceTektonPipelineDefinitionOptions.SetServiceInstanceID("071d8049-d984-4feb-a2ed-2a1e938918ba")
 			replaceTektonPipelineDefinitionOptions.SetID("22f92ab1-e0ac-4c65-84e7-8a4cb32dba0f")
 
 			definition, response, err := cdTektonPipelineService.ReplaceTektonPipelineDefinition(replaceTektonPipelineDefinitionOptions)
@@ -446,7 +452,7 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 				"94619026-912b-4d92-8f51-6c74f0692d90",
 			)
 			listTektonPipelinePropertiesOptions.SetName("prod")
-			listTektonPipelinePropertiesOptions.SetType([]string{"SECURE", "TEXT"})
+			listTektonPipelinePropertiesOptions.SetType([]string{"secure", "text"})
 			listTektonPipelinePropertiesOptions.SetSort("name")
 
 			propertiesCollection, response, err := cdTektonPipelineService.ListTektonPipelineProperties(listTektonPipelinePropertiesOptions)
@@ -471,7 +477,7 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 			)
 			createTektonPipelinePropertiesOptions.SetName("key1")
 			createTektonPipelinePropertiesOptions.SetValue("https://github.com/IBM/tekton-tutorial.git")
-			createTektonPipelinePropertiesOptions.SetType("TEXT")
+			createTektonPipelinePropertiesOptions.SetType("text")
 
 			property, response, err := cdTektonPipelineService.CreateTektonPipelineProperties(createTektonPipelinePropertiesOptions)
 			if err != nil {
@@ -518,7 +524,7 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 			)
 			replaceTektonPipelinePropertyOptions.SetName("key1")
 			replaceTektonPipelinePropertyOptions.SetValue("https://github.com/IBM/tekton-tutorial.git")
-			replaceTektonPipelinePropertyOptions.SetType("TEXT")
+			replaceTektonPipelinePropertyOptions.SetType("text")
 
 			property, response, err := cdTektonPipelineService.ReplaceTektonPipelineProperty(replaceTektonPipelinePropertyOptions)
 			if err != nil {
@@ -610,12 +616,18 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 			fmt.Println("\nUpdateTektonPipelineTrigger() result:")
 			// begin-update_tekton_pipeline_trigger
 
+			triggerPatchModel := &cdtektonpipelinev2.TriggerPatch{
+				Name: core.StringPtr("start-deploy"),
+				Disabled: core.BoolPtr(true),
+			}
+			triggerPatchModelAsPatch, asPatchErr := triggerPatchModel.AsPatch()
+			Expect(asPatchErr).To(BeNil())
+
 			updateTektonPipelineTriggerOptions := cdTektonPipelineService.NewUpdateTektonPipelineTriggerOptions(
 				"94619026-912b-4d92-8f51-6c74f0692d90",
 				"1bb892a1-2e04-4768-a369-b1159eace147",
 			)
-			updateTektonPipelineTriggerOptions.SetName("start-deploy")
-			updateTektonPipelineTriggerOptions.SetDisabled(true)
+			updateTektonPipelineTriggerOptions.SetTriggerPatch(triggerPatchModelAsPatch)
 
 			trigger, response, err := cdTektonPipelineService.UpdateTektonPipelineTrigger(updateTektonPipelineTriggerOptions)
 			if err != nil {
@@ -638,7 +650,7 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 				"94619026-912b-4d92-8f51-6c74f0692d90",
 				"1bb892a1-2e04-4768-a369-b1159eace147",
 				"prod",
-				"SECURE,TEXT",
+				"secure,text",
 				"name",
 			)
 
@@ -665,7 +677,7 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 			)
 			createTektonPipelineTriggerPropertiesOptions.SetName("key1")
 			createTektonPipelineTriggerPropertiesOptions.SetValue("https://github.com/IBM/tekton-tutorial.git")
-			createTektonPipelineTriggerPropertiesOptions.SetType("TEXT")
+			createTektonPipelineTriggerPropertiesOptions.SetType("text")
 
 			triggerProperty, response, err := cdTektonPipelineService.CreateTektonPipelineTriggerProperties(createTektonPipelineTriggerPropertiesOptions)
 			if err != nil {
@@ -714,7 +726,7 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 			)
 			replaceTektonPipelineTriggerPropertyOptions.SetName("key1")
 			replaceTektonPipelineTriggerPropertyOptions.SetValue("https://github.com/IBM/tekton-tutorial.git")
-			replaceTektonPipelineTriggerPropertyOptions.SetType("TEXT")
+			replaceTektonPipelineTriggerPropertyOptions.SetType("text")
 
 			triggerProperty, response, err := cdTektonPipelineService.ReplaceTektonPipelineTriggerProperty(replaceTektonPipelineTriggerPropertyOptions)
 			if err != nil {

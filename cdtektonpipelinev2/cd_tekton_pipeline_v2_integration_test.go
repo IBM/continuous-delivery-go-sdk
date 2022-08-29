@@ -137,9 +137,15 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 				ID: core.StringPtr("public"),
 			}
 
+			tektonPipelinePatchModel := &cdtektonpipelinev2.TektonPipelinePatch{
+				Worker: workerWithIDModel,
+			}
+			tektonPipelinePatchModelAsPatch, asPatchErr := tektonPipelinePatchModel.AsPatch()
+			Expect(asPatchErr).To(BeNil())
+
 			updateTektonPipelineOptions := &cdtektonpipelinev2.UpdateTektonPipelineOptions{
 				ID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
-				Worker: workerWithIDModel,
+				TektonPipelinePatch: tektonPipelinePatchModelAsPatch,
 			}
 
 			tektonPipeline, response, err := cdTektonPipelineService.UpdateTektonPipeline(updateTektonPipelineOptions)
@@ -291,7 +297,7 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`GetTektonPipelineRunLogs - Get a list of pipeline run log IDs`, func() {
+	Describe(`GetTektonPipelineRunLogs - Get a list of pipeline run log objects`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
@@ -352,12 +358,12 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 				Branch: core.StringPtr("master"),
 				Tag: core.StringPtr("testString"),
 				Path: core.StringPtr(".tekton"),
+				ServiceInstanceID: core.StringPtr("testString"),
 			}
 
 			createTektonPipelineDefinitionOptions := &cdtektonpipelinev2.CreateTektonPipelineDefinitionOptions{
 				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 				ScmSource: definitionScmSourceModel,
-				ServiceInstanceID: core.StringPtr("testString"),
 				ID: core.StringPtr("testString"),
 			}
 
@@ -395,13 +401,13 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 				Branch: core.StringPtr("master"),
 				Tag: core.StringPtr("testString"),
 				Path: core.StringPtr(".tekton"),
+				ServiceInstanceID: core.StringPtr("071d8049-d984-4feb-a2ed-2a1e938918ba"),
 			}
 
 			replaceTektonPipelineDefinitionOptions := &cdtektonpipelinev2.ReplaceTektonPipelineDefinitionOptions{
 				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 				DefinitionID: core.StringPtr("94299034-d45f-4e9a-8ed5-6bd5c7bb7ada"),
 				ScmSource: definitionScmSourceModel,
-				ServiceInstanceID: core.StringPtr("071d8049-d984-4feb-a2ed-2a1e938918ba"),
 				ID: core.StringPtr("22f92ab1-e0ac-4c65-84e7-8a4cb32dba0f"),
 			}
 
@@ -420,7 +426,7 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			listTektonPipelinePropertiesOptions := &cdtektonpipelinev2.ListTektonPipelinePropertiesOptions{
 				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 				Name: core.StringPtr("prod"),
-				Type: []string{"SECURE", "TEXT"},
+				Type: []string{"secure", "text"},
 				Sort: core.StringPtr("name"),
 			}
 
@@ -442,7 +448,7 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 				Value: core.StringPtr("https://github.com/IBM/tekton-tutorial.git"),
 				Enum: []string{"testString"},
 				Default: core.StringPtr("testString"),
-				Type: core.StringPtr("TEXT"),
+				Type: core.StringPtr("text"),
 				Path: core.StringPtr("testString"),
 			}
 
@@ -482,7 +488,7 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 				Value: core.StringPtr("https://github.com/IBM/tekton-tutorial.git"),
 				Enum: []string{"testString"},
 				Default: core.StringPtr("testString"),
-				Type: core.StringPtr("TEXT"),
+				Type: core.StringPtr("text"),
 				Path: core.StringPtr("testString"),
 			}
 
@@ -567,7 +573,7 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			}
 
 			genericSecretModel := &cdtektonpipelinev2.GenericSecret{
-				Type: core.StringPtr("tokenMatches"),
+				Type: core.StringPtr("token_matches"),
 				Value: core.StringPtr("testString"),
 				Source: core.StringPtr("header"),
 				KeyName: core.StringPtr("testString"),
@@ -580,6 +586,7 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 				Pattern: core.StringPtr("testString"),
 				BlindConnection: core.BoolPtr(true),
 				HookID: core.StringPtr("testString"),
+				ServiceInstanceID: core.StringPtr("testString"),
 			}
 
 			eventsModel := &cdtektonpipelinev2.Events{
@@ -588,21 +595,27 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 				PullRequest: core.BoolPtr(true),
 			}
 
-			updateTektonPipelineTriggerOptions := &cdtektonpipelinev2.UpdateTektonPipelineTriggerOptions{
-				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
-				TriggerID: core.StringPtr("1bb892a1-2e04-4768-a369-b1159eace147"),
+			triggerPatchModel := &cdtektonpipelinev2.TriggerPatch{
 				Type: core.StringPtr("manual"),
 				Name: core.StringPtr("start-deploy"),
 				EventListener: core.StringPtr("testString"),
 				Tags: []string{"testString"},
 				Worker: workerModel,
-				MaxConcurrentRuns: core.Int64Ptr(int64(38)),
+				MaxConcurrentRuns: core.Int64Ptr(int64(4)),
 				Disabled: core.BoolPtr(true),
 				Secret: genericSecretModel,
 				Cron: core.StringPtr("testString"),
-				Timezone: core.StringPtr("Africa/Abidjan"),
+				Timezone: core.StringPtr("America/Los_Angeles, CET, Europe/London, GMT, US/Eastern, or UTC"),
 				ScmSource: triggerScmSourceModel,
 				Events: eventsModel,
+			}
+			triggerPatchModelAsPatch, asPatchErr := triggerPatchModel.AsPatch()
+			Expect(asPatchErr).To(BeNil())
+
+			updateTektonPipelineTriggerOptions := &cdtektonpipelinev2.UpdateTektonPipelineTriggerOptions{
+				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
+				TriggerID: core.StringPtr("1bb892a1-2e04-4768-a369-b1159eace147"),
+				TriggerPatch: triggerPatchModelAsPatch,
 			}
 
 			trigger, response, err := cdTektonPipelineService.UpdateTektonPipelineTrigger(updateTektonPipelineTriggerOptions)
@@ -621,7 +634,7 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 				TriggerID: core.StringPtr("1bb892a1-2e04-4768-a369-b1159eace147"),
 				Name: core.StringPtr("prod"),
-				Type: core.StringPtr("SECURE,TEXT"),
+				Type: core.StringPtr("secure,text"),
 				Sort: core.StringPtr("name"),
 			}
 
@@ -644,7 +657,7 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 				Value: core.StringPtr("https://github.com/IBM/tekton-tutorial.git"),
 				Enum: []string{"testString"},
 				Default: core.StringPtr("testString"),
-				Type: core.StringPtr("TEXT"),
+				Type: core.StringPtr("text"),
 				Path: core.StringPtr("testString"),
 			}
 
@@ -686,7 +699,7 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 				Value: core.StringPtr("https://github.com/IBM/tekton-tutorial.git"),
 				Enum: []string{"testString"},
 				Default: core.StringPtr("testString"),
-				Type: core.StringPtr("TEXT"),
+				Type: core.StringPtr("text"),
 				Path: core.StringPtr("testString"),
 			}
 

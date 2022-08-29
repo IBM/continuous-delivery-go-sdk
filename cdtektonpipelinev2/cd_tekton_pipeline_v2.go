@@ -346,15 +346,13 @@ func (cdTektonPipeline *CdTektonPipelineV2) UpdateTektonPipelineWithContext(ctx 
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
-	builder.AddHeader("Content-Type", "application/json")
+	builder.AddHeader("Content-Type", "application/merge-patch+json")
 
-	body := make(map[string]interface{})
-	if updateTektonPipelineOptions.Worker != nil {
-		body["worker"] = updateTektonPipelineOptions.Worker
-	}
-	_, err = builder.SetBodyContentJSON(body)
-	if err != nil {
-		return
+	if updateTektonPipelineOptions.TektonPipelinePatch != nil {
+		_, err = builder.SetBodyContentJSON(updateTektonPipelineOptions.TektonPipelinePatch)
+		if err != nil {
+			return
+		}
 	}
 
 	request, err := builder.Build()
@@ -831,8 +829,9 @@ func (cdTektonPipeline *CdTektonPipelineV2) RerunTektonPipelineRunWithContext(ct
 	return
 }
 
-// GetTektonPipelineRunLogs : Get a list of pipeline run log IDs
-// This request fetches the list of log IDs for a pipeline run identified by `{id}`.
+// GetTektonPipelineRunLogs : Get a list of pipeline run log objects
+// This request fetches a list of log data for a pipeline run identified by `{id}`. The `href` in each log entry can be
+// used to fetch that individual log.
 func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineRunLogs(getTektonPipelineRunLogsOptions *GetTektonPipelineRunLogsOptions) (result *LogsCollection, response *core.DetailedResponse, err error) {
 	return cdTektonPipeline.GetTektonPipelineRunLogsWithContext(context.Background(), getTektonPipelineRunLogsOptions)
 }
@@ -1060,9 +1059,6 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineDefinitionWithCo
 	if createTektonPipelineDefinitionOptions.ScmSource != nil {
 		body["scm_source"] = createTektonPipelineDefinitionOptions.ScmSource
 	}
-	if createTektonPipelineDefinitionOptions.ServiceInstanceID != nil {
-		body["service_instance_id"] = createTektonPipelineDefinitionOptions.ServiceInstanceID
-	}
 	if createTektonPipelineDefinitionOptions.ID != nil {
 		body["id"] = createTektonPipelineDefinitionOptions.ID
 	}
@@ -1198,9 +1194,6 @@ func (cdTektonPipeline *CdTektonPipelineV2) ReplaceTektonPipelineDefinitionWithC
 	body := make(map[string]interface{})
 	if replaceTektonPipelineDefinitionOptions.ScmSource != nil {
 		body["scm_source"] = replaceTektonPipelineDefinitionOptions.ScmSource
-	}
-	if replaceTektonPipelineDefinitionOptions.ServiceInstanceID != nil {
-		body["service_instance_id"] = replaceTektonPipelineDefinitionOptions.ServiceInstanceID
 	}
 	if replaceTektonPipelineDefinitionOptions.ID != nil {
 		body["id"] = replaceTektonPipelineDefinitionOptions.ID
@@ -1883,48 +1876,13 @@ func (cdTektonPipeline *CdTektonPipelineV2) UpdateTektonPipelineTriggerWithConte
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
-	builder.AddHeader("Content-Type", "application/json")
+	builder.AddHeader("Content-Type", "application/merge-patch+json")
 
-	body := make(map[string]interface{})
-	if updateTektonPipelineTriggerOptions.Type != nil {
-		body["type"] = updateTektonPipelineTriggerOptions.Type
-	}
-	if updateTektonPipelineTriggerOptions.Name != nil {
-		body["name"] = updateTektonPipelineTriggerOptions.Name
-	}
-	if updateTektonPipelineTriggerOptions.EventListener != nil {
-		body["event_listener"] = updateTektonPipelineTriggerOptions.EventListener
-	}
-	if updateTektonPipelineTriggerOptions.Tags != nil {
-		body["tags"] = updateTektonPipelineTriggerOptions.Tags
-	}
-	if updateTektonPipelineTriggerOptions.Worker != nil {
-		body["worker"] = updateTektonPipelineTriggerOptions.Worker
-	}
-	if updateTektonPipelineTriggerOptions.MaxConcurrentRuns != nil {
-		body["max_concurrent_runs"] = updateTektonPipelineTriggerOptions.MaxConcurrentRuns
-	}
-	if updateTektonPipelineTriggerOptions.Disabled != nil {
-		body["disabled"] = updateTektonPipelineTriggerOptions.Disabled
-	}
-	if updateTektonPipelineTriggerOptions.Secret != nil {
-		body["secret"] = updateTektonPipelineTriggerOptions.Secret
-	}
-	if updateTektonPipelineTriggerOptions.Cron != nil {
-		body["cron"] = updateTektonPipelineTriggerOptions.Cron
-	}
-	if updateTektonPipelineTriggerOptions.Timezone != nil {
-		body["timezone"] = updateTektonPipelineTriggerOptions.Timezone
-	}
-	if updateTektonPipelineTriggerOptions.ScmSource != nil {
-		body["scm_source"] = updateTektonPipelineTriggerOptions.ScmSource
-	}
-	if updateTektonPipelineTriggerOptions.Events != nil {
-		body["events"] = updateTektonPipelineTriggerOptions.Events
-	}
-	_, err = builder.SetBodyContentJSON(body)
-	if err != nil {
-		return
+	if updateTektonPipelineTriggerOptions.TriggerPatch != nil {
+		_, err = builder.SetBodyContentJSON(updateTektonPipelineTriggerOptions.TriggerPatch)
+		if err != nil {
+			return
+		}
 	}
 
 	request, err := builder.Build()
@@ -2402,9 +2360,6 @@ type CreateTektonPipelineDefinitionOptions struct {
 	// SCM source for Tekton pipeline definition.
 	ScmSource *DefinitionScmSource `json:"scm_source,omitempty"`
 
-	// ID of the SCM repository service instance.
-	ServiceInstanceID *string `json:"service_instance_id,omitempty"`
-
 	// UUID.
 	ID *string `json:"id,omitempty"`
 
@@ -2428,12 +2383,6 @@ func (_options *CreateTektonPipelineDefinitionOptions) SetPipelineID(pipelineID 
 // SetScmSource : Allow user to set ScmSource
 func (_options *CreateTektonPipelineDefinitionOptions) SetScmSource(scmSource *DefinitionScmSource) *CreateTektonPipelineDefinitionOptions {
 	_options.ScmSource = scmSource
-	return _options
-}
-
-// SetServiceInstanceID : Allow user to set ServiceInstanceID
-func (_options *CreateTektonPipelineDefinitionOptions) SetServiceInstanceID(serviceInstanceID string) *CreateTektonPipelineDefinitionOptions {
-	_options.ServiceInstanceID = core.StringPtr(serviceInstanceID)
 	return _options
 }
 
@@ -2495,16 +2444,16 @@ type CreateTektonPipelinePropertiesOptions struct {
 	// Property value.
 	Value *string `json:"value,omitempty"`
 
-	// Options for SINGLE_SELECT property type. Only needed when using SINGLE_SELECT property type.
+	// Options for single_select property type. Only needed when using single_select property type.
 	Enum []string `json:"enum,omitempty"`
 
-	// Default option for SINGLE_SELECT property type. Only needed when using SINGLE_SELECT property type.
+	// Default option for single_select property type. Only needed when using single_select property type.
 	Default *string `json:"default,omitempty"`
 
 	// Property type.
 	Type *string `json:"type,omitempty"`
 
-	// A dot notation path for INTEGRATION type properties to select a value from the tool integration.
+	// A dot notation path for integration type properties to select a value from the tool integration.
 	Path *string `json:"path,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -2514,11 +2463,11 @@ type CreateTektonPipelinePropertiesOptions struct {
 // Constants associated with the CreateTektonPipelinePropertiesOptions.Type property.
 // Property type.
 const (
-	CreateTektonPipelinePropertiesOptionsTypeAppconfigConst = "APPCONFIG"
-	CreateTektonPipelinePropertiesOptionsTypeIntegrationConst = "INTEGRATION"
-	CreateTektonPipelinePropertiesOptionsTypeSecureConst = "SECURE"
-	CreateTektonPipelinePropertiesOptionsTypeSingleSelectConst = "SINGLE_SELECT"
-	CreateTektonPipelinePropertiesOptionsTypeTextConst = "TEXT"
+	CreateTektonPipelinePropertiesOptionsTypeAppconfigConst = "appconfig"
+	CreateTektonPipelinePropertiesOptionsTypeIntegrationConst = "integration"
+	CreateTektonPipelinePropertiesOptionsTypeSecureConst = "secure"
+	CreateTektonPipelinePropertiesOptionsTypeSingleSelectConst = "single_select"
+	CreateTektonPipelinePropertiesOptionsTypeTextConst = "text"
 )
 
 // NewCreateTektonPipelinePropertiesOptions : Instantiate CreateTektonPipelinePropertiesOptions
@@ -2584,11 +2533,11 @@ type CreateTektonPipelineRunOptions struct {
 	// Trigger name.
 	TriggerName *string `json:"trigger_name,omitempty"`
 
-	// An object containing string values only that provides additional TEXT properties, or overrides existing
+	// An object containing string values only that provides additional text properties, or overrides existing
 	// pipeline/trigger properties.
 	TriggerProperties map[string]interface{} `json:"trigger_properties,omitempty"`
 
-	// An object containing string values only that provides additional SECURE properties, or overrides existing SECURE
+	// An object containing string values only that provides additional secure properties, or overrides existing secure
 	// pipeline/trigger properties.
 	SecureTriggerProperties map[string]interface{} `json:"secure_trigger_properties,omitempty"`
 
@@ -2700,19 +2649,19 @@ type CreateTektonPipelineTriggerPropertiesOptions struct {
 	// Property name.
 	Name *string `json:"name,omitempty"`
 
-	// Property value. Can be empty and should be omitted for SINGLE_SELECT property type.
+	// Property value. Can be empty and should be omitted for single_select property type.
 	Value *string `json:"value,omitempty"`
 
-	// Options for SINGLE_SELECT property type. Only needed for SINGLE_SELECT property type.
+	// Options for single_select property type. Only needed for single_select property type.
 	Enum []string `json:"enum,omitempty"`
 
-	// Default option for SINGLE_SELECT property type. Only needed for SINGLE_SELECT property type.
+	// Default option for single_select property type. Only needed for single_select property type.
 	Default *string `json:"default,omitempty"`
 
 	// Property type.
 	Type *string `json:"type,omitempty"`
 
-	// A dot notation path for INTEGRATION type properties to select a value from the tool integration. If left blank the
+	// A dot notation path for integration type properties to select a value from the tool integration. If left blank the
 	// full tool integration JSON will be selected.
 	Path *string `json:"path,omitempty"`
 
@@ -2723,11 +2672,11 @@ type CreateTektonPipelineTriggerPropertiesOptions struct {
 // Constants associated with the CreateTektonPipelineTriggerPropertiesOptions.Type property.
 // Property type.
 const (
-	CreateTektonPipelineTriggerPropertiesOptionsTypeAppconfigConst = "APPCONFIG"
-	CreateTektonPipelineTriggerPropertiesOptionsTypeIntegrationConst = "INTEGRATION"
-	CreateTektonPipelineTriggerPropertiesOptionsTypeSecureConst = "SECURE"
-	CreateTektonPipelineTriggerPropertiesOptionsTypeSingleSelectConst = "SINGLE_SELECT"
-	CreateTektonPipelineTriggerPropertiesOptionsTypeTextConst = "TEXT"
+	CreateTektonPipelineTriggerPropertiesOptionsTypeAppconfigConst = "appconfig"
+	CreateTektonPipelineTriggerPropertiesOptionsTypeIntegrationConst = "integration"
+	CreateTektonPipelineTriggerPropertiesOptionsTypeSecureConst = "secure"
+	CreateTektonPipelineTriggerPropertiesOptionsTypeSingleSelectConst = "single_select"
+	CreateTektonPipelineTriggerPropertiesOptionsTypeTextConst = "text"
 )
 
 // NewCreateTektonPipelineTriggerPropertiesOptions : Instantiate CreateTektonPipelineTriggerPropertiesOptions
@@ -2797,9 +2746,6 @@ type Definition struct {
 	// SCM source for Tekton pipeline definition.
 	ScmSource *DefinitionScmSource `json:"scm_source" validate:"required"`
 
-	// ID of the SCM repository service instance.
-	ServiceInstanceID *string `json:"service_instance_id" validate:"required"`
-
 	// UUID.
 	ID *string `json:"id,omitempty"`
 }
@@ -2808,10 +2754,6 @@ type Definition struct {
 func UnmarshalDefinition(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Definition)
 	err = core.UnmarshalModel(m, "scm_source", &obj.ScmSource, UnmarshalDefinitionScmSource)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "service_instance_id", &obj.ServiceInstanceID)
 	if err != nil {
 		return
 	}
@@ -2836,6 +2778,9 @@ type DefinitionScmSource struct {
 
 	// The path to the definition's yaml files.
 	Path *string `json:"path" validate:"required"`
+
+	// ID of the SCM repository service instance.
+	ServiceInstanceID *string `json:"service_instance_id,omitempty"`
 }
 
 // NewDefinitionScmSource : Instantiate DefinitionScmSource (Generic Model Constructor)
@@ -2867,6 +2812,10 @@ func UnmarshalDefinitionScmSource(m map[string]json.RawMessage, result interface
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "service_instance_id", &obj.ServiceInstanceID)
+	if err != nil {
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -2894,9 +2843,6 @@ type DefinitionsCollectionDefinitionsItem struct {
 	// SCM source for Tekton pipeline definition.
 	ScmSource *DefinitionScmSource `json:"scm_source" validate:"required"`
 
-	// ID of the SCM repository service instance.
-	ServiceInstanceID *string `json:"service_instance_id" validate:"required"`
-
 	// UUID.
 	ID *string `json:"id,omitempty"`
 
@@ -2908,10 +2854,6 @@ type DefinitionsCollectionDefinitionsItem struct {
 func UnmarshalDefinitionsCollectionDefinitionsItem(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(DefinitionsCollectionDefinitionsItem)
 	err = core.UnmarshalModel(m, "scm_source", &obj.ScmSource, UnmarshalDefinitionScmSource)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "service_instance_id", &obj.ServiceInstanceID)
 	if err != nil {
 		return
 	}
@@ -3191,29 +3133,29 @@ type GenericSecret struct {
 	// Secret type.
 	Type *string `json:"type,omitempty"`
 
-	// Secret value, not needed if secret type is "internalValidation".
+	// Secret value, not needed if secret type is "internal_validation".
 	Value *string `json:"value,omitempty"`
 
-	// Secret location, not needed if secret type is "internalValidation".
+	// Secret location, not needed if secret type is "internal_validation".
 	Source *string `json:"source,omitempty"`
 
-	// Secret name, not needed if type is "internalValidation".
+	// Secret name, not needed if type is "internal_validation".
 	KeyName *string `json:"key_name,omitempty"`
 
-	// Algorithm used for "digestMatches" secret type. Only needed for "digestMatches" secret type.
+	// Algorithm used for "digest_matches" secret type. Only needed for "digest_matches" secret type.
 	Algorithm *string `json:"algorithm,omitempty"`
 }
 
 // Constants associated with the GenericSecret.Type property.
 // Secret type.
 const (
-	GenericSecretTypeDigestmatchesConst = "digestMatches"
-	GenericSecretTypeInternalvalidationConst = "internalValidation"
-	GenericSecretTypeTokenmatchesConst = "tokenMatches"
+	GenericSecretTypeDigestMatchesConst = "digest_matches"
+	GenericSecretTypeInternalValidationConst = "internal_validation"
+	GenericSecretTypeTokenMatchesConst = "token_matches"
 )
 
 // Constants associated with the GenericSecret.Source property.
-// Secret location, not needed if secret type is "internalValidation".
+// Secret location, not needed if secret type is "internal_validation".
 const (
 	GenericSecretSourceHeaderConst = "header"
 	GenericSecretSourcePayloadConst = "payload"
@@ -3221,7 +3163,7 @@ const (
 )
 
 // Constants associated with the GenericSecret.Algorithm property.
-// Algorithm used for "digestMatches" secret type. Only needed for "digestMatches" secret type.
+// Algorithm used for "digest_matches" secret type. Only needed for "digest_matches" secret type.
 const (
 	GenericSecretAlgorithmMd4Const = "md4"
 	GenericSecretAlgorithmMd5Const = "md5"
@@ -3639,11 +3581,11 @@ type ListTektonPipelinePropertiesOptions struct {
 // Constants associated with the ListTektonPipelinePropertiesOptions.Type property.
 // Query in URL.
 const (
-	ListTektonPipelinePropertiesOptionsTypeAppconfigConst = "APPCONFIG"
-	ListTektonPipelinePropertiesOptionsTypeIntegrationConst = "INTEGRATION"
-	ListTektonPipelinePropertiesOptionsTypeSecureConst = "SECURE"
-	ListTektonPipelinePropertiesOptionsTypeSingleSelectConst = "SINGLE_SELECT"
-	ListTektonPipelinePropertiesOptionsTypeTextConst = "TEXT"
+	ListTektonPipelinePropertiesOptionsTypeAppconfigConst = "appconfig"
+	ListTektonPipelinePropertiesOptionsTypeIntegrationConst = "integration"
+	ListTektonPipelinePropertiesOptionsTypeSecureConst = "secure"
+	ListTektonPipelinePropertiesOptionsTypeSingleSelectConst = "single_select"
+	ListTektonPipelinePropertiesOptionsTypeTextConst = "text"
 )
 
 // NewListTektonPipelinePropertiesOptions : Instantiate ListTektonPipelinePropertiesOptions
@@ -3772,7 +3714,7 @@ type ListTektonPipelineTriggerPropertiesOptions struct {
 	// Filter properties by "name".
 	Name *string `json:"name" validate:"required"`
 
-	// Filter properties by "type". Valid types are "SECURE", "TEXT", "INTEGRATION", "SINGLE_SELECT", "APPCONFIG".
+	// Filter properties by "type". Valid types are "secure", "text", "integration", "single_select", "appconfig".
 	Type *string `json:"type" validate:"required"`
 
 	// Sort properties by name. They can be sorted in ascending order using "name" or in descending order using "-name".
@@ -3924,48 +3866,23 @@ func (options *ListTektonPipelineTriggersOptions) SetHeaders(param map[string]st
 
 // Log : Log object for Tekton pipeline run step.
 type Log struct {
+	// The raw log content of step.
+	Data *string `json:"data,omitempty"`
+
+	// API for getting log content.
+	Href *string `json:"href,omitempty"`
+
 	// Step log ID.
 	ID *string `json:"id" validate:"required"`
 
-	// The raw log content of step.
-	Data *string `json:"data" validate:"required"`
+	// <podName>/<containerName> of this log.
+	Name *string `json:"name,omitempty"`
 }
 
 // UnmarshalLog unmarshals an instance of Log from the specified map of raw messages.
 func UnmarshalLog(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Log)
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
 	err = core.UnmarshalPrimitive(m, "data", &obj.Data)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// LogID : Pipeline run log ID object.
-type LogID struct {
-	// <podName>/<containerName> of this log.
-	Name *string `json:"name,omitempty"`
-
-	// Generated log ID.
-	ID *string `json:"id,omitempty"`
-
-	// API for getting log content.
-	Href *string `json:"href,omitempty"`
-}
-
-// UnmarshalLogID unmarshals an instance of LogID from the specified map of raw messages.
-func UnmarshalLogID(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(LogID)
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
 		return
 	}
@@ -3973,19 +3890,27 @@ func UnmarshalLogID(m map[string]json.RawMessage, result interface{}) (err error
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
-// LogsCollection : List of pipeline run log IDs.
+// LogsCollection : List of pipeline run log objects.
 type LogsCollection struct {
-	Logs []LogID `json:"logs,omitempty"`
+	Logs []Log `json:"logs,omitempty"`
 }
 
 // UnmarshalLogsCollection unmarshals an instance of LogsCollection from the specified map of raw messages.
 func UnmarshalLogsCollection(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(LogsCollection)
-	err = core.UnmarshalModel(m, "logs", &obj.Logs, UnmarshalLogID)
+	err = core.UnmarshalModel(m, "logs", &obj.Logs, UnmarshalLog)
 	if err != nil {
 		return
 	}
@@ -4035,8 +3960,8 @@ type PipelineRun struct {
 	// Standard RFC 3339 Date Time String.
 	UpdatedAt *strfmt.DateTime `json:"updated_at,omitempty"`
 
-	// URL for this pipeline run.
-	HTMLURL *string `json:"html_url" validate:"required"`
+	// URL for the details page of this pipeline run.
+	RunURL *string `json:"run_url" validate:"required"`
 }
 
 // Constants associated with the PipelineRun.Status property.
@@ -4108,7 +4033,7 @@ func UnmarshalPipelineRun(m map[string]json.RawMessage, result interface{}) (err
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "html_url", &obj.HTMLURL)
+	err = core.UnmarshalPrimitive(m, "run_url", &obj.RunURL)
 	if err != nil {
 		return
 	}
@@ -4292,8 +4217,8 @@ type PipelineRunsCollectionPipelineRunsItem struct {
 	// Standard RFC 3339 Date Time String.
 	UpdatedAt *strfmt.DateTime `json:"updated_at,omitempty"`
 
-	// URL for this pipeline run.
-	HTMLURL *string `json:"html_url" validate:"required"`
+	// URL for the details page of this pipeline run.
+	RunURL *string `json:"run_url" validate:"required"`
 
 	// API URL for interacting with the pipeline run.
 	Href *string `json:"href,omitempty"`
@@ -4368,7 +4293,7 @@ func UnmarshalPipelineRunsCollectionPipelineRunsItem(m map[string]json.RawMessag
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "html_url", &obj.HTMLURL)
+	err = core.UnmarshalPrimitive(m, "run_url", &obj.RunURL)
 	if err != nil {
 		return
 	}
@@ -4405,27 +4330,27 @@ type Property struct {
 	// Property value.
 	Value *string `json:"value,omitempty"`
 
-	// Options for SINGLE_SELECT property type. Only needed when using SINGLE_SELECT property type.
+	// Options for single_select property type. Only needed when using single_select property type.
 	Enum []string `json:"enum,omitempty"`
 
-	// Default option for SINGLE_SELECT property type. Only needed when using SINGLE_SELECT property type.
+	// Default option for single_select property type. Only needed when using single_select property type.
 	Default *string `json:"default,omitempty"`
 
 	// Property type.
 	Type *string `json:"type" validate:"required"`
 
-	// A dot notation path for INTEGRATION type properties to select a value from the tool integration.
+	// A dot notation path for integration type properties to select a value from the tool integration.
 	Path *string `json:"path,omitempty"`
 }
 
 // Constants associated with the Property.Type property.
 // Property type.
 const (
-	PropertyTypeAppconfigConst = "APPCONFIG"
-	PropertyTypeIntegrationConst = "INTEGRATION"
-	PropertyTypeSecureConst = "SECURE"
-	PropertyTypeSingleSelectConst = "SINGLE_SELECT"
-	PropertyTypeTextConst = "TEXT"
+	PropertyTypeAppconfigConst = "appconfig"
+	PropertyTypeIntegrationConst = "integration"
+	PropertyTypeSecureConst = "secure"
+	PropertyTypeSingleSelectConst = "single_select"
+	PropertyTypeTextConst = "text"
 )
 
 // UnmarshalProperty unmarshals an instance of Property from the specified map of raw messages.
@@ -4470,9 +4395,6 @@ type ReplaceTektonPipelineDefinitionOptions struct {
 	// SCM source for Tekton pipeline definition.
 	ScmSource *DefinitionScmSource `json:"scm_source,omitempty"`
 
-	// ID of the SCM repository service instance.
-	ServiceInstanceID *string `json:"service_instance_id,omitempty"`
-
 	// UUID.
 	ID *string `json:"id,omitempty"`
 
@@ -4506,12 +4428,6 @@ func (_options *ReplaceTektonPipelineDefinitionOptions) SetScmSource(scmSource *
 	return _options
 }
 
-// SetServiceInstanceID : Allow user to set ServiceInstanceID
-func (_options *ReplaceTektonPipelineDefinitionOptions) SetServiceInstanceID(serviceInstanceID string) *ReplaceTektonPipelineDefinitionOptions {
-	_options.ServiceInstanceID = core.StringPtr(serviceInstanceID)
-	return _options
-}
-
 // SetID : Allow user to set ID
 func (_options *ReplaceTektonPipelineDefinitionOptions) SetID(id string) *ReplaceTektonPipelineDefinitionOptions {
 	_options.ID = core.StringPtr(id)
@@ -4538,16 +4454,16 @@ type ReplaceTektonPipelinePropertyOptions struct {
 	// Property value.
 	Value *string `json:"value,omitempty"`
 
-	// Options for SINGLE_SELECT property type. Only needed when using SINGLE_SELECT property type.
+	// Options for single_select property type. Only needed when using single_select property type.
 	Enum []string `json:"enum,omitempty"`
 
-	// Default option for SINGLE_SELECT property type. Only needed when using SINGLE_SELECT property type.
+	// Default option for single_select property type. Only needed when using single_select property type.
 	Default *string `json:"default,omitempty"`
 
 	// Property type.
 	Type *string `json:"type,omitempty"`
 
-	// A dot notation path for INTEGRATION type properties to select a value from the tool integration.
+	// A dot notation path for integration type properties to select a value from the tool integration.
 	Path *string `json:"path,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -4557,11 +4473,11 @@ type ReplaceTektonPipelinePropertyOptions struct {
 // Constants associated with the ReplaceTektonPipelinePropertyOptions.Type property.
 // Property type.
 const (
-	ReplaceTektonPipelinePropertyOptionsTypeAppconfigConst = "APPCONFIG"
-	ReplaceTektonPipelinePropertyOptionsTypeIntegrationConst = "INTEGRATION"
-	ReplaceTektonPipelinePropertyOptionsTypeSecureConst = "SECURE"
-	ReplaceTektonPipelinePropertyOptionsTypeSingleSelectConst = "SINGLE_SELECT"
-	ReplaceTektonPipelinePropertyOptionsTypeTextConst = "TEXT"
+	ReplaceTektonPipelinePropertyOptionsTypeAppconfigConst = "appconfig"
+	ReplaceTektonPipelinePropertyOptionsTypeIntegrationConst = "integration"
+	ReplaceTektonPipelinePropertyOptionsTypeSecureConst = "secure"
+	ReplaceTektonPipelinePropertyOptionsTypeSingleSelectConst = "single_select"
+	ReplaceTektonPipelinePropertyOptionsTypeTextConst = "text"
 )
 
 // NewReplaceTektonPipelinePropertyOptions : Instantiate ReplaceTektonPipelinePropertyOptions
@@ -4640,19 +4556,19 @@ type ReplaceTektonPipelineTriggerPropertyOptions struct {
 	// Property name.
 	Name *string `json:"name,omitempty"`
 
-	// Property value. Can be empty and should be omitted for SINGLE_SELECT property type.
+	// Property value. Can be empty and should be omitted for single_select property type.
 	Value *string `json:"value,omitempty"`
 
-	// Options for SINGLE_SELECT property type. Only needed for SINGLE_SELECT property type.
+	// Options for single_select property type. Only needed for single_select property type.
 	Enum []string `json:"enum,omitempty"`
 
-	// Default option for SINGLE_SELECT property type. Only needed for SINGLE_SELECT property type.
+	// Default option for single_select property type. Only needed for single_select property type.
 	Default *string `json:"default,omitempty"`
 
 	// Property type.
 	Type *string `json:"type,omitempty"`
 
-	// A dot notation path for INTEGRATION type properties to select a value from the tool integration. If left blank the
+	// A dot notation path for integration type properties to select a value from the tool integration. If left blank the
 	// full tool integration JSON will be selected.
 	Path *string `json:"path,omitempty"`
 
@@ -4663,11 +4579,11 @@ type ReplaceTektonPipelineTriggerPropertyOptions struct {
 // Constants associated with the ReplaceTektonPipelineTriggerPropertyOptions.Type property.
 // Property type.
 const (
-	ReplaceTektonPipelineTriggerPropertyOptionsTypeAppconfigConst = "APPCONFIG"
-	ReplaceTektonPipelineTriggerPropertyOptionsTypeIntegrationConst = "INTEGRATION"
-	ReplaceTektonPipelineTriggerPropertyOptionsTypeSecureConst = "SECURE"
-	ReplaceTektonPipelineTriggerPropertyOptionsTypeSingleSelectConst = "SINGLE_SELECT"
-	ReplaceTektonPipelineTriggerPropertyOptionsTypeTextConst = "TEXT"
+	ReplaceTektonPipelineTriggerPropertyOptionsTypeAppconfigConst = "appconfig"
+	ReplaceTektonPipelineTriggerPropertyOptionsTypeIntegrationConst = "integration"
+	ReplaceTektonPipelineTriggerPropertyOptionsTypeSecureConst = "secure"
+	ReplaceTektonPipelineTriggerPropertyOptionsTypeSingleSelectConst = "single_select"
+	ReplaceTektonPipelineTriggerPropertyOptionsTypeTextConst = "text"
 )
 
 // NewReplaceTektonPipelineTriggerPropertyOptions : Instantiate ReplaceTektonPipelineTriggerPropertyOptions
@@ -4815,8 +4731,8 @@ type TektonPipeline struct {
 	// Default pipeline worker used to run the pipeline.
 	Worker *Worker `json:"worker" validate:"required"`
 
-	// Dashboard URL of this pipeline.
-	HTMLURL *string `json:"html_url" validate:"required"`
+	// URL for this pipeline showing the list of pipeline runs.
+	RunsURL *string `json:"runs_url" validate:"required"`
 
 	// The latest pipeline run build number. If this property is absent, the pipeline hasn't had any pipeline runs.
 	BuildNumber *int64 `json:"build_number,omitempty"`
@@ -4883,7 +4799,7 @@ func UnmarshalTektonPipeline(m map[string]json.RawMessage, result interface{}) (
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "html_url", &obj.HTMLURL)
+	err = core.UnmarshalPrimitive(m, "runs_url", &obj.RunsURL)
 	if err != nil {
 		return
 	}
@@ -4896,6 +4812,34 @@ func UnmarshalTektonPipeline(m map[string]json.RawMessage, result interface{}) (
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// TektonPipelinePatch : Request body used to change worker for this pipeline. To get the worker ID call the toolchain endpoint
+// /api/v1/toolchains/{toolchain_id}.
+type TektonPipelinePatch struct {
+	// Worker object containing worker ID only. If omitted the IBM Managed shared workers are used by default.
+	Worker *WorkerWithID `json:"worker,omitempty"`
+}
+
+// UnmarshalTektonPipelinePatch unmarshals an instance of TektonPipelinePatch from the specified map of raw messages.
+func UnmarshalTektonPipelinePatch(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(TektonPipelinePatch)
+	err = core.UnmarshalModel(m, "worker", &obj.Worker, UnmarshalWorkerWithID)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// AsPatch returns a generic map representation of the TektonPipelinePatch
+func (tektonPipelinePatch *TektonPipelinePatch) AsPatch() (_patch map[string]interface{}, err error) {
+	var jsonData []byte
+	jsonData, err = json.Marshal(tektonPipelinePatch)
+	if err == nil {
+		err = json.Unmarshal(jsonData, &_patch)
+	}
 	return
 }
 
@@ -4976,7 +4920,8 @@ type Trigger struct {
 	// API URL for interacting with the trigger.
 	Href *string `json:"href,omitempty"`
 
-	// Event listener name.
+	// Event listener name. The name of the event listener to which the trigger is associated. The event listeners are
+	// defined in the definition repositories of the Tekton pipeline.
 	EventListener *string `json:"event_listener,omitempty"`
 
 	// ID.
@@ -5002,9 +4947,6 @@ type Trigger struct {
 
 	// Only needed for Git triggers. Events object defines the events to which this Git trigger listens.
 	Events *Events `json:"events,omitempty"`
-
-	// ID of the repository service instance.
-	ServiceInstanceID *string `json:"service_instance_id,omitempty"`
 
 	// Only needed for timer triggers. Cron expression for timer trigger. Maximum frequency is every 5 minutes.
 	Cron *string `json:"cron,omitempty"`
@@ -5078,10 +5020,6 @@ func UnmarshalTrigger(m map[string]json.RawMessage, result interface{}) (err err
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "service_instance_id", &obj.ServiceInstanceID)
-	if err != nil {
-		return
-	}
 	err = core.UnmarshalPrimitive(m, "cron", &obj.Cron)
 	if err != nil {
 		return
@@ -5103,19 +5041,19 @@ type TriggerGenericTriggerPropertiesItem struct {
 	// Property name.
 	Name *string `json:"name" validate:"required"`
 
-	// Property value. Can be empty and should be omitted for SINGLE_SELECT property type.
+	// Property value. Can be empty and should be omitted for single_select property type.
 	Value *string `json:"value,omitempty"`
 
-	// Options for SINGLE_SELECT property type. Only needed for SINGLE_SELECT property type.
+	// Options for single_select property type. Only needed for single_select property type.
 	Enum []string `json:"enum,omitempty"`
 
-	// Default option for SINGLE_SELECT property type. Only needed for SINGLE_SELECT property type.
+	// Default option for single_select property type. Only needed for single_select property type.
 	Default *string `json:"default,omitempty"`
 
 	// Property type.
 	Type *string `json:"type" validate:"required"`
 
-	// A dot notation path for INTEGRATION type properties to select a value from the tool integration. If left blank the
+	// A dot notation path for integration type properties to select a value from the tool integration. If left blank the
 	// full tool integration JSON will be selected.
 	Path *string `json:"path,omitempty"`
 
@@ -5126,11 +5064,11 @@ type TriggerGenericTriggerPropertiesItem struct {
 // Constants associated with the TriggerGenericTriggerPropertiesItem.Type property.
 // Property type.
 const (
-	TriggerGenericTriggerPropertiesItemTypeAppconfigConst = "APPCONFIG"
-	TriggerGenericTriggerPropertiesItemTypeIntegrationConst = "INTEGRATION"
-	TriggerGenericTriggerPropertiesItemTypeSecureConst = "SECURE"
-	TriggerGenericTriggerPropertiesItemTypeSingleSelectConst = "SINGLE_SELECT"
-	TriggerGenericTriggerPropertiesItemTypeTextConst = "TEXT"
+	TriggerGenericTriggerPropertiesItemTypeAppconfigConst = "appconfig"
+	TriggerGenericTriggerPropertiesItemTypeIntegrationConst = "integration"
+	TriggerGenericTriggerPropertiesItemTypeSecureConst = "secure"
+	TriggerGenericTriggerPropertiesItemTypeSingleSelectConst = "single_select"
+	TriggerGenericTriggerPropertiesItemTypeTextConst = "text"
 )
 
 // NewTriggerGenericTriggerPropertiesItem : Instantiate TriggerGenericTriggerPropertiesItem (Generic Model Constructor)
@@ -5183,19 +5121,19 @@ type TriggerManualTriggerPropertiesItem struct {
 	// Property name.
 	Name *string `json:"name" validate:"required"`
 
-	// Property value. Can be empty and should be omitted for SINGLE_SELECT property type.
+	// Property value. Can be empty and should be omitted for single_select property type.
 	Value *string `json:"value,omitempty"`
 
-	// Options for SINGLE_SELECT property type. Only needed for SINGLE_SELECT property type.
+	// Options for single_select property type. Only needed for single_select property type.
 	Enum []string `json:"enum,omitempty"`
 
-	// Default option for SINGLE_SELECT property type. Only needed for SINGLE_SELECT property type.
+	// Default option for single_select property type. Only needed for single_select property type.
 	Default *string `json:"default,omitempty"`
 
 	// Property type.
 	Type *string `json:"type" validate:"required"`
 
-	// A dot notation path for INTEGRATION type properties to select a value from the tool integration. If left blank the
+	// A dot notation path for integration type properties to select a value from the tool integration. If left blank the
 	// full tool integration JSON will be selected.
 	Path *string `json:"path,omitempty"`
 
@@ -5206,11 +5144,11 @@ type TriggerManualTriggerPropertiesItem struct {
 // Constants associated with the TriggerManualTriggerPropertiesItem.Type property.
 // Property type.
 const (
-	TriggerManualTriggerPropertiesItemTypeAppconfigConst = "APPCONFIG"
-	TriggerManualTriggerPropertiesItemTypeIntegrationConst = "INTEGRATION"
-	TriggerManualTriggerPropertiesItemTypeSecureConst = "SECURE"
-	TriggerManualTriggerPropertiesItemTypeSingleSelectConst = "SINGLE_SELECT"
-	TriggerManualTriggerPropertiesItemTypeTextConst = "TEXT"
+	TriggerManualTriggerPropertiesItemTypeAppconfigConst = "appconfig"
+	TriggerManualTriggerPropertiesItemTypeIntegrationConst = "integration"
+	TriggerManualTriggerPropertiesItemTypeSecureConst = "secure"
+	TriggerManualTriggerPropertiesItemTypeSingleSelectConst = "single_select"
+	TriggerManualTriggerPropertiesItemTypeTextConst = "text"
 )
 
 // NewTriggerManualTriggerPropertiesItem : Instantiate TriggerManualTriggerPropertiesItem (Generic Model Constructor)
@@ -5258,6 +5196,120 @@ func UnmarshalTriggerManualTriggerPropertiesItem(m map[string]json.RawMessage, r
 	return
 }
 
+// TriggerPatch : Tekton pipeline trigger object used for updating the trigger.
+type TriggerPatch struct {
+	// Trigger type.
+	Type *string `json:"type,omitempty"`
+
+	// Trigger name.
+	Name *string `json:"name,omitempty"`
+
+	// Event listener name. The name of the event listener to which the trigger is associated. The event listeners are
+	// defined in the definition repositories of the Tekton pipeline.
+	EventListener *string `json:"event_listener,omitempty"`
+
+	// Trigger tags array. Optional tags for the trigger.
+	Tags []string `json:"tags,omitempty"`
+
+	// Worker used to run the trigger. If not specified the trigger will use the default pipeline worker.
+	Worker *Worker `json:"worker,omitempty"`
+
+	// Defines the maximum number of concurrent runs for this trigger. Omit this property to disable the concurrency limit.
+	MaxConcurrentRuns *int64 `json:"max_concurrent_runs,omitempty"`
+
+	// Defines if this trigger is disabled.
+	Disabled *bool `json:"disabled,omitempty"`
+
+	// Only needed for generic webhook trigger type. Secret used to start generic webhook trigger.
+	Secret *GenericSecret `json:"secret,omitempty"`
+
+	// Only needed for timer triggers. Cron expression for timer trigger.
+	Cron *string `json:"cron,omitempty"`
+
+	// Only needed for timer triggers. Timezone for timer trigger.
+	Timezone *string `json:"timezone,omitempty"`
+
+	// SCM source repository for a Git trigger. Only needed for Git triggers.
+	ScmSource *TriggerScmSource `json:"scm_source,omitempty"`
+
+	// Only needed for Git triggers. Events object defines the events to which this Git trigger listens.
+	Events *Events `json:"events,omitempty"`
+}
+
+// Constants associated with the TriggerPatch.Type property.
+// Trigger type.
+const (
+	TriggerPatchTypeGenericConst = "generic"
+	TriggerPatchTypeManualConst = "manual"
+	TriggerPatchTypeScmConst = "scm"
+	TriggerPatchTypeTimerConst = "timer"
+)
+
+// UnmarshalTriggerPatch unmarshals an instance of TriggerPatch from the specified map of raw messages.
+func UnmarshalTriggerPatch(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(TriggerPatch)
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "event_listener", &obj.EventListener)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "tags", &obj.Tags)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "worker", &obj.Worker, UnmarshalWorker)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "max_concurrent_runs", &obj.MaxConcurrentRuns)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "disabled", &obj.Disabled)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "secret", &obj.Secret, UnmarshalGenericSecret)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "cron", &obj.Cron)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "timezone", &obj.Timezone)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "scm_source", &obj.ScmSource, UnmarshalTriggerScmSource)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "events", &obj.Events, UnmarshalEvents)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// AsPatch returns a generic map representation of the TriggerPatch
+func (triggerPatch *TriggerPatch) AsPatch() (_patch map[string]interface{}, err error) {
+	var jsonData []byte
+	jsonData, err = json.Marshal(triggerPatch)
+	if err == nil {
+		err = json.Unmarshal(jsonData, &_patch)
+	}
+	return
+}
+
 // TriggerPropertiesCollection : Trigger properties object.
 type TriggerPropertiesCollection struct {
 	// Trigger properties list.
@@ -5280,19 +5332,19 @@ type TriggerPropertiesCollectionPropertiesItem struct {
 	// Property name.
 	Name *string `json:"name" validate:"required"`
 
-	// Property value. Can be empty and should be omitted for SINGLE_SELECT property type.
+	// Property value. Can be empty and should be omitted for single_select property type.
 	Value *string `json:"value,omitempty"`
 
-	// Options for SINGLE_SELECT property type. Only needed for SINGLE_SELECT property type.
+	// Options for single_select property type. Only needed for single_select property type.
 	Enum []string `json:"enum,omitempty"`
 
-	// Default option for SINGLE_SELECT property type. Only needed for SINGLE_SELECT property type.
+	// Default option for single_select property type. Only needed for single_select property type.
 	Default *string `json:"default,omitempty"`
 
 	// Property type.
 	Type *string `json:"type" validate:"required"`
 
-	// A dot notation path for INTEGRATION type properties to select a value from the tool integration. If left blank the
+	// A dot notation path for integration type properties to select a value from the tool integration. If left blank the
 	// full tool integration JSON will be selected.
 	Path *string `json:"path,omitempty"`
 
@@ -5303,11 +5355,11 @@ type TriggerPropertiesCollectionPropertiesItem struct {
 // Constants associated with the TriggerPropertiesCollectionPropertiesItem.Type property.
 // Property type.
 const (
-	TriggerPropertiesCollectionPropertiesItemTypeAppconfigConst = "APPCONFIG"
-	TriggerPropertiesCollectionPropertiesItemTypeIntegrationConst = "INTEGRATION"
-	TriggerPropertiesCollectionPropertiesItemTypeSecureConst = "SECURE"
-	TriggerPropertiesCollectionPropertiesItemTypeSingleSelectConst = "SINGLE_SELECT"
-	TriggerPropertiesCollectionPropertiesItemTypeTextConst = "TEXT"
+	TriggerPropertiesCollectionPropertiesItemTypeAppconfigConst = "appconfig"
+	TriggerPropertiesCollectionPropertiesItemTypeIntegrationConst = "integration"
+	TriggerPropertiesCollectionPropertiesItemTypeSecureConst = "secure"
+	TriggerPropertiesCollectionPropertiesItemTypeSingleSelectConst = "single_select"
+	TriggerPropertiesCollectionPropertiesItemTypeTextConst = "text"
 )
 
 // UnmarshalTriggerPropertiesCollectionPropertiesItem unmarshals an instance of TriggerPropertiesCollectionPropertiesItem from the specified map of raw messages.
@@ -5350,19 +5402,19 @@ type TriggerPropertiesItem struct {
 	// Property name.
 	Name *string `json:"name" validate:"required"`
 
-	// Property value. Can be empty and should be omitted for SINGLE_SELECT property type.
+	// Property value. Can be empty and should be omitted for single_select property type.
 	Value *string `json:"value,omitempty"`
 
-	// Options for SINGLE_SELECT property type. Only needed for SINGLE_SELECT property type.
+	// Options for single_select property type. Only needed for single_select property type.
 	Enum []string `json:"enum,omitempty"`
 
-	// Default option for SINGLE_SELECT property type. Only needed for SINGLE_SELECT property type.
+	// Default option for single_select property type. Only needed for single_select property type.
 	Default *string `json:"default,omitempty"`
 
 	// Property type.
 	Type *string `json:"type" validate:"required"`
 
-	// A dot notation path for INTEGRATION type properties to select a value from the tool integration. If left blank the
+	// A dot notation path for integration type properties to select a value from the tool integration. If left blank the
 	// full tool integration JSON will be selected.
 	Path *string `json:"path,omitempty"`
 
@@ -5373,11 +5425,11 @@ type TriggerPropertiesItem struct {
 // Constants associated with the TriggerPropertiesItem.Type property.
 // Property type.
 const (
-	TriggerPropertiesItemTypeAppconfigConst = "APPCONFIG"
-	TriggerPropertiesItemTypeIntegrationConst = "INTEGRATION"
-	TriggerPropertiesItemTypeSecureConst = "SECURE"
-	TriggerPropertiesItemTypeSingleSelectConst = "SINGLE_SELECT"
-	TriggerPropertiesItemTypeTextConst = "TEXT"
+	TriggerPropertiesItemTypeAppconfigConst = "appconfig"
+	TriggerPropertiesItemTypeIntegrationConst = "integration"
+	TriggerPropertiesItemTypeSecureConst = "secure"
+	TriggerPropertiesItemTypeSingleSelectConst = "single_select"
+	TriggerPropertiesItemTypeTextConst = "text"
 )
 
 // NewTriggerPropertiesItem : Instantiate TriggerPropertiesItem (Generic Model Constructor)
@@ -5430,19 +5482,19 @@ type TriggerProperty struct {
 	// Property name.
 	Name *string `json:"name" validate:"required"`
 
-	// Property value. Can be empty and should be omitted for SINGLE_SELECT property type.
+	// Property value. Can be empty and should be omitted for single_select property type.
 	Value *string `json:"value,omitempty"`
 
-	// Options for SINGLE_SELECT property type. Only needed for SINGLE_SELECT property type.
+	// Options for single_select property type. Only needed for single_select property type.
 	Enum []string `json:"enum,omitempty"`
 
-	// Default option for SINGLE_SELECT property type. Only needed for SINGLE_SELECT property type.
+	// Default option for single_select property type. Only needed for single_select property type.
 	Default *string `json:"default,omitempty"`
 
 	// Property type.
 	Type *string `json:"type" validate:"required"`
 
-	// A dot notation path for INTEGRATION type properties to select a value from the tool integration. If left blank the
+	// A dot notation path for integration type properties to select a value from the tool integration. If left blank the
 	// full tool integration JSON will be selected.
 	Path *string `json:"path,omitempty"`
 }
@@ -5450,11 +5502,11 @@ type TriggerProperty struct {
 // Constants associated with the TriggerProperty.Type property.
 // Property type.
 const (
-	TriggerPropertyTypeAppconfigConst = "APPCONFIG"
-	TriggerPropertyTypeIntegrationConst = "INTEGRATION"
-	TriggerPropertyTypeSecureConst = "SECURE"
-	TriggerPropertyTypeSingleSelectConst = "SINGLE_SELECT"
-	TriggerPropertyTypeTextConst = "TEXT"
+	TriggerPropertyTypeAppconfigConst = "appconfig"
+	TriggerPropertyTypeIntegrationConst = "integration"
+	TriggerPropertyTypeSecureConst = "secure"
+	TriggerPropertyTypeSingleSelectConst = "single_select"
+	TriggerPropertyTypeTextConst = "text"
 )
 
 // UnmarshalTriggerProperty unmarshals an instance of TriggerProperty from the specified map of raw messages.
@@ -5505,6 +5557,9 @@ type TriggerScmSource struct {
 
 	// ID of the webhook from the repo. Computed upon creation of the trigger.
 	HookID *string `json:"hook_id,omitempty"`
+
+	// ID of the repository service instance.
+	ServiceInstanceID *string `json:"service_instance_id,omitempty"`
 }
 
 // NewTriggerScmSource : Instantiate TriggerScmSource (Generic Model Constructor)
@@ -5539,6 +5594,10 @@ func UnmarshalTriggerScmSource(m map[string]json.RawMessage, result interface{})
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "service_instance_id", &obj.ServiceInstanceID)
+	if err != nil {
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -5548,19 +5607,19 @@ type TriggerScmTriggerPropertiesItem struct {
 	// Property name.
 	Name *string `json:"name" validate:"required"`
 
-	// Property value. Can be empty and should be omitted for SINGLE_SELECT property type.
+	// Property value. Can be empty and should be omitted for single_select property type.
 	Value *string `json:"value,omitempty"`
 
-	// Options for SINGLE_SELECT property type. Only needed for SINGLE_SELECT property type.
+	// Options for single_select property type. Only needed for single_select property type.
 	Enum []string `json:"enum,omitempty"`
 
-	// Default option for SINGLE_SELECT property type. Only needed for SINGLE_SELECT property type.
+	// Default option for single_select property type. Only needed for single_select property type.
 	Default *string `json:"default,omitempty"`
 
 	// Property type.
 	Type *string `json:"type" validate:"required"`
 
-	// A dot notation path for INTEGRATION type properties to select a value from the tool integration. If left blank the
+	// A dot notation path for integration type properties to select a value from the tool integration. If left blank the
 	// full tool integration JSON will be selected.
 	Path *string `json:"path,omitempty"`
 
@@ -5571,11 +5630,11 @@ type TriggerScmTriggerPropertiesItem struct {
 // Constants associated with the TriggerScmTriggerPropertiesItem.Type property.
 // Property type.
 const (
-	TriggerScmTriggerPropertiesItemTypeAppconfigConst = "APPCONFIG"
-	TriggerScmTriggerPropertiesItemTypeIntegrationConst = "INTEGRATION"
-	TriggerScmTriggerPropertiesItemTypeSecureConst = "SECURE"
-	TriggerScmTriggerPropertiesItemTypeSingleSelectConst = "SINGLE_SELECT"
-	TriggerScmTriggerPropertiesItemTypeTextConst = "TEXT"
+	TriggerScmTriggerPropertiesItemTypeAppconfigConst = "appconfig"
+	TriggerScmTriggerPropertiesItemTypeIntegrationConst = "integration"
+	TriggerScmTriggerPropertiesItemTypeSecureConst = "secure"
+	TriggerScmTriggerPropertiesItemTypeSingleSelectConst = "single_select"
+	TriggerScmTriggerPropertiesItemTypeTextConst = "text"
 )
 
 // NewTriggerScmTriggerPropertiesItem : Instantiate TriggerScmTriggerPropertiesItem (Generic Model Constructor)
@@ -5628,19 +5687,19 @@ type TriggerTimerTriggerPropertiesItem struct {
 	// Property name.
 	Name *string `json:"name" validate:"required"`
 
-	// Property value. Can be empty and should be omitted for SINGLE_SELECT property type.
+	// Property value. Can be empty and should be omitted for single_select property type.
 	Value *string `json:"value,omitempty"`
 
-	// Options for SINGLE_SELECT property type. Only needed for SINGLE_SELECT property type.
+	// Options for single_select property type. Only needed for single_select property type.
 	Enum []string `json:"enum,omitempty"`
 
-	// Default option for SINGLE_SELECT property type. Only needed for SINGLE_SELECT property type.
+	// Default option for single_select property type. Only needed for single_select property type.
 	Default *string `json:"default,omitempty"`
 
 	// Property type.
 	Type *string `json:"type" validate:"required"`
 
-	// A dot notation path for INTEGRATION type properties to select a value from the tool integration. If left blank the
+	// A dot notation path for integration type properties to select a value from the tool integration. If left blank the
 	// full tool integration JSON will be selected.
 	Path *string `json:"path,omitempty"`
 
@@ -5651,11 +5710,11 @@ type TriggerTimerTriggerPropertiesItem struct {
 // Constants associated with the TriggerTimerTriggerPropertiesItem.Type property.
 // Property type.
 const (
-	TriggerTimerTriggerPropertiesItemTypeAppconfigConst = "APPCONFIG"
-	TriggerTimerTriggerPropertiesItemTypeIntegrationConst = "INTEGRATION"
-	TriggerTimerTriggerPropertiesItemTypeSecureConst = "SECURE"
-	TriggerTimerTriggerPropertiesItemTypeSingleSelectConst = "SINGLE_SELECT"
-	TriggerTimerTriggerPropertiesItemTypeTextConst = "TEXT"
+	TriggerTimerTriggerPropertiesItemTypeAppconfigConst = "appconfig"
+	TriggerTimerTriggerPropertiesItemTypeIntegrationConst = "integration"
+	TriggerTimerTriggerPropertiesItemTypeSecureConst = "secure"
+	TriggerTimerTriggerPropertiesItemTypeSingleSelectConst = "single_select"
+	TriggerTimerTriggerPropertiesItemTypeTextConst = "text"
 )
 
 // NewTriggerTimerTriggerPropertiesItem : Instantiate TriggerTimerTriggerPropertiesItem (Generic Model Constructor)
@@ -5725,8 +5784,8 @@ type UpdateTektonPipelineOptions struct {
 	// ID of current instance.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Worker object containing worker ID only. If omitted the IBM Managed shared workers are used by default.
-	Worker *WorkerWithID `json:"worker,omitempty"`
+	// JSON Merge-Patch content for update_tekton_pipeline.
+	TektonPipelinePatch map[string]interface{} `json:"TektonPipeline_patch,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -5745,9 +5804,9 @@ func (_options *UpdateTektonPipelineOptions) SetID(id string) *UpdateTektonPipel
 	return _options
 }
 
-// SetWorker : Allow user to set Worker
-func (_options *UpdateTektonPipelineOptions) SetWorker(worker *WorkerWithID) *UpdateTektonPipelineOptions {
-	_options.Worker = worker
+// SetTektonPipelinePatch : Allow user to set TektonPipelinePatch
+func (_options *UpdateTektonPipelineOptions) SetTektonPipelinePatch(tektonPipelinePatch map[string]interface{}) *UpdateTektonPipelineOptions {
+	_options.TektonPipelinePatch = tektonPipelinePatch
 	return _options
 }
 
@@ -5765,54 +5824,12 @@ type UpdateTektonPipelineTriggerOptions struct {
 	// The trigger ID.
 	TriggerID *string `json:"trigger_id" validate:"required,ne="`
 
-	// Trigger type.
-	Type *string `json:"type,omitempty"`
-
-	// Trigger name.
-	Name *string `json:"name,omitempty"`
-
-	// Event listener name.
-	EventListener *string `json:"event_listener,omitempty"`
-
-	// Trigger tags array. Optional tags for the trigger.
-	Tags []string `json:"tags,omitempty"`
-
-	// Worker used to run the trigger. If not specified the trigger will use the default pipeline worker.
-	Worker *Worker `json:"worker,omitempty"`
-
-	// Defines the maximum number of concurrent runs for this trigger. Omit this property to disable the concurrency limit.
-	MaxConcurrentRuns *int64 `json:"max_concurrent_runs,omitempty"`
-
-	// Defines if this trigger is disabled.
-	Disabled *bool `json:"disabled,omitempty"`
-
-	// Only needed for generic webhook trigger type. Secret used to start generic webhook trigger.
-	Secret *GenericSecret `json:"secret,omitempty"`
-
-	// Only needed for timer triggers. Cron expression for timer trigger.
-	Cron *string `json:"cron,omitempty"`
-
-	// Only needed for timer triggers. Timezone for timer trigger.
-	Timezone *string `json:"timezone,omitempty"`
-
-	// SCM source repository for a Git trigger. Only needed for Git triggers.
-	ScmSource *TriggerScmSource `json:"scm_source,omitempty"`
-
-	// Only needed for Git triggers. Events object defines the events to which this Git trigger listens.
-	Events *Events `json:"events,omitempty"`
+	// JSON Merge-Patch content for update_tekton_pipeline_trigger.
+	TriggerPatch map[string]interface{} `json:"Trigger_patch,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
-
-// Constants associated with the UpdateTektonPipelineTriggerOptions.Type property.
-// Trigger type.
-const (
-	UpdateTektonPipelineTriggerOptionsTypeGenericConst = "generic"
-	UpdateTektonPipelineTriggerOptionsTypeManualConst = "manual"
-	UpdateTektonPipelineTriggerOptionsTypeScmConst = "scm"
-	UpdateTektonPipelineTriggerOptionsTypeTimerConst = "timer"
-)
 
 // NewUpdateTektonPipelineTriggerOptions : Instantiate UpdateTektonPipelineTriggerOptions
 func (*CdTektonPipelineV2) NewUpdateTektonPipelineTriggerOptions(pipelineID string, triggerID string) *UpdateTektonPipelineTriggerOptions {
@@ -5834,75 +5851,9 @@ func (_options *UpdateTektonPipelineTriggerOptions) SetTriggerID(triggerID strin
 	return _options
 }
 
-// SetType : Allow user to set Type
-func (_options *UpdateTektonPipelineTriggerOptions) SetType(typeVar string) *UpdateTektonPipelineTriggerOptions {
-	_options.Type = core.StringPtr(typeVar)
-	return _options
-}
-
-// SetName : Allow user to set Name
-func (_options *UpdateTektonPipelineTriggerOptions) SetName(name string) *UpdateTektonPipelineTriggerOptions {
-	_options.Name = core.StringPtr(name)
-	return _options
-}
-
-// SetEventListener : Allow user to set EventListener
-func (_options *UpdateTektonPipelineTriggerOptions) SetEventListener(eventListener string) *UpdateTektonPipelineTriggerOptions {
-	_options.EventListener = core.StringPtr(eventListener)
-	return _options
-}
-
-// SetTags : Allow user to set Tags
-func (_options *UpdateTektonPipelineTriggerOptions) SetTags(tags []string) *UpdateTektonPipelineTriggerOptions {
-	_options.Tags = tags
-	return _options
-}
-
-// SetWorker : Allow user to set Worker
-func (_options *UpdateTektonPipelineTriggerOptions) SetWorker(worker *Worker) *UpdateTektonPipelineTriggerOptions {
-	_options.Worker = worker
-	return _options
-}
-
-// SetMaxConcurrentRuns : Allow user to set MaxConcurrentRuns
-func (_options *UpdateTektonPipelineTriggerOptions) SetMaxConcurrentRuns(maxConcurrentRuns int64) *UpdateTektonPipelineTriggerOptions {
-	_options.MaxConcurrentRuns = core.Int64Ptr(maxConcurrentRuns)
-	return _options
-}
-
-// SetDisabled : Allow user to set Disabled
-func (_options *UpdateTektonPipelineTriggerOptions) SetDisabled(disabled bool) *UpdateTektonPipelineTriggerOptions {
-	_options.Disabled = core.BoolPtr(disabled)
-	return _options
-}
-
-// SetSecret : Allow user to set Secret
-func (_options *UpdateTektonPipelineTriggerOptions) SetSecret(secret *GenericSecret) *UpdateTektonPipelineTriggerOptions {
-	_options.Secret = secret
-	return _options
-}
-
-// SetCron : Allow user to set Cron
-func (_options *UpdateTektonPipelineTriggerOptions) SetCron(cron string) *UpdateTektonPipelineTriggerOptions {
-	_options.Cron = core.StringPtr(cron)
-	return _options
-}
-
-// SetTimezone : Allow user to set Timezone
-func (_options *UpdateTektonPipelineTriggerOptions) SetTimezone(timezone string) *UpdateTektonPipelineTriggerOptions {
-	_options.Timezone = core.StringPtr(timezone)
-	return _options
-}
-
-// SetScmSource : Allow user to set ScmSource
-func (_options *UpdateTektonPipelineTriggerOptions) SetScmSource(scmSource *TriggerScmSource) *UpdateTektonPipelineTriggerOptions {
-	_options.ScmSource = scmSource
-	return _options
-}
-
-// SetEvents : Allow user to set Events
-func (_options *UpdateTektonPipelineTriggerOptions) SetEvents(events *Events) *UpdateTektonPipelineTriggerOptions {
-	_options.Events = events
+// SetTriggerPatch : Allow user to set TriggerPatch
+func (_options *UpdateTektonPipelineTriggerOptions) SetTriggerPatch(triggerPatch map[string]interface{}) *UpdateTektonPipelineTriggerOptions {
+	_options.TriggerPatch = triggerPatch
 	return _options
 }
 
@@ -6060,7 +6011,8 @@ type TriggerGenericTrigger struct {
 	// API URL for interacting with the trigger.
 	Href *string `json:"href,omitempty"`
 
-	// Event listener name.
+	// Event listener name. The name of the event listener to which the trigger is associated. The event listeners are
+	// defined in the definition repositories of the Tekton pipeline.
 	EventListener *string `json:"event_listener" validate:"required"`
 
 	// ID.
@@ -6164,7 +6116,8 @@ type TriggerManualTrigger struct {
 	// API URL for interacting with the trigger.
 	Href *string `json:"href,omitempty"`
 
-	// Event listener name.
+	// Event listener name. The name of the event listener to which the trigger is associated. The event listeners are
+	// defined in the definition repositories of the Tekton pipeline.
 	EventListener *string `json:"event_listener" validate:"required"`
 
 	// ID.
@@ -6262,7 +6215,8 @@ type TriggerScmTrigger struct {
 	// API URL for interacting with the trigger.
 	Href *string `json:"href,omitempty"`
 
-	// Event listener name.
+	// Event listener name. The name of the event listener to which the trigger is associated. The event listeners are
+	// defined in the definition repositories of the Tekton pipeline.
 	EventListener *string `json:"event_listener" validate:"required"`
 
 	// ID.
@@ -6288,9 +6242,6 @@ type TriggerScmTrigger struct {
 
 	// Only needed for Git triggers. Events object defines the events to which this Git trigger listens.
 	Events *Events `json:"events,omitempty"`
-
-	// ID of the repository service instance.
-	ServiceInstanceID *string `json:"service_instance_id,omitempty"`
 }
 
 // NewTriggerScmTrigger : Instantiate TriggerScmTrigger (Generic Model Constructor)
@@ -6360,10 +6311,6 @@ func UnmarshalTriggerScmTrigger(m map[string]json.RawMessage, result interface{}
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "service_instance_id", &obj.ServiceInstanceID)
-	if err != nil {
-		return
-	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -6380,7 +6327,8 @@ type TriggerTimerTrigger struct {
 	// API URL for interacting with the trigger.
 	Href *string `json:"href,omitempty"`
 
-	// Event listener name.
+	// Event listener name. The name of the event listener to which the trigger is associated. The event listeners are
+	// defined in the definition repositories of the Tekton pipeline.
 	EventListener *string `json:"event_listener" validate:"required"`
 
 	// ID.
