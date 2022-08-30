@@ -21,7 +21,6 @@ import (
 	"context"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -229,6 +228,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 
 				// Construct an instance of the CreateTektonPipelineOptions model
 				createTektonPipelineOptionsModel := new(cdtektonpipelinev2.CreateTektonPipelineOptions)
+				createTektonPipelineOptionsModel.EnableSlackNotifications = core.BoolPtr(false)
+				createTektonPipelineOptionsModel.EnablePartialCloning = core.BoolPtr(false)
 				createTektonPipelineOptionsModel.ID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
 				createTektonPipelineOptionsModel.Worker = workerWithIDModel
 				createTektonPipelineOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -301,6 +302,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 
 				// Construct an instance of the CreateTektonPipelineOptions model
 				createTektonPipelineOptionsModel := new(cdtektonpipelinev2.CreateTektonPipelineOptions)
+				createTektonPipelineOptionsModel.EnableSlackNotifications = core.BoolPtr(false)
+				createTektonPipelineOptionsModel.EnablePartialCloning = core.BoolPtr(false)
 				createTektonPipelineOptionsModel.ID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
 				createTektonPipelineOptionsModel.Worker = workerWithIDModel
 				createTektonPipelineOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -381,6 +384,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 
 				// Construct an instance of the CreateTektonPipelineOptions model
 				createTektonPipelineOptionsModel := new(cdtektonpipelinev2.CreateTektonPipelineOptions)
+				createTektonPipelineOptionsModel.EnableSlackNotifications = core.BoolPtr(false)
+				createTektonPipelineOptionsModel.EnablePartialCloning = core.BoolPtr(false)
 				createTektonPipelineOptionsModel.ID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
 				createTektonPipelineOptionsModel.Worker = workerWithIDModel
 				createTektonPipelineOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -406,6 +411,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 
 				// Construct an instance of the CreateTektonPipelineOptions model
 				createTektonPipelineOptionsModel := new(cdtektonpipelinev2.CreateTektonPipelineOptions)
+				createTektonPipelineOptionsModel.EnableSlackNotifications = core.BoolPtr(false)
+				createTektonPipelineOptionsModel.EnablePartialCloning = core.BoolPtr(false)
 				createTektonPipelineOptionsModel.ID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
 				createTektonPipelineOptionsModel.Worker = workerWithIDModel
 				createTektonPipelineOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -445,6 +452,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 
 				// Construct an instance of the CreateTektonPipelineOptions model
 				createTektonPipelineOptionsModel := new(cdtektonpipelinev2.CreateTektonPipelineOptions)
+				createTektonPipelineOptionsModel.EnableSlackNotifications = core.BoolPtr(false)
+				createTektonPipelineOptionsModel.EnablePartialCloning = core.BoolPtr(false)
 				createTektonPipelineOptionsModel.ID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
 				createTektonPipelineOptionsModel.Worker = workerWithIDModel
 				createTektonPipelineOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -703,9 +712,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 
 				// Construct an instance of the TektonPipelinePatch model
 				tektonPipelinePatchModel := new(cdtektonpipelinev2.TektonPipelinePatch)
-				tektonPipelinePatchModel.EnableSlackNotifications = core.BoolPtr(true)
-				tektonPipelinePatchModel.EnablePartialCloning = core.BoolPtr(true)
-				tektonPipelinePatchModel.Enabled = core.BoolPtr(true)
+				tektonPipelinePatchModel.EnableSlackNotifications = core.BoolPtr(false)
+				tektonPipelinePatchModel.EnablePartialCloning = core.BoolPtr(false)
 				tektonPipelinePatchModel.Worker = workerWithIDModel
 				tektonPipelinePatchModelAsPatch, asPatchErr := tektonPipelinePatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
@@ -784,9 +792,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 
 				// Construct an instance of the TektonPipelinePatch model
 				tektonPipelinePatchModel := new(cdtektonpipelinev2.TektonPipelinePatch)
-				tektonPipelinePatchModel.EnableSlackNotifications = core.BoolPtr(true)
-				tektonPipelinePatchModel.EnablePartialCloning = core.BoolPtr(true)
-				tektonPipelinePatchModel.Enabled = core.BoolPtr(true)
+				tektonPipelinePatchModel.EnableSlackNotifications = core.BoolPtr(false)
+				tektonPipelinePatchModel.EnablePartialCloning = core.BoolPtr(false)
 				tektonPipelinePatchModel.Worker = workerWithIDModel
 				tektonPipelinePatchModelAsPatch, asPatchErr := tektonPipelinePatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
@@ -873,9 +880,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 
 				// Construct an instance of the TektonPipelinePatch model
 				tektonPipelinePatchModel := new(cdtektonpipelinev2.TektonPipelinePatch)
-				tektonPipelinePatchModel.EnableSlackNotifications = core.BoolPtr(true)
-				tektonPipelinePatchModel.EnablePartialCloning = core.BoolPtr(true)
-				tektonPipelinePatchModel.Enabled = core.BoolPtr(true)
+				tektonPipelinePatchModel.EnableSlackNotifications = core.BoolPtr(false)
+				tektonPipelinePatchModel.EnablePartialCloning = core.BoolPtr(false)
 				tektonPipelinePatchModel.Worker = workerWithIDModel
 				tektonPipelinePatchModelAsPatch, asPatchErr := tektonPipelinePatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
@@ -907,9 +913,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 
 				// Construct an instance of the TektonPipelinePatch model
 				tektonPipelinePatchModel := new(cdtektonpipelinev2.TektonPipelinePatch)
-				tektonPipelinePatchModel.EnableSlackNotifications = core.BoolPtr(true)
-				tektonPipelinePatchModel.EnablePartialCloning = core.BoolPtr(true)
-				tektonPipelinePatchModel.Enabled = core.BoolPtr(true)
+				tektonPipelinePatchModel.EnableSlackNotifications = core.BoolPtr(false)
+				tektonPipelinePatchModel.EnablePartialCloning = core.BoolPtr(false)
 				tektonPipelinePatchModel.Worker = workerWithIDModel
 				tektonPipelinePatchModelAsPatch, asPatchErr := tektonPipelinePatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
@@ -962,9 +967,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 
 				// Construct an instance of the TektonPipelinePatch model
 				tektonPipelinePatchModel := new(cdtektonpipelinev2.TektonPipelinePatch)
-				tektonPipelinePatchModel.EnableSlackNotifications = core.BoolPtr(true)
-				tektonPipelinePatchModel.EnablePartialCloning = core.BoolPtr(true)
-				tektonPipelinePatchModel.Enabled = core.BoolPtr(true)
+				tektonPipelinePatchModel.EnableSlackNotifications = core.BoolPtr(false)
+				tektonPipelinePatchModel.EnablePartialCloning = core.BoolPtr(false)
 				tektonPipelinePatchModel.Worker = workerWithIDModel
 				tektonPipelinePatchModelAsPatch, asPatchErr := tektonPipelinePatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
@@ -7503,10 +7507,14 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 
 				// Construct an instance of the CreateTektonPipelineOptions model
 				createTektonPipelineOptionsModel := cdTektonPipelineService.NewCreateTektonPipelineOptions()
+				createTektonPipelineOptionsModel.SetEnableSlackNotifications(false)
+				createTektonPipelineOptionsModel.SetEnablePartialCloning(false)
 				createTektonPipelineOptionsModel.SetID("94619026-912b-4d92-8f51-6c74f0692d90")
 				createTektonPipelineOptionsModel.SetWorker(workerWithIDModel)
 				createTektonPipelineOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createTektonPipelineOptionsModel).ToNot(BeNil())
+				Expect(createTektonPipelineOptionsModel.EnableSlackNotifications).To(Equal(core.BoolPtr(false)))
+				Expect(createTektonPipelineOptionsModel.EnablePartialCloning).To(Equal(core.BoolPtr(false)))
 				Expect(createTektonPipelineOptionsModel.ID).To(Equal(core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")))
 				Expect(createTektonPipelineOptionsModel.Worker).To(Equal(workerWithIDModel))
 				Expect(createTektonPipelineOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
@@ -8136,7 +8144,7 @@ func CreateMockUUID(mockData string) *strfmt.UUID {
 }
 
 func CreateMockReader(mockData string) io.ReadCloser {
-	return ioutil.NopCloser(bytes.NewReader([]byte(mockData)))
+	return io.NopCloser(bytes.NewReader([]byte(mockData)))
 }
 
 func CreateMockDate(mockData string) *strfmt.Date {

@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.53.0-9710cac3-20220713-193508
+ * IBM OpenAPI SDK Code Generator Version: 3.54.2-6c0e29d4-20220824-204545
  */
 
 // Package cdtektonpipelinev2 : Operations and models for the CdTektonPipelineV2 service
@@ -215,6 +215,12 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineWithContext(ctx 
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
+	if createTektonPipelineOptions.EnableSlackNotifications != nil {
+		body["enable_slack_notifications"] = createTektonPipelineOptions.EnableSlackNotifications
+	}
+	if createTektonPipelineOptions.EnablePartialCloning != nil {
+		body["enable_partial_cloning"] = createTektonPipelineOptions.EnablePartialCloning
+	}
 	if createTektonPipelineOptions.ID != nil {
 		body["id"] = createTektonPipelineOptions.ID
 	}
@@ -2388,6 +2394,15 @@ func (options *CreateTektonPipelineDefinitionOptions) SetHeaders(param map[strin
 
 // CreateTektonPipelineOptions : The CreateTektonPipeline options.
 type CreateTektonPipelineOptions struct {
+	// Flag whether to enable slack notifications for this pipeline. When enabled, pipeline run events will be published on
+	// all slack integration specified channels in the enclosing toolchain.
+	EnableSlackNotifications *bool `json:"enable_slack_notifications,omitempty"`
+
+	// Flag whether to enable partial cloning for this pipeline. When partial clone is enabled, only the files contained
+	// within the paths specified in definition repositories will be read and cloned. This means symbolic links may not
+	// work.
+	EnablePartialCloning *bool `json:"enable_partial_cloning,omitempty"`
+
 	// UUID.
 	ID *string `json:"id,omitempty"`
 
@@ -2401,6 +2416,18 @@ type CreateTektonPipelineOptions struct {
 // NewCreateTektonPipelineOptions : Instantiate CreateTektonPipelineOptions
 func (*CdTektonPipelineV2) NewCreateTektonPipelineOptions() *CreateTektonPipelineOptions {
 	return &CreateTektonPipelineOptions{}
+}
+
+// SetEnableSlackNotifications : Allow user to set EnableSlackNotifications
+func (_options *CreateTektonPipelineOptions) SetEnableSlackNotifications(enableSlackNotifications bool) *CreateTektonPipelineOptions {
+	_options.EnableSlackNotifications = core.BoolPtr(enableSlackNotifications)
+	return _options
+}
+
+// SetEnablePartialCloning : Allow user to set EnablePartialCloning
+func (_options *CreateTektonPipelineOptions) SetEnablePartialCloning(enablePartialCloning bool) *CreateTektonPipelineOptions {
+	_options.EnablePartialCloning = core.BoolPtr(enablePartialCloning)
+	return _options
 }
 
 // SetID : Allow user to set ID
@@ -4788,9 +4815,6 @@ type TektonPipelinePatch struct {
 	// work.
 	EnablePartialCloning *bool `json:"enable_partial_cloning,omitempty"`
 
-	// Flag whether this pipeline is enabled.
-	Enabled *bool `json:"enabled,omitempty"`
-
 	// Worker object containing worker ID only. If omitted the IBM Managed shared workers are used by default.
 	Worker *WorkerWithID `json:"worker,omitempty"`
 }
@@ -4803,10 +4827,6 @@ func UnmarshalTektonPipelinePatch(m map[string]json.RawMessage, result interface
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "enable_partial_cloning", &obj.EnablePartialCloning)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "enabled", &obj.Enabled)
 	if err != nil {
 		return
 	}

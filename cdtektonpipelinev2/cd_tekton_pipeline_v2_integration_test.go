@@ -101,6 +101,8 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			}
 
 			createTektonPipelineOptions := &cdtektonpipelinev2.CreateTektonPipelineOptions{
+				EnableSlackNotifications: core.BoolPtr(false),
+				EnablePartialCloning: core.BoolPtr(false),
 				ID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 				Worker: workerWithIDModel,
 			}
@@ -138,9 +140,8 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			}
 
 			tektonPipelinePatchModel := &cdtektonpipelinev2.TektonPipelinePatch{
-				EnableSlackNotifications: core.BoolPtr(true),
-				EnablePartialCloning: core.BoolPtr(true),
-				Enabled: core.BoolPtr(true),
+				EnableSlackNotifications: core.BoolPtr(false),
+				EnablePartialCloning: core.BoolPtr(false),
 				Worker: workerWithIDModel,
 			}
 			tektonPipelinePatchModelAsPatch, asPatchErr := tektonPipelinePatchModel.AsPatch()
