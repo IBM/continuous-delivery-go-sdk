@@ -138,6 +138,9 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			}
 
 			tektonPipelinePatchModel := &cdtektonpipelinev2.TektonPipelinePatch{
+				EnableSlackNotifications: core.BoolPtr(true),
+				EnablePartialCloning: core.BoolPtr(true),
+				Enabled: core.BoolPtr(true),
 				Worker: workerWithIDModel,
 			}
 			tektonPipelinePatchModelAsPatch, asPatchErr := tektonPipelinePatchModel.AsPatch()
@@ -447,7 +450,6 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 				Name: core.StringPtr("key1"),
 				Value: core.StringPtr("https://github.com/IBM/tekton-tutorial.git"),
 				Enum: []string{"testString"},
-				Default: core.StringPtr("testString"),
 				Type: core.StringPtr("text"),
 				Path: core.StringPtr("testString"),
 			}
@@ -487,7 +489,6 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 				Name: core.StringPtr("key1"),
 				Value: core.StringPtr("https://github.com/IBM/tekton-tutorial.git"),
 				Enum: []string{"testString"},
-				Default: core.StringPtr("testString"),
 				Type: core.StringPtr("text"),
 				Path: core.StringPtr("testString"),
 			}
@@ -656,7 +657,6 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 				Name: core.StringPtr("key1"),
 				Value: core.StringPtr("https://github.com/IBM/tekton-tutorial.git"),
 				Enum: []string{"testString"},
-				Default: core.StringPtr("testString"),
 				Type: core.StringPtr("text"),
 				Path: core.StringPtr("testString"),
 			}
@@ -698,7 +698,6 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 				Name: core.StringPtr("key1"),
 				Value: core.StringPtr("https://github.com/IBM/tekton-tutorial.git"),
 				Enum: []string{"testString"},
-				Default: core.StringPtr("testString"),
 				Type: core.StringPtr("text"),
 				Path: core.StringPtr("testString"),
 			}

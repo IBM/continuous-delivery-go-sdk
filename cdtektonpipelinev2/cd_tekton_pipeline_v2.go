@@ -47,7 +47,7 @@ type CdTektonPipelineV2 struct {
 }
 
 // DefaultServiceURL is the default URL to make service requests to.
-const DefaultServiceURL = "https://api.us-south.devops.cloud.ibm.com/v2"
+const DefaultServiceURL = "https://api.us-south.devops.cloud.ibm.com/pipeline/v2"
 
 // DefaultServiceName is the default key used to find external configuration information.
 const DefaultServiceName = "cd_tekton_pipeline"
@@ -117,15 +117,15 @@ func NewCdTektonPipelineV2(options *CdTektonPipelineV2Options) (service *CdTekto
 // GetServiceURLForRegion returns the service URL to be used for the specified region
 func GetServiceURLForRegion(region string) (string, error) {
 	var endpoints = map[string]string{
-		"us-south": "https://api.us-south.devops.cloud.ibm.com/v2", // The host URL for Tekton Pipeline Service in the us-south region.
-		"us-east": "https://api.us-east.devops.cloud.ibm.com/v2", // The host URL for Tekton Pipeline Service in the us-east region.
-		"eu-de": "https://api.eu-de.devops.cloud.ibm.com/v2", // The host URL for Tekton Pipeline Service in the eu-de region.
-		"eu-gb": "https://api.eu-gb.devops.cloud.ibm.com/v2", // The host URL for Tekton Pipeline Service in the eu-gb region.
-		"jp-osa": "https://api.jp-osa.devops.cloud.ibm.com/v2", // The host URL for Tekton Pipeline Service in the jp-osa region.
-		"jp-tok": "https://api.jp-tok.devops.cloud.ibm.com/v2", // The host URL for Tekton Pipeline Service in the jp-tok region.
-		"au-syd": "https://api.au-syd.devops.cloud.ibm.com/v2", // The host URL for Tekton Pipeline Service in the au-syd region.
-		"ca-tor": "https://api.ca-tor.devops.cloud.ibm.com/v2", // The host URL for Tekton Pipeline Service in the ca-tor region.
-		"br-sao": "https://api.br-sao.devops.cloud.ibm.com/v2", // The host URL for Tekton Pipeline Service in the br-sao region.
+		"us-south": "https://api.us-south.devops.cloud.ibm.com/pipeline/v2", // The host URL for Tekton Pipeline Service in the us-south region.
+		"us-east": "https://api.us-east.devops.cloud.ibm.com/pipeline/v2", // The host URL for Tekton Pipeline Service in the us-east region.
+		"eu-de": "https://api.eu-de.devops.cloud.ibm.com/pipeline/v2", // The host URL for Tekton Pipeline Service in the eu-de region.
+		"eu-gb": "https://api.eu-gb.devops.cloud.ibm.com/pipeline/v2", // The host URL for Tekton Pipeline Service in the eu-gb region.
+		"jp-osa": "https://api.jp-osa.devops.cloud.ibm.com/pipeline/v2", // The host URL for Tekton Pipeline Service in the jp-osa region.
+		"jp-tok": "https://api.jp-tok.devops.cloud.ibm.com/pipeline/v2", // The host URL for Tekton Pipeline Service in the jp-tok region.
+		"au-syd": "https://api.au-syd.devops.cloud.ibm.com/pipeline/v2", // The host URL for Tekton Pipeline Service in the au-syd region.
+		"ca-tor": "https://api.ca-tor.devops.cloud.ibm.com/pipeline/v2", // The host URL for Tekton Pipeline Service in the ca-tor region.
+		"br-sao": "https://api.br-sao.devops.cloud.ibm.com/pipeline/v2", // The host URL for Tekton Pipeline Service in the br-sao region.
 	}
 
 	if url, ok := endpoints[region]; ok {
@@ -1393,9 +1393,6 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelinePropertiesWithCo
 	if createTektonPipelinePropertiesOptions.Enum != nil {
 		body["enum"] = createTektonPipelinePropertiesOptions.Enum
 	}
-	if createTektonPipelinePropertiesOptions.Default != nil {
-		body["default"] = createTektonPipelinePropertiesOptions.Default
-	}
 	if createTektonPipelinePropertiesOptions.Type != nil {
 		body["type"] = createTektonPipelinePropertiesOptions.Type
 	}
@@ -1540,9 +1537,6 @@ func (cdTektonPipeline *CdTektonPipelineV2) ReplaceTektonPipelinePropertyWithCon
 	}
 	if replaceTektonPipelinePropertyOptions.Enum != nil {
 		body["enum"] = replaceTektonPipelinePropertyOptions.Enum
-	}
-	if replaceTektonPipelinePropertyOptions.Default != nil {
-		body["default"] = replaceTektonPipelinePropertyOptions.Default
 	}
 	if replaceTektonPipelinePropertyOptions.Type != nil {
 		body["type"] = replaceTektonPipelinePropertyOptions.Type
@@ -2071,9 +2065,6 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineTriggerPropertie
 	if createTektonPipelineTriggerPropertiesOptions.Enum != nil {
 		body["enum"] = createTektonPipelineTriggerPropertiesOptions.Enum
 	}
-	if createTektonPipelineTriggerPropertiesOptions.Default != nil {
-		body["default"] = createTektonPipelineTriggerPropertiesOptions.Default
-	}
 	if createTektonPipelineTriggerPropertiesOptions.Type != nil {
 		body["type"] = createTektonPipelineTriggerPropertiesOptions.Type
 	}
@@ -2219,9 +2210,6 @@ func (cdTektonPipeline *CdTektonPipelineV2) ReplaceTektonPipelineTriggerProperty
 	}
 	if replaceTektonPipelineTriggerPropertyOptions.Enum != nil {
 		body["enum"] = replaceTektonPipelineTriggerPropertyOptions.Enum
-	}
-	if replaceTektonPipelineTriggerPropertyOptions.Default != nil {
-		body["default"] = replaceTektonPipelineTriggerPropertyOptions.Default
 	}
 	if replaceTektonPipelineTriggerPropertyOptions.Type != nil {
 		body["type"] = replaceTektonPipelineTriggerPropertyOptions.Type
@@ -2444,16 +2432,13 @@ type CreateTektonPipelinePropertiesOptions struct {
 	// Property value.
 	Value *string `json:"value,omitempty"`
 
-	// Options for single_select property type. Only needed when using single_select property type.
+	// Options for `single_select` property type. Only needed when using `single_select` property type.
 	Enum []string `json:"enum,omitempty"`
-
-	// Default option for single_select property type. Only needed when using single_select property type.
-	Default *string `json:"default,omitempty"`
 
 	// Property type.
 	Type *string `json:"type,omitempty"`
 
-	// A dot notation path for integration type properties to select a value from the tool integration.
+	// A dot notation path for `integration` type properties to select a value from the tool integration.
 	Path *string `json:"path,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -2501,12 +2486,6 @@ func (_options *CreateTektonPipelinePropertiesOptions) SetEnum(enum []string) *C
 	return _options
 }
 
-// SetDefault : Allow user to set Default
-func (_options *CreateTektonPipelinePropertiesOptions) SetDefault(defaultVar string) *CreateTektonPipelinePropertiesOptions {
-	_options.Default = core.StringPtr(defaultVar)
-	return _options
-}
-
 // SetType : Allow user to set Type
 func (_options *CreateTektonPipelinePropertiesOptions) SetType(typeVar string) *CreateTektonPipelinePropertiesOptions {
 	_options.Type = core.StringPtr(typeVar)
@@ -2533,19 +2512,19 @@ type CreateTektonPipelineRunOptions struct {
 	// Trigger name.
 	TriggerName *string `json:"trigger_name,omitempty"`
 
-	// An object containing string values only that provides additional text properties, or overrides existing
+	// An object containing string values only that provides additional `text` properties, or overrides existing
 	// pipeline/trigger properties.
 	TriggerProperties map[string]interface{} `json:"trigger_properties,omitempty"`
 
-	// An object containing string values only that provides additional secure properties, or overrides existing secure
+	// An object containing string values only that provides additional `secure` properties, or overrides existing `secure`
 	// pipeline/trigger properties.
 	SecureTriggerProperties map[string]interface{} `json:"secure_trigger_properties,omitempty"`
 
-	// An object containing string values only that provides the trigger header. Use $(header.header_key_name) to access it
-	// in triggerBinding.
+	// An object containing string values only that provides the trigger header. Use `$(header.header_key_name)` to access
+	// it in triggerBinding.
 	TriggerHeader map[string]interface{} `json:"trigger_header,omitempty"`
 
-	// An object that provides the trigger body. Use $(body.body_key_name) to access it in triggerBinding.
+	// An object that provides the trigger body. Use `$(body.body_key_name)` to access it in triggerBinding.
 	TriggerBody map[string]interface{} `json:"trigger_body,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -2649,19 +2628,16 @@ type CreateTektonPipelineTriggerPropertiesOptions struct {
 	// Property name.
 	Name *string `json:"name,omitempty"`
 
-	// Property value. Can be empty and should be omitted for single_select property type.
+	// Property value.
 	Value *string `json:"value,omitempty"`
 
-	// Options for single_select property type. Only needed for single_select property type.
+	// Options for `single_select` property type. Only needed for `single_select` property type.
 	Enum []string `json:"enum,omitempty"`
-
-	// Default option for single_select property type. Only needed for single_select property type.
-	Default *string `json:"default,omitempty"`
 
 	// Property type.
 	Type *string `json:"type,omitempty"`
 
-	// A dot notation path for integration type properties to select a value from the tool integration. If left blank the
+	// A dot notation path for `integration` type properties to select a value from the tool integration. If left blank the
 	// full tool integration JSON will be selected.
 	Path *string `json:"path,omitempty"`
 
@@ -2714,12 +2690,6 @@ func (_options *CreateTektonPipelineTriggerPropertiesOptions) SetValue(value str
 // SetEnum : Allow user to set Enum
 func (_options *CreateTektonPipelineTriggerPropertiesOptions) SetEnum(enum []string) *CreateTektonPipelineTriggerPropertiesOptions {
 	_options.Enum = enum
-	return _options
-}
-
-// SetDefault : Allow user to set Default
-func (_options *CreateTektonPipelineTriggerPropertiesOptions) SetDefault(defaultVar string) *CreateTektonPipelineTriggerPropertiesOptions {
-	_options.Default = core.StringPtr(defaultVar)
 	return _options
 }
 
@@ -3133,16 +3103,16 @@ type GenericSecret struct {
 	// Secret type.
 	Type *string `json:"type,omitempty"`
 
-	// Secret value, not needed if secret type is "internal_validation".
+	// Secret value, not needed if secret type is `internal_validation`.
 	Value *string `json:"value,omitempty"`
 
-	// Secret location, not needed if secret type is "internal_validation".
+	// Secret location, not needed if secret type is `internal_validation`.
 	Source *string `json:"source,omitempty"`
 
-	// Secret name, not needed if type is "internal_validation".
+	// Secret name, not needed if type is `internal_validation`.
 	KeyName *string `json:"key_name,omitempty"`
 
-	// Algorithm used for "digest_matches" secret type. Only needed for "digest_matches" secret type.
+	// Algorithm used for `digest_matches` secret type. Only needed for `digest_matches` secret type.
 	Algorithm *string `json:"algorithm,omitempty"`
 }
 
@@ -3155,7 +3125,7 @@ const (
 )
 
 // Constants associated with the GenericSecret.Source property.
-// Secret location, not needed if secret type is "internal_validation".
+// Secret location, not needed if secret type is `internal_validation`.
 const (
 	GenericSecretSourceHeaderConst = "header"
 	GenericSecretSourcePayloadConst = "payload"
@@ -3163,7 +3133,7 @@ const (
 )
 
 // Constants associated with the GenericSecret.Algorithm property.
-// Algorithm used for "digest_matches" secret type. Only needed for "digest_matches" secret type.
+// Algorithm used for `digest_matches` secret type. Only needed for `digest_matches` secret type.
 const (
 	GenericSecretAlgorithmMd4Const = "md4"
 	GenericSecretAlgorithmMd5Const = "md5"
@@ -3571,7 +3541,7 @@ type ListTektonPipelinePropertiesOptions struct {
 	// Filters the collection to resources with the specified property type.
 	Type []string `json:"type,omitempty"`
 
-	// Sorts the returned properties by name, in ascending order using "name" or in descending order using "-name".
+	// Sorts the returned properties by name, in ascending order using `name` or in descending order using `-name`.
 	Sort *string `json:"sort,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -3711,13 +3681,13 @@ type ListTektonPipelineTriggerPropertiesOptions struct {
 	// The trigger ID.
 	TriggerID *string `json:"trigger_id" validate:"required,ne="`
 
-	// Filter properties by "name".
+	// Filter properties by `name`.
 	Name *string `json:"name" validate:"required"`
 
-	// Filter properties by "type". Valid types are "secure", "text", "integration", "single_select", "appconfig".
+	// Filter properties by `type`. Valid types are `secure`, `text`, `integration`, `single_select`, `appconfig`.
 	Type *string `json:"type" validate:"required"`
 
-	// Sort properties by name. They can be sorted in ascending order using "name" or in descending order using "-name".
+	// Sort properties by name. They can be sorted in ascending order using `name` or in descending order using `-name`.
 	Sort *string `json:"sort" validate:"required"`
 
 	// Allows users to set headers on API requests
@@ -4330,16 +4300,13 @@ type Property struct {
 	// Property value.
 	Value *string `json:"value,omitempty"`
 
-	// Options for single_select property type. Only needed when using single_select property type.
+	// Options for `single_select` property type. Only needed when using `single_select` property type.
 	Enum []string `json:"enum,omitempty"`
-
-	// Default option for single_select property type. Only needed when using single_select property type.
-	Default *string `json:"default,omitempty"`
 
 	// Property type.
 	Type *string `json:"type" validate:"required"`
 
-	// A dot notation path for integration type properties to select a value from the tool integration.
+	// A dot notation path for `integration` type properties to select a value from the tool integration.
 	Path *string `json:"path,omitempty"`
 }
 
@@ -4365,10 +4332,6 @@ func UnmarshalProperty(m map[string]json.RawMessage, result interface{}) (err er
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "enum", &obj.Enum)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "default", &obj.Default)
 	if err != nil {
 		return
 	}
@@ -4454,16 +4417,13 @@ type ReplaceTektonPipelinePropertyOptions struct {
 	// Property value.
 	Value *string `json:"value,omitempty"`
 
-	// Options for single_select property type. Only needed when using single_select property type.
+	// Options for `single_select` property type. Only needed when using `single_select` property type.
 	Enum []string `json:"enum,omitempty"`
-
-	// Default option for single_select property type. Only needed when using single_select property type.
-	Default *string `json:"default,omitempty"`
 
 	// Property type.
 	Type *string `json:"type,omitempty"`
 
-	// A dot notation path for integration type properties to select a value from the tool integration.
+	// A dot notation path for `integration` type properties to select a value from the tool integration.
 	Path *string `json:"path,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -4518,12 +4478,6 @@ func (_options *ReplaceTektonPipelinePropertyOptions) SetEnum(enum []string) *Re
 	return _options
 }
 
-// SetDefault : Allow user to set Default
-func (_options *ReplaceTektonPipelinePropertyOptions) SetDefault(defaultVar string) *ReplaceTektonPipelinePropertyOptions {
-	_options.Default = core.StringPtr(defaultVar)
-	return _options
-}
-
 // SetType : Allow user to set Type
 func (_options *ReplaceTektonPipelinePropertyOptions) SetType(typeVar string) *ReplaceTektonPipelinePropertyOptions {
 	_options.Type = core.StringPtr(typeVar)
@@ -4556,19 +4510,16 @@ type ReplaceTektonPipelineTriggerPropertyOptions struct {
 	// Property name.
 	Name *string `json:"name,omitempty"`
 
-	// Property value. Can be empty and should be omitted for single_select property type.
+	// Property value.
 	Value *string `json:"value,omitempty"`
 
-	// Options for single_select property type. Only needed for single_select property type.
+	// Options for `single_select` property type. Only needed for `single_select` property type.
 	Enum []string `json:"enum,omitempty"`
-
-	// Default option for single_select property type. Only needed for single_select property type.
-	Default *string `json:"default,omitempty"`
 
 	// Property type.
 	Type *string `json:"type,omitempty"`
 
-	// A dot notation path for integration type properties to select a value from the tool integration. If left blank the
+	// A dot notation path for `integration` type properties to select a value from the tool integration. If left blank the
 	// full tool integration JSON will be selected.
 	Path *string `json:"path,omitempty"`
 
@@ -4628,12 +4579,6 @@ func (_options *ReplaceTektonPipelineTriggerPropertyOptions) SetValue(value stri
 // SetEnum : Allow user to set Enum
 func (_options *ReplaceTektonPipelineTriggerPropertyOptions) SetEnum(enum []string) *ReplaceTektonPipelineTriggerPropertyOptions {
 	_options.Enum = enum
-	return _options
-}
-
-// SetDefault : Allow user to set Default
-func (_options *ReplaceTektonPipelineTriggerPropertyOptions) SetDefault(defaultVar string) *ReplaceTektonPipelineTriggerPropertyOptions {
-	_options.Default = core.StringPtr(defaultVar)
 	return _options
 }
 
@@ -4737,6 +4682,15 @@ type TektonPipeline struct {
 	// The latest pipeline run build number. If this property is absent, the pipeline hasn't had any pipeline runs.
 	BuildNumber *int64 `json:"build_number,omitempty"`
 
+	// Flag whether to enable slack notifications for this pipeline. When enabled, pipeline run events will be published on
+	// all slack integration specified channels in the enclosing toolchain.
+	EnableSlackNotifications *bool `json:"enable_slack_notifications,omitempty"`
+
+	// Flag whether to enable partial cloning for this pipeline. When partial clone is enabled, only the files contained
+	// within the paths specified in definition repositories will be read and cloned. This means symbolic links may not
+	// work.
+	EnablePartialCloning *bool `json:"enable_partial_cloning,omitempty"`
+
 	// Flag whether this pipeline is enabled.
 	Enabled *bool `json:"enabled" validate:"required"`
 }
@@ -4807,6 +4761,14 @@ func UnmarshalTektonPipeline(m map[string]json.RawMessage, result interface{}) (
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "enable_slack_notifications", &obj.EnableSlackNotifications)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "enable_partial_cloning", &obj.EnablePartialCloning)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "enabled", &obj.Enabled)
 	if err != nil {
 		return
@@ -4815,9 +4777,20 @@ func UnmarshalTektonPipeline(m map[string]json.RawMessage, result interface{}) (
 	return
 }
 
-// TektonPipelinePatch : Request body used to change worker for this pipeline. To get the worker ID call the toolchain endpoint
-// /api/v1/toolchains/{toolchain_id}.
+// TektonPipelinePatch : Request body used to update this pipeline.
 type TektonPipelinePatch struct {
+	// Flag whether to enable slack notifications for this pipeline. When enabled, pipeline run events will be published on
+	// all slack integration specified channels in the enclosing toolchain.
+	EnableSlackNotifications *bool `json:"enable_slack_notifications,omitempty"`
+
+	// Flag whether to enable partial cloning for this pipeline. When partial clone is enabled, only the files contained
+	// within the paths specified in definition repositories will be read and cloned. This means symbolic links may not
+	// work.
+	EnablePartialCloning *bool `json:"enable_partial_cloning,omitempty"`
+
+	// Flag whether this pipeline is enabled.
+	Enabled *bool `json:"enabled,omitempty"`
+
 	// Worker object containing worker ID only. If omitted the IBM Managed shared workers are used by default.
 	Worker *WorkerWithID `json:"worker,omitempty"`
 }
@@ -4825,6 +4798,18 @@ type TektonPipelinePatch struct {
 // UnmarshalTektonPipelinePatch unmarshals an instance of TektonPipelinePatch from the specified map of raw messages.
 func UnmarshalTektonPipelinePatch(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(TektonPipelinePatch)
+	err = core.UnmarshalPrimitive(m, "enable_slack_notifications", &obj.EnableSlackNotifications)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "enable_partial_cloning", &obj.EnablePartialCloning)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "enabled", &obj.Enabled)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalModel(m, "worker", &obj.Worker, UnmarshalWorkerWithID)
 	if err != nil {
 		return
@@ -5041,19 +5026,16 @@ type TriggerGenericTriggerPropertiesItem struct {
 	// Property name.
 	Name *string `json:"name" validate:"required"`
 
-	// Property value. Can be empty and should be omitted for single_select property type.
+	// Property value. Can be empty and should be omitted for `single_select` property type.
 	Value *string `json:"value,omitempty"`
 
-	// Options for single_select property type. Only needed for single_select property type.
+	// Options for `single_select` property type. Only needed for `single_select` property type.
 	Enum []string `json:"enum,omitempty"`
-
-	// Default option for single_select property type. Only needed for single_select property type.
-	Default *string `json:"default,omitempty"`
 
 	// Property type.
 	Type *string `json:"type" validate:"required"`
 
-	// A dot notation path for integration type properties to select a value from the tool integration. If left blank the
+	// A dot notation path for `integration` type properties to select a value from the tool integration. If left blank the
 	// full tool integration JSON will be selected.
 	Path *string `json:"path,omitempty"`
 
@@ -5096,10 +5078,6 @@ func UnmarshalTriggerGenericTriggerPropertiesItem(m map[string]json.RawMessage, 
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "default", &obj.Default)
-	if err != nil {
-		return
-	}
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
 		return
@@ -5121,19 +5099,16 @@ type TriggerManualTriggerPropertiesItem struct {
 	// Property name.
 	Name *string `json:"name" validate:"required"`
 
-	// Property value. Can be empty and should be omitted for single_select property type.
+	// Property value. Can be empty and should be omitted for `single_select` property type.
 	Value *string `json:"value,omitempty"`
 
-	// Options for single_select property type. Only needed for single_select property type.
+	// Options for `single_select` property type. Only needed for `single_select` property type.
 	Enum []string `json:"enum,omitempty"`
-
-	// Default option for single_select property type. Only needed for single_select property type.
-	Default *string `json:"default,omitempty"`
 
 	// Property type.
 	Type *string `json:"type" validate:"required"`
 
-	// A dot notation path for integration type properties to select a value from the tool integration. If left blank the
+	// A dot notation path for `integration` type properties to select a value from the tool integration. If left blank the
 	// full tool integration JSON will be selected.
 	Path *string `json:"path,omitempty"`
 
@@ -5173,10 +5148,6 @@ func UnmarshalTriggerManualTriggerPropertiesItem(m map[string]json.RawMessage, r
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "enum", &obj.Enum)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "default", &obj.Default)
 	if err != nil {
 		return
 	}
@@ -5332,19 +5303,16 @@ type TriggerPropertiesCollectionPropertiesItem struct {
 	// Property name.
 	Name *string `json:"name" validate:"required"`
 
-	// Property value. Can be empty and should be omitted for single_select property type.
+	// Property value. Can be empty and should be omitted for `single_select` property type.
 	Value *string `json:"value,omitempty"`
 
-	// Options for single_select property type. Only needed for single_select property type.
+	// Options for `single_select` property type. Only needed for `single_select` property type.
 	Enum []string `json:"enum,omitempty"`
-
-	// Default option for single_select property type. Only needed for single_select property type.
-	Default *string `json:"default,omitempty"`
 
 	// Property type.
 	Type *string `json:"type" validate:"required"`
 
-	// A dot notation path for integration type properties to select a value from the tool integration. If left blank the
+	// A dot notation path for `integration` type properties to select a value from the tool integration. If left blank the
 	// full tool integration JSON will be selected.
 	Path *string `json:"path,omitempty"`
 
@@ -5377,10 +5345,6 @@ func UnmarshalTriggerPropertiesCollectionPropertiesItem(m map[string]json.RawMes
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "default", &obj.Default)
-	if err != nil {
-		return
-	}
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
 		return
@@ -5402,19 +5366,16 @@ type TriggerPropertiesItem struct {
 	// Property name.
 	Name *string `json:"name" validate:"required"`
 
-	// Property value. Can be empty and should be omitted for single_select property type.
+	// Property value. Can be empty and should be omitted for `single_select` property type.
 	Value *string `json:"value,omitempty"`
 
-	// Options for single_select property type. Only needed for single_select property type.
+	// Options for `single_select` property type. Only needed for `single_select` property type.
 	Enum []string `json:"enum,omitempty"`
-
-	// Default option for single_select property type. Only needed for single_select property type.
-	Default *string `json:"default,omitempty"`
 
 	// Property type.
 	Type *string `json:"type" validate:"required"`
 
-	// A dot notation path for integration type properties to select a value from the tool integration. If left blank the
+	// A dot notation path for `integration` type properties to select a value from the tool integration. If left blank the
 	// full tool integration JSON will be selected.
 	Path *string `json:"path,omitempty"`
 
@@ -5457,10 +5418,6 @@ func UnmarshalTriggerPropertiesItem(m map[string]json.RawMessage, result interfa
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "default", &obj.Default)
-	if err != nil {
-		return
-	}
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
 		return
@@ -5482,19 +5439,16 @@ type TriggerProperty struct {
 	// Property name.
 	Name *string `json:"name" validate:"required"`
 
-	// Property value. Can be empty and should be omitted for single_select property type.
+	// Property value. Can be empty and should be omitted for `single_select` property type.
 	Value *string `json:"value,omitempty"`
 
-	// Options for single_select property type. Only needed for single_select property type.
+	// Options for `single_select` property type. Only needed for `single_select` property type.
 	Enum []string `json:"enum,omitempty"`
-
-	// Default option for single_select property type. Only needed for single_select property type.
-	Default *string `json:"default,omitempty"`
 
 	// Property type.
 	Type *string `json:"type" validate:"required"`
 
-	// A dot notation path for integration type properties to select a value from the tool integration. If left blank the
+	// A dot notation path for `integration` type properties to select a value from the tool integration. If left blank the
 	// full tool integration JSON will be selected.
 	Path *string `json:"path,omitempty"`
 }
@@ -5521,10 +5475,6 @@ func UnmarshalTriggerProperty(m map[string]json.RawMessage, result interface{}) 
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "enum", &obj.Enum)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "default", &obj.Default)
 	if err != nil {
 		return
 	}
@@ -5607,19 +5557,16 @@ type TriggerScmTriggerPropertiesItem struct {
 	// Property name.
 	Name *string `json:"name" validate:"required"`
 
-	// Property value. Can be empty and should be omitted for single_select property type.
+	// Property value. Can be empty and should be omitted for `single_select` property type.
 	Value *string `json:"value,omitempty"`
 
-	// Options for single_select property type. Only needed for single_select property type.
+	// Options for `single_select` property type. Only needed for `single_select` property type.
 	Enum []string `json:"enum,omitempty"`
-
-	// Default option for single_select property type. Only needed for single_select property type.
-	Default *string `json:"default,omitempty"`
 
 	// Property type.
 	Type *string `json:"type" validate:"required"`
 
-	// A dot notation path for integration type properties to select a value from the tool integration. If left blank the
+	// A dot notation path for `integration` type properties to select a value from the tool integration. If left blank the
 	// full tool integration JSON will be selected.
 	Path *string `json:"path,omitempty"`
 
@@ -5662,10 +5609,6 @@ func UnmarshalTriggerScmTriggerPropertiesItem(m map[string]json.RawMessage, resu
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "default", &obj.Default)
-	if err != nil {
-		return
-	}
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
 		return
@@ -5687,19 +5630,16 @@ type TriggerTimerTriggerPropertiesItem struct {
 	// Property name.
 	Name *string `json:"name" validate:"required"`
 
-	// Property value. Can be empty and should be omitted for single_select property type.
+	// Property value. Can be empty and should be omitted for `single_select` property type.
 	Value *string `json:"value,omitempty"`
 
-	// Options for single_select property type. Only needed for single_select property type.
+	// Options for `single_select` property type. Only needed for `single_select` property type.
 	Enum []string `json:"enum,omitempty"`
-
-	// Default option for single_select property type. Only needed for single_select property type.
-	Default *string `json:"default,omitempty"`
 
 	// Property type.
 	Type *string `json:"type" validate:"required"`
 
-	// A dot notation path for integration type properties to select a value from the tool integration. If left blank the
+	// A dot notation path for `integration` type properties to select a value from the tool integration. If left blank the
 	// full tool integration JSON will be selected.
 	Path *string `json:"path,omitempty"`
 
@@ -5739,10 +5679,6 @@ func UnmarshalTriggerTimerTriggerPropertiesItem(m map[string]json.RawMessage, re
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "enum", &obj.Enum)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "default", &obj.Default)
 	if err != nil {
 		return
 	}
