@@ -166,13 +166,14 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 		It(`ListTektonPipelineRuns(listTektonPipelineRunsOptions *ListTektonPipelineRunsOptions) with pagination`, func(){
 			listTektonPipelineRunsOptions := &cdtektonpipelinev2.ListTektonPipelineRunsOptions{
 				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
+				Start: core.StringPtr("testString"),
 				Limit: core.Int64Ptr(int64(10)),
 				Offset: core.Int64Ptr(int64(38)),
 				Status: core.StringPtr("succeeded"),
 				TriggerName: core.StringPtr("manual-trigger"),
 			}
 
-			listTektonPipelineRunsOptions.Offset = nil
+			listTektonPipelineRunsOptions.Start = nil
 			listTektonPipelineRunsOptions.Limit = core.Int64Ptr(1)
 
 			var allResults []cdtektonpipelinev2.PipelineRunsCollectionPipelineRunsItem
@@ -183,10 +184,10 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 				Expect(pipelineRunsCollection).ToNot(BeNil())
 				allResults = append(allResults, pipelineRunsCollection.PipelineRuns...)
 
-				listTektonPipelineRunsOptions.Offset, err = pipelineRunsCollection.GetNextOffset()
+				listTektonPipelineRunsOptions.Start, err = pipelineRunsCollection.GetNextStart()
 				Expect(err).To(BeNil())
 
-				if listTektonPipelineRunsOptions.Offset == nil {
+				if listTektonPipelineRunsOptions.Start == nil {
 					break
 				}
 			}
@@ -196,6 +197,7 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			listTektonPipelineRunsOptions := &cdtektonpipelinev2.ListTektonPipelineRunsOptions{
 				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 				Limit: core.Int64Ptr(int64(10)),
+				Offset: core.Int64Ptr(int64(38)),
 				Status: core.StringPtr("succeeded"),
 				TriggerName: core.StringPtr("manual-trigger"),
 			}

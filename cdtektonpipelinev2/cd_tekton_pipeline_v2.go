@@ -27,7 +27,6 @@ import (
 	"fmt"
 	"net/http"
 	"reflect"
-	"strconv"
 	"strings"
 	"time"
 
@@ -470,6 +469,9 @@ func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineRunsWithContext(ct
 	}
 	builder.AddHeader("Accept", "application/json")
 
+	if listTektonPipelineRunsOptions.Start != nil {
+		builder.AddQuery("start", fmt.Sprint(*listTektonPipelineRunsOptions.Start))
+	}
 	if listTektonPipelineRunsOptions.Limit != nil {
 		builder.AddQuery("limit", fmt.Sprint(*listTektonPipelineRunsOptions.Limit))
 	}
@@ -3627,10 +3629,14 @@ type ListTektonPipelineRunsOptions struct {
 	// The Tekton pipeline ID.
 	PipelineID *string `json:"pipeline_id" validate:"required,ne="`
 
+	// Token that specifies the pipeline run to start the page on or after. This value is computed and included as a query
+	// param on the `next` link in the response body. Cannot be used in combination with `offset`.
+	Start *string `json:"start,omitempty"`
+
 	// The number of pipeline runs to return, sorted by creation time, most recent first.
 	Limit *int64 `json:"limit,omitempty"`
 
-	// Skip the specified number of pipeline runs.
+	// Skip the specified number of pipeline runs. Cannot be used in combination with `start`.
 	Offset *int64 `json:"offset,omitempty"`
 
 	// Filters the collection to resources with the specified status.
@@ -3667,6 +3673,12 @@ func (*CdTektonPipelineV2) NewListTektonPipelineRunsOptions(pipelineID string) *
 // SetPipelineID : Allow user to set PipelineID
 func (_options *ListTektonPipelineRunsOptions) SetPipelineID(pipelineID string) *ListTektonPipelineRunsOptions {
 	_options.PipelineID = core.StringPtr(pipelineID)
+	return _options
+}
+
+// SetStart : Allow user to set Start
+func (_options *ListTektonPipelineRunsOptions) SetStart(start string) *ListTektonPipelineRunsOptions {
+	_options.Start = core.StringPtr(start)
 	return _options
 }
 
@@ -4082,7 +4094,7 @@ type PipelineRunsCollection struct {
 	PipelineRuns []PipelineRunsCollectionPipelineRunsItem `json:"pipeline_runs" validate:"required"`
 
 	// Skip a specified number of pipeline runs.
-	Offset *int64 `json:"offset" validate:"required"`
+	Offset *int64 `json:"offset,omitempty"`
 
 	// The number of pipeline runs to return, sorted by creation time, most recent first.
 	Limit *int64 `json:"limit" validate:"required"`
@@ -4090,8 +4102,13 @@ type PipelineRunsCollection struct {
 	// First page of pipeline runs.
 	First *PipelineRunsCollectionFirst `json:"first" validate:"required"`
 
-	// Next page of pipeline runs relative to the offset and limit.
+	// Next page of pipeline runs relative to the `start` and `limit`, or relative to the `offset` and `limit`, depending
+	// on whether `start` or `offset` params were used in the request.
 	Next *PipelineRunsCollectionNext `json:"next,omitempty"`
+
+	// Last page of pipeline runs relative to the `start` and `limit`, or relative to the `offset` and `limit`, depending
+	// on whether `start` or `offset` params were used in the request.
+	Last *PipelineRunsCollectionLast `json:"last,omitempty"`
 }
 
 // UnmarshalPipelineRunsCollection unmarshals an instance of PipelineRunsCollection from the specified map of raw messages.
@@ -4117,25 +4134,24 @@ func UnmarshalPipelineRunsCollection(m map[string]json.RawMessage, result interf
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalModel(m, "last", &obj.Last, UnmarshalPipelineRunsCollectionLast)
+	if err != nil {
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
 // Retrieve the value to be passed to a request to access the next page of results
-func (resp *PipelineRunsCollection) GetNextOffset() (*int64, error) {
+func (resp *PipelineRunsCollection) GetNextStart() (*string, error) {
 	if core.IsNil(resp.Next) {
 		return nil, nil
 	}
-	offset, err := core.GetQueryParam(resp.Next.Href, "offset")
-	if err != nil || offset == nil {
+	start, err := core.GetQueryParam(resp.Next.Href, "start")
+	if err != nil || start == nil {
 		return nil, err
 	}
-	var offsetValue int64
-	offsetValue, err = strconv.ParseInt(*offset, 10, 64)
-	if err != nil {
-		return nil, err
-	}
-	return core.Int64Ptr(offsetValue), nil
+	return start, nil
 }
 
 // PipelineRunsCollectionFirst : First page of pipeline runs.
@@ -4155,7 +4171,26 @@ func UnmarshalPipelineRunsCollectionFirst(m map[string]json.RawMessage, result i
 	return
 }
 
-// PipelineRunsCollectionNext : Next page of pipeline runs relative to the offset and limit.
+// PipelineRunsCollectionLast : Last page of pipeline runs relative to the `start` and `limit`, or relative to the `offset` and `limit`, depending on
+// whether `start` or `offset` params were used in the request.
+type PipelineRunsCollectionLast struct {
+	// General href URL.
+	Href *string `json:"href" validate:"required"`
+}
+
+// UnmarshalPipelineRunsCollectionLast unmarshals an instance of PipelineRunsCollectionLast from the specified map of raw messages.
+func UnmarshalPipelineRunsCollectionLast(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(PipelineRunsCollectionLast)
+	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// PipelineRunsCollectionNext : Next page of pipeline runs relative to the `start` and `limit`, or relative to the `offset` and `limit`, depending on
+// whether `start` or `offset` params were used in the request.
 type PipelineRunsCollectionNext struct {
 	// General href URL.
 	Href *string `json:"href" validate:"required"`
@@ -6391,14 +6426,14 @@ type TektonPipelineRunsPager struct {
 	options *ListTektonPipelineRunsOptions
 	client  *CdTektonPipelineV2
 	pageContext struct {
-		next *int64
+		next *string
 	}
 }
 
 // NewTektonPipelineRunsPager returns a new TektonPipelineRunsPager instance.
 func (cdTektonPipeline *CdTektonPipelineV2) NewTektonPipelineRunsPager(options *ListTektonPipelineRunsOptions) (pager *TektonPipelineRunsPager, err error) {
-	if options.Offset != nil && *options.Offset != 0 {
-		err = fmt.Errorf("the 'options.Offset' field should not be set")
+	if options.Start != nil && *options.Start != "" {
+		err = fmt.Errorf("the 'options.Start' field should not be set")
 		return
 	}
 
@@ -6422,22 +6457,22 @@ func (pager *TektonPipelineRunsPager) GetNextWithContext(ctx context.Context) (p
 		return nil, fmt.Errorf("no more results available")
 	}
 
-	pager.options.Offset = pager.pageContext.next
+	pager.options.Start = pager.pageContext.next
 
 	result, _, err := pager.client.ListTektonPipelineRunsWithContext(ctx, pager.options)
 	if err != nil {
 		return
 	}
 
-	var next *int64
+	var next *string
 	if result.Next != nil {
-		var offset *int64
-		offset, err = core.GetQueryParamAsInt(result.Next.Href, "offset")
+		var start *string
+		start, err = core.GetQueryParam(result.Next.Href, "start")
 		if err != nil {
-			err = fmt.Errorf("error retrieving 'offset' query parameter from URL '%s': %s", *result.Next.Href, err.Error())
+			err = fmt.Errorf("error retrieving 'start' query parameter from URL '%s': %s", *result.Next.Href, err.Error())
 			return
 		}
-		next = offset
+		next = start
 	}
 	pager.pageContext.next = next
 	pager.hasNext = (pager.pageContext.next != nil)
