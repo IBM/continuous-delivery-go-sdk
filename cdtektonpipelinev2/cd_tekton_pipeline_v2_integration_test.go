@@ -526,14 +526,46 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`CreateTektonPipelineTrigger - Create a trigger or duplicate a trigger`, func() {
+	Describe(`CreateTektonPipelineTrigger - Create a trigger`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
 		It(`CreateTektonPipelineTrigger(createTektonPipelineTriggerOptions *CreateTektonPipelineTriggerOptions)`, func() {
-			triggerModel := &cdtektonpipelinev2.TriggerDuplicateTrigger{
-				SourceTriggerID: core.StringPtr("b3a8228f-1c82-409b-b249-7639166a0300"),
-				Name: core.StringPtr("Trigger Name"),
+			triggerGenericTriggerPropertiesItemModel := &cdtektonpipelinev2.TriggerGenericTriggerPropertiesItem{
+				Name: core.StringPtr("testString"),
+				Value: core.StringPtr("testString"),
+				Enum: []string{"testString"},
+				Type: core.StringPtr("secure"),
+				Path: core.StringPtr("testString"),
+				Href: core.StringPtr("testString"),
+			}
+
+			workerModel := &cdtektonpipelinev2.Worker{
+				Name: core.StringPtr("testString"),
+				Type: core.StringPtr("private"),
+				ID: core.StringPtr("5df804a4-9d7b-44e1-874f-3810866fb80b"),
+			}
+
+			genericSecretModel := &cdtektonpipelinev2.GenericSecret{
+				Type: core.StringPtr("token_matches"),
+				Value: core.StringPtr("secret"),
+				Source: core.StringPtr("query"),
+				KeyName: core.StringPtr("auth"),
+				Algorithm: core.StringPtr("md4"),
+			}
+
+			triggerModel := &cdtektonpipelinev2.TriggerGenericTrigger{
+				Type: core.StringPtr("generic"),
+				Name: core.StringPtr("Generic Webhook Trigger"),
+				Href: core.StringPtr("testString"),
+				EventListener: core.StringPtr("pr-listener"),
+				ID: core.StringPtr("testString"),
+				Properties: []cdtektonpipelinev2.TriggerGenericTriggerPropertiesItem{*triggerGenericTriggerPropertiesItemModel},
+				Tags: []string{"prod", "dev"},
+				Worker: workerModel,
+				MaxConcurrentRuns: core.Int64Ptr(int64(4)),
+				Disabled: core.BoolPtr(false),
+				Secret: genericSecretModel,
 			}
 
 			createTektonPipelineTriggerOptions := &cdtektonpipelinev2.CreateTektonPipelineTriggerOptions{
@@ -625,6 +657,24 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			trigger, response, err := cdTektonPipelineService.UpdateTektonPipelineTrigger(updateTektonPipelineTriggerOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
+			Expect(trigger).ToNot(BeNil())
+		})
+	})
+
+	Describe(`DuplicateTektonPipelineTrigger - Duplicate a trigger`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DuplicateTektonPipelineTrigger(duplicateTektonPipelineTriggerOptions *DuplicateTektonPipelineTriggerOptions)`, func() {
+			duplicateTektonPipelineTriggerOptions := &cdtektonpipelinev2.DuplicateTektonPipelineTriggerOptions{
+				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
+				SourceTriggerID: core.StringPtr("1bb892a1-2e04-4768-a369-b1159eace147"),
+				Name: core.StringPtr("triggerName"),
+			}
+
+			trigger, response, err := cdTektonPipelineService.DuplicateTektonPipelineTrigger(duplicateTektonPipelineTriggerOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
 			Expect(trigger).ToNot(BeNil())
 		})
 	})

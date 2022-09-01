@@ -1709,8 +1709,8 @@ func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineTriggersWithContex
 	return
 }
 
-// CreateTektonPipelineTrigger : Create a trigger or duplicate a trigger
-// This request creates a trigger, or duplicates a trigger from an existing trigger identified by `{source_trigger_id}`.
+// CreateTektonPipelineTrigger : Create a trigger
+// This request creates a trigger.
 func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineTrigger(createTektonPipelineTriggerOptions *CreateTektonPipelineTriggerOptions) (result TriggerIntf, response *core.DetailedResponse, err error) {
 	return cdTektonPipeline.CreateTektonPipelineTriggerWithContext(context.Background(), createTektonPipelineTriggerOptions)
 }
@@ -1953,6 +1953,77 @@ func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelineTriggerWithConte
 	}
 
 	response, err = cdTektonPipeline.Service.Request(request, nil)
+
+	return
+}
+
+// DuplicateTektonPipelineTrigger : Duplicate a trigger
+// This request duplicates a trigger from an existing trigger identified by `{source_trigger_id}`.
+func (cdTektonPipeline *CdTektonPipelineV2) DuplicateTektonPipelineTrigger(duplicateTektonPipelineTriggerOptions *DuplicateTektonPipelineTriggerOptions) (result TriggerIntf, response *core.DetailedResponse, err error) {
+	return cdTektonPipeline.DuplicateTektonPipelineTriggerWithContext(context.Background(), duplicateTektonPipelineTriggerOptions)
+}
+
+// DuplicateTektonPipelineTriggerWithContext is an alternate form of the DuplicateTektonPipelineTrigger method which supports a Context parameter
+func (cdTektonPipeline *CdTektonPipelineV2) DuplicateTektonPipelineTriggerWithContext(ctx context.Context, duplicateTektonPipelineTriggerOptions *DuplicateTektonPipelineTriggerOptions) (result TriggerIntf, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(duplicateTektonPipelineTriggerOptions, "duplicateTektonPipelineTriggerOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(duplicateTektonPipelineTriggerOptions, "duplicateTektonPipelineTriggerOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"pipeline_id": *duplicateTektonPipelineTriggerOptions.PipelineID,
+		"source_trigger_id": *duplicateTektonPipelineTriggerOptions.SourceTriggerID,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = cdTektonPipeline.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(cdTektonPipeline.Service.Options.URL, `/tekton_pipelines/{pipeline_id}/triggers/{source_trigger_id}/duplicate`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range duplicateTektonPipelineTriggerOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "DuplicateTektonPipelineTrigger")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if duplicateTektonPipelineTriggerOptions.Name != nil {
+		body["name"] = duplicateTektonPipelineTriggerOptions.Name
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = cdTektonPipeline.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTrigger)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
 
 	return
 }
@@ -3096,6 +3167,53 @@ func (options *DeleteTektonPipelineTriggerPropertyOptions) SetHeaders(param map[
 	return options
 }
 
+// DuplicateTektonPipelineTriggerOptions : The DuplicateTektonPipelineTrigger options.
+type DuplicateTektonPipelineTriggerOptions struct {
+	// The Tekton pipeline ID.
+	PipelineID *string `json:"pipeline_id" validate:"required,ne="`
+
+	// The ID of the trigger to duplicate.
+	SourceTriggerID *string `json:"source_trigger_id" validate:"required,ne="`
+
+	// Trigger name.
+	Name *string `json:"name,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewDuplicateTektonPipelineTriggerOptions : Instantiate DuplicateTektonPipelineTriggerOptions
+func (*CdTektonPipelineV2) NewDuplicateTektonPipelineTriggerOptions(pipelineID string, sourceTriggerID string) *DuplicateTektonPipelineTriggerOptions {
+	return &DuplicateTektonPipelineTriggerOptions{
+		PipelineID: core.StringPtr(pipelineID),
+		SourceTriggerID: core.StringPtr(sourceTriggerID),
+	}
+}
+
+// SetPipelineID : Allow user to set PipelineID
+func (_options *DuplicateTektonPipelineTriggerOptions) SetPipelineID(pipelineID string) *DuplicateTektonPipelineTriggerOptions {
+	_options.PipelineID = core.StringPtr(pipelineID)
+	return _options
+}
+
+// SetSourceTriggerID : Allow user to set SourceTriggerID
+func (_options *DuplicateTektonPipelineTriggerOptions) SetSourceTriggerID(sourceTriggerID string) *DuplicateTektonPipelineTriggerOptions {
+	_options.SourceTriggerID = core.StringPtr(sourceTriggerID)
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *DuplicateTektonPipelineTriggerOptions) SetName(name string) *DuplicateTektonPipelineTriggerOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *DuplicateTektonPipelineTriggerOptions) SetHeaders(param map[string]string) *DuplicateTektonPipelineTriggerOptions {
+	options.Headers = param
+	return options
+}
+
 // Events : Only needed for Git triggers. Events object defines the events to which this Git trigger listens.
 type Events struct {
 	// If true, the trigger listens for 'push' Git webhook events.
@@ -3629,8 +3747,8 @@ type ListTektonPipelineRunsOptions struct {
 	// The Tekton pipeline ID.
 	PipelineID *string `json:"pipeline_id" validate:"required,ne="`
 
-	// Token that specifies the pipeline run to start the page on or after. This value is computed and included as a query
-	// param on the `next` link in the response body. Cannot be used in combination with `offset`.
+	// A page token that identifies the start point of the list of pipeline runs. This value is computed and included in
+	// the response body. Cannot be used in combination with `offset`.
 	Start *string `json:"start,omitempty"`
 
 	// The number of pipeline runs to return, sorted by creation time, most recent first.
@@ -4102,12 +4220,12 @@ type PipelineRunsCollection struct {
 	// First page of pipeline runs.
 	First *PipelineRunsCollectionFirst `json:"first" validate:"required"`
 
-	// Next page of pipeline runs relative to the `start` and `limit`, or relative to the `offset` and `limit`, depending
-	// on whether `start` or `offset` params were used in the request.
+	// Next page of pipeline runs relative to the `start` and `limit` params, or relative to the `offset` and `limit`
+	// params, depending on which of `start` or `offset` were used in the request.
 	Next *PipelineRunsCollectionNext `json:"next,omitempty"`
 
-	// Last page of pipeline runs relative to the `start` and `limit`, or relative to the `offset` and `limit`, depending
-	// on whether `start` or `offset` params were used in the request.
+	// Last page of pipeline runs relative to the `start` and `limit` params, or relative to the `offset` and `limit`
+	// params, depending on which of `start` or `offset` were used in the request.
 	Last *PipelineRunsCollectionLast `json:"last,omitempty"`
 }
 
@@ -4171,8 +4289,8 @@ func UnmarshalPipelineRunsCollectionFirst(m map[string]json.RawMessage, result i
 	return
 }
 
-// PipelineRunsCollectionLast : Last page of pipeline runs relative to the `start` and `limit`, or relative to the `offset` and `limit`, depending on
-// whether `start` or `offset` params were used in the request.
+// PipelineRunsCollectionLast : Last page of pipeline runs relative to the `start` and `limit` params, or relative to the `offset` and `limit`
+// params, depending on which of `start` or `offset` were used in the request.
 type PipelineRunsCollectionLast struct {
 	// General href URL.
 	Href *string `json:"href" validate:"required"`
@@ -4189,8 +4307,8 @@ func UnmarshalPipelineRunsCollectionLast(m map[string]json.RawMessage, result in
 	return
 }
 
-// PipelineRunsCollectionNext : Next page of pipeline runs relative to the `start` and `limit`, or relative to the `offset` and `limit`, depending on
-// whether `start` or `offset` params were used in the request.
+// PipelineRunsCollectionNext : Next page of pipeline runs relative to the `start` and `limit` params, or relative to the `offset` and `limit`
+// params, depending on which of `start` or `offset` were used in the request.
 type PipelineRunsCollectionNext struct {
 	// General href URL.
 	Href *string `json:"href" validate:"required"`
@@ -4942,20 +5060,16 @@ func UnmarshalToolchain(m map[string]json.RawMessage, result interface{}) (err e
 
 // Trigger : Tekton pipeline trigger.
 // Models which "extend" this model:
-// - TriggerDuplicateTrigger
 // - TriggerManualTrigger
 // - TriggerScmTrigger
 // - TriggerTimerTrigger
 // - TriggerGenericTrigger
 type Trigger struct {
-	// ID of the trigger to duplicate. Only needed when duplicating a trigger.
-	SourceTriggerID *string `json:"source_trigger_id,omitempty"`
+	// Trigger type.
+	Type *string `json:"type,omitempty"`
 
 	// Trigger name.
 	Name *string `json:"name,omitempty"`
-
-	// Trigger type.
-	Type *string `json:"type,omitempty"`
 
 	// API URL for interacting with the trigger.
 	Href *string `json:"href,omitempty"`
@@ -5008,15 +5122,11 @@ type TriggerIntf interface {
 // UnmarshalTrigger unmarshals an instance of Trigger from the specified map of raw messages.
 func UnmarshalTrigger(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Trigger)
-	err = core.UnmarshalPrimitive(m, "source_trigger_id", &obj.SourceTriggerID)
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
 		return
 	}
@@ -5943,45 +6053,6 @@ func (*CdTektonPipelineV2) NewWorkerWithID(id string) (_model *WorkerWithID, err
 func UnmarshalWorkerWithID(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(WorkerWithID)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// TriggerDuplicateTrigger : Duplicate an existing trigger.
-// This model "extends" Trigger
-type TriggerDuplicateTrigger struct {
-	// ID of the trigger to duplicate. Only needed when duplicating a trigger.
-	SourceTriggerID *string `json:"source_trigger_id" validate:"required"`
-
-	// Trigger name.
-	Name *string `json:"name" validate:"required"`
-}
-
-// NewTriggerDuplicateTrigger : Instantiate TriggerDuplicateTrigger (Generic Model Constructor)
-func (*CdTektonPipelineV2) NewTriggerDuplicateTrigger(sourceTriggerID string, name string) (_model *TriggerDuplicateTrigger, err error) {
-	_model = &TriggerDuplicateTrigger{
-		SourceTriggerID: core.StringPtr(sourceTriggerID),
-		Name: core.StringPtr(name),
-	}
-	err = core.ValidateStruct(_model, "required parameters")
-	return
-}
-
-func (*TriggerDuplicateTrigger) isaTrigger() bool {
-	return true
-}
-
-// UnmarshalTriggerDuplicateTrigger unmarshals an instance of TriggerDuplicateTrigger from the specified map of raw messages.
-func UnmarshalTriggerDuplicateTrigger(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(TriggerDuplicateTrigger)
-	err = core.UnmarshalPrimitive(m, "source_trigger_id", &obj.SourceTriggerID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
 		return
 	}

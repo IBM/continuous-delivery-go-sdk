@@ -568,9 +568,25 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 			fmt.Println("\nCreateTektonPipelineTrigger() result:")
 			// begin-create_tekton_pipeline_trigger
 
-			triggerModel := &cdtektonpipelinev2.TriggerDuplicateTrigger{
-				SourceTriggerID: core.StringPtr("b3a8228f-1c82-409b-b249-7639166a0300"),
-				Name: core.StringPtr("Trigger Name"),
+			workerModel := &cdtektonpipelinev2.Worker{
+				ID: core.StringPtr("5df804a4-9d7b-44e1-874f-3810866fb80b"),
+			}
+
+			genericSecretModel := &cdtektonpipelinev2.GenericSecret{
+				Type: core.StringPtr("token_matches"),
+				Value: core.StringPtr("secret"),
+				Source: core.StringPtr("query"),
+				KeyName: core.StringPtr("auth"),
+			}
+
+			triggerModel := &cdtektonpipelinev2.TriggerGenericTrigger{
+				Type: core.StringPtr("generic"),
+				Name: core.StringPtr("Generic Webhook Trigger"),
+				EventListener: core.StringPtr("pr-listener"),
+				Tags: []string{"prod", "dev"},
+				Worker: workerModel,
+				Disabled: core.BoolPtr(false),
+				Secret: genericSecretModel,
 			}
 
 			createTektonPipelineTriggerOptions := cdTektonPipelineService.NewCreateTektonPipelineTriggerOptions(
@@ -641,6 +657,29 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
+			Expect(trigger).ToNot(BeNil())
+		})
+		It(`DuplicateTektonPipelineTrigger request example`, func() {
+			fmt.Println("\nDuplicateTektonPipelineTrigger() result:")
+			// begin-duplicate_tekton_pipeline_trigger
+
+			duplicateTektonPipelineTriggerOptions := cdTektonPipelineService.NewDuplicateTektonPipelineTriggerOptions(
+				"94619026-912b-4d92-8f51-6c74f0692d90",
+				"1bb892a1-2e04-4768-a369-b1159eace147",
+			)
+			duplicateTektonPipelineTriggerOptions.SetName("triggerName")
+
+			trigger, response, err := cdTektonPipelineService.DuplicateTektonPipelineTrigger(duplicateTektonPipelineTriggerOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(trigger, "", "  ")
+			fmt.Println(string(b))
+
+			// end-duplicate_tekton_pipeline_trigger
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
 			Expect(trigger).ToNot(BeNil())
 		})
 		It(`ListTektonPipelineTriggerProperties request example`, func() {
