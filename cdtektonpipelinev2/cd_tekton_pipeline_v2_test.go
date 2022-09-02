@@ -5339,47 +5339,50 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(cdTektonPipelineService).ToNot(BeNil())
 
-				// Construct an instance of the TriggerGenericTriggerPropertiesItem model
-				triggerGenericTriggerPropertiesItemModel := new(cdtektonpipelinev2.TriggerGenericTriggerPropertiesItem)
-				triggerGenericTriggerPropertiesItemModel.Name = core.StringPtr("testString")
-				triggerGenericTriggerPropertiesItemModel.Value = core.StringPtr("testString")
-				triggerGenericTriggerPropertiesItemModel.Enum = []string{"testString"}
-				triggerGenericTriggerPropertiesItemModel.Type = core.StringPtr("secure")
-				triggerGenericTriggerPropertiesItemModel.Path = core.StringPtr("testString")
-				triggerGenericTriggerPropertiesItemModel.Href = core.StringPtr("testString")
-
 				// Construct an instance of the Worker model
 				workerModel := new(cdtektonpipelinev2.Worker)
 				workerModel.Name = core.StringPtr("testString")
 				workerModel.Type = core.StringPtr("private")
-				workerModel.ID = core.StringPtr("5df804a4-9d7b-44e1-874f-3810866fb80b")
+				workerModel.ID = core.StringPtr("public")
 
 				// Construct an instance of the GenericSecret model
 				genericSecretModel := new(cdtektonpipelinev2.GenericSecret)
 				genericSecretModel.Type = core.StringPtr("token_matches")
-				genericSecretModel.Value = core.StringPtr("secret")
-				genericSecretModel.Source = core.StringPtr("query")
-				genericSecretModel.KeyName = core.StringPtr("auth")
+				genericSecretModel.Value = core.StringPtr("testString")
+				genericSecretModel.Source = core.StringPtr("header")
+				genericSecretModel.KeyName = core.StringPtr("testString")
 				genericSecretModel.Algorithm = core.StringPtr("md4")
 
-				// Construct an instance of the TriggerGenericTrigger model
-				triggerModel := new(cdtektonpipelinev2.TriggerGenericTrigger)
-				triggerModel.Type = core.StringPtr("generic")
-				triggerModel.Name = core.StringPtr("Generic Webhook Trigger")
-				triggerModel.Href = core.StringPtr("testString")
-				triggerModel.EventListener = core.StringPtr("pr-listener")
-				triggerModel.ID = core.StringPtr("testString")
-				triggerModel.Properties = []cdtektonpipelinev2.TriggerGenericTriggerPropertiesItem{*triggerGenericTriggerPropertiesItemModel}
-				triggerModel.Tags = []string{"prod", "dev"}
-				triggerModel.Worker = workerModel
-				triggerModel.MaxConcurrentRuns = core.Int64Ptr(int64(4))
-				triggerModel.Disabled = core.BoolPtr(false)
-				triggerModel.Secret = genericSecretModel
+				// Construct an instance of the TriggerScmSource model
+				triggerScmSourceModel := new(cdtektonpipelinev2.TriggerScmSource)
+				triggerScmSourceModel.URL = core.StringPtr("testString")
+				triggerScmSourceModel.Branch = core.StringPtr("testString")
+				triggerScmSourceModel.Pattern = core.StringPtr("testString")
+				triggerScmSourceModel.BlindConnection = core.BoolPtr(true)
+				triggerScmSourceModel.HookID = core.StringPtr("testString")
+				triggerScmSourceModel.ServiceInstanceID = core.StringPtr("testString")
+
+				// Construct an instance of the Events model
+				eventsModel := new(cdtektonpipelinev2.Events)
+				eventsModel.Push = core.BoolPtr(true)
+				eventsModel.PullRequestClosed = core.BoolPtr(true)
+				eventsModel.PullRequest = core.BoolPtr(true)
 
 				// Construct an instance of the CreateTektonPipelineTriggerOptions model
 				createTektonPipelineTriggerOptionsModel := new(cdtektonpipelinev2.CreateTektonPipelineTriggerOptions)
 				createTektonPipelineTriggerOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
-				createTektonPipelineTriggerOptionsModel.Trigger = triggerModel
+				createTektonPipelineTriggerOptionsModel.Type = core.StringPtr("manual")
+				createTektonPipelineTriggerOptionsModel.Name = core.StringPtr("Manual Trigger")
+				createTektonPipelineTriggerOptionsModel.EventListener = core.StringPtr("pr-listener")
+				createTektonPipelineTriggerOptionsModel.Tags = []string{"testString"}
+				createTektonPipelineTriggerOptionsModel.Worker = workerModel
+				createTektonPipelineTriggerOptionsModel.MaxConcurrentRuns = core.Int64Ptr(int64(3))
+				createTektonPipelineTriggerOptionsModel.Disabled = core.BoolPtr(false)
+				createTektonPipelineTriggerOptionsModel.Secret = genericSecretModel
+				createTektonPipelineTriggerOptionsModel.Cron = core.StringPtr("testString")
+				createTektonPipelineTriggerOptionsModel.Timezone = core.StringPtr("testString")
+				createTektonPipelineTriggerOptionsModel.ScmSource = triggerScmSourceModel
+				createTektonPipelineTriggerOptionsModel.Events = eventsModel
 				createTektonPipelineTriggerOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := cdTektonPipelineService.CreateTektonPipelineTrigger(createTektonPipelineTriggerOptionsModel)
@@ -5444,47 +5447,50 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				Expect(cdTektonPipelineService).ToNot(BeNil())
 				cdTektonPipelineService.EnableRetries(0, 0)
 
-				// Construct an instance of the TriggerGenericTriggerPropertiesItem model
-				triggerGenericTriggerPropertiesItemModel := new(cdtektonpipelinev2.TriggerGenericTriggerPropertiesItem)
-				triggerGenericTriggerPropertiesItemModel.Name = core.StringPtr("testString")
-				triggerGenericTriggerPropertiesItemModel.Value = core.StringPtr("testString")
-				triggerGenericTriggerPropertiesItemModel.Enum = []string{"testString"}
-				triggerGenericTriggerPropertiesItemModel.Type = core.StringPtr("secure")
-				triggerGenericTriggerPropertiesItemModel.Path = core.StringPtr("testString")
-				triggerGenericTriggerPropertiesItemModel.Href = core.StringPtr("testString")
-
 				// Construct an instance of the Worker model
 				workerModel := new(cdtektonpipelinev2.Worker)
 				workerModel.Name = core.StringPtr("testString")
 				workerModel.Type = core.StringPtr("private")
-				workerModel.ID = core.StringPtr("5df804a4-9d7b-44e1-874f-3810866fb80b")
+				workerModel.ID = core.StringPtr("public")
 
 				// Construct an instance of the GenericSecret model
 				genericSecretModel := new(cdtektonpipelinev2.GenericSecret)
 				genericSecretModel.Type = core.StringPtr("token_matches")
-				genericSecretModel.Value = core.StringPtr("secret")
-				genericSecretModel.Source = core.StringPtr("query")
-				genericSecretModel.KeyName = core.StringPtr("auth")
+				genericSecretModel.Value = core.StringPtr("testString")
+				genericSecretModel.Source = core.StringPtr("header")
+				genericSecretModel.KeyName = core.StringPtr("testString")
 				genericSecretModel.Algorithm = core.StringPtr("md4")
 
-				// Construct an instance of the TriggerGenericTrigger model
-				triggerModel := new(cdtektonpipelinev2.TriggerGenericTrigger)
-				triggerModel.Type = core.StringPtr("generic")
-				triggerModel.Name = core.StringPtr("Generic Webhook Trigger")
-				triggerModel.Href = core.StringPtr("testString")
-				triggerModel.EventListener = core.StringPtr("pr-listener")
-				triggerModel.ID = core.StringPtr("testString")
-				triggerModel.Properties = []cdtektonpipelinev2.TriggerGenericTriggerPropertiesItem{*triggerGenericTriggerPropertiesItemModel}
-				triggerModel.Tags = []string{"prod", "dev"}
-				triggerModel.Worker = workerModel
-				triggerModel.MaxConcurrentRuns = core.Int64Ptr(int64(4))
-				triggerModel.Disabled = core.BoolPtr(false)
-				triggerModel.Secret = genericSecretModel
+				// Construct an instance of the TriggerScmSource model
+				triggerScmSourceModel := new(cdtektonpipelinev2.TriggerScmSource)
+				triggerScmSourceModel.URL = core.StringPtr("testString")
+				triggerScmSourceModel.Branch = core.StringPtr("testString")
+				triggerScmSourceModel.Pattern = core.StringPtr("testString")
+				triggerScmSourceModel.BlindConnection = core.BoolPtr(true)
+				triggerScmSourceModel.HookID = core.StringPtr("testString")
+				triggerScmSourceModel.ServiceInstanceID = core.StringPtr("testString")
+
+				// Construct an instance of the Events model
+				eventsModel := new(cdtektonpipelinev2.Events)
+				eventsModel.Push = core.BoolPtr(true)
+				eventsModel.PullRequestClosed = core.BoolPtr(true)
+				eventsModel.PullRequest = core.BoolPtr(true)
 
 				// Construct an instance of the CreateTektonPipelineTriggerOptions model
 				createTektonPipelineTriggerOptionsModel := new(cdtektonpipelinev2.CreateTektonPipelineTriggerOptions)
 				createTektonPipelineTriggerOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
-				createTektonPipelineTriggerOptionsModel.Trigger = triggerModel
+				createTektonPipelineTriggerOptionsModel.Type = core.StringPtr("manual")
+				createTektonPipelineTriggerOptionsModel.Name = core.StringPtr("Manual Trigger")
+				createTektonPipelineTriggerOptionsModel.EventListener = core.StringPtr("pr-listener")
+				createTektonPipelineTriggerOptionsModel.Tags = []string{"testString"}
+				createTektonPipelineTriggerOptionsModel.Worker = workerModel
+				createTektonPipelineTriggerOptionsModel.MaxConcurrentRuns = core.Int64Ptr(int64(3))
+				createTektonPipelineTriggerOptionsModel.Disabled = core.BoolPtr(false)
+				createTektonPipelineTriggerOptionsModel.Secret = genericSecretModel
+				createTektonPipelineTriggerOptionsModel.Cron = core.StringPtr("testString")
+				createTektonPipelineTriggerOptionsModel.Timezone = core.StringPtr("testString")
+				createTektonPipelineTriggerOptionsModel.ScmSource = triggerScmSourceModel
+				createTektonPipelineTriggerOptionsModel.Events = eventsModel
 				createTektonPipelineTriggerOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -5557,47 +5563,50 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the TriggerGenericTriggerPropertiesItem model
-				triggerGenericTriggerPropertiesItemModel := new(cdtektonpipelinev2.TriggerGenericTriggerPropertiesItem)
-				triggerGenericTriggerPropertiesItemModel.Name = core.StringPtr("testString")
-				triggerGenericTriggerPropertiesItemModel.Value = core.StringPtr("testString")
-				triggerGenericTriggerPropertiesItemModel.Enum = []string{"testString"}
-				triggerGenericTriggerPropertiesItemModel.Type = core.StringPtr("secure")
-				triggerGenericTriggerPropertiesItemModel.Path = core.StringPtr("testString")
-				triggerGenericTriggerPropertiesItemModel.Href = core.StringPtr("testString")
-
 				// Construct an instance of the Worker model
 				workerModel := new(cdtektonpipelinev2.Worker)
 				workerModel.Name = core.StringPtr("testString")
 				workerModel.Type = core.StringPtr("private")
-				workerModel.ID = core.StringPtr("5df804a4-9d7b-44e1-874f-3810866fb80b")
+				workerModel.ID = core.StringPtr("public")
 
 				// Construct an instance of the GenericSecret model
 				genericSecretModel := new(cdtektonpipelinev2.GenericSecret)
 				genericSecretModel.Type = core.StringPtr("token_matches")
-				genericSecretModel.Value = core.StringPtr("secret")
-				genericSecretModel.Source = core.StringPtr("query")
-				genericSecretModel.KeyName = core.StringPtr("auth")
+				genericSecretModel.Value = core.StringPtr("testString")
+				genericSecretModel.Source = core.StringPtr("header")
+				genericSecretModel.KeyName = core.StringPtr("testString")
 				genericSecretModel.Algorithm = core.StringPtr("md4")
 
-				// Construct an instance of the TriggerGenericTrigger model
-				triggerModel := new(cdtektonpipelinev2.TriggerGenericTrigger)
-				triggerModel.Type = core.StringPtr("generic")
-				triggerModel.Name = core.StringPtr("Generic Webhook Trigger")
-				triggerModel.Href = core.StringPtr("testString")
-				triggerModel.EventListener = core.StringPtr("pr-listener")
-				triggerModel.ID = core.StringPtr("testString")
-				triggerModel.Properties = []cdtektonpipelinev2.TriggerGenericTriggerPropertiesItem{*triggerGenericTriggerPropertiesItemModel}
-				triggerModel.Tags = []string{"prod", "dev"}
-				triggerModel.Worker = workerModel
-				triggerModel.MaxConcurrentRuns = core.Int64Ptr(int64(4))
-				triggerModel.Disabled = core.BoolPtr(false)
-				triggerModel.Secret = genericSecretModel
+				// Construct an instance of the TriggerScmSource model
+				triggerScmSourceModel := new(cdtektonpipelinev2.TriggerScmSource)
+				triggerScmSourceModel.URL = core.StringPtr("testString")
+				triggerScmSourceModel.Branch = core.StringPtr("testString")
+				triggerScmSourceModel.Pattern = core.StringPtr("testString")
+				triggerScmSourceModel.BlindConnection = core.BoolPtr(true)
+				triggerScmSourceModel.HookID = core.StringPtr("testString")
+				triggerScmSourceModel.ServiceInstanceID = core.StringPtr("testString")
+
+				// Construct an instance of the Events model
+				eventsModel := new(cdtektonpipelinev2.Events)
+				eventsModel.Push = core.BoolPtr(true)
+				eventsModel.PullRequestClosed = core.BoolPtr(true)
+				eventsModel.PullRequest = core.BoolPtr(true)
 
 				// Construct an instance of the CreateTektonPipelineTriggerOptions model
 				createTektonPipelineTriggerOptionsModel := new(cdtektonpipelinev2.CreateTektonPipelineTriggerOptions)
 				createTektonPipelineTriggerOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
-				createTektonPipelineTriggerOptionsModel.Trigger = triggerModel
+				createTektonPipelineTriggerOptionsModel.Type = core.StringPtr("manual")
+				createTektonPipelineTriggerOptionsModel.Name = core.StringPtr("Manual Trigger")
+				createTektonPipelineTriggerOptionsModel.EventListener = core.StringPtr("pr-listener")
+				createTektonPipelineTriggerOptionsModel.Tags = []string{"testString"}
+				createTektonPipelineTriggerOptionsModel.Worker = workerModel
+				createTektonPipelineTriggerOptionsModel.MaxConcurrentRuns = core.Int64Ptr(int64(3))
+				createTektonPipelineTriggerOptionsModel.Disabled = core.BoolPtr(false)
+				createTektonPipelineTriggerOptionsModel.Secret = genericSecretModel
+				createTektonPipelineTriggerOptionsModel.Cron = core.StringPtr("testString")
+				createTektonPipelineTriggerOptionsModel.Timezone = core.StringPtr("testString")
+				createTektonPipelineTriggerOptionsModel.ScmSource = triggerScmSourceModel
+				createTektonPipelineTriggerOptionsModel.Events = eventsModel
 				createTektonPipelineTriggerOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -5615,47 +5624,50 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(cdTektonPipelineService).ToNot(BeNil())
 
-				// Construct an instance of the TriggerGenericTriggerPropertiesItem model
-				triggerGenericTriggerPropertiesItemModel := new(cdtektonpipelinev2.TriggerGenericTriggerPropertiesItem)
-				triggerGenericTriggerPropertiesItemModel.Name = core.StringPtr("testString")
-				triggerGenericTriggerPropertiesItemModel.Value = core.StringPtr("testString")
-				triggerGenericTriggerPropertiesItemModel.Enum = []string{"testString"}
-				triggerGenericTriggerPropertiesItemModel.Type = core.StringPtr("secure")
-				triggerGenericTriggerPropertiesItemModel.Path = core.StringPtr("testString")
-				triggerGenericTriggerPropertiesItemModel.Href = core.StringPtr("testString")
-
 				// Construct an instance of the Worker model
 				workerModel := new(cdtektonpipelinev2.Worker)
 				workerModel.Name = core.StringPtr("testString")
 				workerModel.Type = core.StringPtr("private")
-				workerModel.ID = core.StringPtr("5df804a4-9d7b-44e1-874f-3810866fb80b")
+				workerModel.ID = core.StringPtr("public")
 
 				// Construct an instance of the GenericSecret model
 				genericSecretModel := new(cdtektonpipelinev2.GenericSecret)
 				genericSecretModel.Type = core.StringPtr("token_matches")
-				genericSecretModel.Value = core.StringPtr("secret")
-				genericSecretModel.Source = core.StringPtr("query")
-				genericSecretModel.KeyName = core.StringPtr("auth")
+				genericSecretModel.Value = core.StringPtr("testString")
+				genericSecretModel.Source = core.StringPtr("header")
+				genericSecretModel.KeyName = core.StringPtr("testString")
 				genericSecretModel.Algorithm = core.StringPtr("md4")
 
-				// Construct an instance of the TriggerGenericTrigger model
-				triggerModel := new(cdtektonpipelinev2.TriggerGenericTrigger)
-				triggerModel.Type = core.StringPtr("generic")
-				triggerModel.Name = core.StringPtr("Generic Webhook Trigger")
-				triggerModel.Href = core.StringPtr("testString")
-				triggerModel.EventListener = core.StringPtr("pr-listener")
-				triggerModel.ID = core.StringPtr("testString")
-				triggerModel.Properties = []cdtektonpipelinev2.TriggerGenericTriggerPropertiesItem{*triggerGenericTriggerPropertiesItemModel}
-				triggerModel.Tags = []string{"prod", "dev"}
-				triggerModel.Worker = workerModel
-				triggerModel.MaxConcurrentRuns = core.Int64Ptr(int64(4))
-				triggerModel.Disabled = core.BoolPtr(false)
-				triggerModel.Secret = genericSecretModel
+				// Construct an instance of the TriggerScmSource model
+				triggerScmSourceModel := new(cdtektonpipelinev2.TriggerScmSource)
+				triggerScmSourceModel.URL = core.StringPtr("testString")
+				triggerScmSourceModel.Branch = core.StringPtr("testString")
+				triggerScmSourceModel.Pattern = core.StringPtr("testString")
+				triggerScmSourceModel.BlindConnection = core.BoolPtr(true)
+				triggerScmSourceModel.HookID = core.StringPtr("testString")
+				triggerScmSourceModel.ServiceInstanceID = core.StringPtr("testString")
+
+				// Construct an instance of the Events model
+				eventsModel := new(cdtektonpipelinev2.Events)
+				eventsModel.Push = core.BoolPtr(true)
+				eventsModel.PullRequestClosed = core.BoolPtr(true)
+				eventsModel.PullRequest = core.BoolPtr(true)
 
 				// Construct an instance of the CreateTektonPipelineTriggerOptions model
 				createTektonPipelineTriggerOptionsModel := new(cdtektonpipelinev2.CreateTektonPipelineTriggerOptions)
 				createTektonPipelineTriggerOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
-				createTektonPipelineTriggerOptionsModel.Trigger = triggerModel
+				createTektonPipelineTriggerOptionsModel.Type = core.StringPtr("manual")
+				createTektonPipelineTriggerOptionsModel.Name = core.StringPtr("Manual Trigger")
+				createTektonPipelineTriggerOptionsModel.EventListener = core.StringPtr("pr-listener")
+				createTektonPipelineTriggerOptionsModel.Tags = []string{"testString"}
+				createTektonPipelineTriggerOptionsModel.Worker = workerModel
+				createTektonPipelineTriggerOptionsModel.MaxConcurrentRuns = core.Int64Ptr(int64(3))
+				createTektonPipelineTriggerOptionsModel.Disabled = core.BoolPtr(false)
+				createTektonPipelineTriggerOptionsModel.Secret = genericSecretModel
+				createTektonPipelineTriggerOptionsModel.Cron = core.StringPtr("testString")
+				createTektonPipelineTriggerOptionsModel.Timezone = core.StringPtr("testString")
+				createTektonPipelineTriggerOptionsModel.ScmSource = triggerScmSourceModel
+				createTektonPipelineTriggerOptionsModel.Events = eventsModel
 				createTektonPipelineTriggerOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := cdTektonPipelineService.SetServiceURL("")
@@ -5694,47 +5706,50 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(cdTektonPipelineService).ToNot(BeNil())
 
-				// Construct an instance of the TriggerGenericTriggerPropertiesItem model
-				triggerGenericTriggerPropertiesItemModel := new(cdtektonpipelinev2.TriggerGenericTriggerPropertiesItem)
-				triggerGenericTriggerPropertiesItemModel.Name = core.StringPtr("testString")
-				triggerGenericTriggerPropertiesItemModel.Value = core.StringPtr("testString")
-				triggerGenericTriggerPropertiesItemModel.Enum = []string{"testString"}
-				triggerGenericTriggerPropertiesItemModel.Type = core.StringPtr("secure")
-				triggerGenericTriggerPropertiesItemModel.Path = core.StringPtr("testString")
-				triggerGenericTriggerPropertiesItemModel.Href = core.StringPtr("testString")
-
 				// Construct an instance of the Worker model
 				workerModel := new(cdtektonpipelinev2.Worker)
 				workerModel.Name = core.StringPtr("testString")
 				workerModel.Type = core.StringPtr("private")
-				workerModel.ID = core.StringPtr("5df804a4-9d7b-44e1-874f-3810866fb80b")
+				workerModel.ID = core.StringPtr("public")
 
 				// Construct an instance of the GenericSecret model
 				genericSecretModel := new(cdtektonpipelinev2.GenericSecret)
 				genericSecretModel.Type = core.StringPtr("token_matches")
-				genericSecretModel.Value = core.StringPtr("secret")
-				genericSecretModel.Source = core.StringPtr("query")
-				genericSecretModel.KeyName = core.StringPtr("auth")
+				genericSecretModel.Value = core.StringPtr("testString")
+				genericSecretModel.Source = core.StringPtr("header")
+				genericSecretModel.KeyName = core.StringPtr("testString")
 				genericSecretModel.Algorithm = core.StringPtr("md4")
 
-				// Construct an instance of the TriggerGenericTrigger model
-				triggerModel := new(cdtektonpipelinev2.TriggerGenericTrigger)
-				triggerModel.Type = core.StringPtr("generic")
-				triggerModel.Name = core.StringPtr("Generic Webhook Trigger")
-				triggerModel.Href = core.StringPtr("testString")
-				triggerModel.EventListener = core.StringPtr("pr-listener")
-				triggerModel.ID = core.StringPtr("testString")
-				triggerModel.Properties = []cdtektonpipelinev2.TriggerGenericTriggerPropertiesItem{*triggerGenericTriggerPropertiesItemModel}
-				triggerModel.Tags = []string{"prod", "dev"}
-				triggerModel.Worker = workerModel
-				triggerModel.MaxConcurrentRuns = core.Int64Ptr(int64(4))
-				triggerModel.Disabled = core.BoolPtr(false)
-				triggerModel.Secret = genericSecretModel
+				// Construct an instance of the TriggerScmSource model
+				triggerScmSourceModel := new(cdtektonpipelinev2.TriggerScmSource)
+				triggerScmSourceModel.URL = core.StringPtr("testString")
+				triggerScmSourceModel.Branch = core.StringPtr("testString")
+				triggerScmSourceModel.Pattern = core.StringPtr("testString")
+				triggerScmSourceModel.BlindConnection = core.BoolPtr(true)
+				triggerScmSourceModel.HookID = core.StringPtr("testString")
+				triggerScmSourceModel.ServiceInstanceID = core.StringPtr("testString")
+
+				// Construct an instance of the Events model
+				eventsModel := new(cdtektonpipelinev2.Events)
+				eventsModel.Push = core.BoolPtr(true)
+				eventsModel.PullRequestClosed = core.BoolPtr(true)
+				eventsModel.PullRequest = core.BoolPtr(true)
 
 				// Construct an instance of the CreateTektonPipelineTriggerOptions model
 				createTektonPipelineTriggerOptionsModel := new(cdtektonpipelinev2.CreateTektonPipelineTriggerOptions)
 				createTektonPipelineTriggerOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
-				createTektonPipelineTriggerOptionsModel.Trigger = triggerModel
+				createTektonPipelineTriggerOptionsModel.Type = core.StringPtr("manual")
+				createTektonPipelineTriggerOptionsModel.Name = core.StringPtr("Manual Trigger")
+				createTektonPipelineTriggerOptionsModel.EventListener = core.StringPtr("pr-listener")
+				createTektonPipelineTriggerOptionsModel.Tags = []string{"testString"}
+				createTektonPipelineTriggerOptionsModel.Worker = workerModel
+				createTektonPipelineTriggerOptionsModel.MaxConcurrentRuns = core.Int64Ptr(int64(3))
+				createTektonPipelineTriggerOptionsModel.Disabled = core.BoolPtr(false)
+				createTektonPipelineTriggerOptionsModel.Secret = genericSecretModel
+				createTektonPipelineTriggerOptionsModel.Cron = core.StringPtr("testString")
+				createTektonPipelineTriggerOptionsModel.Timezone = core.StringPtr("testString")
+				createTektonPipelineTriggerOptionsModel.ScmSource = triggerScmSourceModel
+				createTektonPipelineTriggerOptionsModel.Events = eventsModel
 				createTektonPipelineTriggerOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -7974,65 +7989,87 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				Expect(createTektonPipelineRunOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateTektonPipelineTriggerOptions successfully`, func() {
-				// Construct an instance of the TriggerManualTriggerPropertiesItem model
-				triggerManualTriggerPropertiesItemModel := new(cdtektonpipelinev2.TriggerManualTriggerPropertiesItem)
-				Expect(triggerManualTriggerPropertiesItemModel).ToNot(BeNil())
-				triggerManualTriggerPropertiesItemModel.Name = core.StringPtr("testString")
-				triggerManualTriggerPropertiesItemModel.Value = core.StringPtr("testString")
-				triggerManualTriggerPropertiesItemModel.Enum = []string{"testString"}
-				triggerManualTriggerPropertiesItemModel.Type = core.StringPtr("secure")
-				triggerManualTriggerPropertiesItemModel.Path = core.StringPtr("testString")
-				triggerManualTriggerPropertiesItemModel.Href = core.StringPtr("testString")
-				Expect(triggerManualTriggerPropertiesItemModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(triggerManualTriggerPropertiesItemModel.Value).To(Equal(core.StringPtr("testString")))
-				Expect(triggerManualTriggerPropertiesItemModel.Enum).To(Equal([]string{"testString"}))
-				Expect(triggerManualTriggerPropertiesItemModel.Type).To(Equal(core.StringPtr("secure")))
-				Expect(triggerManualTriggerPropertiesItemModel.Path).To(Equal(core.StringPtr("testString")))
-				Expect(triggerManualTriggerPropertiesItemModel.Href).To(Equal(core.StringPtr("testString")))
-
 				// Construct an instance of the Worker model
 				workerModel := new(cdtektonpipelinev2.Worker)
 				Expect(workerModel).ToNot(BeNil())
 				workerModel.Name = core.StringPtr("testString")
 				workerModel.Type = core.StringPtr("private")
-				workerModel.ID = core.StringPtr("testString")
+				workerModel.ID = core.StringPtr("public")
 				Expect(workerModel.Name).To(Equal(core.StringPtr("testString")))
 				Expect(workerModel.Type).To(Equal(core.StringPtr("private")))
-				Expect(workerModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(workerModel.ID).To(Equal(core.StringPtr("public")))
 
-				// Construct an instance of the TriggerManualTrigger model
-				triggerModel := new(cdtektonpipelinev2.TriggerManualTrigger)
-				Expect(triggerModel).ToNot(BeNil())
-				triggerModel.Type = core.StringPtr("testString")
-				triggerModel.Name = core.StringPtr("start-deploy")
-				triggerModel.Href = core.StringPtr("testString")
-				triggerModel.EventListener = core.StringPtr("testString")
-				triggerModel.ID = core.StringPtr("testString")
-				triggerModel.Properties = []cdtektonpipelinev2.TriggerManualTriggerPropertiesItem{*triggerManualTriggerPropertiesItemModel}
-				triggerModel.Tags = []string{"testString"}
-				triggerModel.Worker = workerModel
-				triggerModel.MaxConcurrentRuns = core.Int64Ptr(int64(4))
-				triggerModel.Disabled = core.BoolPtr(true)
-				Expect(triggerModel.Type).To(Equal(core.StringPtr("testString")))
-				Expect(triggerModel.Name).To(Equal(core.StringPtr("start-deploy")))
-				Expect(triggerModel.Href).To(Equal(core.StringPtr("testString")))
-				Expect(triggerModel.EventListener).To(Equal(core.StringPtr("testString")))
-				Expect(triggerModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(triggerModel.Properties).To(Equal([]cdtektonpipelinev2.TriggerManualTriggerPropertiesItem{*triggerManualTriggerPropertiesItemModel}))
-				Expect(triggerModel.Tags).To(Equal([]string{"testString"}))
-				Expect(triggerModel.Worker).To(Equal(workerModel))
-				Expect(triggerModel.MaxConcurrentRuns).To(Equal(core.Int64Ptr(int64(4))))
-				Expect(triggerModel.Disabled).To(Equal(core.BoolPtr(true)))
+				// Construct an instance of the GenericSecret model
+				genericSecretModel := new(cdtektonpipelinev2.GenericSecret)
+				Expect(genericSecretModel).ToNot(BeNil())
+				genericSecretModel.Type = core.StringPtr("token_matches")
+				genericSecretModel.Value = core.StringPtr("testString")
+				genericSecretModel.Source = core.StringPtr("header")
+				genericSecretModel.KeyName = core.StringPtr("testString")
+				genericSecretModel.Algorithm = core.StringPtr("md4")
+				Expect(genericSecretModel.Type).To(Equal(core.StringPtr("token_matches")))
+				Expect(genericSecretModel.Value).To(Equal(core.StringPtr("testString")))
+				Expect(genericSecretModel.Source).To(Equal(core.StringPtr("header")))
+				Expect(genericSecretModel.KeyName).To(Equal(core.StringPtr("testString")))
+				Expect(genericSecretModel.Algorithm).To(Equal(core.StringPtr("md4")))
+
+				// Construct an instance of the TriggerScmSource model
+				triggerScmSourceModel := new(cdtektonpipelinev2.TriggerScmSource)
+				Expect(triggerScmSourceModel).ToNot(BeNil())
+				triggerScmSourceModel.URL = core.StringPtr("testString")
+				triggerScmSourceModel.Branch = core.StringPtr("testString")
+				triggerScmSourceModel.Pattern = core.StringPtr("testString")
+				triggerScmSourceModel.BlindConnection = core.BoolPtr(true)
+				triggerScmSourceModel.HookID = core.StringPtr("testString")
+				triggerScmSourceModel.ServiceInstanceID = core.StringPtr("testString")
+				Expect(triggerScmSourceModel.URL).To(Equal(core.StringPtr("testString")))
+				Expect(triggerScmSourceModel.Branch).To(Equal(core.StringPtr("testString")))
+				Expect(triggerScmSourceModel.Pattern).To(Equal(core.StringPtr("testString")))
+				Expect(triggerScmSourceModel.BlindConnection).To(Equal(core.BoolPtr(true)))
+				Expect(triggerScmSourceModel.HookID).To(Equal(core.StringPtr("testString")))
+				Expect(triggerScmSourceModel.ServiceInstanceID).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the Events model
+				eventsModel := new(cdtektonpipelinev2.Events)
+				Expect(eventsModel).ToNot(BeNil())
+				eventsModel.Push = core.BoolPtr(true)
+				eventsModel.PullRequestClosed = core.BoolPtr(true)
+				eventsModel.PullRequest = core.BoolPtr(true)
+				Expect(eventsModel.Push).To(Equal(core.BoolPtr(true)))
+				Expect(eventsModel.PullRequestClosed).To(Equal(core.BoolPtr(true)))
+				Expect(eventsModel.PullRequest).To(Equal(core.BoolPtr(true)))
 
 				// Construct an instance of the CreateTektonPipelineTriggerOptions model
 				pipelineID := "94619026-912b-4d92-8f51-6c74f0692d90"
 				createTektonPipelineTriggerOptionsModel := cdTektonPipelineService.NewCreateTektonPipelineTriggerOptions(pipelineID)
 				createTektonPipelineTriggerOptionsModel.SetPipelineID("94619026-912b-4d92-8f51-6c74f0692d90")
-				createTektonPipelineTriggerOptionsModel.SetTrigger(triggerModel)
+				createTektonPipelineTriggerOptionsModel.SetType("manual")
+				createTektonPipelineTriggerOptionsModel.SetName("Manual Trigger")
+				createTektonPipelineTriggerOptionsModel.SetEventListener("pr-listener")
+				createTektonPipelineTriggerOptionsModel.SetTags([]string{"testString"})
+				createTektonPipelineTriggerOptionsModel.SetWorker(workerModel)
+				createTektonPipelineTriggerOptionsModel.SetMaxConcurrentRuns(int64(3))
+				createTektonPipelineTriggerOptionsModel.SetDisabled(false)
+				createTektonPipelineTriggerOptionsModel.SetSecret(genericSecretModel)
+				createTektonPipelineTriggerOptionsModel.SetCron("testString")
+				createTektonPipelineTriggerOptionsModel.SetTimezone("testString")
+				createTektonPipelineTriggerOptionsModel.SetScmSource(triggerScmSourceModel)
+				createTektonPipelineTriggerOptionsModel.SetEvents(eventsModel)
 				createTektonPipelineTriggerOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createTektonPipelineTriggerOptionsModel).ToNot(BeNil())
 				Expect(createTektonPipelineTriggerOptionsModel.PipelineID).To(Equal(core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")))
-				Expect(createTektonPipelineTriggerOptionsModel.Trigger).To(Equal(triggerModel))
+				Expect(createTektonPipelineTriggerOptionsModel.Type).To(Equal(core.StringPtr("manual")))
+				Expect(createTektonPipelineTriggerOptionsModel.Name).To(Equal(core.StringPtr("Manual Trigger")))
+				Expect(createTektonPipelineTriggerOptionsModel.EventListener).To(Equal(core.StringPtr("pr-listener")))
+				Expect(createTektonPipelineTriggerOptionsModel.Tags).To(Equal([]string{"testString"}))
+				Expect(createTektonPipelineTriggerOptionsModel.Worker).To(Equal(workerModel))
+				Expect(createTektonPipelineTriggerOptionsModel.MaxConcurrentRuns).To(Equal(core.Int64Ptr(int64(3))))
+				Expect(createTektonPipelineTriggerOptionsModel.Disabled).To(Equal(core.BoolPtr(false)))
+				Expect(createTektonPipelineTriggerOptionsModel.Secret).To(Equal(genericSecretModel))
+				Expect(createTektonPipelineTriggerOptionsModel.Cron).To(Equal(core.StringPtr("testString")))
+				Expect(createTektonPipelineTriggerOptionsModel.Timezone).To(Equal(core.StringPtr("testString")))
+				Expect(createTektonPipelineTriggerOptionsModel.ScmSource).To(Equal(triggerScmSourceModel))
+				Expect(createTektonPipelineTriggerOptionsModel.Events).To(Equal(eventsModel))
 				Expect(createTektonPipelineTriggerOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateTektonPipelineTriggerPropertiesOptions successfully`, func() {
@@ -8452,44 +8489,9 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				Expect(rerunTektonPipelineRunOptionsModel.ID).To(Equal(core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")))
 				Expect(rerunTektonPipelineRunOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewTriggerGenericTriggerPropertiesItem successfully`, func() {
-				name := "testString"
-				typeVar := "secure"
-				_model, err := cdTektonPipelineService.NewTriggerGenericTriggerPropertiesItem(name, typeVar)
-				Expect(_model).ToNot(BeNil())
-				Expect(err).To(BeNil())
-			})
-			It(`Invoke NewTriggerManualTriggerPropertiesItem successfully`, func() {
-				name := "testString"
-				typeVar := "secure"
-				_model, err := cdTektonPipelineService.NewTriggerManualTriggerPropertiesItem(name, typeVar)
-				Expect(_model).ToNot(BeNil())
-				Expect(err).To(BeNil())
-			})
-			It(`Invoke NewTriggerPropertiesItem successfully`, func() {
-				name := "testString"
-				typeVar := "secure"
-				_model, err := cdTektonPipelineService.NewTriggerPropertiesItem(name, typeVar)
-				Expect(_model).ToNot(BeNil())
-				Expect(err).To(BeNil())
-			})
 			It(`Invoke NewTriggerScmSource successfully`, func() {
 				url := "testString"
 				_model, err := cdTektonPipelineService.NewTriggerScmSource(url)
-				Expect(_model).ToNot(BeNil())
-				Expect(err).To(BeNil())
-			})
-			It(`Invoke NewTriggerScmTriggerPropertiesItem successfully`, func() {
-				name := "testString"
-				typeVar := "secure"
-				_model, err := cdTektonPipelineService.NewTriggerScmTriggerPropertiesItem(name, typeVar)
-				Expect(_model).ToNot(BeNil())
-				Expect(err).To(BeNil())
-			})
-			It(`Invoke NewTriggerTimerTriggerPropertiesItem successfully`, func() {
-				name := "testString"
-				typeVar := "secure"
-				_model, err := cdTektonPipelineService.NewTriggerTimerTriggerPropertiesItem(name, typeVar)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
@@ -8529,42 +8531,6 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 			It(`Invoke NewWorkerWithID successfully`, func() {
 				id := "testString"
 				_model, err := cdTektonPipelineService.NewWorkerWithID(id)
-				Expect(_model).ToNot(BeNil())
-				Expect(err).To(BeNil())
-			})
-			It(`Invoke NewTriggerGenericTrigger successfully`, func() {
-				typeVar := "testString"
-				name := "start-deploy"
-				eventListener := "testString"
-				disabled := true
-				_model, err := cdTektonPipelineService.NewTriggerGenericTrigger(typeVar, name, eventListener, disabled)
-				Expect(_model).ToNot(BeNil())
-				Expect(err).To(BeNil())
-			})
-			It(`Invoke NewTriggerManualTrigger successfully`, func() {
-				typeVar := "testString"
-				name := "start-deploy"
-				eventListener := "testString"
-				disabled := true
-				_model, err := cdTektonPipelineService.NewTriggerManualTrigger(typeVar, name, eventListener, disabled)
-				Expect(_model).ToNot(BeNil())
-				Expect(err).To(BeNil())
-			})
-			It(`Invoke NewTriggerScmTrigger successfully`, func() {
-				typeVar := "testString"
-				name := "start-deploy"
-				eventListener := "testString"
-				disabled := true
-				_model, err := cdTektonPipelineService.NewTriggerScmTrigger(typeVar, name, eventListener, disabled)
-				Expect(_model).ToNot(BeNil())
-				Expect(err).To(BeNil())
-			})
-			It(`Invoke NewTriggerTimerTrigger successfully`, func() {
-				typeVar := "testString"
-				name := "start-deploy"
-				eventListener := "testString"
-				disabled := true
-				_model, err := cdTektonPipelineService.NewTriggerTimerTrigger(typeVar, name, eventListener, disabled)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})

@@ -569,30 +569,18 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 			// begin-create_tekton_pipeline_trigger
 
 			workerModel := &cdtektonpipelinev2.Worker{
-				ID: core.StringPtr("5df804a4-9d7b-44e1-874f-3810866fb80b"),
-			}
-
-			genericSecretModel := &cdtektonpipelinev2.GenericSecret{
-				Type: core.StringPtr("token_matches"),
-				Value: core.StringPtr("secret"),
-				Source: core.StringPtr("query"),
-				KeyName: core.StringPtr("auth"),
-			}
-
-			triggerModel := &cdtektonpipelinev2.TriggerGenericTrigger{
-				Type: core.StringPtr("generic"),
-				Name: core.StringPtr("Generic Webhook Trigger"),
-				EventListener: core.StringPtr("pr-listener"),
-				Tags: []string{"prod", "dev"},
-				Worker: workerModel,
-				Disabled: core.BoolPtr(false),
-				Secret: genericSecretModel,
+				ID: core.StringPtr("public"),
 			}
 
 			createTektonPipelineTriggerOptions := cdTektonPipelineService.NewCreateTektonPipelineTriggerOptions(
 				"94619026-912b-4d92-8f51-6c74f0692d90",
 			)
-			createTektonPipelineTriggerOptions.SetTrigger(triggerModel)
+			createTektonPipelineTriggerOptions.SetType("manual")
+			createTektonPipelineTriggerOptions.SetName("Manual Trigger")
+			createTektonPipelineTriggerOptions.SetEventListener("pr-listener")
+			createTektonPipelineTriggerOptions.SetWorker(workerModel)
+			createTektonPipelineTriggerOptions.SetMaxConcurrentRuns(int64(3))
+			createTektonPipelineTriggerOptions.SetDisabled(false)
 
 			trigger, response, err := cdTektonPipelineService.CreateTektonPipelineTrigger(createTektonPipelineTriggerOptions)
 			if err != nil {

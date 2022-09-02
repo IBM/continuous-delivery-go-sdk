@@ -531,46 +531,49 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateTektonPipelineTrigger(createTektonPipelineTriggerOptions *CreateTektonPipelineTriggerOptions)`, func() {
-			triggerGenericTriggerPropertiesItemModel := &cdtektonpipelinev2.TriggerGenericTriggerPropertiesItem{
-				Name: core.StringPtr("testString"),
-				Value: core.StringPtr("testString"),
-				Enum: []string{"testString"},
-				Type: core.StringPtr("secure"),
-				Path: core.StringPtr("testString"),
-				Href: core.StringPtr("testString"),
-			}
-
 			workerModel := &cdtektonpipelinev2.Worker{
 				Name: core.StringPtr("testString"),
 				Type: core.StringPtr("private"),
-				ID: core.StringPtr("5df804a4-9d7b-44e1-874f-3810866fb80b"),
+				ID: core.StringPtr("public"),
 			}
 
 			genericSecretModel := &cdtektonpipelinev2.GenericSecret{
 				Type: core.StringPtr("token_matches"),
-				Value: core.StringPtr("secret"),
-				Source: core.StringPtr("query"),
-				KeyName: core.StringPtr("auth"),
+				Value: core.StringPtr("testString"),
+				Source: core.StringPtr("header"),
+				KeyName: core.StringPtr("testString"),
 				Algorithm: core.StringPtr("md4"),
 			}
 
-			triggerModel := &cdtektonpipelinev2.TriggerGenericTrigger{
-				Type: core.StringPtr("generic"),
-				Name: core.StringPtr("Generic Webhook Trigger"),
-				Href: core.StringPtr("testString"),
-				EventListener: core.StringPtr("pr-listener"),
-				ID: core.StringPtr("testString"),
-				Properties: []cdtektonpipelinev2.TriggerGenericTriggerPropertiesItem{*triggerGenericTriggerPropertiesItemModel},
-				Tags: []string{"prod", "dev"},
-				Worker: workerModel,
-				MaxConcurrentRuns: core.Int64Ptr(int64(4)),
-				Disabled: core.BoolPtr(false),
-				Secret: genericSecretModel,
+			triggerScmSourceModel := &cdtektonpipelinev2.TriggerScmSource{
+				URL: core.StringPtr("testString"),
+				Branch: core.StringPtr("testString"),
+				Pattern: core.StringPtr("testString"),
+				BlindConnection: core.BoolPtr(true),
+				HookID: core.StringPtr("testString"),
+				ServiceInstanceID: core.StringPtr("testString"),
+			}
+
+			eventsModel := &cdtektonpipelinev2.Events{
+				Push: core.BoolPtr(true),
+				PullRequestClosed: core.BoolPtr(true),
+				PullRequest: core.BoolPtr(true),
 			}
 
 			createTektonPipelineTriggerOptions := &cdtektonpipelinev2.CreateTektonPipelineTriggerOptions{
 				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
-				Trigger: triggerModel,
+				Type: core.StringPtr("manual"),
+				Name: core.StringPtr("Manual Trigger"),
+				EventListener: core.StringPtr("pr-listener"),
+				Tags: []string{"testString"},
+				Worker: workerModel,
+				MaxConcurrentRuns: core.Int64Ptr(int64(3)),
+				Disabled: core.BoolPtr(false),
+				Secret: genericSecretModel,
+				Cron: core.StringPtr("testString"),
+				Timezone: core.StringPtr("testString"),
+				ScmSource: triggerScmSourceModel,
+				Events: eventsModel,
 			}
 
 			trigger, response, err := cdTektonPipelineService.CreateTektonPipelineTrigger(createTektonPipelineTriggerOptions)

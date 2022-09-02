@@ -1749,11 +1749,46 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineTriggerWithConte
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
 
-	if createTektonPipelineTriggerOptions.Trigger != nil {
-		_, err = builder.SetBodyContentJSON(createTektonPipelineTriggerOptions.Trigger)
-		if err != nil {
-			return
-		}
+	body := make(map[string]interface{})
+	if createTektonPipelineTriggerOptions.Type != nil {
+		body["type"] = createTektonPipelineTriggerOptions.Type
+	}
+	if createTektonPipelineTriggerOptions.Name != nil {
+		body["name"] = createTektonPipelineTriggerOptions.Name
+	}
+	if createTektonPipelineTriggerOptions.EventListener != nil {
+		body["event_listener"] = createTektonPipelineTriggerOptions.EventListener
+	}
+	if createTektonPipelineTriggerOptions.Tags != nil {
+		body["tags"] = createTektonPipelineTriggerOptions.Tags
+	}
+	if createTektonPipelineTriggerOptions.Worker != nil {
+		body["worker"] = createTektonPipelineTriggerOptions.Worker
+	}
+	if createTektonPipelineTriggerOptions.MaxConcurrentRuns != nil {
+		body["max_concurrent_runs"] = createTektonPipelineTriggerOptions.MaxConcurrentRuns
+	}
+	if createTektonPipelineTriggerOptions.Disabled != nil {
+		body["disabled"] = createTektonPipelineTriggerOptions.Disabled
+	}
+	if createTektonPipelineTriggerOptions.Secret != nil {
+		body["secret"] = createTektonPipelineTriggerOptions.Secret
+	}
+	if createTektonPipelineTriggerOptions.Cron != nil {
+		body["cron"] = createTektonPipelineTriggerOptions.Cron
+	}
+	if createTektonPipelineTriggerOptions.Timezone != nil {
+		body["timezone"] = createTektonPipelineTriggerOptions.Timezone
+	}
+	if createTektonPipelineTriggerOptions.ScmSource != nil {
+		body["scm_source"] = createTektonPipelineTriggerOptions.ScmSource
+	}
+	if createTektonPipelineTriggerOptions.Events != nil {
+		body["events"] = createTektonPipelineTriggerOptions.Events
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
 	}
 
 	request, err := builder.Build()
@@ -2685,12 +2720,55 @@ type CreateTektonPipelineTriggerOptions struct {
 	// The Tekton pipeline ID.
 	PipelineID *string `json:"pipeline_id" validate:"required,ne="`
 
-	// Tekton pipeline trigger.
-	Trigger TriggerIntf `json:"Trigger,omitempty"`
+	// Trigger type.
+	Type *string `json:"type,omitempty"`
+
+	// Trigger name.
+	Name *string `json:"name,omitempty"`
+
+	// Event listener name. The name of the event listener to which the trigger is associated. The event listeners are
+	// defined in the definition repositories of the Tekton pipeline.
+	EventListener *string `json:"event_listener,omitempty"`
+
+	// Trigger tags array.
+	Tags []string `json:"tags,omitempty"`
+
+	// Worker used to run the trigger. If not specified the trigger will use the default pipeline worker.
+	Worker *Worker `json:"worker,omitempty"`
+
+	// Defines the maximum number of concurrent runs for this trigger. Omit this property to disable the concurrency limit.
+	MaxConcurrentRuns *int64 `json:"max_concurrent_runs,omitempty"`
+
+	// Flag whether the trigger is disabled. If omitted the trigger is enabled by default.
+	Disabled *bool `json:"disabled,omitempty"`
+
+	// Only needed for generic webhook trigger type. Secret used to start generic webhook trigger.
+	Secret *GenericSecret `json:"secret,omitempty"`
+
+	// Only needed for timer triggers. Cron expression for timer trigger.
+	Cron *string `json:"cron,omitempty"`
+
+	// Only needed for timer triggers. Timezone for timer trigger.
+	Timezone *string `json:"timezone,omitempty"`
+
+	// SCM source repository for a Git trigger. Only needed for Git triggers.
+	ScmSource *TriggerScmSource `json:"scm_source,omitempty"`
+
+	// Only needed for Git triggers. Events object defines the events to which this Git trigger listens.
+	Events *Events `json:"events,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
+
+// Constants associated with the CreateTektonPipelineTriggerOptions.Type property.
+// Trigger type.
+const (
+	CreateTektonPipelineTriggerOptionsTypeGenericConst = "generic"
+	CreateTektonPipelineTriggerOptionsTypeManualConst = "manual"
+	CreateTektonPipelineTriggerOptionsTypeScmConst = "scm"
+	CreateTektonPipelineTriggerOptionsTypeTimerConst = "timer"
+)
 
 // NewCreateTektonPipelineTriggerOptions : Instantiate CreateTektonPipelineTriggerOptions
 func (*CdTektonPipelineV2) NewCreateTektonPipelineTriggerOptions(pipelineID string) *CreateTektonPipelineTriggerOptions {
@@ -2705,9 +2783,75 @@ func (_options *CreateTektonPipelineTriggerOptions) SetPipelineID(pipelineID str
 	return _options
 }
 
-// SetTrigger : Allow user to set Trigger
-func (_options *CreateTektonPipelineTriggerOptions) SetTrigger(trigger TriggerIntf) *CreateTektonPipelineTriggerOptions {
-	_options.Trigger = trigger
+// SetType : Allow user to set Type
+func (_options *CreateTektonPipelineTriggerOptions) SetType(typeVar string) *CreateTektonPipelineTriggerOptions {
+	_options.Type = core.StringPtr(typeVar)
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *CreateTektonPipelineTriggerOptions) SetName(name string) *CreateTektonPipelineTriggerOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetEventListener : Allow user to set EventListener
+func (_options *CreateTektonPipelineTriggerOptions) SetEventListener(eventListener string) *CreateTektonPipelineTriggerOptions {
+	_options.EventListener = core.StringPtr(eventListener)
+	return _options
+}
+
+// SetTags : Allow user to set Tags
+func (_options *CreateTektonPipelineTriggerOptions) SetTags(tags []string) *CreateTektonPipelineTriggerOptions {
+	_options.Tags = tags
+	return _options
+}
+
+// SetWorker : Allow user to set Worker
+func (_options *CreateTektonPipelineTriggerOptions) SetWorker(worker *Worker) *CreateTektonPipelineTriggerOptions {
+	_options.Worker = worker
+	return _options
+}
+
+// SetMaxConcurrentRuns : Allow user to set MaxConcurrentRuns
+func (_options *CreateTektonPipelineTriggerOptions) SetMaxConcurrentRuns(maxConcurrentRuns int64) *CreateTektonPipelineTriggerOptions {
+	_options.MaxConcurrentRuns = core.Int64Ptr(maxConcurrentRuns)
+	return _options
+}
+
+// SetDisabled : Allow user to set Disabled
+func (_options *CreateTektonPipelineTriggerOptions) SetDisabled(disabled bool) *CreateTektonPipelineTriggerOptions {
+	_options.Disabled = core.BoolPtr(disabled)
+	return _options
+}
+
+// SetSecret : Allow user to set Secret
+func (_options *CreateTektonPipelineTriggerOptions) SetSecret(secret *GenericSecret) *CreateTektonPipelineTriggerOptions {
+	_options.Secret = secret
+	return _options
+}
+
+// SetCron : Allow user to set Cron
+func (_options *CreateTektonPipelineTriggerOptions) SetCron(cron string) *CreateTektonPipelineTriggerOptions {
+	_options.Cron = core.StringPtr(cron)
+	return _options
+}
+
+// SetTimezone : Allow user to set Timezone
+func (_options *CreateTektonPipelineTriggerOptions) SetTimezone(timezone string) *CreateTektonPipelineTriggerOptions {
+	_options.Timezone = core.StringPtr(timezone)
+	return _options
+}
+
+// SetScmSource : Allow user to set ScmSource
+func (_options *CreateTektonPipelineTriggerOptions) SetScmSource(scmSource *TriggerScmSource) *CreateTektonPipelineTriggerOptions {
+	_options.ScmSource = scmSource
+	return _options
+}
+
+// SetEvents : Allow user to set Events
+func (_options *CreateTektonPipelineTriggerOptions) SetEvents(events *Events) *CreateTektonPipelineTriggerOptions {
+	_options.Events = events
 	return _options
 }
 
@@ -5218,16 +5362,6 @@ const (
 	TriggerGenericTriggerPropertiesItemTypeTextConst = "text"
 )
 
-// NewTriggerGenericTriggerPropertiesItem : Instantiate TriggerGenericTriggerPropertiesItem (Generic Model Constructor)
-func (*CdTektonPipelineV2) NewTriggerGenericTriggerPropertiesItem(name string, typeVar string) (_model *TriggerGenericTriggerPropertiesItem, err error) {
-	_model = &TriggerGenericTriggerPropertiesItem{
-		Name: core.StringPtr(name),
-		Type: core.StringPtr(typeVar),
-	}
-	err = core.ValidateStruct(_model, "required parameters")
-	return
-}
-
 // UnmarshalTriggerGenericTriggerPropertiesItem unmarshals an instance of TriggerGenericTriggerPropertiesItem from the specified map of raw messages.
 func UnmarshalTriggerGenericTriggerPropertiesItem(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(TriggerGenericTriggerPropertiesItem)
@@ -5290,16 +5424,6 @@ const (
 	TriggerManualTriggerPropertiesItemTypeSingleSelectConst = "single_select"
 	TriggerManualTriggerPropertiesItemTypeTextConst = "text"
 )
-
-// NewTriggerManualTriggerPropertiesItem : Instantiate TriggerManualTriggerPropertiesItem (Generic Model Constructor)
-func (*CdTektonPipelineV2) NewTriggerManualTriggerPropertiesItem(name string, typeVar string) (_model *TriggerManualTriggerPropertiesItem, err error) {
-	_model = &TriggerManualTriggerPropertiesItem{
-		Name: core.StringPtr(name),
-		Type: core.StringPtr(typeVar),
-	}
-	err = core.ValidateStruct(_model, "required parameters")
-	return
-}
 
 // UnmarshalTriggerManualTriggerPropertiesItem unmarshals an instance of TriggerManualTriggerPropertiesItem from the specified map of raw messages.
 func UnmarshalTriggerManualTriggerPropertiesItem(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -5558,16 +5682,6 @@ const (
 	TriggerPropertiesItemTypeTextConst = "text"
 )
 
-// NewTriggerPropertiesItem : Instantiate TriggerPropertiesItem (Generic Model Constructor)
-func (*CdTektonPipelineV2) NewTriggerPropertiesItem(name string, typeVar string) (_model *TriggerPropertiesItem, err error) {
-	_model = &TriggerPropertiesItem{
-		Name: core.StringPtr(name),
-		Type: core.StringPtr(typeVar),
-	}
-	err = core.ValidateStruct(_model, "required parameters")
-	return
-}
-
 // UnmarshalTriggerPropertiesItem unmarshals an instance of TriggerPropertiesItem from the specified map of raw messages.
 func UnmarshalTriggerPropertiesItem(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(TriggerPropertiesItem)
@@ -5666,8 +5780,8 @@ type TriggerScmSource struct {
 	// Git branch or tag pattern to listen to. Please refer to https://github.com/micromatch/micromatch for pattern syntax.
 	Pattern *string `json:"pattern,omitempty"`
 
-	// Set this boolean to true if the server is not addressable on the public internet. IBM Cloud will not be able to
-	// validate the connection details you provide. False by default.
+	// True if the repository server is not addressable on the public internet. IBM Cloud will not be able to validate the
+	// connection details you provide.
 	BlindConnection *bool `json:"blind_connection,omitempty"`
 
 	// ID of the webhook from the repo. Computed upon creation of the trigger.
@@ -5749,16 +5863,6 @@ const (
 	TriggerScmTriggerPropertiesItemTypeTextConst = "text"
 )
 
-// NewTriggerScmTriggerPropertiesItem : Instantiate TriggerScmTriggerPropertiesItem (Generic Model Constructor)
-func (*CdTektonPipelineV2) NewTriggerScmTriggerPropertiesItem(name string, typeVar string) (_model *TriggerScmTriggerPropertiesItem, err error) {
-	_model = &TriggerScmTriggerPropertiesItem{
-		Name: core.StringPtr(name),
-		Type: core.StringPtr(typeVar),
-	}
-	err = core.ValidateStruct(_model, "required parameters")
-	return
-}
-
 // UnmarshalTriggerScmTriggerPropertiesItem unmarshals an instance of TriggerScmTriggerPropertiesItem from the specified map of raw messages.
 func UnmarshalTriggerScmTriggerPropertiesItem(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(TriggerScmTriggerPropertiesItem)
@@ -5821,16 +5925,6 @@ const (
 	TriggerTimerTriggerPropertiesItemTypeSingleSelectConst = "single_select"
 	TriggerTimerTriggerPropertiesItemTypeTextConst = "text"
 )
-
-// NewTriggerTimerTriggerPropertiesItem : Instantiate TriggerTimerTriggerPropertiesItem (Generic Model Constructor)
-func (*CdTektonPipelineV2) NewTriggerTimerTriggerPropertiesItem(name string, typeVar string) (_model *TriggerTimerTriggerPropertiesItem, err error) {
-	_model = &TriggerTimerTriggerPropertiesItem{
-		Name: core.StringPtr(name),
-		Type: core.StringPtr(typeVar),
-	}
-	err = core.ValidateStruct(_model, "required parameters")
-	return
-}
 
 // UnmarshalTriggerTimerTriggerPropertiesItem unmarshals an instance of TriggerTimerTriggerPropertiesItem from the specified map of raw messages.
 func UnmarshalTriggerTimerTriggerPropertiesItem(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -6099,18 +6193,6 @@ type TriggerGenericTrigger struct {
 	Secret *GenericSecret `json:"secret,omitempty"`
 }
 
-// NewTriggerGenericTrigger : Instantiate TriggerGenericTrigger (Generic Model Constructor)
-func (*CdTektonPipelineV2) NewTriggerGenericTrigger(typeVar string, name string, eventListener string, disabled bool) (_model *TriggerGenericTrigger, err error) {
-	_model = &TriggerGenericTrigger{
-		Type: core.StringPtr(typeVar),
-		Name: core.StringPtr(name),
-		EventListener: core.StringPtr(eventListener),
-		Disabled: core.BoolPtr(disabled),
-	}
-	err = core.ValidateStruct(_model, "required parameters")
-	return
-}
-
 func (*TriggerGenericTrigger) isaTrigger() bool {
 	return true
 }
@@ -6199,18 +6281,6 @@ type TriggerManualTrigger struct {
 
 	// Flag whether the trigger is disabled. If omitted the trigger is enabled by default.
 	Disabled *bool `json:"disabled" validate:"required"`
-}
-
-// NewTriggerManualTrigger : Instantiate TriggerManualTrigger (Generic Model Constructor)
-func (*CdTektonPipelineV2) NewTriggerManualTrigger(typeVar string, name string, eventListener string, disabled bool) (_model *TriggerManualTrigger, err error) {
-	_model = &TriggerManualTrigger{
-		Type: core.StringPtr(typeVar),
-		Name: core.StringPtr(name),
-		EventListener: core.StringPtr(eventListener),
-		Disabled: core.BoolPtr(disabled),
-	}
-	err = core.ValidateStruct(_model, "required parameters")
-	return
 }
 
 func (*TriggerManualTrigger) isaTrigger() bool {
@@ -6304,18 +6374,6 @@ type TriggerScmTrigger struct {
 
 	// Only needed for Git triggers. Events object defines the events to which this Git trigger listens.
 	Events *Events `json:"events,omitempty"`
-}
-
-// NewTriggerScmTrigger : Instantiate TriggerScmTrigger (Generic Model Constructor)
-func (*CdTektonPipelineV2) NewTriggerScmTrigger(typeVar string, name string, eventListener string, disabled bool) (_model *TriggerScmTrigger, err error) {
-	_model = &TriggerScmTrigger{
-		Type: core.StringPtr(typeVar),
-		Name: core.StringPtr(name),
-		EventListener: core.StringPtr(eventListener),
-		Disabled: core.BoolPtr(disabled),
-	}
-	err = core.ValidateStruct(_model, "required parameters")
-	return
 }
 
 func (*TriggerScmTrigger) isaTrigger() bool {
@@ -6416,18 +6474,6 @@ type TriggerTimerTrigger struct {
 
 	// Only needed for timer triggers. Timezone for timer trigger.
 	Timezone *string `json:"timezone,omitempty"`
-}
-
-// NewTriggerTimerTrigger : Instantiate TriggerTimerTrigger (Generic Model Constructor)
-func (*CdTektonPipelineV2) NewTriggerTimerTrigger(typeVar string, name string, eventListener string, disabled bool) (_model *TriggerTimerTrigger, err error) {
-	_model = &TriggerTimerTrigger{
-		Type: core.StringPtr(typeVar),
-		Name: core.StringPtr(name),
-		EventListener: core.StringPtr(eventListener),
-		Disabled: core.BoolPtr(disabled),
-	}
-	err = core.ValidateStruct(_model, "required parameters")
-	return
 }
 
 func (*TriggerTimerTrigger) isaTrigger() bool {
