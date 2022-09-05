@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-# IBM Cloud Continuous Delivery Go SDK 0.0.8
+# IBM Cloud Continuous Delivery Go SDK 1.0.0
 Go client library to interact with the [IBM Cloud Continuous Delivery Toolchain and Tekton Pipeline APIs](https://cloud.ibm.com/docs?tab=api-docs&category=devops).
 
 ***Disclaimer***: this SDK is in **Beta**, and is subject to breaking changes that may impact applications that use this SDK.
@@ -54,7 +54,7 @@ Service Name | Package name
 * Go version 1.16 or above.
 
 ## Installation
-The current version of this SDK: 0.0.8
+The current version of this SDK: 1.0.0
 
 ### Go modules  
 If your application uses Go modules for dependency management (recommended), just add an import for each service 
