@@ -1,3 +1,20 @@
+# [0.1.0](https://github.com/IBM/continuous-delivery-go-sdk/compare/v0.0.8...v0.1.0) (2022-09-05)
+
+
+### Bug Fixes
+
+* **tekton:** string and schema updates ([#9](https://github.com/IBM/continuous-delivery-go-sdk/issues/9)) ([58a498a](https://github.com/IBM/continuous-delivery-go-sdk/commit/58a498a4ee9e031dcd0fa7bc141a3b69c95d8f34))
+
+
+### BREAKING CHANGES
+
+* **tekton:** The schema of pipeline properties, generic trigger secrets and trigger patches has been refactored.
+* fix(tekton): refactor enum value and endpoint
+* fix(tekton): remove enabled flag
+* feat(tekton): add token pagination
+* Decouple create trigger and duplicate trigger APIs
+* fix(tekton): refactor Trigger
+
 ## [0.0.8](https://github.com/IBM/continuous-delivery-go-sdk/compare/v0.0.7...v0.0.8) (2022-08-02)
 
 
