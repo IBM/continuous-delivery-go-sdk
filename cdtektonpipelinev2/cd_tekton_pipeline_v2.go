@@ -5254,6 +5254,9 @@ type Trigger struct {
 
 	// Only needed for generic webhook trigger type. Secret used to start generic webhook trigger.
 	Secret *GenericSecret `json:"secret,omitempty"`
+
+	// Webhook URL that can be used to trigger pipeline runs.
+	WebhookURL *string `json:"webhook_url,omitempty"`
 }
 func (*Trigger) isaTrigger() bool {
 	return true
@@ -5323,6 +5326,10 @@ func UnmarshalTrigger(m map[string]json.RawMessage, result interface{}) (err err
 		return
 	}
 	err = core.UnmarshalModel(m, "secret", &obj.Secret, UnmarshalGenericSecret)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "webhook_url", &obj.WebhookURL)
 	if err != nil {
 		return
 	}
@@ -6191,6 +6198,9 @@ type TriggerGenericTrigger struct {
 
 	// Only needed for generic webhook trigger type. Secret used to start generic webhook trigger.
 	Secret *GenericSecret `json:"secret,omitempty"`
+
+	// Webhook URL that can be used to trigger pipeline runs.
+	WebhookURL *string `json:"webhook_url,omitempty"`
 }
 
 func (*TriggerGenericTrigger) isaTrigger() bool {
@@ -6241,6 +6251,10 @@ func UnmarshalTriggerGenericTrigger(m map[string]json.RawMessage, result interfa
 		return
 	}
 	err = core.UnmarshalModel(m, "secret", &obj.Secret, UnmarshalGenericSecret)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "webhook_url", &obj.WebhookURL)
 	if err != nil {
 		return
 	}
