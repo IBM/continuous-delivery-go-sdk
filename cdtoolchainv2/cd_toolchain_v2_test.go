@@ -21,7 +21,6 @@ import (
 	"context"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -159,39 +158,39 @@ var _ = Describe(`CdToolchainV2`, func() {
 			var url string
 			var err error
 			url, err = cdtoolchainv2.GetServiceURLForRegion("us-south")
-			Expect(url).To(Equal("https://api.us-south.devops.cloud.ibm.com"))
+			Expect(url).To(Equal("https://api.us-south.devops.cloud.ibm.com/toolchain/v2"))
 			Expect(err).To(BeNil())
 
 			url, err = cdtoolchainv2.GetServiceURLForRegion("us-east")
-			Expect(url).To(Equal("https://api.us-east.devops.cloud.ibm.com"))
+			Expect(url).To(Equal("https://api.us-east.devops.cloud.ibm.com/toolchain/v2"))
 			Expect(err).To(BeNil())
 
 			url, err = cdtoolchainv2.GetServiceURLForRegion("eu-de")
-			Expect(url).To(Equal("https://api.eu-de.devops.cloud.ibm.com"))
+			Expect(url).To(Equal("https://api.eu-de.devops.cloud.ibm.com/toolchain/v2"))
 			Expect(err).To(BeNil())
 
 			url, err = cdtoolchainv2.GetServiceURLForRegion("eu-gb")
-			Expect(url).To(Equal("https://api.eu-gb.devops.cloud.ibm.com"))
+			Expect(url).To(Equal("https://api.eu-gb.devops.cloud.ibm.com/toolchain/v2"))
 			Expect(err).To(BeNil())
 
 			url, err = cdtoolchainv2.GetServiceURLForRegion("jp-osa")
-			Expect(url).To(Equal("https://api.jp-osa.devops.cloud.ibm.com"))
+			Expect(url).To(Equal("https://api.jp-osa.devops.cloud.ibm.com/toolchain/v2"))
 			Expect(err).To(BeNil())
 
 			url, err = cdtoolchainv2.GetServiceURLForRegion("jp-tok")
-			Expect(url).To(Equal("https://api.jp-tok.devops.cloud.ibm.com"))
+			Expect(url).To(Equal("https://api.jp-tok.devops.cloud.ibm.com/toolchain/v2"))
 			Expect(err).To(BeNil())
 
 			url, err = cdtoolchainv2.GetServiceURLForRegion("au-syd")
-			Expect(url).To(Equal("https://api.au-syd.devops.cloud.ibm.com"))
+			Expect(url).To(Equal("https://api.au-syd.devops.cloud.ibm.com/toolchain/v2"))
 			Expect(err).To(BeNil())
 
 			url, err = cdtoolchainv2.GetServiceURLForRegion("ca-tor")
-			Expect(url).To(Equal("https://api.ca-tor.devops.cloud.ibm.com"))
+			Expect(url).To(Equal("https://api.ca-tor.devops.cloud.ibm.com/toolchain/v2"))
 			Expect(err).To(BeNil())
 
 			url, err = cdtoolchainv2.GetServiceURLForRegion("br-sao")
-			Expect(url).To(Equal("https://api.br-sao.devops.cloud.ibm.com"))
+			Expect(url).To(Equal("https://api.br-sao.devops.cloud.ibm.com/toolchain/v2"))
 			Expect(err).To(BeNil())
 
 			url, err = cdtoolchainv2.GetServiceURLForRegion("INVALID_REGION")
@@ -201,7 +200,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 		})
 	})
 	Describe(`ListToolchains(listToolchainsOptions *ListToolchainsOptions) - Operation response error`, func() {
-		listToolchainsPath := "/v2/toolchains"
+		listToolchainsPath := "/toolchains"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -211,8 +210,9 @@ var _ = Describe(`CdToolchainV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listToolchainsPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(0))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -229,8 +229,9 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the ListToolchainsOptions model
 				listToolchainsOptionsModel := new(cdtoolchainv2.ListToolchainsOptions)
 				listToolchainsOptionsModel.ResourceGroupID = core.StringPtr("testString")
-				listToolchainsOptionsModel.Limit = core.Int64Ptr(int64(1))
+				listToolchainsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listToolchainsOptionsModel.Offset = core.Int64Ptr(int64(0))
+				listToolchainsOptionsModel.Start = core.StringPtr("testString")
 				listToolchainsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := cdToolchainService.ListToolchains(listToolchainsOptionsModel)
@@ -251,7 +252,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 		})
 	})
 	Describe(`ListToolchains(listToolchainsOptions *ListToolchainsOptions)`, func() {
-		listToolchainsPath := "/v2/toolchains"
+		listToolchainsPath := "/toolchains"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -262,15 +263,16 @@ var _ = Describe(`CdToolchainV2`, func() {
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(0))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 3, "offset": 6, "total_count": 12, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "toolchains": [{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "tags": ["Tags"]}]}`)
+					fmt.Fprintf(res, "%s", `{"total_count": 10, "limit": 5, "offset": 6, "first": {"href": "Href"}, "previous": {"start": "Start", "href": "Href"}, "next": {"start": "Start", "href": "Href"}, "last": {"start": "Start", "href": "Href"}, "toolchains": [{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "tags": ["Tags"]}]}`)
 				}))
 			})
 			It(`Invoke ListToolchains successfully with retries`, func() {
@@ -285,8 +287,9 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the ListToolchainsOptions model
 				listToolchainsOptionsModel := new(cdtoolchainv2.ListToolchainsOptions)
 				listToolchainsOptionsModel.ResourceGroupID = core.StringPtr("testString")
-				listToolchainsOptionsModel.Limit = core.Int64Ptr(int64(1))
+				listToolchainsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listToolchainsOptionsModel.Offset = core.Int64Ptr(int64(0))
+				listToolchainsOptionsModel.Start = core.StringPtr("testString")
 				listToolchainsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -324,12 +327,13 @@ var _ = Describe(`CdToolchainV2`, func() {
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(0))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 3, "offset": 6, "total_count": 12, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "toolchains": [{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "tags": ["Tags"]}]}`)
+					fmt.Fprintf(res, "%s", `{"total_count": 10, "limit": 5, "offset": 6, "first": {"href": "Href"}, "previous": {"start": "Start", "href": "Href"}, "next": {"start": "Start", "href": "Href"}, "last": {"start": "Start", "href": "Href"}, "toolchains": [{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "tags": ["Tags"]}]}`)
 				}))
 			})
 			It(`Invoke ListToolchains successfully`, func() {
@@ -349,8 +353,9 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the ListToolchainsOptions model
 				listToolchainsOptionsModel := new(cdtoolchainv2.ListToolchainsOptions)
 				listToolchainsOptionsModel.ResourceGroupID = core.StringPtr("testString")
-				listToolchainsOptionsModel.Limit = core.Int64Ptr(int64(1))
+				listToolchainsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listToolchainsOptionsModel.Offset = core.Int64Ptr(int64(0))
+				listToolchainsOptionsModel.Start = core.StringPtr("testString")
 				listToolchainsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -371,8 +376,9 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the ListToolchainsOptions model
 				listToolchainsOptionsModel := new(cdtoolchainv2.ListToolchainsOptions)
 				listToolchainsOptionsModel.ResourceGroupID = core.StringPtr("testString")
-				listToolchainsOptionsModel.Limit = core.Int64Ptr(int64(1))
+				listToolchainsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listToolchainsOptionsModel.Offset = core.Int64Ptr(int64(0))
+				listToolchainsOptionsModel.Start = core.StringPtr("testString")
 				listToolchainsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := cdToolchainService.SetServiceURL("")
@@ -414,8 +420,9 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the ListToolchainsOptions model
 				listToolchainsOptionsModel := new(cdtoolchainv2.ListToolchainsOptions)
 				listToolchainsOptionsModel.ResourceGroupID = core.StringPtr("testString")
-				listToolchainsOptionsModel.Limit = core.Int64Ptr(int64(1))
+				listToolchainsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listToolchainsOptionsModel.Offset = core.Int64Ptr(int64(0))
+				listToolchainsOptionsModel.Start = core.StringPtr("testString")
 				listToolchainsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -430,48 +437,102 @@ var _ = Describe(`CdToolchainV2`, func() {
 				testServer.Close()
 			})
 		})
-	Context(`Test pagination helper method on response`, func() {
-		It(`Invoke GetNextOffset successfully`, func() {
-			responseObject := new(cdtoolchainv2.GetToolchainsResponse)
-			nextObject := new(cdtoolchainv2.GetToolchainsResponseNext)
-			nextObject.Href = core.StringPtr("ibm.com?offset=135")
-			responseObject.Next = nextObject
-
-			value, err := responseObject.GetNextOffset()
-			Expect(err).To(BeNil())
-			Expect(value).To(Equal(core.Int64Ptr(int64(135))))
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextStart successfully`, func() {
+				responseObject := new(cdtoolchainv2.ToolchainCollection)
+				nextObject := new(cdtoolchainv2.ToolchainCollectionNext)
+				nextObject.Start = core.StringPtr("abc-123")
+				responseObject.Next = nextObject
+	
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.StringPtr("abc-123")))
+			})
+			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
+				responseObject := new(cdtoolchainv2.ToolchainCollection)
+	
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
 		})
-		It(`Invoke GetNextOffset without a "Next" property in the response`, func() {
-			responseObject := new(cdtoolchainv2.GetToolchainsResponse)
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
 
-			value, err := responseObject.GetNextOffset()
-			Expect(err).To(BeNil())
-			Expect(value).To(BeNil())
-		})
-		It(`Invoke GetNextOffset without any query params in the "Next" URL`, func() {
-			responseObject := new(cdtoolchainv2.GetToolchainsResponse)
-			nextObject := new(cdtoolchainv2.GetToolchainsResponseNext)
-			nextObject.Href = core.StringPtr("ibm.com")
-			responseObject.Next = nextObject
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listToolchainsPath))
+					Expect(req.Method).To(Equal("GET"))
 
-			value, err := responseObject.GetNextOffset()
-			Expect(err).To(BeNil())
-			Expect(value).To(BeNil())
-		})
-		It(`Invoke GetNextOffset with a non-integer query param in the "Next" URL`, func() {
-			responseObject := new(cdtoolchainv2.GetToolchainsResponse)
-			nextObject := new(cdtoolchainv2.GetToolchainsResponseNext)
-			nextObject.Href = core.StringPtr("ibm.com?offset=tiger")
-			responseObject.Next = nextObject
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"toolchains":[{"id":"ID","name":"Name","description":"Description","account_id":"AccountID","location":"Location","resource_group_id":"ResourceGroupID","crn":"CRN","href":"Href","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","created_by":"CreatedBy","tags":["Tags"]}],"limit":1}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"total_count":2,"toolchains":[{"id":"ID","name":"Name","description":"Description","account_id":"AccountID","location":"Location","resource_group_id":"ResourceGroupID","crn":"CRN","href":"Href","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","created_by":"CreatedBy","tags":["Tags"]}],"limit":1}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use ToolchainsPager.GetNext successfully`, func() {
+				cdToolchainService, serviceErr := cdtoolchainv2.NewCdToolchainV2(&cdtoolchainv2.CdToolchainV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(cdToolchainService).ToNot(BeNil())
 
-			value, err := responseObject.GetNextOffset()
-			Expect(err).NotTo(BeNil())
-			Expect(value).To(BeNil())
+				listToolchainsOptionsModel := &cdtoolchainv2.ListToolchainsOptions{
+					ResourceGroupID: core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(10)),
+					Offset: core.Int64Ptr(int64(0)),
+				}
+
+				pager, err := cdToolchainService.NewToolchainsPager(listToolchainsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []cdtoolchainv2.ToolchainModel
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use ToolchainsPager.GetAll successfully`, func() {
+				cdToolchainService, serviceErr := cdtoolchainv2.NewCdToolchainV2(&cdtoolchainv2.CdToolchainV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(cdToolchainService).ToNot(BeNil())
+
+				listToolchainsOptionsModel := &cdtoolchainv2.ListToolchainsOptions{
+					ResourceGroupID: core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(10)),
+					Offset: core.Int64Ptr(int64(0)),
+				}
+
+				pager, err := cdToolchainService.NewToolchainsPager(listToolchainsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
+			})
 		})
-	})
 	})
 	Describe(`CreateToolchain(createToolchainOptions *CreateToolchainOptions) - Operation response error`, func() {
-		createToolchainPath := "/v2/toolchains"
+		createToolchainPath := "/toolchains"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -518,7 +579,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 		})
 	})
 	Describe(`CreateToolchain(createToolchainOptions *CreateToolchainOptions)`, func() {
-		createToolchainPath := "/v2/toolchains"
+		createToolchainPath := "/toolchains"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -550,7 +611,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "created_by": "CreatedBy", "tags": ["Tags"]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "tags": ["Tags"]}`)
 				}))
 			})
 			It(`Invoke CreateToolchain successfully with retries`, func() {
@@ -622,7 +683,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "created_by": "CreatedBy", "tags": ["Tags"]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "tags": ["Tags"]}`)
 				}))
 			})
 			It(`Invoke CreateToolchain successfully`, func() {
@@ -725,7 +786,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 		})
 	})
 	Describe(`GetToolchainByID(getToolchainByIDOptions *GetToolchainByIDOptions) - Operation response error`, func() {
-		getToolchainByIDPath := "/v2/toolchains/testString"
+		getToolchainByIDPath := "/toolchains/testString"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -770,7 +831,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 		})
 	})
 	Describe(`GetToolchainByID(getToolchainByIDOptions *GetToolchainByIDOptions)`, func() {
-		getToolchainByIDPath := "/v2/toolchains/testString"
+		getToolchainByIDPath := "/toolchains/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -937,7 +998,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 		})
 	})
 	Describe(`DeleteToolchain(deleteToolchainOptions *DeleteToolchainOptions)`, func() {
-		deleteToolchainPath := "/v2/toolchains/testString"
+		deleteToolchainPath := "/toolchains/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1004,8 +1065,142 @@ var _ = Describe(`CdToolchainV2`, func() {
 			})
 		})
 	})
+	Describe(`UpdateToolchain(updateToolchainOptions *UpdateToolchainOptions) - Operation response error`, func() {
+		updateToolchainPath := "/toolchains/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateToolchainPath))
+					Expect(req.Method).To(Equal("PATCH"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke UpdateToolchain with error: Operation response processing error`, func() {
+				cdToolchainService, serviceErr := cdtoolchainv2.NewCdToolchainV2(&cdtoolchainv2.CdToolchainV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(cdToolchainService).ToNot(BeNil())
+
+				// Construct an instance of the ToolchainPrototypePatch model
+				toolchainPrototypePatchModel := new(cdtoolchainv2.ToolchainPrototypePatch)
+				toolchainPrototypePatchModel.Name = core.StringPtr("newToolchainName")
+				toolchainPrototypePatchModel.Description = core.StringPtr("New toolchain description")
+				toolchainPrototypePatchModelAsPatch, asPatchErr := toolchainPrototypePatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
+
+				// Construct an instance of the UpdateToolchainOptions model
+				updateToolchainOptionsModel := new(cdtoolchainv2.UpdateToolchainOptions)
+				updateToolchainOptionsModel.ToolchainID = core.StringPtr("testString")
+				updateToolchainOptionsModel.ToolchainPrototypePatch = toolchainPrototypePatchModelAsPatch
+				updateToolchainOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := cdToolchainService.UpdateToolchain(updateToolchainOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				cdToolchainService.EnableRetries(0, 0)
+				result, response, operationErr = cdToolchainService.UpdateToolchain(updateToolchainOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`UpdateToolchain(updateToolchainOptions *UpdateToolchainOptions)`, func() {
-		updateToolchainPath := "/v2/toolchains/testString"
+		updateToolchainPath := "/toolchains/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateToolchainPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "tags": ["Tags"]}`)
+				}))
+			})
+			It(`Invoke UpdateToolchain successfully with retries`, func() {
+				cdToolchainService, serviceErr := cdtoolchainv2.NewCdToolchainV2(&cdtoolchainv2.CdToolchainV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(cdToolchainService).ToNot(BeNil())
+				cdToolchainService.EnableRetries(0, 0)
+
+				// Construct an instance of the ToolchainPrototypePatch model
+				toolchainPrototypePatchModel := new(cdtoolchainv2.ToolchainPrototypePatch)
+				toolchainPrototypePatchModel.Name = core.StringPtr("newToolchainName")
+				toolchainPrototypePatchModel.Description = core.StringPtr("New toolchain description")
+				toolchainPrototypePatchModelAsPatch, asPatchErr := toolchainPrototypePatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
+
+				// Construct an instance of the UpdateToolchainOptions model
+				updateToolchainOptionsModel := new(cdtoolchainv2.UpdateToolchainOptions)
+				updateToolchainOptionsModel.ToolchainID = core.StringPtr("testString")
+				updateToolchainOptionsModel.ToolchainPrototypePatch = toolchainPrototypePatchModelAsPatch
+				updateToolchainOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := cdToolchainService.UpdateToolchainWithContext(ctx, updateToolchainOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				cdToolchainService.DisableRetries()
+				result, response, operationErr := cdToolchainService.UpdateToolchain(updateToolchainOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = cdToolchainService.UpdateToolchainWithContext(ctx, updateToolchainOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1031,7 +1226,10 @@ var _ = Describe(`CdToolchainV2`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
-					res.WriteHeader(204)
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "tags": ["Tags"]}`)
 				}))
 			})
 			It(`Invoke UpdateToolchain successfully`, func() {
@@ -1043,21 +1241,30 @@ var _ = Describe(`CdToolchainV2`, func() {
 				Expect(cdToolchainService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				response, operationErr := cdToolchainService.UpdateToolchain(nil)
+				result, response, operationErr := cdToolchainService.UpdateToolchain(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ToolchainPrototypePatch model
+				toolchainPrototypePatchModel := new(cdtoolchainv2.ToolchainPrototypePatch)
+				toolchainPrototypePatchModel.Name = core.StringPtr("newToolchainName")
+				toolchainPrototypePatchModel.Description = core.StringPtr("New toolchain description")
+				toolchainPrototypePatchModelAsPatch, asPatchErr := toolchainPrototypePatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
 
 				// Construct an instance of the UpdateToolchainOptions model
 				updateToolchainOptionsModel := new(cdtoolchainv2.UpdateToolchainOptions)
 				updateToolchainOptionsModel.ToolchainID = core.StringPtr("testString")
-				updateToolchainOptionsModel.Name = core.StringPtr("newToolchainName")
-				updateToolchainOptionsModel.Description = core.StringPtr("New toolchain description")
+				updateToolchainOptionsModel.ToolchainPrototypePatch = toolchainPrototypePatchModelAsPatch
 				updateToolchainOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				response, operationErr = cdToolchainService.UpdateToolchain(updateToolchainOptionsModel)
+				result, response, operationErr = cdToolchainService.UpdateToolchain(updateToolchainOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
 			})
 			It(`Invoke UpdateToolchain with error: Operation validation and request error`, func() {
 				cdToolchainService, serviceErr := cdtoolchainv2.NewCdToolchainV2(&cdtoolchainv2.CdToolchainV2Options{
@@ -1067,25 +1274,75 @@ var _ = Describe(`CdToolchainV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(cdToolchainService).ToNot(BeNil())
 
+				// Construct an instance of the ToolchainPrototypePatch model
+				toolchainPrototypePatchModel := new(cdtoolchainv2.ToolchainPrototypePatch)
+				toolchainPrototypePatchModel.Name = core.StringPtr("newToolchainName")
+				toolchainPrototypePatchModel.Description = core.StringPtr("New toolchain description")
+				toolchainPrototypePatchModelAsPatch, asPatchErr := toolchainPrototypePatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
+
 				// Construct an instance of the UpdateToolchainOptions model
 				updateToolchainOptionsModel := new(cdtoolchainv2.UpdateToolchainOptions)
 				updateToolchainOptionsModel.ToolchainID = core.StringPtr("testString")
-				updateToolchainOptionsModel.Name = core.StringPtr("newToolchainName")
-				updateToolchainOptionsModel.Description = core.StringPtr("New toolchain description")
+				updateToolchainOptionsModel.ToolchainPrototypePatch = toolchainPrototypePatchModelAsPatch
 				updateToolchainOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := cdToolchainService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				response, operationErr := cdToolchainService.UpdateToolchain(updateToolchainOptionsModel)
+				result, response, operationErr := cdToolchainService.UpdateToolchain(updateToolchainOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
 				// Construct a second instance of the UpdateToolchainOptions model with no property values
 				updateToolchainOptionsModelNew := new(cdtoolchainv2.UpdateToolchainOptions)
 				// Invoke operation with invalid model (negative test)
-				response, operationErr = cdToolchainService.UpdateToolchain(updateToolchainOptionsModelNew)
+				result, response, operationErr = cdToolchainService.UpdateToolchain(updateToolchainOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke UpdateToolchain successfully`, func() {
+				cdToolchainService, serviceErr := cdtoolchainv2.NewCdToolchainV2(&cdtoolchainv2.CdToolchainV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(cdToolchainService).ToNot(BeNil())
+
+				// Construct an instance of the ToolchainPrototypePatch model
+				toolchainPrototypePatchModel := new(cdtoolchainv2.ToolchainPrototypePatch)
+				toolchainPrototypePatchModel.Name = core.StringPtr("newToolchainName")
+				toolchainPrototypePatchModel.Description = core.StringPtr("New toolchain description")
+				toolchainPrototypePatchModelAsPatch, asPatchErr := toolchainPrototypePatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
+
+				// Construct an instance of the UpdateToolchainOptions model
+				updateToolchainOptionsModel := new(cdtoolchainv2.UpdateToolchainOptions)
+				updateToolchainOptionsModel.ToolchainID = core.StringPtr("testString")
+				updateToolchainOptionsModel.ToolchainPrototypePatch = toolchainPrototypePatchModelAsPatch
+				updateToolchainOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := cdToolchainService.UpdateToolchain(updateToolchainOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -1093,7 +1350,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 		})
 	})
 	Describe(`ListTools(listToolsOptions *ListToolsOptions) - Operation response error`, func() {
-		listToolsPath := "/v2/toolchains/testString/tools"
+		listToolsPath := "/toolchains/testString/tools"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1102,8 +1359,9 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(listToolsPath))
 					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(0))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -1120,8 +1378,9 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the ListToolsOptions model
 				listToolsOptionsModel := new(cdtoolchainv2.ListToolsOptions)
 				listToolsOptionsModel.ToolchainID = core.StringPtr("testString")
-				listToolsOptionsModel.Limit = core.Int64Ptr(int64(1))
+				listToolsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listToolsOptionsModel.Offset = core.Int64Ptr(int64(0))
+				listToolsOptionsModel.Start = core.StringPtr("testString")
 				listToolsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := cdToolchainService.ListTools(listToolsOptionsModel)
@@ -1142,7 +1401,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 		})
 	})
 	Describe(`ListTools(listToolsOptions *ListToolsOptions)`, func() {
-		listToolsPath := "/v2/toolchains/testString/tools"
+		listToolsPath := "/toolchains/testString/tools"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1152,15 +1411,16 @@ var _ = Describe(`CdToolchainV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listToolsPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(0))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "tools": [{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"mapKey": "anyValue"}, "state": "configured"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "total_count": 10, "offset": 6, "first": {"href": "Href"}, "previous": {"start": "Start", "href": "Href"}, "next": {"start": "Start", "href": "Href"}, "last": {"start": "Start", "href": "Href"}, "tools": [{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"mapKey": "anyValue"}, "state": "configured"}]}`)
 				}))
 			})
 			It(`Invoke ListTools successfully with retries`, func() {
@@ -1175,8 +1435,9 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the ListToolsOptions model
 				listToolsOptionsModel := new(cdtoolchainv2.ListToolsOptions)
 				listToolsOptionsModel.ToolchainID = core.StringPtr("testString")
-				listToolsOptionsModel.Limit = core.Int64Ptr(int64(1))
+				listToolsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listToolsOptionsModel.Offset = core.Int64Ptr(int64(0))
+				listToolsOptionsModel.Start = core.StringPtr("testString")
 				listToolsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -1213,12 +1474,13 @@ var _ = Describe(`CdToolchainV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listToolsPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(0))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "tools": [{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"mapKey": "anyValue"}, "state": "configured"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "total_count": 10, "offset": 6, "first": {"href": "Href"}, "previous": {"start": "Start", "href": "Href"}, "next": {"start": "Start", "href": "Href"}, "last": {"start": "Start", "href": "Href"}, "tools": [{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"mapKey": "anyValue"}, "state": "configured"}]}`)
 				}))
 			})
 			It(`Invoke ListTools successfully`, func() {
@@ -1238,8 +1500,9 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the ListToolsOptions model
 				listToolsOptionsModel := new(cdtoolchainv2.ListToolsOptions)
 				listToolsOptionsModel.ToolchainID = core.StringPtr("testString")
-				listToolsOptionsModel.Limit = core.Int64Ptr(int64(1))
+				listToolsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listToolsOptionsModel.Offset = core.Int64Ptr(int64(0))
+				listToolsOptionsModel.Start = core.StringPtr("testString")
 				listToolsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -1260,8 +1523,9 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the ListToolsOptions model
 				listToolsOptionsModel := new(cdtoolchainv2.ListToolsOptions)
 				listToolsOptionsModel.ToolchainID = core.StringPtr("testString")
-				listToolsOptionsModel.Limit = core.Int64Ptr(int64(1))
+				listToolsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listToolsOptionsModel.Offset = core.Int64Ptr(int64(0))
+				listToolsOptionsModel.Start = core.StringPtr("testString")
 				listToolsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := cdToolchainService.SetServiceURL("")
@@ -1303,8 +1567,9 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the ListToolsOptions model
 				listToolsOptionsModel := new(cdtoolchainv2.ListToolsOptions)
 				listToolsOptionsModel.ToolchainID = core.StringPtr("testString")
-				listToolsOptionsModel.Limit = core.Int64Ptr(int64(1))
+				listToolsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listToolsOptionsModel.Offset = core.Int64Ptr(int64(0))
+				listToolsOptionsModel.Start = core.StringPtr("testString")
 				listToolsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -1319,48 +1584,102 @@ var _ = Describe(`CdToolchainV2`, func() {
 				testServer.Close()
 			})
 		})
-	Context(`Test pagination helper method on response`, func() {
-		It(`Invoke GetNextOffset successfully`, func() {
-			responseObject := new(cdtoolchainv2.GetToolsResponse)
-			nextObject := new(cdtoolchainv2.GetToolsResponseNext)
-			nextObject.Href = core.StringPtr("ibm.com?offset=135")
-			responseObject.Next = nextObject
-
-			value, err := responseObject.GetNextOffset()
-			Expect(err).To(BeNil())
-			Expect(value).To(Equal(core.Int64Ptr(int64(135))))
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextStart successfully`, func() {
+				responseObject := new(cdtoolchainv2.ToolchainToolCollection)
+				nextObject := new(cdtoolchainv2.ToolchainToolCollectionNext)
+				nextObject.Start = core.StringPtr("abc-123")
+				responseObject.Next = nextObject
+	
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.StringPtr("abc-123")))
+			})
+			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
+				responseObject := new(cdtoolchainv2.ToolchainToolCollection)
+	
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
 		})
-		It(`Invoke GetNextOffset without a "Next" property in the response`, func() {
-			responseObject := new(cdtoolchainv2.GetToolsResponse)
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
 
-			value, err := responseObject.GetNextOffset()
-			Expect(err).To(BeNil())
-			Expect(value).To(BeNil())
-		})
-		It(`Invoke GetNextOffset without any query params in the "Next" URL`, func() {
-			responseObject := new(cdtoolchainv2.GetToolsResponse)
-			nextObject := new(cdtoolchainv2.GetToolsResponseNext)
-			nextObject.Href = core.StringPtr("ibm.com")
-			responseObject.Next = nextObject
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listToolsPath))
+					Expect(req.Method).To(Equal("GET"))
 
-			value, err := responseObject.GetNextOffset()
-			Expect(err).To(BeNil())
-			Expect(value).To(BeNil())
-		})
-		It(`Invoke GetNextOffset with a non-integer query param in the "Next" URL`, func() {
-			responseObject := new(cdtoolchainv2.GetToolsResponse)
-			nextObject := new(cdtoolchainv2.GetToolsResponseNext)
-			nextObject.Href = core.StringPtr("ibm.com?offset=tiger")
-			responseObject.Next = nextObject
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"tools":[{"id":"ID","resource_group_id":"ResourceGroupID","crn":"CRN","tool_type_id":"ToolTypeID","toolchain_id":"ToolchainID","toolchain_crn":"ToolchainCRN","href":"Href","referent":{"ui_href":"UIHref","api_href":"APIHref"},"name":"Name","updated_at":"2019-01-01T12:00:00.000Z","parameters":{"mapKey":"anyValue"},"state":"configured"}]}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"tools":[{"id":"ID","resource_group_id":"ResourceGroupID","crn":"CRN","tool_type_id":"ToolTypeID","toolchain_id":"ToolchainID","toolchain_crn":"ToolchainCRN","href":"Href","referent":{"ui_href":"UIHref","api_href":"APIHref"},"name":"Name","updated_at":"2019-01-01T12:00:00.000Z","parameters":{"mapKey":"anyValue"},"state":"configured"}]}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use ToolsPager.GetNext successfully`, func() {
+				cdToolchainService, serviceErr := cdtoolchainv2.NewCdToolchainV2(&cdtoolchainv2.CdToolchainV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(cdToolchainService).ToNot(BeNil())
 
-			value, err := responseObject.GetNextOffset()
-			Expect(err).NotTo(BeNil())
-			Expect(value).To(BeNil())
+				listToolsOptionsModel := &cdtoolchainv2.ListToolsOptions{
+					ToolchainID: core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(10)),
+					Offset: core.Int64Ptr(int64(0)),
+				}
+
+				pager, err := cdToolchainService.NewToolsPager(listToolsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []cdtoolchainv2.ToolModel
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use ToolsPager.GetAll successfully`, func() {
+				cdToolchainService, serviceErr := cdtoolchainv2.NewCdToolchainV2(&cdtoolchainv2.CdToolchainV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(cdToolchainService).ToNot(BeNil())
+
+				listToolsOptionsModel := &cdtoolchainv2.ListToolsOptions{
+					ToolchainID: core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(10)),
+					Offset: core.Int64Ptr(int64(0)),
+				}
+
+				pager, err := cdToolchainService.NewToolsPager(listToolsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
+			})
 		})
-	})
 	})
 	Describe(`CreateTool(createToolOptions *CreateToolOptions) - Operation response error`, func() {
-		createToolPath := "/v2/toolchains/testString/tools"
+		createToolPath := "/toolchains/testString/tools"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1385,10 +1704,9 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the CreateToolOptions model
 				createToolOptionsModel := new(cdtoolchainv2.CreateToolOptions)
 				createToolOptionsModel.ToolchainID = core.StringPtr("testString")
-				createToolOptionsModel.ToolTypeID = core.StringPtr("todolist")
+				createToolOptionsModel.ToolTypeID = core.StringPtr("slack")
 				createToolOptionsModel.Name = core.StringPtr("testString")
 				createToolOptionsModel.Parameters = make(map[string]interface{})
-				createToolOptionsModel.ParametersReferences = make(map[string]interface{})
 				createToolOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := cdToolchainService.CreateTool(createToolOptionsModel)
@@ -1409,7 +1727,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 		})
 	})
 	Describe(`CreateTool(createToolOptions *CreateToolOptions)`, func() {
-		createToolPath := "/v2/toolchains/testString/tools"
+		createToolPath := "/toolchains/testString/tools"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1441,7 +1759,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "MyTool", "parameters": {"mapKey": "anyValue"}, "state": "configured"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"mapKey": "anyValue"}, "state": "configured"}`)
 				}))
 			})
 			It(`Invoke CreateTool successfully with retries`, func() {
@@ -1456,10 +1774,9 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the CreateToolOptions model
 				createToolOptionsModel := new(cdtoolchainv2.CreateToolOptions)
 				createToolOptionsModel.ToolchainID = core.StringPtr("testString")
-				createToolOptionsModel.ToolTypeID = core.StringPtr("todolist")
+				createToolOptionsModel.ToolTypeID = core.StringPtr("slack")
 				createToolOptionsModel.Name = core.StringPtr("testString")
 				createToolOptionsModel.Parameters = make(map[string]interface{})
-				createToolOptionsModel.ParametersReferences = make(map[string]interface{})
 				createToolOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -1515,7 +1832,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "MyTool", "parameters": {"mapKey": "anyValue"}, "state": "configured"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"mapKey": "anyValue"}, "state": "configured"}`)
 				}))
 			})
 			It(`Invoke CreateTool successfully`, func() {
@@ -1535,10 +1852,9 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the CreateToolOptions model
 				createToolOptionsModel := new(cdtoolchainv2.CreateToolOptions)
 				createToolOptionsModel.ToolchainID = core.StringPtr("testString")
-				createToolOptionsModel.ToolTypeID = core.StringPtr("todolist")
+				createToolOptionsModel.ToolTypeID = core.StringPtr("slack")
 				createToolOptionsModel.Name = core.StringPtr("testString")
 				createToolOptionsModel.Parameters = make(map[string]interface{})
-				createToolOptionsModel.ParametersReferences = make(map[string]interface{})
 				createToolOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -1559,10 +1875,9 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the CreateToolOptions model
 				createToolOptionsModel := new(cdtoolchainv2.CreateToolOptions)
 				createToolOptionsModel.ToolchainID = core.StringPtr("testString")
-				createToolOptionsModel.ToolTypeID = core.StringPtr("todolist")
+				createToolOptionsModel.ToolTypeID = core.StringPtr("slack")
 				createToolOptionsModel.Name = core.StringPtr("testString")
 				createToolOptionsModel.Parameters = make(map[string]interface{})
-				createToolOptionsModel.ParametersReferences = make(map[string]interface{})
 				createToolOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := cdToolchainService.SetServiceURL("")
@@ -1604,10 +1919,9 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the CreateToolOptions model
 				createToolOptionsModel := new(cdtoolchainv2.CreateToolOptions)
 				createToolOptionsModel.ToolchainID = core.StringPtr("testString")
-				createToolOptionsModel.ToolTypeID = core.StringPtr("todolist")
+				createToolOptionsModel.ToolTypeID = core.StringPtr("slack")
 				createToolOptionsModel.Name = core.StringPtr("testString")
 				createToolOptionsModel.Parameters = make(map[string]interface{})
-				createToolOptionsModel.ParametersReferences = make(map[string]interface{})
 				createToolOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -1624,7 +1938,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 		})
 	})
 	Describe(`GetToolByID(getToolByIDOptions *GetToolByIDOptions) - Operation response error`, func() {
-		getToolByIDPath := "/v2/toolchains/testString/tools/testString"
+		getToolByIDPath := "/toolchains/testString/tools/testString"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1670,7 +1984,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 		})
 	})
 	Describe(`GetToolByID(getToolByIDOptions *GetToolByIDOptions)`, func() {
-		getToolByIDPath := "/v2/toolchains/testString/tools/testString"
+		getToolByIDPath := "/toolchains/testString/tools/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1841,7 +2155,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 		})
 	})
 	Describe(`DeleteTool(deleteToolOptions *DeleteToolOptions)`, func() {
-		deleteToolPath := "/v2/toolchains/testString/tools/testString"
+		deleteToolPath := "/toolchains/testString/tools/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1910,8 +2224,146 @@ var _ = Describe(`CdToolchainV2`, func() {
 			})
 		})
 	})
+	Describe(`UpdateTool(updateToolOptions *UpdateToolOptions) - Operation response error`, func() {
+		updateToolPath := "/toolchains/testString/tools/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateToolPath))
+					Expect(req.Method).To(Equal("PATCH"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke UpdateTool with error: Operation response processing error`, func() {
+				cdToolchainService, serviceErr := cdtoolchainv2.NewCdToolchainV2(&cdtoolchainv2.CdToolchainV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(cdToolchainService).ToNot(BeNil())
+
+				// Construct an instance of the ToolchainToolPrototypePatch model
+				toolchainToolPrototypePatchModel := new(cdtoolchainv2.ToolchainToolPrototypePatch)
+				toolchainToolPrototypePatchModel.Name = core.StringPtr("MyTool")
+				toolchainToolPrototypePatchModel.ToolTypeID = core.StringPtr("todolist")
+				toolchainToolPrototypePatchModel.Parameters = make(map[string]interface{})
+				toolchainToolPrototypePatchModelAsPatch, asPatchErr := toolchainToolPrototypePatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
+
+				// Construct an instance of the UpdateToolOptions model
+				updateToolOptionsModel := new(cdtoolchainv2.UpdateToolOptions)
+				updateToolOptionsModel.ToolchainID = core.StringPtr("testString")
+				updateToolOptionsModel.ToolID = core.StringPtr("testString")
+				updateToolOptionsModel.ToolchainToolPrototypePatch = toolchainToolPrototypePatchModelAsPatch
+				updateToolOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := cdToolchainService.UpdateTool(updateToolOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				cdToolchainService.EnableRetries(0, 0)
+				result, response, operationErr = cdToolchainService.UpdateTool(updateToolOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`UpdateTool(updateToolOptions *UpdateToolOptions)`, func() {
-		updateToolPath := "/v2/toolchains/testString/tools/testString"
+		updateToolPath := "/toolchains/testString/tools/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateToolPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"mapKey": "anyValue"}, "state": "configured"}`)
+				}))
+			})
+			It(`Invoke UpdateTool successfully with retries`, func() {
+				cdToolchainService, serviceErr := cdtoolchainv2.NewCdToolchainV2(&cdtoolchainv2.CdToolchainV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(cdToolchainService).ToNot(BeNil())
+				cdToolchainService.EnableRetries(0, 0)
+
+				// Construct an instance of the ToolchainToolPrototypePatch model
+				toolchainToolPrototypePatchModel := new(cdtoolchainv2.ToolchainToolPrototypePatch)
+				toolchainToolPrototypePatchModel.Name = core.StringPtr("MyTool")
+				toolchainToolPrototypePatchModel.ToolTypeID = core.StringPtr("todolist")
+				toolchainToolPrototypePatchModel.Parameters = make(map[string]interface{})
+				toolchainToolPrototypePatchModelAsPatch, asPatchErr := toolchainToolPrototypePatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
+
+				// Construct an instance of the UpdateToolOptions model
+				updateToolOptionsModel := new(cdtoolchainv2.UpdateToolOptions)
+				updateToolOptionsModel.ToolchainID = core.StringPtr("testString")
+				updateToolOptionsModel.ToolID = core.StringPtr("testString")
+				updateToolOptionsModel.ToolchainToolPrototypePatch = toolchainToolPrototypePatchModelAsPatch
+				updateToolOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := cdToolchainService.UpdateToolWithContext(ctx, updateToolOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				cdToolchainService.DisableRetries()
+				result, response, operationErr := cdToolchainService.UpdateTool(updateToolOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = cdToolchainService.UpdateToolWithContext(ctx, updateToolOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1937,7 +2389,10 @@ var _ = Describe(`CdToolchainV2`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
-					res.WriteHeader(204)
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"mapKey": "anyValue"}, "state": "configured"}`)
 				}))
 			})
 			It(`Invoke UpdateTool successfully`, func() {
@@ -1949,24 +2404,32 @@ var _ = Describe(`CdToolchainV2`, func() {
 				Expect(cdToolchainService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				response, operationErr := cdToolchainService.UpdateTool(nil)
+				result, response, operationErr := cdToolchainService.UpdateTool(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ToolchainToolPrototypePatch model
+				toolchainToolPrototypePatchModel := new(cdtoolchainv2.ToolchainToolPrototypePatch)
+				toolchainToolPrototypePatchModel.Name = core.StringPtr("MyTool")
+				toolchainToolPrototypePatchModel.ToolTypeID = core.StringPtr("todolist")
+				toolchainToolPrototypePatchModel.Parameters = make(map[string]interface{})
+				toolchainToolPrototypePatchModelAsPatch, asPatchErr := toolchainToolPrototypePatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
 
 				// Construct an instance of the UpdateToolOptions model
 				updateToolOptionsModel := new(cdtoolchainv2.UpdateToolOptions)
 				updateToolOptionsModel.ToolchainID = core.StringPtr("testString")
 				updateToolOptionsModel.ToolID = core.StringPtr("testString")
-				updateToolOptionsModel.Name = core.StringPtr("MyTool")
-				updateToolOptionsModel.ToolTypeID = core.StringPtr("todolist")
-				updateToolOptionsModel.Parameters = make(map[string]interface{})
-				updateToolOptionsModel.ParametersReferences = make(map[string]interface{})
+				updateToolOptionsModel.ToolchainToolPrototypePatch = toolchainToolPrototypePatchModelAsPatch
 				updateToolOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				response, operationErr = cdToolchainService.UpdateTool(updateToolOptionsModel)
+				result, response, operationErr = cdToolchainService.UpdateTool(updateToolOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
 			})
 			It(`Invoke UpdateTool with error: Operation validation and request error`, func() {
 				cdToolchainService, serviceErr := cdtoolchainv2.NewCdToolchainV2(&cdtoolchainv2.CdToolchainV2Options{
@@ -1976,28 +2439,79 @@ var _ = Describe(`CdToolchainV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(cdToolchainService).ToNot(BeNil())
 
+				// Construct an instance of the ToolchainToolPrototypePatch model
+				toolchainToolPrototypePatchModel := new(cdtoolchainv2.ToolchainToolPrototypePatch)
+				toolchainToolPrototypePatchModel.Name = core.StringPtr("MyTool")
+				toolchainToolPrototypePatchModel.ToolTypeID = core.StringPtr("todolist")
+				toolchainToolPrototypePatchModel.Parameters = make(map[string]interface{})
+				toolchainToolPrototypePatchModelAsPatch, asPatchErr := toolchainToolPrototypePatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
+
 				// Construct an instance of the UpdateToolOptions model
 				updateToolOptionsModel := new(cdtoolchainv2.UpdateToolOptions)
 				updateToolOptionsModel.ToolchainID = core.StringPtr("testString")
 				updateToolOptionsModel.ToolID = core.StringPtr("testString")
-				updateToolOptionsModel.Name = core.StringPtr("MyTool")
-				updateToolOptionsModel.ToolTypeID = core.StringPtr("todolist")
-				updateToolOptionsModel.Parameters = make(map[string]interface{})
-				updateToolOptionsModel.ParametersReferences = make(map[string]interface{})
+				updateToolOptionsModel.ToolchainToolPrototypePatch = toolchainToolPrototypePatchModelAsPatch
 				updateToolOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := cdToolchainService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				response, operationErr := cdToolchainService.UpdateTool(updateToolOptionsModel)
+				result, response, operationErr := cdToolchainService.UpdateTool(updateToolOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
 				// Construct a second instance of the UpdateToolOptions model with no property values
 				updateToolOptionsModelNew := new(cdtoolchainv2.UpdateToolOptions)
 				// Invoke operation with invalid model (negative test)
-				response, operationErr = cdToolchainService.UpdateTool(updateToolOptionsModelNew)
+				result, response, operationErr = cdToolchainService.UpdateTool(updateToolOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke UpdateTool successfully`, func() {
+				cdToolchainService, serviceErr := cdtoolchainv2.NewCdToolchainV2(&cdtoolchainv2.CdToolchainV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(cdToolchainService).ToNot(BeNil())
+
+				// Construct an instance of the ToolchainToolPrototypePatch model
+				toolchainToolPrototypePatchModel := new(cdtoolchainv2.ToolchainToolPrototypePatch)
+				toolchainToolPrototypePatchModel.Name = core.StringPtr("MyTool")
+				toolchainToolPrototypePatchModel.ToolTypeID = core.StringPtr("todolist")
+				toolchainToolPrototypePatchModel.Parameters = make(map[string]interface{})
+				toolchainToolPrototypePatchModelAsPatch, asPatchErr := toolchainToolPrototypePatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
+
+				// Construct an instance of the UpdateToolOptions model
+				updateToolOptionsModel := new(cdtoolchainv2.UpdateToolOptions)
+				updateToolOptionsModel.ToolchainID = core.StringPtr("testString")
+				updateToolOptionsModel.ToolID = core.StringPtr("testString")
+				updateToolOptionsModel.ToolchainToolPrototypePatch = toolchainToolPrototypePatchModelAsPatch
+				updateToolOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := cdToolchainService.UpdateTool(updateToolOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -2013,20 +2527,18 @@ var _ = Describe(`CdToolchainV2`, func() {
 			It(`Invoke NewCreateToolOptions successfully`, func() {
 				// Construct an instance of the CreateToolOptions model
 				toolchainID := "testString"
-				createToolOptionsToolTypeID := "todolist"
+				createToolOptionsToolTypeID := "slack"
 				createToolOptionsModel := cdToolchainService.NewCreateToolOptions(toolchainID, createToolOptionsToolTypeID)
 				createToolOptionsModel.SetToolchainID("testString")
-				createToolOptionsModel.SetToolTypeID("todolist")
+				createToolOptionsModel.SetToolTypeID("slack")
 				createToolOptionsModel.SetName("testString")
 				createToolOptionsModel.SetParameters(make(map[string]interface{}))
-				createToolOptionsModel.SetParametersReferences(make(map[string]interface{}))
 				createToolOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createToolOptionsModel).ToNot(BeNil())
 				Expect(createToolOptionsModel.ToolchainID).To(Equal(core.StringPtr("testString")))
-				Expect(createToolOptionsModel.ToolTypeID).To(Equal(core.StringPtr("todolist")))
+				Expect(createToolOptionsModel.ToolTypeID).To(Equal(core.StringPtr("slack")))
 				Expect(createToolOptionsModel.Name).To(Equal(core.StringPtr("testString")))
 				Expect(createToolOptionsModel.Parameters).To(Equal(make(map[string]interface{})))
-				Expect(createToolOptionsModel.ParametersReferences).To(Equal(make(map[string]interface{})))
 				Expect(createToolOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateToolchainOptions successfully`, func() {
@@ -2095,13 +2607,15 @@ var _ = Describe(`CdToolchainV2`, func() {
 				resourceGroupID := "testString"
 				listToolchainsOptionsModel := cdToolchainService.NewListToolchainsOptions(resourceGroupID)
 				listToolchainsOptionsModel.SetResourceGroupID("testString")
-				listToolchainsOptionsModel.SetLimit(int64(1))
+				listToolchainsOptionsModel.SetLimit(int64(10))
 				listToolchainsOptionsModel.SetOffset(int64(0))
+				listToolchainsOptionsModel.SetStart("testString")
 				listToolchainsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listToolchainsOptionsModel).ToNot(BeNil())
 				Expect(listToolchainsOptionsModel.ResourceGroupID).To(Equal(core.StringPtr("testString")))
-				Expect(listToolchainsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(1))))
+				Expect(listToolchainsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
 				Expect(listToolchainsOptionsModel.Offset).To(Equal(core.Int64Ptr(int64(0))))
+				Expect(listToolchainsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listToolchainsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListToolsOptions successfully`, func() {
@@ -2109,48 +2623,44 @@ var _ = Describe(`CdToolchainV2`, func() {
 				toolchainID := "testString"
 				listToolsOptionsModel := cdToolchainService.NewListToolsOptions(toolchainID)
 				listToolsOptionsModel.SetToolchainID("testString")
-				listToolsOptionsModel.SetLimit(int64(1))
+				listToolsOptionsModel.SetLimit(int64(10))
 				listToolsOptionsModel.SetOffset(int64(0))
+				listToolsOptionsModel.SetStart("testString")
 				listToolsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listToolsOptionsModel).ToNot(BeNil())
 				Expect(listToolsOptionsModel.ToolchainID).To(Equal(core.StringPtr("testString")))
-				Expect(listToolsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(1))))
+				Expect(listToolsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
 				Expect(listToolsOptionsModel.Offset).To(Equal(core.Int64Ptr(int64(0))))
+				Expect(listToolsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listToolsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateToolOptions successfully`, func() {
 				// Construct an instance of the UpdateToolOptions model
 				toolchainID := "testString"
 				toolID := "testString"
-				updateToolOptionsModel := cdToolchainService.NewUpdateToolOptions(toolchainID, toolID)
+				toolchainToolPrototypePatch := make(map[string]interface{})
+				updateToolOptionsModel := cdToolchainService.NewUpdateToolOptions(toolchainID, toolID, toolchainToolPrototypePatch)
 				updateToolOptionsModel.SetToolchainID("testString")
 				updateToolOptionsModel.SetToolID("testString")
-				updateToolOptionsModel.SetName("MyTool")
-				updateToolOptionsModel.SetToolTypeID("todolist")
-				updateToolOptionsModel.SetParameters(make(map[string]interface{}))
-				updateToolOptionsModel.SetParametersReferences(make(map[string]interface{}))
+				updateToolOptionsModel.SetToolchainToolPrototypePatch(make(map[string]interface{}))
 				updateToolOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateToolOptionsModel).ToNot(BeNil())
 				Expect(updateToolOptionsModel.ToolchainID).To(Equal(core.StringPtr("testString")))
 				Expect(updateToolOptionsModel.ToolID).To(Equal(core.StringPtr("testString")))
-				Expect(updateToolOptionsModel.Name).To(Equal(core.StringPtr("MyTool")))
-				Expect(updateToolOptionsModel.ToolTypeID).To(Equal(core.StringPtr("todolist")))
-				Expect(updateToolOptionsModel.Parameters).To(Equal(make(map[string]interface{})))
-				Expect(updateToolOptionsModel.ParametersReferences).To(Equal(make(map[string]interface{})))
+				Expect(updateToolOptionsModel.ToolchainToolPrototypePatch).To(Equal(make(map[string]interface{})))
 				Expect(updateToolOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateToolchainOptions successfully`, func() {
 				// Construct an instance of the UpdateToolchainOptions model
 				toolchainID := "testString"
-				updateToolchainOptionsModel := cdToolchainService.NewUpdateToolchainOptions(toolchainID)
+				toolchainPrototypePatch := make(map[string]interface{})
+				updateToolchainOptionsModel := cdToolchainService.NewUpdateToolchainOptions(toolchainID, toolchainPrototypePatch)
 				updateToolchainOptionsModel.SetToolchainID("testString")
-				updateToolchainOptionsModel.SetName("newToolchainName")
-				updateToolchainOptionsModel.SetDescription("New toolchain description")
+				updateToolchainOptionsModel.SetToolchainPrototypePatch(make(map[string]interface{}))
 				updateToolchainOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateToolchainOptionsModel).ToNot(BeNil())
 				Expect(updateToolchainOptionsModel.ToolchainID).To(Equal(core.StringPtr("testString")))
-				Expect(updateToolchainOptionsModel.Name).To(Equal(core.StringPtr("newToolchainName")))
-				Expect(updateToolchainOptionsModel.Description).To(Equal(core.StringPtr("New toolchain description")))
+				Expect(updateToolchainOptionsModel.ToolchainPrototypePatch).To(Equal(make(map[string]interface{})))
 				Expect(updateToolchainOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 		})
@@ -2195,7 +2705,7 @@ func CreateMockUUID(mockData string) *strfmt.UUID {
 }
 
 func CreateMockReader(mockData string) io.ReadCloser {
-	return ioutil.NopCloser(bytes.NewReader([]byte(mockData)))
+	return io.NopCloser(bytes.NewReader([]byte(mockData)))
 }
 
 func CreateMockDate(mockData string) *strfmt.Date {
