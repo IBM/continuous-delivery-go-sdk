@@ -36,7 +36,7 @@ import (
 
 // CdToolchainV2 : This swagger document describes the options and endpoints of the Toolchain API.<br><br> All calls
 // require an <strong>Authorization</strong> HTTP header to be set with a bearer token, which can be generated using the
-// <a href="https://cloud.ibm.com/toolchain/v2/apidocs/iam-identity-token-api">Identity and Access Management (IAM)
+// <a href="https://cloud.ibm.com/apidocs/iam-identity-token-api">Identity and Access Management (IAM)
 // API</a>.<br><br>Note that all resources must have a corresponding <b>resource_group_id</b> to use the API, resources
 // within a Cloud Foundry organization cannot be accessed or modified using the API.
 //
