@@ -273,7 +273,7 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 			// end-cancel_tekton_pipeline_run
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
+			Expect(response.StatusCode).To(Equal(202))
 			Expect(pipelineRun).ToNot(BeNil())
 		})
 		It(`RerunTektonPipelineRun request example`, func() {
@@ -623,7 +623,6 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 
 			triggerPatchModel := &cdtektonpipelinev2.TriggerPatch{
 				Name: core.StringPtr("start-deploy"),
-				Disabled: core.BoolPtr(true),
 			}
 			triggerPatchModelAsPatch, asPatchErr := triggerPatchModel.AsPatch()
 			Expect(asPatchErr).To(BeNil())

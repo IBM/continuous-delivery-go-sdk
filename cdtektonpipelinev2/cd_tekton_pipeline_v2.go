@@ -2882,7 +2882,7 @@ type CreateTektonPipelineTriggerPropertiesOptions struct {
 	Type *string `json:"type,omitempty"`
 
 	// A dot notation path for `integration` type properties to select a value from the tool integration. If left blank the
-	// full tool integration JSON will be selected.
+	// full tool integration data will be used.
 	Path *string `json:"path,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -4175,6 +4175,7 @@ func UnmarshalLog(m map[string]json.RawMessage, result interface{}) (err error) 
 
 // LogsCollection : List of pipeline run log objects.
 type LogsCollection struct {
+	// The list of pipeline run log objects.
 	Logs []Log `json:"logs,omitempty"`
 }
 
@@ -4356,7 +4357,7 @@ type PipelineRunsCollection struct {
 	PipelineRuns []PipelineRunsCollectionPipelineRunsItem `json:"pipeline_runs" validate:"required"`
 
 	// Skip a specified number of pipeline runs.
-	Offset *int64 `json:"offset,omitempty"`
+	Offset *int64 `json:"offset" validate:"required"`
 
 	// The number of pipeline runs to return, sorted by creation time, most recent first.
 	Limit *int64 `json:"limit" validate:"required"`
@@ -4844,7 +4845,7 @@ type ReplaceTektonPipelineTriggerPropertyOptions struct {
 	Type *string `json:"type,omitempty"`
 
 	// A dot notation path for `integration` type properties to select a value from the tool integration. If left blank the
-	// full tool integration JSON will be selected.
+	// full tool integration data will be used.
 	Path *string `json:"path,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -5254,6 +5255,9 @@ type Trigger struct {
 
 	// Only needed for generic webhook trigger type. Secret used to start generic webhook trigger.
 	Secret *GenericSecret `json:"secret,omitempty"`
+
+	// Webhook URL that can be used to trigger pipeline runs.
+	WebhookURL *string `json:"webhook_url,omitempty"`
 }
 func (*Trigger) isaTrigger() bool {
 	return true
@@ -5326,6 +5330,10 @@ func UnmarshalTrigger(m map[string]json.RawMessage, result interface{}) (err err
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "webhook_url", &obj.WebhookURL)
+	if err != nil {
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -5345,7 +5353,7 @@ type TriggerGenericTriggerPropertiesItem struct {
 	Type *string `json:"type" validate:"required"`
 
 	// A dot notation path for `integration` type properties to select a value from the tool integration. If left blank the
-	// full tool integration JSON will be selected.
+	// full tool integration data will be used.
 	Path *string `json:"path,omitempty"`
 
 	// API URL for interacting with the trigger property.
@@ -5408,7 +5416,7 @@ type TriggerManualTriggerPropertiesItem struct {
 	Type *string `json:"type" validate:"required"`
 
 	// A dot notation path for `integration` type properties to select a value from the tool integration. If left blank the
-	// full tool integration JSON will be selected.
+	// full tool integration data will be used.
 	Path *string `json:"path,omitempty"`
 
 	// API URL for interacting with the trigger property.
@@ -5602,7 +5610,7 @@ type TriggerPropertiesCollectionPropertiesItem struct {
 	Type *string `json:"type" validate:"required"`
 
 	// A dot notation path for `integration` type properties to select a value from the tool integration. If left blank the
-	// full tool integration JSON will be selected.
+	// full tool integration data will be used.
 	Path *string `json:"path,omitempty"`
 
 	// API URL for interacting with the trigger property.
@@ -5665,7 +5673,7 @@ type TriggerPropertiesItem struct {
 	Type *string `json:"type" validate:"required"`
 
 	// A dot notation path for `integration` type properties to select a value from the tool integration. If left blank the
-	// full tool integration JSON will be selected.
+	// full tool integration data will be used.
 	Path *string `json:"path,omitempty"`
 
 	// API URL for interacting with the trigger property.
@@ -5728,7 +5736,7 @@ type TriggerProperty struct {
 	Type *string `json:"type" validate:"required"`
 
 	// A dot notation path for `integration` type properties to select a value from the tool integration. If left blank the
-	// full tool integration JSON will be selected.
+	// full tool integration data will be used.
 	Path *string `json:"path,omitempty"`
 }
 
@@ -5846,7 +5854,7 @@ type TriggerScmTriggerPropertiesItem struct {
 	Type *string `json:"type" validate:"required"`
 
 	// A dot notation path for `integration` type properties to select a value from the tool integration. If left blank the
-	// full tool integration JSON will be selected.
+	// full tool integration data will be used.
 	Path *string `json:"path,omitempty"`
 
 	// API URL for interacting with the trigger property.
@@ -5909,7 +5917,7 @@ type TriggerTimerTriggerPropertiesItem struct {
 	Type *string `json:"type" validate:"required"`
 
 	// A dot notation path for `integration` type properties to select a value from the tool integration. If left blank the
-	// full tool integration JSON will be selected.
+	// full tool integration data will be used.
 	Path *string `json:"path,omitempty"`
 
 	// API URL for interacting with the trigger property.
@@ -5980,7 +5988,7 @@ type UpdateTektonPipelineOptions struct {
 	ID *string `json:"id" validate:"required,ne="`
 
 	// JSON Merge-Patch content for update_tekton_pipeline.
-	TektonPipelinePatch map[string]interface{} `json:"TektonPipeline_patch,omitempty"`
+	TektonPipelinePatch map[string]interface{} `json:"TektonPipelinePatch,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -6020,7 +6028,7 @@ type UpdateTektonPipelineTriggerOptions struct {
 	TriggerID *string `json:"trigger_id" validate:"required,ne="`
 
 	// JSON Merge-Patch content for update_tekton_pipeline_trigger.
-	TriggerPatch map[string]interface{} `json:"Trigger_patch,omitempty"`
+	TriggerPatch map[string]interface{} `json:"TriggerPatch,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -6094,13 +6102,6 @@ type Worker struct {
 	ID *string `json:"id" validate:"required"`
 }
 
-// Constants associated with the Worker.Type property.
-// Type of the worker. Computed based on the worker ID.
-const (
-	WorkerTypePrivateConst = "private"
-	WorkerTypePublicConst = "public"
-)
-
 // NewWorker : Instantiate Worker (Generic Model Constructor)
 func (*CdTektonPipelineV2) NewWorker(id string) (_model *Worker, err error) {
 	_model = &Worker{
@@ -6131,6 +6132,7 @@ func UnmarshalWorker(m map[string]json.RawMessage, result interface{}) (err erro
 
 // WorkerWithID : Worker object containing worker ID only. If omitted the IBM Managed shared workers are used by default.
 type WorkerWithID struct {
+	// ID of the worker.
 	ID *string `json:"id" validate:"required"`
 }
 
@@ -6191,6 +6193,9 @@ type TriggerGenericTrigger struct {
 
 	// Only needed for generic webhook trigger type. Secret used to start generic webhook trigger.
 	Secret *GenericSecret `json:"secret,omitempty"`
+
+	// Webhook URL that can be used to trigger pipeline runs.
+	WebhookURL *string `json:"webhook_url,omitempty"`
 }
 
 func (*TriggerGenericTrigger) isaTrigger() bool {
@@ -6241,6 +6246,10 @@ func UnmarshalTriggerGenericTrigger(m map[string]json.RawMessage, result interfa
 		return
 	}
 	err = core.UnmarshalModel(m, "secret", &obj.Secret, UnmarshalGenericSecret)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "webhook_url", &obj.WebhookURL)
 	if err != nil {
 		return
 	}
