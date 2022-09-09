@@ -281,7 +281,7 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 
 			pipelineRun, response, err := cdTektonPipelineService.CancelTektonPipelineRun(cancelTektonPipelineRunOptions)
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
+			Expect(response.StatusCode).To(Equal(202))
 			Expect(pipelineRun).ToNot(BeNil())
 		})
 	})
@@ -533,7 +533,7 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 		It(`CreateTektonPipelineTrigger(createTektonPipelineTriggerOptions *CreateTektonPipelineTriggerOptions)`, func() {
 			workerModel := &cdtektonpipelinev2.Worker{
 				Name: core.StringPtr("testString"),
-				Type: core.StringPtr("private"),
+				Type: core.StringPtr("testString"),
 				ID: core.StringPtr("public"),
 			}
 
@@ -607,7 +607,7 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 		It(`UpdateTektonPipelineTrigger(updateTektonPipelineTriggerOptions *UpdateTektonPipelineTriggerOptions)`, func() {
 			workerModel := &cdtektonpipelinev2.Worker{
 				Name: core.StringPtr("testString"),
-				Type: core.StringPtr("private"),
+				Type: core.StringPtr("testString"),
 				ID: core.StringPtr("testString"),
 			}
 
