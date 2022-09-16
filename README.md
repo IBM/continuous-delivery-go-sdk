@@ -44,8 +44,8 @@ The IBM Cloud Continuous Delivery Go SDK allows developers to programmatically i
 
 Service name | Package name 
 --- | --- 
-[Toolchain API](https://cloud.ibm.com/apidocs/toolchain) | cdtoolchainv2
-[Tekton Pipeline API](https://cloud.ibm.com/apidocs/tekton-pipeline) | cdtektonpipelinev2
+[Toolchain API](https://cloud.ibm.com/apidocs/toolchain?code=go) | cdtoolchainv2
+[Tekton Pipeline API](https://cloud.ibm.com/apidocs/tekton-pipeline?code=go) | cdtektonpipelinev2
 
 Table 1. IBM Cloud services
 
