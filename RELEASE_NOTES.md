@@ -4,9 +4,8 @@ This document contains details about [changes](CHANGELOG.md) to IBM Cloud Contin
 
 ## Schedule
 
-- September 19, 2022 – IBM Cloud Terraform Provider version 1.46.0-beta0 published: https://registry.terraform.io/providers/IBM-Cloud/ibm/1.46.0-beta0. The CD Tekton Pipeline and CD Toolchain Beta resources and data sources within this Provider contain a number of breaking changes that will not work with the IBM Cloud Continuous Delivery service API until the next milestone (see next bullet) in this schedule. You should review the changes outlined in this document and identify any of your Terraform resources and data sources that will need to be changed.
-- October 3, 2022 – On or about this date, the IBM Cloud Continuous Delivery service will deliver breaking changes to its CD Tekton Pipeline and CD Toolchain “v2” Beta HTTP APIs. These changes are compatible with IBM Cloud Terraform Provider version 1.46.0-beta0, but will not be compatible with previous versions of the Provider. You should update your Terraform resources and data sources to account for the changes explained in this document, and set your required_providers.ibm.version to “1.46.0-beta0”.
-- Early October, 2022 – Within a few days of October 3, 2022, IBM Cloud Terraform Provider version 1.46.0 will be published. You should either remove version “1.46.0-beta0” from your required_providers.ibm stanza, or change the version to “1.46.0”.
+- October 3, 2022 - IBM Cloud Terraform Provider version 1.46.0 published: https://registry.terraform.io/providers/IBM-Cloud/ibm/1.46.0. The CD Tekton Pipeline and CD Toolchain Beta resources and data sources within this Provider contain a number of breaking changes. These changes will not work with the IBM Cloud Continuous Delivery service APIs until we deliver corresponding changes to the APIs. Until then (see next bullet), you should use IBM Cloud Terraform Provider version 1.45.1 highest.
+- October 5, 2022 - On or shortly after this date, we plan to deploy corresponding breaking changes to the IBM Cloud Continuous Delivery service’s “v2” Beta HTTP APIs and Go SDKs. These changes are compatible with IBM Cloud Terraform Provider versions 1.46.0-beta0 and 1.46.0. Once these changes are deployed, you should use IBM Cloud Terraform Provider version 1.46.0.
 
 ## Breaking changes to APIs and SDKs
 
