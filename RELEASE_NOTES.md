@@ -1,11 +1,11 @@
-This document contains details about [changes](CHANGELOG.md) to IBM Cloud Continuous Delivery APIs, SDKs, and Terraform resources.
+This document contains details about [changes](CHANGELOG.md) to IBM Cloud Continuous Delivery (CD) APIs, SDKs, and Terraform resources.
 
 # [0.1.2 (2022-09-09)](CHANGELOG.md#012-2022-09-09) Beta
 
 ## Schedule
 
-- October 3, 2022 - IBM Cloud Terraform Provider version 1.46.0 published: https://registry.terraform.io/providers/IBM-Cloud/ibm/1.46.0. The CD Tekton Pipeline and CD Toolchain Beta resources and data sources within this Provider contain a number of breaking changes. These changes will not work with the IBM Cloud Continuous Delivery service APIs until we deliver corresponding changes to the APIs. Until then (see next bullet), you should use IBM Cloud Terraform Provider version 1.45.1 highest.
-- October 5, 2022 - On or shortly after this date, we plan to deploy corresponding breaking changes to the IBM Cloud Continuous Delivery service’s “v2” Beta HTTP APIs and Go SDKs. These changes are compatible with IBM Cloud Terraform Provider versions 1.46.0-beta0 and 1.46.0. Once these changes are deployed, you should use IBM Cloud Terraform Provider version 1.46.0.
+- October 3, 2022 - IBM Cloud Terraform Provider version 1.46.0 is published: https://registry.terraform.io/providers/IBM-Cloud/ibm/1.46.0. The CD Tekton Pipeline and CD Toolchain Beta resources and data sources within this Provider contain a number of breaking changes. These changes will not work with the IBM Cloud Continuous Delivery service APIs until we deliver corresponding changes to the APIs. Until then (see next bullet), you should use IBM Cloud Terraform Provider version 1.45.1 highest.
+- October 5, 2022 - Breaking changes to the IBM Cloud Continuous Delivery service’s “v2” Beta HTTP APIs and Go SDKs are deployed to production. These changes are compatible with IBM Cloud Terraform Provider versions 1.46.0-beta0 and 1.46.0. Once these changes are deployed, you should use IBM Cloud Terraform Provider version 1.46.0.
 
 ## Breaking changes to APIs and SDKs
 
