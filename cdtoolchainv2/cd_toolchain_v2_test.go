@@ -272,7 +272,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"total_count": 10, "limit": 5, "offset": 6, "first": {"href": "Href"}, "previous": {"start": "Start", "href": "Href"}, "next": {"start": "Start", "href": "Href"}, "last": {"start": "Start", "href": "Href"}, "toolchains": [{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "tags": ["Tags"]}]}`)
+					fmt.Fprintf(res, "%s", `{"total_count": 10, "limit": 5, "offset": 6, "first": {"href": "Href"}, "previous": {"start": "Start", "href": "Href"}, "next": {"start": "Start", "href": "Href"}, "last": {"start": "Start", "href": "Href"}, "toolchains": [{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "tags": ["Tags"]}]}`)
 				}))
 			})
 			It(`Invoke ListToolchains successfully with retries`, func() {
@@ -333,7 +333,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"total_count": 10, "limit": 5, "offset": 6, "first": {"href": "Href"}, "previous": {"start": "Start", "href": "Href"}, "next": {"start": "Start", "href": "Href"}, "last": {"start": "Start", "href": "Href"}, "toolchains": [{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "tags": ["Tags"]}]}`)
+					fmt.Fprintf(res, "%s", `{"total_count": 10, "limit": 5, "offset": 6, "first": {"href": "Href"}, "previous": {"start": "Start", "href": "Href"}, "next": {"start": "Start", "href": "Href"}, "last": {"start": "Start", "href": "Href"}, "toolchains": [{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "tags": ["Tags"]}]}`)
 				}))
 			})
 			It(`Invoke ListToolchains successfully`, func() {
@@ -471,9 +471,9 @@ var _ = Describe(`CdToolchainV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"toolchains":[{"id":"ID","name":"Name","description":"Description","account_id":"AccountID","location":"Location","resource_group_id":"ResourceGroupID","crn":"CRN","href":"Href","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","created_by":"CreatedBy","tags":["Tags"]}],"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"toolchains":[{"id":"ID","name":"Name","description":"Description","account_id":"AccountID","location":"Location","resource_group_id":"ResourceGroupID","crn":"CRN","href":"Href","ui_href":"UIHref","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","created_by":"CreatedBy","tags":["Tags"]}],"limit":1}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"toolchains":[{"id":"ID","name":"Name","description":"Description","account_id":"AccountID","location":"Location","resource_group_id":"ResourceGroupID","crn":"CRN","href":"Href","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","created_by":"CreatedBy","tags":["Tags"]}],"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"toolchains":[{"id":"ID","name":"Name","description":"Description","account_id":"AccountID","location":"Location","resource_group_id":"ResourceGroupID","crn":"CRN","href":"Href","ui_href":"UIHref","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","created_by":"CreatedBy","tags":["Tags"]}],"limit":1}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -611,7 +611,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "tags": ["Tags"]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "tags": ["Tags"]}`)
 				}))
 			})
 			It(`Invoke CreateToolchain successfully with retries`, func() {
@@ -683,7 +683,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "tags": ["Tags"]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "tags": ["Tags"]}`)
 				}))
 			})
 			It(`Invoke CreateToolchain successfully`, func() {
@@ -847,7 +847,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "tags": ["Tags"]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "tags": ["Tags"]}`)
 				}))
 			})
 			It(`Invoke GetToolchainByID successfully with retries`, func() {
@@ -901,7 +901,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "tags": ["Tags"]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "tags": ["Tags"]}`)
 				}))
 			})
 			It(`Invoke GetToolchainByID successfully`, func() {
@@ -1151,7 +1151,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "tags": ["Tags"]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "tags": ["Tags"]}`)
 				}))
 			})
 			It(`Invoke UpdateToolchain successfully with retries`, func() {
@@ -1229,7 +1229,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "tags": ["Tags"]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "tags": ["Tags"]}`)
 				}))
 			})
 			It(`Invoke UpdateToolchain successfully`, func() {
@@ -1420,7 +1420,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "total_count": 10, "offset": 6, "first": {"href": "Href"}, "previous": {"start": "Start", "href": "Href"}, "next": {"start": "Start", "href": "Href"}, "last": {"start": "Start", "href": "Href"}, "tools": [{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"mapKey": "anyValue"}, "state": "configured"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "total_count": 10, "offset": 6, "first": {"href": "Href"}, "previous": {"start": "Start", "href": "Href"}, "next": {"start": "Start", "href": "Href"}, "last": {"start": "Start", "href": "Href"}, "tools": [{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"anyKey": "anyValue"}, "state": "configured"}]}`)
 				}))
 			})
 			It(`Invoke ListTools successfully with retries`, func() {
@@ -1480,7 +1480,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "total_count": 10, "offset": 6, "first": {"href": "Href"}, "previous": {"start": "Start", "href": "Href"}, "next": {"start": "Start", "href": "Href"}, "last": {"start": "Start", "href": "Href"}, "tools": [{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"mapKey": "anyValue"}, "state": "configured"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "total_count": 10, "offset": 6, "first": {"href": "Href"}, "previous": {"start": "Start", "href": "Href"}, "next": {"start": "Start", "href": "Href"}, "last": {"start": "Start", "href": "Href"}, "tools": [{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"anyKey": "anyValue"}, "state": "configured"}]}`)
 				}))
 			})
 			It(`Invoke ListTools successfully`, func() {
@@ -1618,9 +1618,9 @@ var _ = Describe(`CdToolchainV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"tools":[{"id":"ID","resource_group_id":"ResourceGroupID","crn":"CRN","tool_type_id":"ToolTypeID","toolchain_id":"ToolchainID","toolchain_crn":"ToolchainCRN","href":"Href","referent":{"ui_href":"UIHref","api_href":"APIHref"},"name":"Name","updated_at":"2019-01-01T12:00:00.000Z","parameters":{"mapKey":"anyValue"},"state":"configured"}]}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"tools":[{"id":"ID","resource_group_id":"ResourceGroupID","crn":"CRN","tool_type_id":"ToolTypeID","toolchain_id":"ToolchainID","toolchain_crn":"ToolchainCRN","href":"Href","referent":{"ui_href":"UIHref","api_href":"APIHref"},"name":"Name","updated_at":"2019-01-01T12:00:00.000Z","parameters":{"anyKey":"anyValue"},"state":"configured"}]}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"tools":[{"id":"ID","resource_group_id":"ResourceGroupID","crn":"CRN","tool_type_id":"ToolTypeID","toolchain_id":"ToolchainID","toolchain_crn":"ToolchainCRN","href":"Href","referent":{"ui_href":"UIHref","api_href":"APIHref"},"name":"Name","updated_at":"2019-01-01T12:00:00.000Z","parameters":{"mapKey":"anyValue"},"state":"configured"}]}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"tools":[{"id":"ID","resource_group_id":"ResourceGroupID","crn":"CRN","tool_type_id":"ToolTypeID","toolchain_id":"ToolchainID","toolchain_crn":"ToolchainCRN","href":"Href","referent":{"ui_href":"UIHref","api_href":"APIHref"},"name":"Name","updated_at":"2019-01-01T12:00:00.000Z","parameters":{"anyKey":"anyValue"},"state":"configured"}]}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -1706,7 +1706,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 				createToolOptionsModel.ToolchainID = core.StringPtr("testString")
 				createToolOptionsModel.ToolTypeID = core.StringPtr("slack")
 				createToolOptionsModel.Name = core.StringPtr("testString")
-				createToolOptionsModel.Parameters = make(map[string]interface{})
+				createToolOptionsModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
 				createToolOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := cdToolchainService.CreateTool(createToolOptionsModel)
@@ -1759,7 +1759,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"mapKey": "anyValue"}, "state": "configured"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"anyKey": "anyValue"}, "state": "configured"}`)
 				}))
 			})
 			It(`Invoke CreateTool successfully with retries`, func() {
@@ -1776,7 +1776,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 				createToolOptionsModel.ToolchainID = core.StringPtr("testString")
 				createToolOptionsModel.ToolTypeID = core.StringPtr("slack")
 				createToolOptionsModel.Name = core.StringPtr("testString")
-				createToolOptionsModel.Parameters = make(map[string]interface{})
+				createToolOptionsModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
 				createToolOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -1832,7 +1832,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"mapKey": "anyValue"}, "state": "configured"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"anyKey": "anyValue"}, "state": "configured"}`)
 				}))
 			})
 			It(`Invoke CreateTool successfully`, func() {
@@ -1854,7 +1854,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 				createToolOptionsModel.ToolchainID = core.StringPtr("testString")
 				createToolOptionsModel.ToolTypeID = core.StringPtr("slack")
 				createToolOptionsModel.Name = core.StringPtr("testString")
-				createToolOptionsModel.Parameters = make(map[string]interface{})
+				createToolOptionsModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
 				createToolOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -1877,7 +1877,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 				createToolOptionsModel.ToolchainID = core.StringPtr("testString")
 				createToolOptionsModel.ToolTypeID = core.StringPtr("slack")
 				createToolOptionsModel.Name = core.StringPtr("testString")
-				createToolOptionsModel.Parameters = make(map[string]interface{})
+				createToolOptionsModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
 				createToolOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := cdToolchainService.SetServiceURL("")
@@ -1921,7 +1921,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 				createToolOptionsModel.ToolchainID = core.StringPtr("testString")
 				createToolOptionsModel.ToolTypeID = core.StringPtr("slack")
 				createToolOptionsModel.Name = core.StringPtr("testString")
-				createToolOptionsModel.Parameters = make(map[string]interface{})
+				createToolOptionsModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
 				createToolOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -2000,7 +2000,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"mapKey": "anyValue"}, "state": "configured"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"anyKey": "anyValue"}, "state": "configured"}`)
 				}))
 			})
 			It(`Invoke GetToolByID successfully with retries`, func() {
@@ -2055,7 +2055,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"mapKey": "anyValue"}, "state": "configured"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"anyKey": "anyValue"}, "state": "configured"}`)
 				}))
 			})
 			It(`Invoke GetToolByID successfully`, func() {
@@ -2251,7 +2251,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 				toolchainToolPrototypePatchModel := new(cdtoolchainv2.ToolchainToolPrototypePatch)
 				toolchainToolPrototypePatchModel.Name = core.StringPtr("MyTool")
 				toolchainToolPrototypePatchModel.ToolTypeID = core.StringPtr("todolist")
-				toolchainToolPrototypePatchModel.Parameters = make(map[string]interface{})
+				toolchainToolPrototypePatchModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
 				toolchainToolPrototypePatchModelAsPatch, asPatchErr := toolchainToolPrototypePatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
 
@@ -2312,7 +2312,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"mapKey": "anyValue"}, "state": "configured"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"anyKey": "anyValue"}, "state": "configured"}`)
 				}))
 			})
 			It(`Invoke UpdateTool successfully with retries`, func() {
@@ -2328,7 +2328,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 				toolchainToolPrototypePatchModel := new(cdtoolchainv2.ToolchainToolPrototypePatch)
 				toolchainToolPrototypePatchModel.Name = core.StringPtr("MyTool")
 				toolchainToolPrototypePatchModel.ToolTypeID = core.StringPtr("todolist")
-				toolchainToolPrototypePatchModel.Parameters = make(map[string]interface{})
+				toolchainToolPrototypePatchModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
 				toolchainToolPrototypePatchModelAsPatch, asPatchErr := toolchainToolPrototypePatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
 
@@ -2392,7 +2392,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"mapKey": "anyValue"}, "state": "configured"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"anyKey": "anyValue"}, "state": "configured"}`)
 				}))
 			})
 			It(`Invoke UpdateTool successfully`, func() {
@@ -2413,7 +2413,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 				toolchainToolPrototypePatchModel := new(cdtoolchainv2.ToolchainToolPrototypePatch)
 				toolchainToolPrototypePatchModel.Name = core.StringPtr("MyTool")
 				toolchainToolPrototypePatchModel.ToolTypeID = core.StringPtr("todolist")
-				toolchainToolPrototypePatchModel.Parameters = make(map[string]interface{})
+				toolchainToolPrototypePatchModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
 				toolchainToolPrototypePatchModelAsPatch, asPatchErr := toolchainToolPrototypePatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
 
@@ -2443,7 +2443,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 				toolchainToolPrototypePatchModel := new(cdtoolchainv2.ToolchainToolPrototypePatch)
 				toolchainToolPrototypePatchModel.Name = core.StringPtr("MyTool")
 				toolchainToolPrototypePatchModel.ToolTypeID = core.StringPtr("todolist")
-				toolchainToolPrototypePatchModel.Parameters = make(map[string]interface{})
+				toolchainToolPrototypePatchModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
 				toolchainToolPrototypePatchModelAsPatch, asPatchErr := toolchainToolPrototypePatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
 
@@ -2494,7 +2494,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 				toolchainToolPrototypePatchModel := new(cdtoolchainv2.ToolchainToolPrototypePatch)
 				toolchainToolPrototypePatchModel.Name = core.StringPtr("MyTool")
 				toolchainToolPrototypePatchModel.ToolTypeID = core.StringPtr("todolist")
-				toolchainToolPrototypePatchModel.Parameters = make(map[string]interface{})
+				toolchainToolPrototypePatchModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
 				toolchainToolPrototypePatchModelAsPatch, asPatchErr := toolchainToolPrototypePatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
 
@@ -2532,13 +2532,13 @@ var _ = Describe(`CdToolchainV2`, func() {
 				createToolOptionsModel.SetToolchainID("testString")
 				createToolOptionsModel.SetToolTypeID("slack")
 				createToolOptionsModel.SetName("testString")
-				createToolOptionsModel.SetParameters(make(map[string]interface{}))
+				createToolOptionsModel.SetParameters(map[string]interface{}{"anyKey": "anyValue"})
 				createToolOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createToolOptionsModel).ToNot(BeNil())
 				Expect(createToolOptionsModel.ToolchainID).To(Equal(core.StringPtr("testString")))
 				Expect(createToolOptionsModel.ToolTypeID).To(Equal(core.StringPtr("slack")))
 				Expect(createToolOptionsModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(createToolOptionsModel.Parameters).To(Equal(make(map[string]interface{})))
+				Expect(createToolOptionsModel.Parameters).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(createToolOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateToolchainOptions successfully`, func() {
@@ -2638,29 +2638,29 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the UpdateToolOptions model
 				toolchainID := "testString"
 				toolID := "testString"
-				toolchainToolPrototypePatch := make(map[string]interface{})
+				toolchainToolPrototypePatch := map[string]interface{}{"anyKey": "anyValue"}
 				updateToolOptionsModel := cdToolchainService.NewUpdateToolOptions(toolchainID, toolID, toolchainToolPrototypePatch)
 				updateToolOptionsModel.SetToolchainID("testString")
 				updateToolOptionsModel.SetToolID("testString")
-				updateToolOptionsModel.SetToolchainToolPrototypePatch(make(map[string]interface{}))
+				updateToolOptionsModel.SetToolchainToolPrototypePatch(map[string]interface{}{"anyKey": "anyValue"})
 				updateToolOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateToolOptionsModel).ToNot(BeNil())
 				Expect(updateToolOptionsModel.ToolchainID).To(Equal(core.StringPtr("testString")))
 				Expect(updateToolOptionsModel.ToolID).To(Equal(core.StringPtr("testString")))
-				Expect(updateToolOptionsModel.ToolchainToolPrototypePatch).To(Equal(make(map[string]interface{})))
+				Expect(updateToolOptionsModel.ToolchainToolPrototypePatch).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(updateToolOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateToolchainOptions successfully`, func() {
 				// Construct an instance of the UpdateToolchainOptions model
 				toolchainID := "testString"
-				toolchainPrototypePatch := make(map[string]interface{})
+				toolchainPrototypePatch := map[string]interface{}{"anyKey": "anyValue"}
 				updateToolchainOptionsModel := cdToolchainService.NewUpdateToolchainOptions(toolchainID, toolchainPrototypePatch)
 				updateToolchainOptionsModel.SetToolchainID("testString")
-				updateToolchainOptionsModel.SetToolchainPrototypePatch(make(map[string]interface{}))
+				updateToolchainOptionsModel.SetToolchainPrototypePatch(map[string]interface{}{"anyKey": "anyValue"})
 				updateToolchainOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateToolchainOptionsModel).ToNot(BeNil())
 				Expect(updateToolchainOptionsModel.ToolchainID).To(Equal(core.StringPtr("testString")))
-				Expect(updateToolchainOptionsModel.ToolchainPrototypePatch).To(Equal(make(map[string]interface{})))
+				Expect(updateToolchainOptionsModel.ToolchainPrototypePatch).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(updateToolchainOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 		})
