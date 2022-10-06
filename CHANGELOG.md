@@ -1,3 +1,10 @@
+## [0.1.3](https://github.com/IBM/continuous-delivery-go-sdk/compare/v0.1.2...v0.1.3) (2022-10-06)
+
+
+### Bug Fixes
+
+* **toolchain:** Added UI href property in toolchain response ([#20](https://github.com/IBM/continuous-delivery-go-sdk/issues/20)) ([b5397a6](https://github.com/IBM/continuous-delivery-go-sdk/commit/b5397a6d3e84f6f62f7dbfe2c8c240b134fe6fcc))
+
 ## [0.1.2](https://github.com/IBM/continuous-delivery-go-sdk/compare/v0.1.1...v0.1.2) (2022-09-09)
 
 ### Features
