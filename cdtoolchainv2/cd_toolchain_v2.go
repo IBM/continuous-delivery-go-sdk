@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.55.1-b24c7487-20220831-201343
+ * IBM OpenAPI SDK Code Generator Version: 3.56.0-9d92579f-20220914-180148
  */
 
 // Package cdtoolchainv2 : Operations and models for the CdToolchainV2 service
@@ -1314,6 +1314,9 @@ type Toolchain struct {
 	// URI that can be used to retrieve toolchain.
 	Href *string `json:"href" validate:"required"`
 
+	// URL of a user-facing user interface for this toolchain.
+	UIHref *string `json:"ui_href" validate:"required"`
+
 	// Toolchain creation timestamp.
 	CreatedAt *strfmt.DateTime `json:"created_at" validate:"required"`
 
@@ -1359,6 +1362,10 @@ func UnmarshalToolchain(m map[string]json.RawMessage, result interface{}) (err e
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "ui_href", &obj.UIHref)
 	if err != nil {
 		return
 	}
@@ -1571,6 +1578,9 @@ type ToolchainModel struct {
 	// URI that can be used to retrieve toolchain.
 	Href *string `json:"href" validate:"required"`
 
+	// URL of a user-facing user interface for this toolchain.
+	UIHref *string `json:"ui_href" validate:"required"`
+
 	// Toolchain creation timestamp.
 	CreatedAt *strfmt.DateTime `json:"created_at" validate:"required"`
 
@@ -1616,6 +1626,10 @@ func UnmarshalToolchainModel(m map[string]json.RawMessage, result interface{}) (
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "ui_href", &obj.UIHref)
 	if err != nil {
 		return
 	}
@@ -1665,6 +1679,9 @@ type ToolchainPatch struct {
 	// URI that can be used to retrieve toolchain.
 	Href *string `json:"href" validate:"required"`
 
+	// URL of a user-facing user interface for this toolchain.
+	UIHref *string `json:"ui_href" validate:"required"`
+
 	// Toolchain creation timestamp.
 	CreatedAt *strfmt.DateTime `json:"created_at" validate:"required"`
 
@@ -1710,6 +1727,10 @@ func UnmarshalToolchainPatch(m map[string]json.RawMessage, result interface{}) (
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "ui_href", &obj.UIHref)
 	if err != nil {
 		return
 	}
@@ -1759,6 +1780,9 @@ type ToolchainPost struct {
 	// URI that can be used to retrieve toolchain.
 	Href *string `json:"href" validate:"required"`
 
+	// URL of a user-facing user interface for this toolchain.
+	UIHref *string `json:"ui_href" validate:"required"`
+
 	// Toolchain creation timestamp.
 	CreatedAt *strfmt.DateTime `json:"created_at" validate:"required"`
 
@@ -1804,6 +1828,10 @@ func UnmarshalToolchainPost(m map[string]json.RawMessage, result interface{}) (e
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "ui_href", &obj.UIHref)
 	if err != nil {
 		return
 	}
