@@ -1,3 +1,10 @@
+## [0.1.4](https://github.com/IBM/continuous-delivery-go-sdk/compare/v0.1.3...v0.1.4) (2022-10-12)
+
+
+### Bug Fixes
+
+* **tekton:** documentation change ([d3692c5](https://github.com/IBM/continuous-delivery-go-sdk/commit/d3692c50baf6d40b826af83c60547070f0039374))
+
 ## [0.1.3](https://github.com/IBM/continuous-delivery-go-sdk/compare/v0.1.2...v0.1.3) (2022-10-06)
 
 
