@@ -96,15 +96,15 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateTektonPipeline(createTektonPipelineOptions *CreateTektonPipelineOptions)`, func() {
-			workerWithIDModel := &cdtektonpipelinev2.WorkerWithID{
+			workerIdentityModel := &cdtektonpipelinev2.WorkerIdentity{
 				ID: core.StringPtr("public"),
 			}
 
 			createTektonPipelineOptions := &cdtektonpipelinev2.CreateTektonPipelineOptions{
-				EnableSlackNotifications: core.BoolPtr(false),
+				EnableNotifications: core.BoolPtr(false),
 				EnablePartialCloning: core.BoolPtr(false),
 				ID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
-				Worker: workerWithIDModel,
+				Worker: workerIdentityModel,
 			}
 
 			tektonPipeline, response, err := cdTektonPipelineService.CreateTektonPipeline(createTektonPipelineOptions)
@@ -135,14 +135,14 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`UpdateTektonPipeline(updateTektonPipelineOptions *UpdateTektonPipelineOptions)`, func() {
-			workerWithIDModel := &cdtektonpipelinev2.WorkerWithID{
+			workerIdentityModel := &cdtektonpipelinev2.WorkerIdentity{
 				ID: core.StringPtr("public"),
 			}
 
 			tektonPipelinePatchModel := &cdtektonpipelinev2.TektonPipelinePatch{
-				EnableSlackNotifications: core.BoolPtr(false),
+				EnableNotifications: core.BoolPtr(false),
 				EnablePartialCloning: core.BoolPtr(false),
-				Worker: workerWithIDModel,
+				Worker: workerIdentityModel,
 			}
 			tektonPipelinePatchModelAsPatch, asPatchErr := tektonPipelinePatchModel.AsPatch()
 			Expect(asPatchErr).To(BeNil())
@@ -234,13 +234,21 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateTektonPipelineRun(createTektonPipelineRunOptions *CreateTektonPipelineRunOptions)`, func() {
+			propertyModel := &cdtektonpipelinev2.Property{
+				Name: core.StringPtr("testString"),
+				Value: core.StringPtr("testString"),
+				Enum: []string{"testString"},
+				Type: core.StringPtr("secure"),
+				Path: core.StringPtr("testString"),
+			}
+
 			createTektonPipelineRunOptions := &cdtektonpipelinev2.CreateTektonPipelineRunOptions{
 				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 				TriggerName: core.StringPtr("Generic Webhook Trigger - 0"),
-				TriggerProperties: make(map[string]interface{}),
-				SecureTriggerProperties: make(map[string]interface{}),
-				TriggerHeader: make(map[string]interface{}),
-				TriggerBody: make(map[string]interface{}),
+				TriggerProperties: []cdtektonpipelinev2.Property{*propertyModel},
+				SecureTriggerProperties: []cdtektonpipelinev2.Property{*propertyModel},
+				TriggerHeaders: map[string]interface{}{"anyKey": "anyValue"},
+				TriggerBody: map[string]interface{}{"anyKey": "anyValue"},
 			}
 
 			pipelineRun, response, err := cdTektonPipelineService.CreateTektonPipelineRun(createTektonPipelineRunOptions)
@@ -331,10 +339,10 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 				ID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 			}
 
-			log, response, err := cdTektonPipelineService.GetTektonPipelineRunLogContent(getTektonPipelineRunLogContentOptions)
+			stepLog, response, err := cdTektonPipelineService.GetTektonPipelineRunLogContent(getTektonPipelineRunLogContentOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(log).ToNot(BeNil())
+			Expect(stepLog).ToNot(BeNil())
 		})
 	})
 
@@ -370,7 +378,6 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			createTektonPipelineDefinitionOptions := &cdtektonpipelinev2.CreateTektonPipelineDefinitionOptions{
 				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 				ScmSource: definitionScmSourceModel,
-				ID: core.StringPtr("testString"),
 			}
 
 			definition, response, err := cdTektonPipelineService.CreateTektonPipelineDefinition(createTektonPipelineDefinitionOptions)
@@ -407,14 +414,13 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 				Branch: core.StringPtr("master"),
 				Tag: core.StringPtr("testString"),
 				Path: core.StringPtr(".tekton"),
-				ServiceInstanceID: core.StringPtr("071d8049-d984-4feb-a2ed-2a1e938918ba"),
+				ServiceInstanceID: core.StringPtr("testString"),
 			}
 
 			replaceTektonPipelineDefinitionOptions := &cdtektonpipelinev2.ReplaceTektonPipelineDefinitionOptions{
 				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 				DefinitionID: core.StringPtr("94299034-d45f-4e9a-8ed5-6bd5c7bb7ada"),
 				ScmSource: definitionScmSourceModel,
-				ID: core.StringPtr("22f92ab1-e0ac-4c65-84e7-8a4cb32dba0f"),
 			}
 
 			definition, response, err := cdTektonPipelineService.ReplaceTektonPipelineDefinition(replaceTektonPipelineDefinitionOptions)
@@ -568,7 +574,7 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 				Tags: []string{"testString"},
 				Worker: workerModel,
 				MaxConcurrentRuns: core.Int64Ptr(int64(3)),
-				Disabled: core.BoolPtr(false),
+				Enabled: core.BoolPtr(true),
 				Secret: genericSecretModel,
 				Cron: core.StringPtr("testString"),
 				Timezone: core.StringPtr("testString"),
@@ -641,7 +647,7 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 				Tags: []string{"testString"},
 				Worker: workerModel,
 				MaxConcurrentRuns: core.Int64Ptr(int64(4)),
-				Disabled: core.BoolPtr(true),
+				Enabled: core.BoolPtr(true),
 				Secret: genericSecretModel,
 				Cron: core.StringPtr("testString"),
 				Timezone: core.StringPtr("America/Los_Angeles, CET, Europe/London, GMT, US/Eastern, or UTC"),
