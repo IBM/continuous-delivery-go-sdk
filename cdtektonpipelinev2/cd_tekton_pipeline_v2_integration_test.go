@@ -367,12 +367,16 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateTektonPipelineDefinition(createTektonPipelineDefinitionOptions *CreateTektonPipelineDefinitionOptions)`, func() {
+			definitionScmSourceToolModel := &cdtektonpipelinev2.DefinitionScmSourceTool{
+				ID: core.StringPtr("testString"),
+			}
+
 			definitionScmSourceModel := &cdtektonpipelinev2.DefinitionScmSource{
 				URL: core.StringPtr("https://github.com/IBM/tekton-tutorial.git"),
 				Branch: core.StringPtr("master"),
 				Tag: core.StringPtr("testString"),
 				Path: core.StringPtr(".tekton"),
-				ServiceInstanceID: core.StringPtr("testString"),
+				Tool: definitionScmSourceToolModel,
 			}
 
 			createTektonPipelineDefinitionOptions := &cdtektonpipelinev2.CreateTektonPipelineDefinitionOptions{
@@ -409,12 +413,16 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`ReplaceTektonPipelineDefinition(replaceTektonPipelineDefinitionOptions *ReplaceTektonPipelineDefinitionOptions)`, func() {
+			definitionScmSourceToolModel := &cdtektonpipelinev2.DefinitionScmSourceTool{
+				ID: core.StringPtr("testString"),
+			}
+
 			definitionScmSourceModel := &cdtektonpipelinev2.DefinitionScmSource{
 				URL: core.StringPtr("https://github.com/IBM/tekton-tutorial.git"),
 				Branch: core.StringPtr("master"),
 				Tag: core.StringPtr("testString"),
 				Path: core.StringPtr(".tekton"),
-				ServiceInstanceID: core.StringPtr("testString"),
+				Tool: definitionScmSourceToolModel,
 			}
 
 			replaceTektonPipelineDefinitionOptions := &cdtektonpipelinev2.ReplaceTektonPipelineDefinitionOptions{
@@ -551,13 +559,17 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 				Algorithm: core.StringPtr("md4"),
 			}
 
+			triggerScmSourceToolModel := &cdtektonpipelinev2.TriggerScmSourceTool{
+				ID: core.StringPtr("testString"),
+			}
+
 			triggerScmSourceModel := &cdtektonpipelinev2.TriggerScmSource{
 				URL: core.StringPtr("testString"),
 				Branch: core.StringPtr("testString"),
 				Pattern: core.StringPtr("testString"),
 				BlindConnection: core.BoolPtr(true),
 				HookID: core.StringPtr("testString"),
-				ServiceInstanceID: core.StringPtr("testString"),
+				Tool: triggerScmSourceToolModel,
 			}
 
 			eventsModel := &cdtektonpipelinev2.Events{
@@ -625,13 +637,17 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 				Algorithm: core.StringPtr("md4"),
 			}
 
+			triggerScmSourceToolModel := &cdtektonpipelinev2.TriggerScmSourceTool{
+				ID: core.StringPtr("testString"),
+			}
+
 			triggerScmSourceModel := &cdtektonpipelinev2.TriggerScmSource{
 				URL: core.StringPtr("testString"),
 				Branch: core.StringPtr("testString"),
 				Pattern: core.StringPtr("testString"),
 				BlindConnection: core.BoolPtr(true),
 				HookID: core.StringPtr("testString"),
-				ServiceInstanceID: core.StringPtr("testString"),
+				Tool: triggerScmSourceToolModel,
 			}
 
 			eventsModel := &cdtektonpipelinev2.Events{

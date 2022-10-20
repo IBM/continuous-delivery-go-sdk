@@ -965,7 +965,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineRunLogContentWithCo
 // ListTektonPipelineDefinitions : List pipeline definitions
 // This request fetches pipeline definitions, which is a collection of individual definition entries. Each entry
 // consists of a repository url, a repository path and a branch or tag. The referenced repository URL must match the URL
-// of a repository integration in the parent toolchain. Obtain the list of integrations from the toolchain endpoint
+// of a repository tool integration in the parent toolchain. Obtain the list of integrations from the toolchain endpoint
 // /toolchains/{toolchain_id}/tools. The branch or tag of the definition must match against a corresponding branch or
 // tag in the chosen repository, and the path must match a subfolder in the repository.
 func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineDefinitions(listTektonPipelineDefinitionsOptions *ListTektonPipelineDefinitionsOptions) (result *DefinitionsCollection, response *core.DetailedResponse, err error) {
@@ -1028,10 +1028,10 @@ func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineDefinitionsWithCon
 
 // CreateTektonPipelineDefinition : Create a single definition
 // This request adds a single definition. The scm_source should consist of a repository url, a repository path and a
-// branch or tag. The referenced repository URL must match the URL of a repository integration in the parent toolchain.
-// Obtain the list of integrations from the toolchain endpoint /toolchains/{toolchain_id}/tools. The branch or tag of
-// the definition must match against a corresponding branch or tag in the chosen repository, and the path must match a
-// subfolder in the repository.
+// branch or tag. The referenced repository URL must match the URL of a repository tool integration in the parent
+// toolchain. Obtain the list of integrations from the toolchain endpoint /toolchains/{toolchain_id}/tools. The branch
+// or tag of the definition must match against a corresponding branch or tag in the chosen repository, and the path must
+// match a subfolder in the repository.
 func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineDefinition(createTektonPipelineDefinitionOptions *CreateTektonPipelineDefinitionOptions) (result *Definition, response *core.DetailedResponse, err error) {
 	return cdTektonPipeline.CreateTektonPipelineDefinitionWithContext(context.Background(), createTektonPipelineDefinitionOptions)
 }
@@ -2459,7 +2459,7 @@ type CreateTektonPipelineDefinitionOptions struct {
 	// The Tekton pipeline ID.
 	PipelineID *string `json:"pipeline_id" validate:"required,ne="`
 
-	// SCM source for Tekton pipeline definition.
+	// Source code management repository containing the Tekton pipeline definition.
 	ScmSource *DefinitionScmSource `json:"scm_source,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -2747,9 +2747,9 @@ type CreateTektonPipelineTriggerOptions struct {
 	// Only needed for timer triggers. Timezone for timer trigger.
 	Timezone *string `json:"timezone,omitempty"`
 
-	// SCM source repository for a Git trigger. Only required for Git triggers. The referenced repository URL must match
-	// the URL of a repository integration in the parent toolchain. Obtain the list of integrations from the toolchain
-	// endpoint /toolchains/{toolchain_id}/tools.
+	// Source code management repository for a Git trigger. Only required for Git triggers. The referenced repository URL
+	// must match the URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from
+	// the toolchain endpoint /toolchains/{toolchain_id}/tools.
 	ScmSource *TriggerScmSource `json:"scm_source,omitempty"`
 
 	// Only needed for Git triggers. Events object defines the events to which this Git trigger listens.
@@ -2954,12 +2954,12 @@ func (options *CreateTektonPipelineTriggerPropertiesOptions) SetHeaders(param ma
 }
 
 // Definition : Tekton pipeline definition entry object, consisting of a repository url, a repository path and a branch or tag. The
-// referenced repository URL must match the URL of a repository integration in the parent toolchain. Obtain the list of
-// integrations from the toolchain endpoint /toolchains/{toolchain_id}/tools. The branch or tag of the definition must
-// match against a corresponding branch or tag in the chosen repository, and the path must match a subfolder in the
-// repository.
+// referenced repository URL must match the URL of a repository tool integration in the parent toolchain. Obtain the
+// list of integrations from the toolchain endpoint /toolchains/{toolchain_id}/tools. The branch or tag of the
+// definition must match against a corresponding branch or tag in the chosen repository, and the path must match a
+// subfolder in the repository.
 type Definition struct {
-	// SCM source for Tekton pipeline definition.
+	// Source code management repository containing the Tekton pipeline definition.
 	ScmSource *DefinitionScmSource `json:"scm_source" validate:"required"`
 
 	// UUID.
@@ -2981,7 +2981,7 @@ func UnmarshalDefinition(m map[string]json.RawMessage, result interface{}) (err 
 	return
 }
 
-// DefinitionScmSource : SCM source for Tekton pipeline definition.
+// DefinitionScmSource : Source code management repository containing the Tekton pipeline definition.
 type DefinitionScmSource struct {
 	// URL of the definition repository.
 	URL *string `json:"url" validate:"required"`
@@ -2995,8 +2995,8 @@ type DefinitionScmSource struct {
 	// The path to the definition's yaml files.
 	Path *string `json:"path" validate:"required"`
 
-	// ID of the SCM repository service instance in the parent toolchain.
-	ServiceInstanceID *string `json:"service_instance_id,omitempty"`
+	// Reference to the repository tool, in the parent toolchain, that contains the pipeline definition.
+	Tool *DefinitionScmSourceTool `json:"tool,omitempty"`
 }
 
 // NewDefinitionScmSource : Instantiate DefinitionScmSource (Generic Model Constructor)
@@ -3028,7 +3028,24 @@ func UnmarshalDefinitionScmSource(m map[string]json.RawMessage, result interface
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "service_instance_id", &obj.ServiceInstanceID)
+	err = core.UnmarshalModel(m, "tool", &obj.Tool, UnmarshalDefinitionScmSourceTool)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// DefinitionScmSourceTool : Reference to the repository tool, in the parent toolchain, that contains the pipeline definition.
+type DefinitionScmSourceTool struct {
+	// ID of the repository tool instance in the parent toolchain.
+	ID *string `json:"id,omitempty"`
+}
+
+// UnmarshalDefinitionScmSourceTool unmarshals an instance of DefinitionScmSourceTool from the specified map of raw messages.
+func UnmarshalDefinitionScmSourceTool(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(DefinitionScmSourceTool)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
 		return
 	}
@@ -3055,12 +3072,12 @@ func UnmarshalDefinitionsCollection(m map[string]json.RawMessage, result interfa
 }
 
 // DefinitionsCollectionDefinitionsItem : Tekton pipeline definition entry object, consisting of a repository url, a repository path and a branch or tag. The
-// referenced repository URL must match the URL of a repository integration in the parent toolchain. Obtain the list of
-// integrations from the toolchain endpoint /toolchains/{toolchain_id}/tools. The branch or tag of the definition must
-// match against a corresponding branch or tag in the chosen repository, and the path must match a subfolder in the
-// repository.
+// referenced repository URL must match the URL of a repository tool integration in the parent toolchain. Obtain the
+// list of integrations from the toolchain endpoint /toolchains/{toolchain_id}/tools. The branch or tag of the
+// definition must match against a corresponding branch or tag in the chosen repository, and the path must match a
+// subfolder in the repository.
 type DefinitionsCollectionDefinitionsItem struct {
-	// SCM source for Tekton pipeline definition.
+	// Source code management repository containing the Tekton pipeline definition.
 	ScmSource *DefinitionScmSource `json:"scm_source" validate:"required"`
 
 	// UUID.
@@ -4700,7 +4717,7 @@ type ReplaceTektonPipelineDefinitionOptions struct {
 	// The definition ID.
 	DefinitionID *string `json:"definition_id" validate:"required,ne="`
 
-	// SCM source for Tekton pipeline definition.
+	// Source code management repository containing the Tekton pipeline definition.
 	ScmSource *DefinitionScmSource `json:"scm_source,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -5255,9 +5272,9 @@ type Trigger struct {
 	// Flag whether the trigger is enabled.
 	Enabled *bool `json:"enabled,omitempty"`
 
-	// SCM source repository for a Git trigger. Only required for Git triggers. The referenced repository URL must match
-	// the URL of a repository integration in the parent toolchain. Obtain the list of integrations from the toolchain
-	// endpoint /toolchains/{toolchain_id}/tools.
+	// Source code management repository for a Git trigger. Only required for Git triggers. The referenced repository URL
+	// must match the URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from
+	// the toolchain endpoint /toolchains/{toolchain_id}/tools.
 	ScmSource *TriggerScmSource `json:"scm_source,omitempty"`
 
 	// Only needed for Git triggers. Events object defines the events to which this Git trigger listens.
@@ -5514,9 +5531,9 @@ type TriggerPatch struct {
 	// Only needed for timer triggers. Timezone for timer trigger.
 	Timezone *string `json:"timezone,omitempty"`
 
-	// SCM source repository for a Git trigger. Only required for Git triggers. The referenced repository URL must match
-	// the URL of a repository integration in the parent toolchain. Obtain the list of integrations from the toolchain
-	// endpoint /toolchains/{toolchain_id}/tools.
+	// Source code management repository for a Git trigger. Only required for Git triggers. The referenced repository URL
+	// must match the URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from
+	// the toolchain endpoint /toolchains/{toolchain_id}/tools.
 	ScmSource *TriggerScmSource `json:"scm_source,omitempty"`
 
 	// Only needed for Git triggers. Events object defines the events to which this Git trigger listens.
@@ -5796,9 +5813,9 @@ func UnmarshalTriggerProperty(m map[string]json.RawMessage, result interface{}) 
 	return
 }
 
-// TriggerScmSource : SCM source repository for a Git trigger. Only required for Git triggers. The referenced repository URL must match the
-// URL of a repository integration in the parent toolchain. Obtain the list of integrations from the toolchain endpoint
-// /toolchains/{toolchain_id}/tools.
+// TriggerScmSource : Source code management repository for a Git trigger. Only required for Git triggers. The referenced repository URL
+// must match the URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from the
+// toolchain endpoint /toolchains/{toolchain_id}/tools.
 type TriggerScmSource struct {
 	// URL of the repository to which the trigger is listening.
 	URL *string `json:"url" validate:"required"`
@@ -5818,9 +5835,8 @@ type TriggerScmSource struct {
 	// ID of the webhook from the repo. Computed upon creation of the trigger.
 	HookID *string `json:"hook_id,omitempty"`
 
-	// This is the ID of the repository service instance in the toolchain. This can be found in the data returned from the
-	// toolchain endpoint /toolchains/{toolchain_id}/tools.
-	ServiceInstanceID *string `json:"service_instance_id,omitempty"`
+	// Reference to the repository tool in the parent toolchain.
+	Tool *TriggerScmSourceTool `json:"tool,omitempty"`
 }
 
 // NewTriggerScmSource : Instantiate TriggerScmSource (Generic Model Constructor)
@@ -5855,7 +5871,24 @@ func UnmarshalTriggerScmSource(m map[string]json.RawMessage, result interface{})
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "service_instance_id", &obj.ServiceInstanceID)
+	err = core.UnmarshalModel(m, "tool", &obj.Tool, UnmarshalTriggerScmSourceTool)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// TriggerScmSourceTool : Reference to the repository tool in the parent toolchain.
+type TriggerScmSourceTool struct {
+	// ID of the repository tool instance in the parent toolchain.
+	ID *string `json:"id,omitempty"`
+}
+
+// UnmarshalTriggerScmSourceTool unmarshals an instance of TriggerScmSourceTool from the specified map of raw messages.
+func UnmarshalTriggerScmSourceTool(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(TriggerScmSourceTool)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
 		return
 	}
@@ -6406,9 +6439,9 @@ type TriggerScmTrigger struct {
 	// Flag whether the trigger is enabled.
 	Enabled *bool `json:"enabled" validate:"required"`
 
-	// SCM source repository for a Git trigger. Only required for Git triggers. The referenced repository URL must match
-	// the URL of a repository integration in the parent toolchain. Obtain the list of integrations from the toolchain
-	// endpoint /toolchains/{toolchain_id}/tools.
+	// Source code management repository for a Git trigger. Only required for Git triggers. The referenced repository URL
+	// must match the URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from
+	// the toolchain endpoint /toolchains/{toolchain_id}/tools.
 	ScmSource *TriggerScmSource `json:"scm_source,omitempty"`
 
 	// Only needed for Git triggers. Events object defines the events to which this Git trigger listens.
