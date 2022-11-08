@@ -375,16 +375,21 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 			fmt.Println("\nCreateTektonPipelineDefinition() result:")
 			// begin-create_tekton_pipeline_definition
 
-			definitionScmSourceModel := &cdtektonpipelinev2.DefinitionScmSource{
+			definitionSourcePropertiesModel := &cdtektonpipelinev2.DefinitionSourceProperties{
 				URL: core.StringPtr("https://github.com/IBM/tekton-tutorial.git"),
 				Branch: core.StringPtr("master"),
 				Path: core.StringPtr(".tekton"),
 			}
 
+			definitionSourceModel := &cdtektonpipelinev2.DefinitionSource{
+				Type: core.StringPtr("git"),
+				Properties: definitionSourcePropertiesModel,
+			}
+
 			createTektonPipelineDefinitionOptions := cdTektonPipelineService.NewCreateTektonPipelineDefinitionOptions(
 				"94619026-912b-4d92-8f51-6c74f0692d90",
 			)
-			createTektonPipelineDefinitionOptions.SetScmSource(definitionScmSourceModel)
+			createTektonPipelineDefinitionOptions.SetSource(definitionSourceModel)
 
 			definition, response, err := cdTektonPipelineService.CreateTektonPipelineDefinition(createTektonPipelineDefinitionOptions)
 			if err != nil {
@@ -425,17 +430,21 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 			fmt.Println("\nReplaceTektonPipelineDefinition() result:")
 			// begin-replace_tekton_pipeline_definition
 
-			definitionScmSourceModel := &cdtektonpipelinev2.DefinitionScmSource{
-				URL: core.StringPtr("https://github.com/IBM/tekton-tutorial.git"),
-				Branch: core.StringPtr("master"),
-				Path: core.StringPtr(".tekton"),
+			definitionSourcePropertiesModel := &cdtektonpipelinev2.DefinitionSourceProperties{
+				URL: core.StringPtr("testString"),
+				Path: core.StringPtr("testString"),
+			}
+
+			definitionSourceModel := &cdtektonpipelinev2.DefinitionSource{
+				Type: core.StringPtr("testString"),
+				Properties: definitionSourcePropertiesModel,
 			}
 
 			replaceTektonPipelineDefinitionOptions := cdTektonPipelineService.NewReplaceTektonPipelineDefinitionOptions(
 				"94619026-912b-4d92-8f51-6c74f0692d90",
 				"94299034-d45f-4e9a-8ed5-6bd5c7bb7ada",
 			)
-			replaceTektonPipelineDefinitionOptions.SetScmSource(definitionScmSourceModel)
+			replaceTektonPipelineDefinitionOptions.SetSource(definitionSourceModel)
 
 			definition, response, err := cdTektonPipelineService.ReplaceTektonPipelineDefinition(replaceTektonPipelineDefinitionOptions)
 			if err != nil {

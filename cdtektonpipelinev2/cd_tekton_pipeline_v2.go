@@ -1027,8 +1027,8 @@ func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineDefinitionsWithCon
 }
 
 // CreateTektonPipelineDefinition : Create a single definition
-// This request adds a single definition. The scm_source should consist of a repository url, a repository path and a
-// branch or tag. The referenced repository URL must match the URL of a repository tool integration in the parent
+// This request adds a single definition. The source properties should consist of a repository url, a repository path
+// and a branch or tag. The referenced repository URL must match the URL of a repository tool integration in the parent
 // toolchain. Obtain the list of integrations from the toolchain endpoint /toolchains/{toolchain_id}/tools. The branch
 // or tag of the definition must match against a corresponding branch or tag in the chosen repository, and the path must
 // match a subfolder in the repository.
@@ -1071,8 +1071,8 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineDefinitionWithCo
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
-	if createTektonPipelineDefinitionOptions.ScmSource != nil {
-		body["scm_source"] = createTektonPipelineDefinitionOptions.ScmSource
+	if createTektonPipelineDefinitionOptions.Source != nil {
+		body["source"] = createTektonPipelineDefinitionOptions.Source
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -1203,8 +1203,8 @@ func (cdTektonPipeline *CdTektonPipelineV2) ReplaceTektonPipelineDefinitionWithC
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
-	if replaceTektonPipelineDefinitionOptions.ScmSource != nil {
-		body["scm_source"] = replaceTektonPipelineDefinitionOptions.ScmSource
+	if replaceTektonPipelineDefinitionOptions.Source != nil {
+		body["source"] = replaceTektonPipelineDefinitionOptions.Source
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -1780,8 +1780,8 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineTriggerWithConte
 	if createTektonPipelineTriggerOptions.Timezone != nil {
 		body["timezone"] = createTektonPipelineTriggerOptions.Timezone
 	}
-	if createTektonPipelineTriggerOptions.ScmSource != nil {
-		body["scm_source"] = createTektonPipelineTriggerOptions.ScmSource
+	if createTektonPipelineTriggerOptions.Source != nil {
+		body["source"] = createTektonPipelineTriggerOptions.Source
 	}
 	if createTektonPipelineTriggerOptions.Events != nil {
 		body["events"] = createTektonPipelineTriggerOptions.Events
@@ -2459,8 +2459,8 @@ type CreateTektonPipelineDefinitionOptions struct {
 	// The Tekton pipeline ID.
 	PipelineID *string `json:"pipeline_id" validate:"required,ne="`
 
-	// Source code management repository containing the Tekton pipeline definition.
-	ScmSource *DefinitionScmSource `json:"scm_source,omitempty"`
+	// Source repository containing the Tekton pipeline definition.
+	Source *DefinitionSource `json:"source,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2479,9 +2479,9 @@ func (_options *CreateTektonPipelineDefinitionOptions) SetPipelineID(pipelineID 
 	return _options
 }
 
-// SetScmSource : Allow user to set ScmSource
-func (_options *CreateTektonPipelineDefinitionOptions) SetScmSource(scmSource *DefinitionScmSource) *CreateTektonPipelineDefinitionOptions {
-	_options.ScmSource = scmSource
+// SetSource : Allow user to set Source
+func (_options *CreateTektonPipelineDefinitionOptions) SetSource(source *DefinitionSource) *CreateTektonPipelineDefinitionOptions {
+	_options.Source = source
 	return _options
 }
 
@@ -2493,12 +2493,12 @@ func (options *CreateTektonPipelineDefinitionOptions) SetHeaders(param map[strin
 
 // CreateTektonPipelineOptions : The CreateTektonPipeline options.
 type CreateTektonPipelineOptions struct {
-	// Flag whether to enable notifications for this pipeline. When enabled, pipeline run events will be published on all
-	// slack integration specified channels in the parent toolchain.
+	// Flag whether to enable notifications for this pipeline. When enabled, pipeline run events are published on all slack
+	// integration specified channels in the parent toolchain.
 	EnableNotifications *bool `json:"enable_notifications,omitempty"`
 
 	// Flag whether to enable partial cloning for this pipeline. When partial clone is enabled, only the files contained
-	// within the paths specified in definition repositories will be read and cloned. This means symbolic links may not
+	// within the paths specified in definition repositories are read and cloned, this means that symbolic links might not
 	// work.
 	EnablePartialCloning *bool `json:"enable_partial_cloning,omitempty"`
 
@@ -2556,7 +2556,7 @@ type CreateTektonPipelinePropertiesOptions struct {
 	// Property name.
 	Name *string `json:"name,omitempty"`
 
-	// Property value.
+	// Property value. Any string value is valid.
 	Value *string `json:"value,omitempty"`
 
 	// Options for `single_select` property type. Only needed when using `single_select` property type.
@@ -2741,19 +2741,25 @@ type CreateTektonPipelineTriggerOptions struct {
 	// Only needed for generic webhook trigger type. Secret used to start generic webhook trigger.
 	Secret *GenericSecret `json:"secret,omitempty"`
 
-	// Only needed for timer triggers. Cron expression for timer trigger.
+	// Only needed for timer triggers. Cron expression that indicates when this trigger will activate. Maximum frequency is
+	// every 5 minutes. The string is based on UNIX crontab syntax: minute, hour, day of month, month, day of week.
+	// Example: 0 *_/2 * * * - every 2 hours.
 	Cron *string `json:"cron,omitempty"`
 
-	// Only needed for timer triggers. Timezone for timer trigger.
+	// Only used for timer triggers. Specify the timezone used for this timer trigger, which will ensure the cron activates
+	// this trigger relative to the specified timezone. If no timezone is specified, the default timezone used is UTC.
+	// Valid timezones are those listed in the IANA timezone database, https://www.iana.org/time-zones.
 	Timezone *string `json:"timezone,omitempty"`
 
-	// Source code management repository for a Git trigger. Only required for Git triggers. The referenced repository URL
-	// must match the URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from
-	// the toolchain endpoint /toolchains/{toolchain_id}/tools.
-	ScmSource *TriggerScmSource `json:"scm_source,omitempty"`
+	// Source repository for a Git trigger. Only required for Git triggers. The referenced repository URL must match the
+	// URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from the toolchain
+	// endpoint /toolchains/{toolchain_id}/tools.
+	Source *TriggerSource `json:"source,omitempty"`
 
-	// Only needed for Git triggers. Events object defines the events to which this Git trigger listens.
-	Events *Events `json:"events,omitempty"`
+	// Only needed for Git triggers. Events list that defines the events to which a Git trigger listens. Choose one or more
+	// from: 'push', 'pull_request' and 'pull_request_closed'. For SCM repositories that use 'merge request' events, such
+	// events map to the equivalent 'pull request' events.
+	Events []string `json:"events,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2766,6 +2772,15 @@ const (
 	CreateTektonPipelineTriggerOptionsTypeManualConst = "manual"
 	CreateTektonPipelineTriggerOptionsTypeScmConst = "scm"
 	CreateTektonPipelineTriggerOptionsTypeTimerConst = "timer"
+)
+
+// Constants associated with the CreateTektonPipelineTriggerOptions.Events property.
+// List of events. Supported options are 'push' Git webhook events, 'pull_request_closed' Git webhook events and
+// 'pull_request' for 'open pull request' or 'update pull request' Git webhook events.
+const (
+	CreateTektonPipelineTriggerOptionsEventsPullRequestConst = "pull_request"
+	CreateTektonPipelineTriggerOptionsEventsPullRequestClosedConst = "pull_request_closed"
+	CreateTektonPipelineTriggerOptionsEventsPushConst = "push"
 )
 
 // NewCreateTektonPipelineTriggerOptions : Instantiate CreateTektonPipelineTriggerOptions
@@ -2841,14 +2856,14 @@ func (_options *CreateTektonPipelineTriggerOptions) SetTimezone(timezone string)
 	return _options
 }
 
-// SetScmSource : Allow user to set ScmSource
-func (_options *CreateTektonPipelineTriggerOptions) SetScmSource(scmSource *TriggerScmSource) *CreateTektonPipelineTriggerOptions {
-	_options.ScmSource = scmSource
+// SetSource : Allow user to set Source
+func (_options *CreateTektonPipelineTriggerOptions) SetSource(source *TriggerSource) *CreateTektonPipelineTriggerOptions {
+	_options.Source = source
 	return _options
 }
 
 // SetEvents : Allow user to set Events
-func (_options *CreateTektonPipelineTriggerOptions) SetEvents(events *Events) *CreateTektonPipelineTriggerOptions {
+func (_options *CreateTektonPipelineTriggerOptions) SetEvents(events []string) *CreateTektonPipelineTriggerOptions {
 	_options.Events = events
 	return _options
 }
@@ -2870,7 +2885,7 @@ type CreateTektonPipelineTriggerPropertiesOptions struct {
 	// Property name.
 	Name *string `json:"name,omitempty"`
 
-	// Property value.
+	// Property value. Any string value is valid.
 	Value *string `json:"value,omitempty"`
 
 	// Options for `single_select` property type. Only needed for `single_select` property type.
@@ -2959,8 +2974,8 @@ func (options *CreateTektonPipelineTriggerPropertiesOptions) SetHeaders(param ma
 // definition must match against a corresponding branch or tag in the chosen repository, and the path must match a
 // subfolder in the repository.
 type Definition struct {
-	// Source code management repository containing the Tekton pipeline definition.
-	ScmSource *DefinitionScmSource `json:"scm_source" validate:"required"`
+	// Source repository containing the Tekton pipeline definition.
+	Source *DefinitionSource `json:"source" validate:"required"`
 
 	// UUID.
 	ID *string `json:"id,omitempty"`
@@ -2969,7 +2984,7 @@ type Definition struct {
 // UnmarshalDefinition unmarshals an instance of Definition from the specified map of raw messages.
 func UnmarshalDefinition(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Definition)
-	err = core.UnmarshalModel(m, "scm_source", &obj.ScmSource, UnmarshalDefinitionScmSource)
+	err = core.UnmarshalModel(m, "source", &obj.Source, UnmarshalDefinitionSource)
 	if err != nil {
 		return
 	}
@@ -2981,27 +2996,61 @@ func UnmarshalDefinition(m map[string]json.RawMessage, result interface{}) (err 
 	return
 }
 
-// DefinitionScmSource : Source code management repository containing the Tekton pipeline definition.
-type DefinitionScmSource struct {
+// DefinitionSource : Source repository containing the Tekton pipeline definition.
+type DefinitionSource struct {
+	// The only supported source type is "git", indicating that the source is a git repository.
+	Type *string `json:"type" validate:"required"`
+
+	// Properties of the source, which define the URL of the repository and a branch or tag.
+	Properties *DefinitionSourceProperties `json:"properties" validate:"required"`
+}
+
+// NewDefinitionSource : Instantiate DefinitionSource (Generic Model Constructor)
+func (*CdTektonPipelineV2) NewDefinitionSource(typeVar string, properties *DefinitionSourceProperties) (_model *DefinitionSource, err error) {
+	_model = &DefinitionSource{
+		Type: core.StringPtr(typeVar),
+		Properties: properties,
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	return
+}
+
+// UnmarshalDefinitionSource unmarshals an instance of DefinitionSource from the specified map of raw messages.
+func UnmarshalDefinitionSource(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(DefinitionSource)
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "properties", &obj.Properties, UnmarshalDefinitionSourceProperties)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// DefinitionSourceProperties : Properties of the source, which define the URL of the repository and a branch or tag.
+type DefinitionSourceProperties struct {
 	// URL of the definition repository.
 	URL *string `json:"url" validate:"required"`
 
-	// A branch from the repo. One of branch or tag must be specified, but only one or the other.
+	// A branch from the repo, specify one of branch or tag only.
 	Branch *string `json:"branch,omitempty"`
 
-	// A tag from the repo. One of branch or tag must be specified, but only one or the other.
+	// A tag from the repo, specify one of branch or tag only.
 	Tag *string `json:"tag,omitempty"`
 
-	// The path to the definition's yaml files.
+	// The path to the definition's YAML files.
 	Path *string `json:"path" validate:"required"`
 
 	// Reference to the repository tool, in the parent toolchain, that contains the pipeline definition.
-	Tool *DefinitionScmSourceTool `json:"tool,omitempty"`
+	Tool *DefinitionSourcePropertiesTool `json:"tool,omitempty"`
 }
 
-// NewDefinitionScmSource : Instantiate DefinitionScmSource (Generic Model Constructor)
-func (*CdTektonPipelineV2) NewDefinitionScmSource(url string, path string) (_model *DefinitionScmSource, err error) {
-	_model = &DefinitionScmSource{
+// NewDefinitionSourceProperties : Instantiate DefinitionSourceProperties (Generic Model Constructor)
+func (*CdTektonPipelineV2) NewDefinitionSourceProperties(url string, path string) (_model *DefinitionSourceProperties, err error) {
+	_model = &DefinitionSourceProperties{
 		URL: core.StringPtr(url),
 		Path: core.StringPtr(path),
 	}
@@ -3009,9 +3058,9 @@ func (*CdTektonPipelineV2) NewDefinitionScmSource(url string, path string) (_mod
 	return
 }
 
-// UnmarshalDefinitionScmSource unmarshals an instance of DefinitionScmSource from the specified map of raw messages.
-func UnmarshalDefinitionScmSource(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(DefinitionScmSource)
+// UnmarshalDefinitionSourceProperties unmarshals an instance of DefinitionSourceProperties from the specified map of raw messages.
+func UnmarshalDefinitionSourceProperties(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(DefinitionSourceProperties)
 	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
 	if err != nil {
 		return
@@ -3028,7 +3077,7 @@ func UnmarshalDefinitionScmSource(m map[string]json.RawMessage, result interface
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "tool", &obj.Tool, UnmarshalDefinitionScmSourceTool)
+	err = core.UnmarshalModel(m, "tool", &obj.Tool, UnmarshalDefinitionSourcePropertiesTool)
 	if err != nil {
 		return
 	}
@@ -3036,15 +3085,15 @@ func UnmarshalDefinitionScmSource(m map[string]json.RawMessage, result interface
 	return
 }
 
-// DefinitionScmSourceTool : Reference to the repository tool, in the parent toolchain, that contains the pipeline definition.
-type DefinitionScmSourceTool struct {
+// DefinitionSourcePropertiesTool : Reference to the repository tool, in the parent toolchain, that contains the pipeline definition.
+type DefinitionSourcePropertiesTool struct {
 	// ID of the repository tool instance in the parent toolchain.
 	ID *string `json:"id,omitempty"`
 }
 
-// UnmarshalDefinitionScmSourceTool unmarshals an instance of DefinitionScmSourceTool from the specified map of raw messages.
-func UnmarshalDefinitionScmSourceTool(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(DefinitionScmSourceTool)
+// UnmarshalDefinitionSourcePropertiesTool unmarshals an instance of DefinitionSourcePropertiesTool from the specified map of raw messages.
+func UnmarshalDefinitionSourcePropertiesTool(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(DefinitionSourcePropertiesTool)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
 		return
@@ -3077,8 +3126,8 @@ func UnmarshalDefinitionsCollection(m map[string]json.RawMessage, result interfa
 // definition must match against a corresponding branch or tag in the chosen repository, and the path must match a
 // subfolder in the repository.
 type DefinitionsCollectionDefinitionsItem struct {
-	// Source code management repository containing the Tekton pipeline definition.
-	ScmSource *DefinitionScmSource `json:"scm_source" validate:"required"`
+	// Source repository containing the Tekton pipeline definition.
+	Source *DefinitionSource `json:"source" validate:"required"`
 
 	// UUID.
 	ID *string `json:"id,omitempty"`
@@ -3090,7 +3139,7 @@ type DefinitionsCollectionDefinitionsItem struct {
 // UnmarshalDefinitionsCollectionDefinitionsItem unmarshals an instance of DefinitionsCollectionDefinitionsItem from the specified map of raw messages.
 func UnmarshalDefinitionsCollectionDefinitionsItem(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(DefinitionsCollectionDefinitionsItem)
-	err = core.UnmarshalModel(m, "scm_source", &obj.ScmSource, UnmarshalDefinitionScmSource)
+	err = core.UnmarshalModel(m, "source", &obj.Source, UnmarshalDefinitionSource)
 	if err != nil {
 		return
 	}
@@ -3379,37 +3428,6 @@ func (_options *DuplicateTektonPipelineTriggerOptions) SetName(name string) *Dup
 func (options *DuplicateTektonPipelineTriggerOptions) SetHeaders(param map[string]string) *DuplicateTektonPipelineTriggerOptions {
 	options.Headers = param
 	return options
-}
-
-// Events : Only needed for Git triggers. Events object defines the events to which this Git trigger listens.
-type Events struct {
-	// If true, the trigger listens for 'push' Git webhook events.
-	Push *bool `json:"push,omitempty"`
-
-	// If true, the trigger listens for 'close pull request' Git webhook events.
-	PullRequestClosed *bool `json:"pull_request_closed,omitempty"`
-
-	// If true, the trigger listens for 'open pull request' or 'update pull request' Git webhook events.
-	PullRequest *bool `json:"pull_request,omitempty"`
-}
-
-// UnmarshalEvents unmarshals an instance of Events from the specified map of raw messages.
-func UnmarshalEvents(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(Events)
-	err = core.UnmarshalPrimitive(m, "push", &obj.Push)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "pull_request_closed", &obj.PullRequestClosed)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "pull_request", &obj.PullRequest)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
 }
 
 // GenericSecret : Only needed for generic webhook trigger type. Secret used to start generic webhook trigger.
@@ -4236,7 +4254,7 @@ type PipelineRun struct {
 	// Event parameters object in String format that was passed in upon creation of this pipeline run, the contents depends
 	// on the type of trigger. For example, the Git event payload is included for Git triggers, or in the case of a manual
 	// trigger the override and added properties are included.
-	EventParams *string `json:"event_params" validate:"required"`
+	EventParamsBlob *string `json:"event_params_blob" validate:"required"`
 
 	// Trigger headers object in String format that was passed in upon creation of this pipeline run. Omitted if no
 	// trigger_headers object was provided when creating the pipeline run.
@@ -4304,7 +4322,7 @@ func UnmarshalPipelineRun(m map[string]json.RawMessage, result interface{}) (err
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "event_params", &obj.EventParams)
+	err = core.UnmarshalPrimitive(m, "event_params_blob", &obj.EventParamsBlob)
 	if err != nil {
 		return
 	}
@@ -4523,7 +4541,7 @@ type PipelineRunsCollectionPipelineRunsItem struct {
 	// Event parameters object in String format that was passed in upon creation of this pipeline run, the contents depends
 	// on the type of trigger. For example, the Git event payload is included for Git triggers, or in the case of a manual
 	// trigger the override and added properties are included.
-	EventParams *string `json:"event_params" validate:"required"`
+	EventParamsBlob *string `json:"event_params_blob" validate:"required"`
 
 	// Trigger headers object in String format that was passed in upon creation of this pipeline run. Omitted if no
 	// trigger_headers object was provided when creating the pipeline run.
@@ -4594,7 +4612,7 @@ func UnmarshalPipelineRunsCollectionPipelineRunsItem(m map[string]json.RawMessag
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "event_params", &obj.EventParams)
+	err = core.UnmarshalPrimitive(m, "event_params_blob", &obj.EventParamsBlob)
 	if err != nil {
 		return
 	}
@@ -4648,7 +4666,7 @@ type Property struct {
 	// Property name.
 	Name *string `json:"name" validate:"required"`
 
-	// Property value.
+	// Property value. Any string value is valid.
 	Value *string `json:"value,omitempty"`
 
 	// Options for `single_select` property type. Only needed when using `single_select` property type.
@@ -4717,8 +4735,8 @@ type ReplaceTektonPipelineDefinitionOptions struct {
 	// The definition ID.
 	DefinitionID *string `json:"definition_id" validate:"required,ne="`
 
-	// Source code management repository containing the Tekton pipeline definition.
-	ScmSource *DefinitionScmSource `json:"scm_source,omitempty"`
+	// Source repository containing the Tekton pipeline definition.
+	Source *DefinitionSource `json:"source,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -4744,9 +4762,9 @@ func (_options *ReplaceTektonPipelineDefinitionOptions) SetDefinitionID(definiti
 	return _options
 }
 
-// SetScmSource : Allow user to set ScmSource
-func (_options *ReplaceTektonPipelineDefinitionOptions) SetScmSource(scmSource *DefinitionScmSource) *ReplaceTektonPipelineDefinitionOptions {
-	_options.ScmSource = scmSource
+// SetSource : Allow user to set Source
+func (_options *ReplaceTektonPipelineDefinitionOptions) SetSource(source *DefinitionSource) *ReplaceTektonPipelineDefinitionOptions {
+	_options.Source = source
 	return _options
 }
 
@@ -4767,7 +4785,7 @@ type ReplaceTektonPipelinePropertyOptions struct {
 	// Property name.
 	Name *string `json:"name,omitempty"`
 
-	// Property value.
+	// Property value. Any string value is valid.
 	Value *string `json:"value,omitempty"`
 
 	// Options for `single_select` property type. Only needed when using `single_select` property type.
@@ -4864,7 +4882,7 @@ type ReplaceTektonPipelineTriggerPropertyOptions struct {
 	// Property name.
 	Name *string `json:"name,omitempty"`
 
-	// Property value.
+	// Property value. Any string value is valid.
 	Value *string `json:"value,omitempty"`
 
 	// Options for `single_select` property type. Only needed for `single_select` property type.
@@ -5062,7 +5080,7 @@ type TektonPipeline struct {
 	EnableNotifications *bool `json:"enable_notifications,omitempty"`
 
 	// Flag whether to enable partial cloning for this pipeline. When partial clone is enabled, only the files contained
-	// within the paths specified in definition repositories will be read and cloned. This means symbolic links may not
+	// within the paths specified in definition repositories are read and cloned, this means that symbolic links might not
 	// work. If omitted, this feature is disabled by default.
 	EnablePartialCloning *bool `json:"enable_partial_cloning,omitempty"`
 
@@ -5150,12 +5168,12 @@ func UnmarshalTektonPipeline(m map[string]json.RawMessage, result interface{}) (
 
 // TektonPipelinePatch : Request body used to update this pipeline.
 type TektonPipelinePatch struct {
-	// Flag whether to enable notifications for this pipeline. When enabled, pipeline run events will be published on all
-	// slack integration specified channels in the parent toolchain.
+	// Flag whether to enable notifications for this pipeline. When enabled, pipeline run events are published on all slack
+	// integration specified channels in the parent toolchain.
 	EnableNotifications *bool `json:"enable_notifications,omitempty"`
 
 	// Flag whether to enable partial cloning for this pipeline. When partial clone is enabled, only the files contained
-	// within the paths specified in definition repositories will be read and cloned. This means symbolic links may not
+	// within the paths specified in definition repositories are read and cloned, this means that symbolic links might not
 	// work.
 	EnablePartialCloning *bool `json:"enable_partial_cloning,omitempty"`
 
@@ -5272,18 +5290,24 @@ type Trigger struct {
 	// Flag whether the trigger is enabled.
 	Enabled *bool `json:"enabled,omitempty"`
 
-	// Source code management repository for a Git trigger. Only required for Git triggers. The referenced repository URL
-	// must match the URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from
-	// the toolchain endpoint /toolchains/{toolchain_id}/tools.
-	ScmSource *TriggerScmSource `json:"scm_source,omitempty"`
+	// Source repository for a Git trigger. Only required for Git triggers. The referenced repository URL must match the
+	// URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from the toolchain
+	// endpoint /toolchains/{toolchain_id}/tools.
+	Source *TriggerSource `json:"source,omitempty"`
 
-	// Only needed for Git triggers. Events object defines the events to which this Git trigger listens.
-	Events *Events `json:"events,omitempty"`
+	// Only needed for Git triggers. Events list that defines the events to which a Git trigger listens. Choose one or more
+	// from: 'push', 'pull_request' and 'pull_request_closed'. For SCM repositories that use 'merge request' events, such
+	// events map to the equivalent 'pull request' events.
+	Events []string `json:"events,omitempty"`
 
-	// Only needed for timer triggers. Cron expression for timer trigger. Maximum frequency is every 5 minutes.
+	// Only needed for timer triggers. Cron expression that indicates when this trigger will activate. Maximum frequency is
+	// every 5 minutes. The string is based on UNIX crontab syntax: minute, hour, day of month, month, day of week.
+	// Example: 0 *_/2 * * * - every 2 hours.
 	Cron *string `json:"cron,omitempty"`
 
-	// Only needed for timer triggers. Timezone for timer trigger.
+	// Only used for timer triggers. Specify the timezone used for this timer trigger, which will ensure the cron activates
+	// this trigger relative to the specified timezone. If no timezone is specified, the default timezone used is UTC.
+	// Valid timezones are those listed in the IANA timezone database, https://www.iana.org/time-zones.
 	Timezone *string `json:"timezone,omitempty"`
 
 	// Only needed for generic webhook trigger type. Secret used to start generic webhook trigger.
@@ -5292,6 +5316,15 @@ type Trigger struct {
 	// Webhook URL that can be used to trigger pipeline runs.
 	WebhookURL *string `json:"webhook_url,omitempty"`
 }
+
+// Constants associated with the Trigger.Events property.
+// List of events. Supported options are 'push' Git webhook events, 'pull_request_closed' Git webhook events and
+// 'pull_request' for 'open pull request' or 'update pull request' Git webhook events.
+const (
+	TriggerEventsPullRequestConst = "pull_request"
+	TriggerEventsPullRequestClosedConst = "pull_request_closed"
+	TriggerEventsPushConst = "push"
+)
 func (*Trigger) isaTrigger() bool {
 	return true
 }
@@ -5343,11 +5376,11 @@ func UnmarshalTrigger(m map[string]json.RawMessage, result interface{}) (err err
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "scm_source", &obj.ScmSource, UnmarshalTriggerScmSource)
+	err = core.UnmarshalModel(m, "source", &obj.Source, UnmarshalTriggerSource)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "events", &obj.Events, UnmarshalEvents)
+	err = core.UnmarshalPrimitive(m, "events", &obj.Events)
 	if err != nil {
 		return
 	}
@@ -5376,7 +5409,7 @@ type TriggerGenericTriggerPropertiesItem struct {
 	// Property name.
 	Name *string `json:"name" validate:"required"`
 
-	// Property value.
+	// Property value. Any string value is valid.
 	Value *string `json:"value,omitempty"`
 
 	// Options for `single_select` property type. Only needed for `single_select` property type.
@@ -5439,7 +5472,7 @@ type TriggerManualTriggerPropertiesItem struct {
 	// Property name.
 	Name *string `json:"name" validate:"required"`
 
-	// Property value.
+	// Property value. Any string value is valid.
 	Value *string `json:"value,omitempty"`
 
 	// Options for `single_select` property type. Only needed for `single_select` property type.
@@ -5525,19 +5558,25 @@ type TriggerPatch struct {
 	// Only needed for generic webhook trigger type. Secret used to start generic webhook trigger.
 	Secret *GenericSecret `json:"secret,omitempty"`
 
-	// Only needed for timer triggers. Cron expression for timer trigger.
+	// Only needed for timer triggers. Cron expression that indicates when this trigger will activate. Maximum frequency is
+	// every 5 minutes. The string is based on UNIX crontab syntax: minute, hour, day of month, month, day of week.
+	// Example: 0 *_/2 * * * - every 2 hours.
 	Cron *string `json:"cron,omitempty"`
 
-	// Only needed for timer triggers. Timezone for timer trigger.
+	// Only used for timer triggers. Specify the timezone used for this timer trigger, which will ensure the cron activates
+	// this trigger relative to the specified timezone. If no timezone is specified, the default timezone used is UTC.
+	// Valid timezones are those listed in the IANA timezone database, https://www.iana.org/time-zones.
 	Timezone *string `json:"timezone,omitempty"`
 
-	// Source code management repository for a Git trigger. Only required for Git triggers. The referenced repository URL
-	// must match the URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from
-	// the toolchain endpoint /toolchains/{toolchain_id}/tools.
-	ScmSource *TriggerScmSource `json:"scm_source,omitempty"`
+	// Source repository for a Git trigger. Only required for Git triggers. The referenced repository URL must match the
+	// URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from the toolchain
+	// endpoint /toolchains/{toolchain_id}/tools.
+	Source *TriggerSource `json:"source,omitempty"`
 
-	// Only needed for Git triggers. Events object defines the events to which this Git trigger listens.
-	Events *Events `json:"events,omitempty"`
+	// Only needed for Git triggers. Events list that defines the events to which a Git trigger listens. Choose one or more
+	// from: 'push', 'pull_request' and 'pull_request_closed'. For SCM repositories that use 'merge request' events, such
+	// events map to the equivalent 'pull request' events.
+	Events []string `json:"events,omitempty"`
 }
 
 // Constants associated with the TriggerPatch.Type property.
@@ -5547,6 +5586,15 @@ const (
 	TriggerPatchTypeManualConst = "manual"
 	TriggerPatchTypeScmConst = "scm"
 	TriggerPatchTypeTimerConst = "timer"
+)
+
+// Constants associated with the TriggerPatch.Events property.
+// List of events. Supported options are 'push' Git webhook events, 'pull_request_closed' Git webhook events and
+// 'pull_request' for 'open pull request' or 'update pull request' Git webhook events.
+const (
+	TriggerPatchEventsPullRequestConst = "pull_request"
+	TriggerPatchEventsPullRequestClosedConst = "pull_request_closed"
+	TriggerPatchEventsPushConst = "push"
 )
 
 // UnmarshalTriggerPatch unmarshals an instance of TriggerPatch from the specified map of raw messages.
@@ -5592,11 +5640,11 @@ func UnmarshalTriggerPatch(m map[string]json.RawMessage, result interface{}) (er
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "scm_source", &obj.ScmSource, UnmarshalTriggerScmSource)
+	err = core.UnmarshalModel(m, "source", &obj.Source, UnmarshalTriggerSource)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "events", &obj.Events, UnmarshalEvents)
+	err = core.UnmarshalPrimitive(m, "events", &obj.Events)
 	if err != nil {
 		return
 	}
@@ -5636,7 +5684,7 @@ type TriggerPropertiesCollectionPropertiesItem struct {
 	// Property name.
 	Name *string `json:"name" validate:"required"`
 
-	// Property value.
+	// Property value. Any string value is valid.
 	Value *string `json:"value,omitempty"`
 
 	// Options for `single_select` property type. Only needed for `single_select` property type.
@@ -5699,7 +5747,7 @@ type TriggerPropertiesItem struct {
 	// Property name.
 	Name *string `json:"name" validate:"required"`
 
-	// Property value.
+	// Property value. Any string value is valid.
 	Value *string `json:"value,omitempty"`
 
 	// Options for `single_select` property type. Only needed for `single_select` property type.
@@ -5762,7 +5810,7 @@ type TriggerProperty struct {
 	// Property name.
 	Name *string `json:"name" validate:"required"`
 
-	// Property value.
+	// Property value. Any string value is valid.
 	Value *string `json:"value,omitempty"`
 
 	// Options for `single_select` property type. Only needed for `single_select` property type.
@@ -5813,95 +5861,12 @@ func UnmarshalTriggerProperty(m map[string]json.RawMessage, result interface{}) 
 	return
 }
 
-// TriggerScmSource : Source code management repository for a Git trigger. Only required for Git triggers. The referenced repository URL
-// must match the URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from the
-// toolchain endpoint /toolchains/{toolchain_id}/tools.
-type TriggerScmSource struct {
-	// URL of the repository to which the trigger is listening.
-	URL *string `json:"url" validate:"required"`
-
-	// Name of a branch from the repo. One of branch or pattern must be specified, but only one or the other.
-	Branch *string `json:"branch,omitempty"`
-
-	// Git branch or tag pattern to listen to. One of branch or pattern must be specified, but only one or the other. Use a
-	// tag name to listen to, or use a simple glob pattern such as '!test' or '*master' to match against tags or branches
-	// in the repository.
-	Pattern *string `json:"pattern,omitempty"`
-
-	// True if the repository server is not addressable on the public internet. IBM Cloud will not be able to validate the
-	// connection details you provide.
-	BlindConnection *bool `json:"blind_connection,omitempty"`
-
-	// ID of the webhook from the repo. Computed upon creation of the trigger.
-	HookID *string `json:"hook_id,omitempty"`
-
-	// Reference to the repository tool in the parent toolchain.
-	Tool *TriggerScmSourceTool `json:"tool,omitempty"`
-}
-
-// NewTriggerScmSource : Instantiate TriggerScmSource (Generic Model Constructor)
-func (*CdTektonPipelineV2) NewTriggerScmSource(url string) (_model *TriggerScmSource, err error) {
-	_model = &TriggerScmSource{
-		URL: core.StringPtr(url),
-	}
-	err = core.ValidateStruct(_model, "required parameters")
-	return
-}
-
-// UnmarshalTriggerScmSource unmarshals an instance of TriggerScmSource from the specified map of raw messages.
-func UnmarshalTriggerScmSource(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(TriggerScmSource)
-	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "branch", &obj.Branch)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "pattern", &obj.Pattern)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "blind_connection", &obj.BlindConnection)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "hook_id", &obj.HookID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "tool", &obj.Tool, UnmarshalTriggerScmSourceTool)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// TriggerScmSourceTool : Reference to the repository tool in the parent toolchain.
-type TriggerScmSourceTool struct {
-	// ID of the repository tool instance in the parent toolchain.
-	ID *string `json:"id,omitempty"`
-}
-
-// UnmarshalTriggerScmSourceTool unmarshals an instance of TriggerScmSourceTool from the specified map of raw messages.
-func UnmarshalTriggerScmSourceTool(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(TriggerScmSourceTool)
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
 // TriggerScmTriggerPropertiesItem : Trigger property object.
 type TriggerScmTriggerPropertiesItem struct {
 	// Property name.
 	Name *string `json:"name" validate:"required"`
 
-	// Property value.
+	// Property value. Any string value is valid.
 	Value *string `json:"value,omitempty"`
 
 	// Options for `single_select` property type. Only needed for `single_select` property type.
@@ -5959,12 +5924,129 @@ func UnmarshalTriggerScmTriggerPropertiesItem(m map[string]json.RawMessage, resu
 	return
 }
 
+// TriggerSource : Source repository for a Git trigger. Only required for Git triggers. The referenced repository URL must match the URL
+// of a repository tool integration in the parent toolchain. Obtain the list of integrations from the toolchain endpoint
+// /toolchains/{toolchain_id}/tools.
+type TriggerSource struct {
+	// The only supported source type is "git", indicating that the source is a git repository.
+	Type *string `json:"type" validate:"required"`
+
+	// Properties of the source, which define the URL of the repository and a branch or pattern.
+	Properties *TriggerSourceProperties `json:"properties" validate:"required"`
+}
+
+// NewTriggerSource : Instantiate TriggerSource (Generic Model Constructor)
+func (*CdTektonPipelineV2) NewTriggerSource(typeVar string, properties *TriggerSourceProperties) (_model *TriggerSource, err error) {
+	_model = &TriggerSource{
+		Type: core.StringPtr(typeVar),
+		Properties: properties,
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	return
+}
+
+// UnmarshalTriggerSource unmarshals an instance of TriggerSource from the specified map of raw messages.
+func UnmarshalTriggerSource(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(TriggerSource)
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "properties", &obj.Properties, UnmarshalTriggerSourceProperties)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// TriggerSourceProperties : Properties of the source, which define the URL of the repository and a branch or pattern.
+type TriggerSourceProperties struct {
+	// URL of the repository to which the trigger is listening.
+	URL *string `json:"url" validate:"required"`
+
+	// Name of a branch from the repo. One of branch or pattern must be specified, but only one or the other.
+	Branch *string `json:"branch,omitempty"`
+
+	// Git branch or tag pattern to listen to, specify one of branch or pattern only. When specifying a tag to listen to,
+	// you can also specify a simple glob pattern such as '!test' or '*master' to match against multiple tags/branches in
+	// the repository.
+	Pattern *string `json:"pattern,omitempty"`
+
+	// True if the repository server is not addressable on the public internet. IBM Cloud will not be able to validate the
+	// connection details you provide.
+	BlindConnection *bool `json:"blind_connection,omitempty"`
+
+	// ID of the webhook from the repo. Computed upon creation of the trigger.
+	HookID *string `json:"hook_id,omitempty"`
+
+	// Reference to the repository tool in the parent toolchain.
+	Tool *TriggerSourcePropertiesTool `json:"tool,omitempty"`
+}
+
+// NewTriggerSourceProperties : Instantiate TriggerSourceProperties (Generic Model Constructor)
+func (*CdTektonPipelineV2) NewTriggerSourceProperties(url string) (_model *TriggerSourceProperties, err error) {
+	_model = &TriggerSourceProperties{
+		URL: core.StringPtr(url),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	return
+}
+
+// UnmarshalTriggerSourceProperties unmarshals an instance of TriggerSourceProperties from the specified map of raw messages.
+func UnmarshalTriggerSourceProperties(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(TriggerSourceProperties)
+	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "branch", &obj.Branch)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "pattern", &obj.Pattern)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "blind_connection", &obj.BlindConnection)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "hook_id", &obj.HookID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "tool", &obj.Tool, UnmarshalTriggerSourcePropertiesTool)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// TriggerSourcePropertiesTool : Reference to the repository tool in the parent toolchain.
+type TriggerSourcePropertiesTool struct {
+	// ID of the repository tool instance in the parent toolchain.
+	ID *string `json:"id,omitempty"`
+}
+
+// UnmarshalTriggerSourcePropertiesTool unmarshals an instance of TriggerSourcePropertiesTool from the specified map of raw messages.
+func UnmarshalTriggerSourcePropertiesTool(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(TriggerSourcePropertiesTool)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // TriggerTimerTriggerPropertiesItem : Trigger property object.
 type TriggerTimerTriggerPropertiesItem struct {
 	// Property name.
 	Name *string `json:"name" validate:"required"`
 
-	// Property value.
+	// Property value. Any string value is valid.
 	Value *string `json:"value,omitempty"`
 
 	// Options for `single_select` property type. Only needed for `single_select` property type.
@@ -6439,14 +6521,25 @@ type TriggerScmTrigger struct {
 	// Flag whether the trigger is enabled.
 	Enabled *bool `json:"enabled" validate:"required"`
 
-	// Source code management repository for a Git trigger. Only required for Git triggers. The referenced repository URL
-	// must match the URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from
-	// the toolchain endpoint /toolchains/{toolchain_id}/tools.
-	ScmSource *TriggerScmSource `json:"scm_source,omitempty"`
+	// Source repository for a Git trigger. Only required for Git triggers. The referenced repository URL must match the
+	// URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from the toolchain
+	// endpoint /toolchains/{toolchain_id}/tools.
+	Source *TriggerSource `json:"source,omitempty"`
 
-	// Only needed for Git triggers. Events object defines the events to which this Git trigger listens.
-	Events *Events `json:"events,omitempty"`
+	// Only needed for Git triggers. Events list that defines the events to which a Git trigger listens. Choose one or more
+	// from: 'push', 'pull_request' and 'pull_request_closed'. For SCM repositories that use 'merge request' events, such
+	// events map to the equivalent 'pull request' events.
+	Events []string `json:"events,omitempty"`
 }
+
+// Constants associated with the TriggerScmTrigger.Events property.
+// List of events. Supported options are 'push' Git webhook events, 'pull_request_closed' Git webhook events and
+// 'pull_request' for 'open pull request' or 'update pull request' Git webhook events.
+const (
+	TriggerScmTriggerEventsPullRequestConst = "pull_request"
+	TriggerScmTriggerEventsPullRequestClosedConst = "pull_request_closed"
+	TriggerScmTriggerEventsPushConst = "push"
+)
 
 func (*TriggerScmTrigger) isaTrigger() bool {
 	return true
@@ -6495,11 +6588,11 @@ func UnmarshalTriggerScmTrigger(m map[string]json.RawMessage, result interface{}
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "scm_source", &obj.ScmSource, UnmarshalTriggerScmSource)
+	err = core.UnmarshalModel(m, "source", &obj.Source, UnmarshalTriggerSource)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "events", &obj.Events, UnmarshalEvents)
+	err = core.UnmarshalPrimitive(m, "events", &obj.Events)
 	if err != nil {
 		return
 	}
@@ -6507,7 +6600,7 @@ func UnmarshalTriggerScmTrigger(m map[string]json.RawMessage, result interface{}
 	return
 }
 
-// TriggerTimerTrigger : Timer trigger, which triggers pipeline run according to the cron value and time zone.
+// TriggerTimerTrigger : Timer trigger, which triggers pipeline runs according to the provided cron value and timezone.
 // This model "extends" Trigger
 type TriggerTimerTrigger struct {
 	// Trigger type.
@@ -6542,10 +6635,14 @@ type TriggerTimerTrigger struct {
 	// Flag whether the trigger is enabled.
 	Enabled *bool `json:"enabled" validate:"required"`
 
-	// Only needed for timer triggers. Cron expression for timer trigger. Maximum frequency is every 5 minutes.
+	// Only needed for timer triggers. Cron expression that indicates when this trigger will activate. Maximum frequency is
+	// every 5 minutes. The string is based on UNIX crontab syntax: minute, hour, day of month, month, day of week.
+	// Example: 0 *_/2 * * * - every 2 hours.
 	Cron *string `json:"cron,omitempty"`
 
-	// Only needed for timer triggers. Timezone for timer trigger.
+	// Only used for timer triggers. Specify the timezone used for this timer trigger, which will ensure the cron activates
+	// this trigger relative to the specified timezone. If no timezone is specified, the default timezone used is UTC.
+	// Valid timezones are those listed in the IANA timezone database, https://www.iana.org/time-zones.
 	Timezone *string `json:"timezone,omitempty"`
 }
 

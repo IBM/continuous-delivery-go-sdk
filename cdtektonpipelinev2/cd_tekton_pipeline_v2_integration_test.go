@@ -367,21 +367,26 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateTektonPipelineDefinition(createTektonPipelineDefinitionOptions *CreateTektonPipelineDefinitionOptions)`, func() {
-			definitionScmSourceToolModel := &cdtektonpipelinev2.DefinitionScmSourceTool{
+			definitionSourcePropertiesToolModel := &cdtektonpipelinev2.DefinitionSourcePropertiesTool{
 				ID: core.StringPtr("testString"),
 			}
 
-			definitionScmSourceModel := &cdtektonpipelinev2.DefinitionScmSource{
+			definitionSourcePropertiesModel := &cdtektonpipelinev2.DefinitionSourceProperties{
 				URL: core.StringPtr("https://github.com/IBM/tekton-tutorial.git"),
 				Branch: core.StringPtr("master"),
 				Tag: core.StringPtr("testString"),
 				Path: core.StringPtr(".tekton"),
-				Tool: definitionScmSourceToolModel,
+				Tool: definitionSourcePropertiesToolModel,
+			}
+
+			definitionSourceModel := &cdtektonpipelinev2.DefinitionSource{
+				Type: core.StringPtr("git"),
+				Properties: definitionSourcePropertiesModel,
 			}
 
 			createTektonPipelineDefinitionOptions := &cdtektonpipelinev2.CreateTektonPipelineDefinitionOptions{
 				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
-				ScmSource: definitionScmSourceModel,
+				Source: definitionSourceModel,
 			}
 
 			definition, response, err := cdTektonPipelineService.CreateTektonPipelineDefinition(createTektonPipelineDefinitionOptions)
@@ -413,22 +418,27 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`ReplaceTektonPipelineDefinition(replaceTektonPipelineDefinitionOptions *ReplaceTektonPipelineDefinitionOptions)`, func() {
-			definitionScmSourceToolModel := &cdtektonpipelinev2.DefinitionScmSourceTool{
+			definitionSourcePropertiesToolModel := &cdtektonpipelinev2.DefinitionSourcePropertiesTool{
 				ID: core.StringPtr("testString"),
 			}
 
-			definitionScmSourceModel := &cdtektonpipelinev2.DefinitionScmSource{
-				URL: core.StringPtr("https://github.com/IBM/tekton-tutorial.git"),
-				Branch: core.StringPtr("master"),
+			definitionSourcePropertiesModel := &cdtektonpipelinev2.DefinitionSourceProperties{
+				URL: core.StringPtr("testString"),
+				Branch: core.StringPtr("testString"),
 				Tag: core.StringPtr("testString"),
-				Path: core.StringPtr(".tekton"),
-				Tool: definitionScmSourceToolModel,
+				Path: core.StringPtr("testString"),
+				Tool: definitionSourcePropertiesToolModel,
+			}
+
+			definitionSourceModel := &cdtektonpipelinev2.DefinitionSource{
+				Type: core.StringPtr("testString"),
+				Properties: definitionSourcePropertiesModel,
 			}
 
 			replaceTektonPipelineDefinitionOptions := &cdtektonpipelinev2.ReplaceTektonPipelineDefinitionOptions{
 				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 				DefinitionID: core.StringPtr("94299034-d45f-4e9a-8ed5-6bd5c7bb7ada"),
-				ScmSource: definitionScmSourceModel,
+				Source: definitionSourceModel,
 			}
 
 			definition, response, err := cdTektonPipelineService.ReplaceTektonPipelineDefinition(replaceTektonPipelineDefinitionOptions)
@@ -559,23 +569,22 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 				Algorithm: core.StringPtr("md4"),
 			}
 
-			triggerScmSourceToolModel := &cdtektonpipelinev2.TriggerScmSourceTool{
+			triggerSourcePropertiesToolModel := &cdtektonpipelinev2.TriggerSourcePropertiesTool{
 				ID: core.StringPtr("testString"),
 			}
 
-			triggerScmSourceModel := &cdtektonpipelinev2.TriggerScmSource{
+			triggerSourcePropertiesModel := &cdtektonpipelinev2.TriggerSourceProperties{
 				URL: core.StringPtr("testString"),
 				Branch: core.StringPtr("testString"),
 				Pattern: core.StringPtr("testString"),
 				BlindConnection: core.BoolPtr(true),
 				HookID: core.StringPtr("testString"),
-				Tool: triggerScmSourceToolModel,
+				Tool: triggerSourcePropertiesToolModel,
 			}
 
-			eventsModel := &cdtektonpipelinev2.Events{
-				Push: core.BoolPtr(true),
-				PullRequestClosed: core.BoolPtr(true),
-				PullRequest: core.BoolPtr(true),
+			triggerSourceModel := &cdtektonpipelinev2.TriggerSource{
+				Type: core.StringPtr("testString"),
+				Properties: triggerSourcePropertiesModel,
 			}
 
 			createTektonPipelineTriggerOptions := &cdtektonpipelinev2.CreateTektonPipelineTriggerOptions{
@@ -590,8 +599,8 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 				Secret: genericSecretModel,
 				Cron: core.StringPtr("testString"),
 				Timezone: core.StringPtr("testString"),
-				ScmSource: triggerScmSourceModel,
-				Events: eventsModel,
+				Source: triggerSourceModel,
+				Events: []string{"push"},
 			}
 
 			trigger, response, err := cdTektonPipelineService.CreateTektonPipelineTrigger(createTektonPipelineTriggerOptions)
@@ -637,23 +646,22 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 				Algorithm: core.StringPtr("md4"),
 			}
 
-			triggerScmSourceToolModel := &cdtektonpipelinev2.TriggerScmSourceTool{
+			triggerSourcePropertiesToolModel := &cdtektonpipelinev2.TriggerSourcePropertiesTool{
 				ID: core.StringPtr("testString"),
 			}
 
-			triggerScmSourceModel := &cdtektonpipelinev2.TriggerScmSource{
+			triggerSourcePropertiesModel := &cdtektonpipelinev2.TriggerSourceProperties{
 				URL: core.StringPtr("testString"),
 				Branch: core.StringPtr("testString"),
 				Pattern: core.StringPtr("testString"),
 				BlindConnection: core.BoolPtr(true),
 				HookID: core.StringPtr("testString"),
-				Tool: triggerScmSourceToolModel,
+				Tool: triggerSourcePropertiesToolModel,
 			}
 
-			eventsModel := &cdtektonpipelinev2.Events{
-				Push: core.BoolPtr(true),
-				PullRequestClosed: core.BoolPtr(true),
-				PullRequest: core.BoolPtr(true),
+			triggerSourceModel := &cdtektonpipelinev2.TriggerSource{
+				Type: core.StringPtr("testString"),
+				Properties: triggerSourcePropertiesModel,
 			}
 
 			triggerPatchModel := &cdtektonpipelinev2.TriggerPatch{
@@ -667,8 +675,8 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 				Secret: genericSecretModel,
 				Cron: core.StringPtr("testString"),
 				Timezone: core.StringPtr("America/Los_Angeles, CET, Europe/London, GMT, US/Eastern, or UTC"),
-				ScmSource: triggerScmSourceModel,
-				Events: eventsModel,
+				Source: triggerSourceModel,
+				Events: []string{"push", "pull_request"},
 			}
 			triggerPatchModelAsPatch, asPatchErr := triggerPatchModel.AsPatch()
 			Expect(asPatchErr).To(BeNil())
