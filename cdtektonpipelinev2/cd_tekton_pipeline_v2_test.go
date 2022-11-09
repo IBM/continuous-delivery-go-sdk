@@ -3174,7 +3174,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 
 				// Construct an instance of the DefinitionSourceProperties model
 				definitionSourcePropertiesModel := new(cdtektonpipelinev2.DefinitionSourceProperties)
-				definitionSourcePropertiesModel.URL = core.StringPtr("https://github.com/IBM/tekton-tutorial.git")
+				definitionSourcePropertiesModel.URL = core.StringPtr("https://github.com/open-toolchain/hello-tekton.git")
 				definitionSourcePropertiesModel.Branch = core.StringPtr("master")
 				definitionSourcePropertiesModel.Tag = core.StringPtr("testString")
 				definitionSourcePropertiesModel.Path = core.StringPtr(".tekton")
@@ -3259,7 +3259,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 
 				// Construct an instance of the DefinitionSourceProperties model
 				definitionSourcePropertiesModel := new(cdtektonpipelinev2.DefinitionSourceProperties)
-				definitionSourcePropertiesModel.URL = core.StringPtr("https://github.com/IBM/tekton-tutorial.git")
+				definitionSourcePropertiesModel.URL = core.StringPtr("https://github.com/open-toolchain/hello-tekton.git")
 				definitionSourcePropertiesModel.Branch = core.StringPtr("master")
 				definitionSourcePropertiesModel.Tag = core.StringPtr("testString")
 				definitionSourcePropertiesModel.Path = core.StringPtr(".tekton")
@@ -3352,7 +3352,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 
 				// Construct an instance of the DefinitionSourceProperties model
 				definitionSourcePropertiesModel := new(cdtektonpipelinev2.DefinitionSourceProperties)
-				definitionSourcePropertiesModel.URL = core.StringPtr("https://github.com/IBM/tekton-tutorial.git")
+				definitionSourcePropertiesModel.URL = core.StringPtr("https://github.com/open-toolchain/hello-tekton.git")
 				definitionSourcePropertiesModel.Branch = core.StringPtr("master")
 				definitionSourcePropertiesModel.Tag = core.StringPtr("testString")
 				definitionSourcePropertiesModel.Path = core.StringPtr(".tekton")
@@ -3390,7 +3390,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 
 				// Construct an instance of the DefinitionSourceProperties model
 				definitionSourcePropertiesModel := new(cdtektonpipelinev2.DefinitionSourceProperties)
-				definitionSourcePropertiesModel.URL = core.StringPtr("https://github.com/IBM/tekton-tutorial.git")
+				definitionSourcePropertiesModel.URL = core.StringPtr("https://github.com/open-toolchain/hello-tekton.git")
 				definitionSourcePropertiesModel.Branch = core.StringPtr("master")
 				definitionSourcePropertiesModel.Tag = core.StringPtr("testString")
 				definitionSourcePropertiesModel.Path = core.StringPtr(".tekton")
@@ -3449,7 +3449,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 
 				// Construct an instance of the DefinitionSourceProperties model
 				definitionSourcePropertiesModel := new(cdtektonpipelinev2.DefinitionSourceProperties)
-				definitionSourcePropertiesModel.URL = core.StringPtr("https://github.com/IBM/tekton-tutorial.git")
+				definitionSourcePropertiesModel.URL = core.StringPtr("https://github.com/open-toolchain/hello-tekton.git")
 				definitionSourcePropertiesModel.Branch = core.StringPtr("master")
 				definitionSourcePropertiesModel.Tag = core.StringPtr("testString")
 				definitionSourcePropertiesModel.Path = core.StringPtr(".tekton")
@@ -4364,8 +4364,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				// Construct an instance of the CreateTektonPipelinePropertiesOptions model
 				createTektonPipelinePropertiesOptionsModel := new(cdtektonpipelinev2.CreateTektonPipelinePropertiesOptions)
 				createTektonPipelinePropertiesOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
-				createTektonPipelinePropertiesOptionsModel.Name = core.StringPtr("key1")
-				createTektonPipelinePropertiesOptionsModel.Value = core.StringPtr("https://github.com/IBM/tekton-tutorial.git")
+				createTektonPipelinePropertiesOptionsModel.Name = core.StringPtr("prop1")
+				createTektonPipelinePropertiesOptionsModel.Value = core.StringPtr("https://github.com/open-toolchain/hello-tekton.git")
 				createTektonPipelinePropertiesOptionsModel.Enum = []string{"testString"}
 				createTektonPipelinePropertiesOptionsModel.Type = core.StringPtr("text")
 				createTektonPipelinePropertiesOptionsModel.Path = core.StringPtr("testString")
@@ -4436,8 +4436,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				// Construct an instance of the CreateTektonPipelinePropertiesOptions model
 				createTektonPipelinePropertiesOptionsModel := new(cdtektonpipelinev2.CreateTektonPipelinePropertiesOptions)
 				createTektonPipelinePropertiesOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
-				createTektonPipelinePropertiesOptionsModel.Name = core.StringPtr("key1")
-				createTektonPipelinePropertiesOptionsModel.Value = core.StringPtr("https://github.com/IBM/tekton-tutorial.git")
+				createTektonPipelinePropertiesOptionsModel.Name = core.StringPtr("prop1")
+				createTektonPipelinePropertiesOptionsModel.Value = core.StringPtr("https://github.com/open-toolchain/hello-tekton.git")
 				createTektonPipelinePropertiesOptionsModel.Enum = []string{"testString"}
 				createTektonPipelinePropertiesOptionsModel.Type = core.StringPtr("text")
 				createTektonPipelinePropertiesOptionsModel.Path = core.StringPtr("testString")
@@ -4516,8 +4516,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				// Construct an instance of the CreateTektonPipelinePropertiesOptions model
 				createTektonPipelinePropertiesOptionsModel := new(cdtektonpipelinev2.CreateTektonPipelinePropertiesOptions)
 				createTektonPipelinePropertiesOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
-				createTektonPipelinePropertiesOptionsModel.Name = core.StringPtr("key1")
-				createTektonPipelinePropertiesOptionsModel.Value = core.StringPtr("https://github.com/IBM/tekton-tutorial.git")
+				createTektonPipelinePropertiesOptionsModel.Name = core.StringPtr("prop1")
+				createTektonPipelinePropertiesOptionsModel.Value = core.StringPtr("https://github.com/open-toolchain/hello-tekton.git")
 				createTektonPipelinePropertiesOptionsModel.Enum = []string{"testString"}
 				createTektonPipelinePropertiesOptionsModel.Type = core.StringPtr("text")
 				createTektonPipelinePropertiesOptionsModel.Path = core.StringPtr("testString")
@@ -4541,8 +4541,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				// Construct an instance of the CreateTektonPipelinePropertiesOptions model
 				createTektonPipelinePropertiesOptionsModel := new(cdtektonpipelinev2.CreateTektonPipelinePropertiesOptions)
 				createTektonPipelinePropertiesOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
-				createTektonPipelinePropertiesOptionsModel.Name = core.StringPtr("key1")
-				createTektonPipelinePropertiesOptionsModel.Value = core.StringPtr("https://github.com/IBM/tekton-tutorial.git")
+				createTektonPipelinePropertiesOptionsModel.Name = core.StringPtr("prop1")
+				createTektonPipelinePropertiesOptionsModel.Value = core.StringPtr("https://github.com/open-toolchain/hello-tekton.git")
 				createTektonPipelinePropertiesOptionsModel.Enum = []string{"testString"}
 				createTektonPipelinePropertiesOptionsModel.Type = core.StringPtr("text")
 				createTektonPipelinePropertiesOptionsModel.Path = core.StringPtr("testString")
@@ -4587,8 +4587,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				// Construct an instance of the CreateTektonPipelinePropertiesOptions model
 				createTektonPipelinePropertiesOptionsModel := new(cdtektonpipelinev2.CreateTektonPipelinePropertiesOptions)
 				createTektonPipelinePropertiesOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
-				createTektonPipelinePropertiesOptionsModel.Name = core.StringPtr("key1")
-				createTektonPipelinePropertiesOptionsModel.Value = core.StringPtr("https://github.com/IBM/tekton-tutorial.git")
+				createTektonPipelinePropertiesOptionsModel.Name = core.StringPtr("prop1")
+				createTektonPipelinePropertiesOptionsModel.Value = core.StringPtr("https://github.com/open-toolchain/hello-tekton.git")
 				createTektonPipelinePropertiesOptionsModel.Enum = []string{"testString"}
 				createTektonPipelinePropertiesOptionsModel.Type = core.StringPtr("text")
 				createTektonPipelinePropertiesOptionsModel.Path = core.StringPtr("testString")
@@ -4851,8 +4851,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				replaceTektonPipelinePropertyOptionsModel := new(cdtektonpipelinev2.ReplaceTektonPipelinePropertyOptions)
 				replaceTektonPipelinePropertyOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
 				replaceTektonPipelinePropertyOptionsModel.PropertyName = core.StringPtr("debug-pipeline")
-				replaceTektonPipelinePropertyOptionsModel.Name = core.StringPtr("key1")
-				replaceTektonPipelinePropertyOptionsModel.Value = core.StringPtr("https://github.com/IBM/tekton-tutorial.git")
+				replaceTektonPipelinePropertyOptionsModel.Name = core.StringPtr("prop1")
+				replaceTektonPipelinePropertyOptionsModel.Value = core.StringPtr("https://github.com/open-toolchain/hello-tekton.git")
 				replaceTektonPipelinePropertyOptionsModel.Enum = []string{"testString"}
 				replaceTektonPipelinePropertyOptionsModel.Type = core.StringPtr("text")
 				replaceTektonPipelinePropertyOptionsModel.Path = core.StringPtr("testString")
@@ -4924,8 +4924,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				replaceTektonPipelinePropertyOptionsModel := new(cdtektonpipelinev2.ReplaceTektonPipelinePropertyOptions)
 				replaceTektonPipelinePropertyOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
 				replaceTektonPipelinePropertyOptionsModel.PropertyName = core.StringPtr("debug-pipeline")
-				replaceTektonPipelinePropertyOptionsModel.Name = core.StringPtr("key1")
-				replaceTektonPipelinePropertyOptionsModel.Value = core.StringPtr("https://github.com/IBM/tekton-tutorial.git")
+				replaceTektonPipelinePropertyOptionsModel.Name = core.StringPtr("prop1")
+				replaceTektonPipelinePropertyOptionsModel.Value = core.StringPtr("https://github.com/open-toolchain/hello-tekton.git")
 				replaceTektonPipelinePropertyOptionsModel.Enum = []string{"testString"}
 				replaceTektonPipelinePropertyOptionsModel.Type = core.StringPtr("text")
 				replaceTektonPipelinePropertyOptionsModel.Path = core.StringPtr("testString")
@@ -5005,8 +5005,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				replaceTektonPipelinePropertyOptionsModel := new(cdtektonpipelinev2.ReplaceTektonPipelinePropertyOptions)
 				replaceTektonPipelinePropertyOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
 				replaceTektonPipelinePropertyOptionsModel.PropertyName = core.StringPtr("debug-pipeline")
-				replaceTektonPipelinePropertyOptionsModel.Name = core.StringPtr("key1")
-				replaceTektonPipelinePropertyOptionsModel.Value = core.StringPtr("https://github.com/IBM/tekton-tutorial.git")
+				replaceTektonPipelinePropertyOptionsModel.Name = core.StringPtr("prop1")
+				replaceTektonPipelinePropertyOptionsModel.Value = core.StringPtr("https://github.com/open-toolchain/hello-tekton.git")
 				replaceTektonPipelinePropertyOptionsModel.Enum = []string{"testString"}
 				replaceTektonPipelinePropertyOptionsModel.Type = core.StringPtr("text")
 				replaceTektonPipelinePropertyOptionsModel.Path = core.StringPtr("testString")
@@ -5031,8 +5031,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				replaceTektonPipelinePropertyOptionsModel := new(cdtektonpipelinev2.ReplaceTektonPipelinePropertyOptions)
 				replaceTektonPipelinePropertyOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
 				replaceTektonPipelinePropertyOptionsModel.PropertyName = core.StringPtr("debug-pipeline")
-				replaceTektonPipelinePropertyOptionsModel.Name = core.StringPtr("key1")
-				replaceTektonPipelinePropertyOptionsModel.Value = core.StringPtr("https://github.com/IBM/tekton-tutorial.git")
+				replaceTektonPipelinePropertyOptionsModel.Name = core.StringPtr("prop1")
+				replaceTektonPipelinePropertyOptionsModel.Value = core.StringPtr("https://github.com/open-toolchain/hello-tekton.git")
 				replaceTektonPipelinePropertyOptionsModel.Enum = []string{"testString"}
 				replaceTektonPipelinePropertyOptionsModel.Type = core.StringPtr("text")
 				replaceTektonPipelinePropertyOptionsModel.Path = core.StringPtr("testString")
@@ -5078,8 +5078,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				replaceTektonPipelinePropertyOptionsModel := new(cdtektonpipelinev2.ReplaceTektonPipelinePropertyOptions)
 				replaceTektonPipelinePropertyOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
 				replaceTektonPipelinePropertyOptionsModel.PropertyName = core.StringPtr("debug-pipeline")
-				replaceTektonPipelinePropertyOptionsModel.Name = core.StringPtr("key1")
-				replaceTektonPipelinePropertyOptionsModel.Value = core.StringPtr("https://github.com/IBM/tekton-tutorial.git")
+				replaceTektonPipelinePropertyOptionsModel.Name = core.StringPtr("prop1")
+				replaceTektonPipelinePropertyOptionsModel.Value = core.StringPtr("https://github.com/open-toolchain/hello-tekton.git")
 				replaceTektonPipelinePropertyOptionsModel.Enum = []string{"testString"}
 				replaceTektonPipelinePropertyOptionsModel.Type = core.StringPtr("text")
 				replaceTektonPipelinePropertyOptionsModel.Path = core.StringPtr("testString")
@@ -7208,8 +7208,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				createTektonPipelineTriggerPropertiesOptionsModel := new(cdtektonpipelinev2.CreateTektonPipelineTriggerPropertiesOptions)
 				createTektonPipelineTriggerPropertiesOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
 				createTektonPipelineTriggerPropertiesOptionsModel.TriggerID = core.StringPtr("1bb892a1-2e04-4768-a369-b1159eace147")
-				createTektonPipelineTriggerPropertiesOptionsModel.Name = core.StringPtr("key1")
-				createTektonPipelineTriggerPropertiesOptionsModel.Value = core.StringPtr("https://github.com/IBM/tekton-tutorial.git")
+				createTektonPipelineTriggerPropertiesOptionsModel.Name = core.StringPtr("prop1")
+				createTektonPipelineTriggerPropertiesOptionsModel.Value = core.StringPtr("https://github.com/open-toolchain/hello-tekton.git")
 				createTektonPipelineTriggerPropertiesOptionsModel.Enum = []string{"testString"}
 				createTektonPipelineTriggerPropertiesOptionsModel.Type = core.StringPtr("text")
 				createTektonPipelineTriggerPropertiesOptionsModel.Path = core.StringPtr("testString")
@@ -7281,8 +7281,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				createTektonPipelineTriggerPropertiesOptionsModel := new(cdtektonpipelinev2.CreateTektonPipelineTriggerPropertiesOptions)
 				createTektonPipelineTriggerPropertiesOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
 				createTektonPipelineTriggerPropertiesOptionsModel.TriggerID = core.StringPtr("1bb892a1-2e04-4768-a369-b1159eace147")
-				createTektonPipelineTriggerPropertiesOptionsModel.Name = core.StringPtr("key1")
-				createTektonPipelineTriggerPropertiesOptionsModel.Value = core.StringPtr("https://github.com/IBM/tekton-tutorial.git")
+				createTektonPipelineTriggerPropertiesOptionsModel.Name = core.StringPtr("prop1")
+				createTektonPipelineTriggerPropertiesOptionsModel.Value = core.StringPtr("https://github.com/open-toolchain/hello-tekton.git")
 				createTektonPipelineTriggerPropertiesOptionsModel.Enum = []string{"testString"}
 				createTektonPipelineTriggerPropertiesOptionsModel.Type = core.StringPtr("text")
 				createTektonPipelineTriggerPropertiesOptionsModel.Path = core.StringPtr("testString")
@@ -7362,8 +7362,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				createTektonPipelineTriggerPropertiesOptionsModel := new(cdtektonpipelinev2.CreateTektonPipelineTriggerPropertiesOptions)
 				createTektonPipelineTriggerPropertiesOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
 				createTektonPipelineTriggerPropertiesOptionsModel.TriggerID = core.StringPtr("1bb892a1-2e04-4768-a369-b1159eace147")
-				createTektonPipelineTriggerPropertiesOptionsModel.Name = core.StringPtr("key1")
-				createTektonPipelineTriggerPropertiesOptionsModel.Value = core.StringPtr("https://github.com/IBM/tekton-tutorial.git")
+				createTektonPipelineTriggerPropertiesOptionsModel.Name = core.StringPtr("prop1")
+				createTektonPipelineTriggerPropertiesOptionsModel.Value = core.StringPtr("https://github.com/open-toolchain/hello-tekton.git")
 				createTektonPipelineTriggerPropertiesOptionsModel.Enum = []string{"testString"}
 				createTektonPipelineTriggerPropertiesOptionsModel.Type = core.StringPtr("text")
 				createTektonPipelineTriggerPropertiesOptionsModel.Path = core.StringPtr("testString")
@@ -7388,8 +7388,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				createTektonPipelineTriggerPropertiesOptionsModel := new(cdtektonpipelinev2.CreateTektonPipelineTriggerPropertiesOptions)
 				createTektonPipelineTriggerPropertiesOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
 				createTektonPipelineTriggerPropertiesOptionsModel.TriggerID = core.StringPtr("1bb892a1-2e04-4768-a369-b1159eace147")
-				createTektonPipelineTriggerPropertiesOptionsModel.Name = core.StringPtr("key1")
-				createTektonPipelineTriggerPropertiesOptionsModel.Value = core.StringPtr("https://github.com/IBM/tekton-tutorial.git")
+				createTektonPipelineTriggerPropertiesOptionsModel.Name = core.StringPtr("prop1")
+				createTektonPipelineTriggerPropertiesOptionsModel.Value = core.StringPtr("https://github.com/open-toolchain/hello-tekton.git")
 				createTektonPipelineTriggerPropertiesOptionsModel.Enum = []string{"testString"}
 				createTektonPipelineTriggerPropertiesOptionsModel.Type = core.StringPtr("text")
 				createTektonPipelineTriggerPropertiesOptionsModel.Path = core.StringPtr("testString")
@@ -7435,8 +7435,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				createTektonPipelineTriggerPropertiesOptionsModel := new(cdtektonpipelinev2.CreateTektonPipelineTriggerPropertiesOptions)
 				createTektonPipelineTriggerPropertiesOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
 				createTektonPipelineTriggerPropertiesOptionsModel.TriggerID = core.StringPtr("1bb892a1-2e04-4768-a369-b1159eace147")
-				createTektonPipelineTriggerPropertiesOptionsModel.Name = core.StringPtr("key1")
-				createTektonPipelineTriggerPropertiesOptionsModel.Value = core.StringPtr("https://github.com/IBM/tekton-tutorial.git")
+				createTektonPipelineTriggerPropertiesOptionsModel.Name = core.StringPtr("prop1")
+				createTektonPipelineTriggerPropertiesOptionsModel.Value = core.StringPtr("https://github.com/open-toolchain/hello-tekton.git")
 				createTektonPipelineTriggerPropertiesOptionsModel.Enum = []string{"testString"}
 				createTektonPipelineTriggerPropertiesOptionsModel.Type = core.StringPtr("text")
 				createTektonPipelineTriggerPropertiesOptionsModel.Path = core.StringPtr("testString")
@@ -7705,8 +7705,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				replaceTektonPipelineTriggerPropertyOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
 				replaceTektonPipelineTriggerPropertyOptionsModel.TriggerID = core.StringPtr("1bb892a1-2e04-4768-a369-b1159eace147")
 				replaceTektonPipelineTriggerPropertyOptionsModel.PropertyName = core.StringPtr("debug-pipeline")
-				replaceTektonPipelineTriggerPropertyOptionsModel.Name = core.StringPtr("key1")
-				replaceTektonPipelineTriggerPropertyOptionsModel.Value = core.StringPtr("https://github.com/IBM/tekton-tutorial.git")
+				replaceTektonPipelineTriggerPropertyOptionsModel.Name = core.StringPtr("prop1")
+				replaceTektonPipelineTriggerPropertyOptionsModel.Value = core.StringPtr("https://github.com/open-toolchain/hello-tekton.git")
 				replaceTektonPipelineTriggerPropertyOptionsModel.Enum = []string{"testString"}
 				replaceTektonPipelineTriggerPropertyOptionsModel.Type = core.StringPtr("text")
 				replaceTektonPipelineTriggerPropertyOptionsModel.Path = core.StringPtr("testString")
@@ -7779,8 +7779,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				replaceTektonPipelineTriggerPropertyOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
 				replaceTektonPipelineTriggerPropertyOptionsModel.TriggerID = core.StringPtr("1bb892a1-2e04-4768-a369-b1159eace147")
 				replaceTektonPipelineTriggerPropertyOptionsModel.PropertyName = core.StringPtr("debug-pipeline")
-				replaceTektonPipelineTriggerPropertyOptionsModel.Name = core.StringPtr("key1")
-				replaceTektonPipelineTriggerPropertyOptionsModel.Value = core.StringPtr("https://github.com/IBM/tekton-tutorial.git")
+				replaceTektonPipelineTriggerPropertyOptionsModel.Name = core.StringPtr("prop1")
+				replaceTektonPipelineTriggerPropertyOptionsModel.Value = core.StringPtr("https://github.com/open-toolchain/hello-tekton.git")
 				replaceTektonPipelineTriggerPropertyOptionsModel.Enum = []string{"testString"}
 				replaceTektonPipelineTriggerPropertyOptionsModel.Type = core.StringPtr("text")
 				replaceTektonPipelineTriggerPropertyOptionsModel.Path = core.StringPtr("testString")
@@ -7861,8 +7861,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				replaceTektonPipelineTriggerPropertyOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
 				replaceTektonPipelineTriggerPropertyOptionsModel.TriggerID = core.StringPtr("1bb892a1-2e04-4768-a369-b1159eace147")
 				replaceTektonPipelineTriggerPropertyOptionsModel.PropertyName = core.StringPtr("debug-pipeline")
-				replaceTektonPipelineTriggerPropertyOptionsModel.Name = core.StringPtr("key1")
-				replaceTektonPipelineTriggerPropertyOptionsModel.Value = core.StringPtr("https://github.com/IBM/tekton-tutorial.git")
+				replaceTektonPipelineTriggerPropertyOptionsModel.Name = core.StringPtr("prop1")
+				replaceTektonPipelineTriggerPropertyOptionsModel.Value = core.StringPtr("https://github.com/open-toolchain/hello-tekton.git")
 				replaceTektonPipelineTriggerPropertyOptionsModel.Enum = []string{"testString"}
 				replaceTektonPipelineTriggerPropertyOptionsModel.Type = core.StringPtr("text")
 				replaceTektonPipelineTriggerPropertyOptionsModel.Path = core.StringPtr("testString")
@@ -7888,8 +7888,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				replaceTektonPipelineTriggerPropertyOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
 				replaceTektonPipelineTriggerPropertyOptionsModel.TriggerID = core.StringPtr("1bb892a1-2e04-4768-a369-b1159eace147")
 				replaceTektonPipelineTriggerPropertyOptionsModel.PropertyName = core.StringPtr("debug-pipeline")
-				replaceTektonPipelineTriggerPropertyOptionsModel.Name = core.StringPtr("key1")
-				replaceTektonPipelineTriggerPropertyOptionsModel.Value = core.StringPtr("https://github.com/IBM/tekton-tutorial.git")
+				replaceTektonPipelineTriggerPropertyOptionsModel.Name = core.StringPtr("prop1")
+				replaceTektonPipelineTriggerPropertyOptionsModel.Value = core.StringPtr("https://github.com/open-toolchain/hello-tekton.git")
 				replaceTektonPipelineTriggerPropertyOptionsModel.Enum = []string{"testString"}
 				replaceTektonPipelineTriggerPropertyOptionsModel.Type = core.StringPtr("text")
 				replaceTektonPipelineTriggerPropertyOptionsModel.Path = core.StringPtr("testString")
@@ -7936,8 +7936,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				replaceTektonPipelineTriggerPropertyOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
 				replaceTektonPipelineTriggerPropertyOptionsModel.TriggerID = core.StringPtr("1bb892a1-2e04-4768-a369-b1159eace147")
 				replaceTektonPipelineTriggerPropertyOptionsModel.PropertyName = core.StringPtr("debug-pipeline")
-				replaceTektonPipelineTriggerPropertyOptionsModel.Name = core.StringPtr("key1")
-				replaceTektonPipelineTriggerPropertyOptionsModel.Value = core.StringPtr("https://github.com/IBM/tekton-tutorial.git")
+				replaceTektonPipelineTriggerPropertyOptionsModel.Name = core.StringPtr("prop1")
+				replaceTektonPipelineTriggerPropertyOptionsModel.Value = core.StringPtr("https://github.com/open-toolchain/hello-tekton.git")
 				replaceTektonPipelineTriggerPropertyOptionsModel.Enum = []string{"testString"}
 				replaceTektonPipelineTriggerPropertyOptionsModel.Type = core.StringPtr("text")
 				replaceTektonPipelineTriggerPropertyOptionsModel.Path = core.StringPtr("testString")
@@ -8059,12 +8059,12 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				// Construct an instance of the DefinitionSourceProperties model
 				definitionSourcePropertiesModel := new(cdtektonpipelinev2.DefinitionSourceProperties)
 				Expect(definitionSourcePropertiesModel).ToNot(BeNil())
-				definitionSourcePropertiesModel.URL = core.StringPtr("https://github.com/IBM/tekton-tutorial.git")
+				definitionSourcePropertiesModel.URL = core.StringPtr("https://github.com/open-toolchain/hello-tekton.git")
 				definitionSourcePropertiesModel.Branch = core.StringPtr("master")
 				definitionSourcePropertiesModel.Tag = core.StringPtr("testString")
 				definitionSourcePropertiesModel.Path = core.StringPtr(".tekton")
 				definitionSourcePropertiesModel.Tool = definitionSourcePropertiesToolModel
-				Expect(definitionSourcePropertiesModel.URL).To(Equal(core.StringPtr("https://github.com/IBM/tekton-tutorial.git")))
+				Expect(definitionSourcePropertiesModel.URL).To(Equal(core.StringPtr("https://github.com/open-toolchain/hello-tekton.git")))
 				Expect(definitionSourcePropertiesModel.Branch).To(Equal(core.StringPtr("master")))
 				Expect(definitionSourcePropertiesModel.Tag).To(Equal(core.StringPtr("testString")))
 				Expect(definitionSourcePropertiesModel.Path).To(Equal(core.StringPtr(".tekton")))
@@ -8115,16 +8115,16 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				pipelineID := "94619026-912b-4d92-8f51-6c74f0692d90"
 				createTektonPipelinePropertiesOptionsModel := cdTektonPipelineService.NewCreateTektonPipelinePropertiesOptions(pipelineID)
 				createTektonPipelinePropertiesOptionsModel.SetPipelineID("94619026-912b-4d92-8f51-6c74f0692d90")
-				createTektonPipelinePropertiesOptionsModel.SetName("key1")
-				createTektonPipelinePropertiesOptionsModel.SetValue("https://github.com/IBM/tekton-tutorial.git")
+				createTektonPipelinePropertiesOptionsModel.SetName("prop1")
+				createTektonPipelinePropertiesOptionsModel.SetValue("https://github.com/open-toolchain/hello-tekton.git")
 				createTektonPipelinePropertiesOptionsModel.SetEnum([]string{"testString"})
 				createTektonPipelinePropertiesOptionsModel.SetType("text")
 				createTektonPipelinePropertiesOptionsModel.SetPath("testString")
 				createTektonPipelinePropertiesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createTektonPipelinePropertiesOptionsModel).ToNot(BeNil())
 				Expect(createTektonPipelinePropertiesOptionsModel.PipelineID).To(Equal(core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")))
-				Expect(createTektonPipelinePropertiesOptionsModel.Name).To(Equal(core.StringPtr("key1")))
-				Expect(createTektonPipelinePropertiesOptionsModel.Value).To(Equal(core.StringPtr("https://github.com/IBM/tekton-tutorial.git")))
+				Expect(createTektonPipelinePropertiesOptionsModel.Name).To(Equal(core.StringPtr("prop1")))
+				Expect(createTektonPipelinePropertiesOptionsModel.Value).To(Equal(core.StringPtr("https://github.com/open-toolchain/hello-tekton.git")))
 				Expect(createTektonPipelinePropertiesOptionsModel.Enum).To(Equal([]string{"testString"}))
 				Expect(createTektonPipelinePropertiesOptionsModel.Type).To(Equal(core.StringPtr("text")))
 				Expect(createTektonPipelinePropertiesOptionsModel.Path).To(Equal(core.StringPtr("testString")))
@@ -8259,8 +8259,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				createTektonPipelineTriggerPropertiesOptionsModel := cdTektonPipelineService.NewCreateTektonPipelineTriggerPropertiesOptions(pipelineID, triggerID)
 				createTektonPipelineTriggerPropertiesOptionsModel.SetPipelineID("94619026-912b-4d92-8f51-6c74f0692d90")
 				createTektonPipelineTriggerPropertiesOptionsModel.SetTriggerID("1bb892a1-2e04-4768-a369-b1159eace147")
-				createTektonPipelineTriggerPropertiesOptionsModel.SetName("key1")
-				createTektonPipelineTriggerPropertiesOptionsModel.SetValue("https://github.com/IBM/tekton-tutorial.git")
+				createTektonPipelineTriggerPropertiesOptionsModel.SetName("prop1")
+				createTektonPipelineTriggerPropertiesOptionsModel.SetValue("https://github.com/open-toolchain/hello-tekton.git")
 				createTektonPipelineTriggerPropertiesOptionsModel.SetEnum([]string{"testString"})
 				createTektonPipelineTriggerPropertiesOptionsModel.SetType("text")
 				createTektonPipelineTriggerPropertiesOptionsModel.SetPath("testString")
@@ -8268,8 +8268,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				Expect(createTektonPipelineTriggerPropertiesOptionsModel).ToNot(BeNil())
 				Expect(createTektonPipelineTriggerPropertiesOptionsModel.PipelineID).To(Equal(core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")))
 				Expect(createTektonPipelineTriggerPropertiesOptionsModel.TriggerID).To(Equal(core.StringPtr("1bb892a1-2e04-4768-a369-b1159eace147")))
-				Expect(createTektonPipelineTriggerPropertiesOptionsModel.Name).To(Equal(core.StringPtr("key1")))
-				Expect(createTektonPipelineTriggerPropertiesOptionsModel.Value).To(Equal(core.StringPtr("https://github.com/IBM/tekton-tutorial.git")))
+				Expect(createTektonPipelineTriggerPropertiesOptionsModel.Name).To(Equal(core.StringPtr("prop1")))
+				Expect(createTektonPipelineTriggerPropertiesOptionsModel.Value).To(Equal(core.StringPtr("https://github.com/open-toolchain/hello-tekton.git")))
 				Expect(createTektonPipelineTriggerPropertiesOptionsModel.Enum).To(Equal([]string{"testString"}))
 				Expect(createTektonPipelineTriggerPropertiesOptionsModel.Type).To(Equal(core.StringPtr("text")))
 				Expect(createTektonPipelineTriggerPropertiesOptionsModel.Path).To(Equal(core.StringPtr("testString")))
@@ -8540,10 +8540,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				// Construct an instance of the ListTektonPipelineTriggerPropertiesOptions model
 				pipelineID := "94619026-912b-4d92-8f51-6c74f0692d90"
 				triggerID := "1bb892a1-2e04-4768-a369-b1159eace147"
-				name := "prod"
-				typeVar := "secure,text"
-				sort := "name"
-				listTektonPipelineTriggerPropertiesOptionsModel := cdTektonPipelineService.NewListTektonPipelineTriggerPropertiesOptions(pipelineID, triggerID, name, typeVar, sort)
+				listTektonPipelineTriggerPropertiesOptionsModel := cdTektonPipelineService.NewListTektonPipelineTriggerPropertiesOptions(pipelineID, triggerID)
 				listTektonPipelineTriggerPropertiesOptionsModel.SetPipelineID("94619026-912b-4d92-8f51-6c74f0692d90")
 				listTektonPipelineTriggerPropertiesOptionsModel.SetTriggerID("1bb892a1-2e04-4768-a369-b1159eace147")
 				listTektonPipelineTriggerPropertiesOptionsModel.SetName("prod")
@@ -8639,8 +8636,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				replaceTektonPipelinePropertyOptionsModel := cdTektonPipelineService.NewReplaceTektonPipelinePropertyOptions(pipelineID, propertyName)
 				replaceTektonPipelinePropertyOptionsModel.SetPipelineID("94619026-912b-4d92-8f51-6c74f0692d90")
 				replaceTektonPipelinePropertyOptionsModel.SetPropertyName("debug-pipeline")
-				replaceTektonPipelinePropertyOptionsModel.SetName("key1")
-				replaceTektonPipelinePropertyOptionsModel.SetValue("https://github.com/IBM/tekton-tutorial.git")
+				replaceTektonPipelinePropertyOptionsModel.SetName("prop1")
+				replaceTektonPipelinePropertyOptionsModel.SetValue("https://github.com/open-toolchain/hello-tekton.git")
 				replaceTektonPipelinePropertyOptionsModel.SetEnum([]string{"testString"})
 				replaceTektonPipelinePropertyOptionsModel.SetType("text")
 				replaceTektonPipelinePropertyOptionsModel.SetPath("testString")
@@ -8648,8 +8645,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				Expect(replaceTektonPipelinePropertyOptionsModel).ToNot(BeNil())
 				Expect(replaceTektonPipelinePropertyOptionsModel.PipelineID).To(Equal(core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")))
 				Expect(replaceTektonPipelinePropertyOptionsModel.PropertyName).To(Equal(core.StringPtr("debug-pipeline")))
-				Expect(replaceTektonPipelinePropertyOptionsModel.Name).To(Equal(core.StringPtr("key1")))
-				Expect(replaceTektonPipelinePropertyOptionsModel.Value).To(Equal(core.StringPtr("https://github.com/IBM/tekton-tutorial.git")))
+				Expect(replaceTektonPipelinePropertyOptionsModel.Name).To(Equal(core.StringPtr("prop1")))
+				Expect(replaceTektonPipelinePropertyOptionsModel.Value).To(Equal(core.StringPtr("https://github.com/open-toolchain/hello-tekton.git")))
 				Expect(replaceTektonPipelinePropertyOptionsModel.Enum).To(Equal([]string{"testString"}))
 				Expect(replaceTektonPipelinePropertyOptionsModel.Type).To(Equal(core.StringPtr("text")))
 				Expect(replaceTektonPipelinePropertyOptionsModel.Path).To(Equal(core.StringPtr("testString")))
@@ -8664,8 +8661,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				replaceTektonPipelineTriggerPropertyOptionsModel.SetPipelineID("94619026-912b-4d92-8f51-6c74f0692d90")
 				replaceTektonPipelineTriggerPropertyOptionsModel.SetTriggerID("1bb892a1-2e04-4768-a369-b1159eace147")
 				replaceTektonPipelineTriggerPropertyOptionsModel.SetPropertyName("debug-pipeline")
-				replaceTektonPipelineTriggerPropertyOptionsModel.SetName("key1")
-				replaceTektonPipelineTriggerPropertyOptionsModel.SetValue("https://github.com/IBM/tekton-tutorial.git")
+				replaceTektonPipelineTriggerPropertyOptionsModel.SetName("prop1")
+				replaceTektonPipelineTriggerPropertyOptionsModel.SetValue("https://github.com/open-toolchain/hello-tekton.git")
 				replaceTektonPipelineTriggerPropertyOptionsModel.SetEnum([]string{"testString"})
 				replaceTektonPipelineTriggerPropertyOptionsModel.SetType("text")
 				replaceTektonPipelineTriggerPropertyOptionsModel.SetPath("testString")
@@ -8674,8 +8671,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				Expect(replaceTektonPipelineTriggerPropertyOptionsModel.PipelineID).To(Equal(core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")))
 				Expect(replaceTektonPipelineTriggerPropertyOptionsModel.TriggerID).To(Equal(core.StringPtr("1bb892a1-2e04-4768-a369-b1159eace147")))
 				Expect(replaceTektonPipelineTriggerPropertyOptionsModel.PropertyName).To(Equal(core.StringPtr("debug-pipeline")))
-				Expect(replaceTektonPipelineTriggerPropertyOptionsModel.Name).To(Equal(core.StringPtr("key1")))
-				Expect(replaceTektonPipelineTriggerPropertyOptionsModel.Value).To(Equal(core.StringPtr("https://github.com/IBM/tekton-tutorial.git")))
+				Expect(replaceTektonPipelineTriggerPropertyOptionsModel.Name).To(Equal(core.StringPtr("prop1")))
+				Expect(replaceTektonPipelineTriggerPropertyOptionsModel.Value).To(Equal(core.StringPtr("https://github.com/open-toolchain/hello-tekton.git")))
 				Expect(replaceTektonPipelineTriggerPropertyOptionsModel.Enum).To(Equal([]string{"testString"}))
 				Expect(replaceTektonPipelineTriggerPropertyOptionsModel.Type).To(Equal(core.StringPtr("text")))
 				Expect(replaceTektonPipelineTriggerPropertyOptionsModel.Path).To(Equal(core.StringPtr("testString")))

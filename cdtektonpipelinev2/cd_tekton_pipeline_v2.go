@@ -2103,9 +2103,15 @@ func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineTriggerPropertiesW
 	}
 	builder.AddHeader("Accept", "application/json")
 
-	builder.AddQuery("name", fmt.Sprint(*listTektonPipelineTriggerPropertiesOptions.Name))
-	builder.AddQuery("type", fmt.Sprint(*listTektonPipelineTriggerPropertiesOptions.Type))
-	builder.AddQuery("sort", fmt.Sprint(*listTektonPipelineTriggerPropertiesOptions.Sort))
+	if listTektonPipelineTriggerPropertiesOptions.Name != nil {
+		builder.AddQuery("name", fmt.Sprint(*listTektonPipelineTriggerPropertiesOptions.Name))
+	}
+	if listTektonPipelineTriggerPropertiesOptions.Type != nil {
+		builder.AddQuery("type", fmt.Sprint(*listTektonPipelineTriggerPropertiesOptions.Type))
+	}
+	if listTektonPipelineTriggerPropertiesOptions.Sort != nil {
+		builder.AddQuery("sort", fmt.Sprint(*listTektonPipelineTriggerPropertiesOptions.Sort))
+	}
 
 	request, err := builder.Build()
 	if err != nil {
@@ -4024,26 +4030,23 @@ type ListTektonPipelineTriggerPropertiesOptions struct {
 	TriggerID *string `json:"trigger_id" validate:"required,ne="`
 
 	// Filter properties by `name`.
-	Name *string `json:"name" validate:"required"`
+	Name *string `json:"name,omitempty"`
 
 	// Filter properties by `type`. Valid types are `secure`, `text`, `integration`, `single_select`, `appconfig`.
-	Type *string `json:"type" validate:"required"`
+	Type *string `json:"type,omitempty"`
 
 	// Sort properties by name. They can be sorted in ascending order using `name` or in descending order using `-name`.
-	Sort *string `json:"sort" validate:"required"`
+	Sort *string `json:"sort,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewListTektonPipelineTriggerPropertiesOptions : Instantiate ListTektonPipelineTriggerPropertiesOptions
-func (*CdTektonPipelineV2) NewListTektonPipelineTriggerPropertiesOptions(pipelineID string, triggerID string, name string, typeVar string, sort string) *ListTektonPipelineTriggerPropertiesOptions {
+func (*CdTektonPipelineV2) NewListTektonPipelineTriggerPropertiesOptions(pipelineID string, triggerID string) *ListTektonPipelineTriggerPropertiesOptions {
 	return &ListTektonPipelineTriggerPropertiesOptions{
 		PipelineID: core.StringPtr(pipelineID),
 		TriggerID: core.StringPtr(triggerID),
-		Name: core.StringPtr(name),
-		Type: core.StringPtr(typeVar),
-		Sort: core.StringPtr(sort),
 	}
 }
 
