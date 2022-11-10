@@ -2762,9 +2762,9 @@ type CreateTektonPipelineTriggerOptions struct {
 	// endpoint /toolchains/{toolchain_id}/tools.
 	Source *TriggerSource `json:"source,omitempty"`
 
-	// Only needed for Git triggers. Events list that defines the events to which a Git trigger listens. Choose one or more
-	// from: 'push', 'pull_request' and 'pull_request_closed'. For SCM repositories that use 'merge request' events, such
-	// events map to the equivalent 'pull request' events.
+	// Only needed for Git triggers. List of events to which a Git trigger listens. Choose one or more from: 'push',
+	// 'pull_request' and 'pull_request_closed'. For SCM repositories that use 'merge request' events, such events map to
+	// the equivalent 'pull request' events.
 	Events []string `json:"events,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -5298,9 +5298,9 @@ type Trigger struct {
 	// endpoint /toolchains/{toolchain_id}/tools.
 	Source *TriggerSource `json:"source,omitempty"`
 
-	// Only needed for Git triggers. Events list that defines the events to which a Git trigger listens. Choose one or more
-	// from: 'push', 'pull_request' and 'pull_request_closed'. For SCM repositories that use 'merge request' events, such
-	// events map to the equivalent 'pull request' events.
+	// Only needed for Git triggers. List of events to which a Git trigger listens. Choose one or more from: 'push',
+	// 'pull_request' and 'pull_request_closed'. For SCM repositories that use 'merge request' events, such events map to
+	// the equivalent 'pull request' events.
 	Events []string `json:"events,omitempty"`
 
 	// Only needed for timer triggers. Cron expression that indicates when this trigger will activate. Maximum frequency is
@@ -5576,9 +5576,9 @@ type TriggerPatch struct {
 	// endpoint /toolchains/{toolchain_id}/tools.
 	Source *TriggerSource `json:"source,omitempty"`
 
-	// Only needed for Git triggers. Events list that defines the events to which a Git trigger listens. Choose one or more
-	// from: 'push', 'pull_request' and 'pull_request_closed'. For SCM repositories that use 'merge request' events, such
-	// events map to the equivalent 'pull request' events.
+	// Only needed for Git triggers. List of events to which a Git trigger listens. Choose one or more from: 'push',
+	// 'pull_request' and 'pull_request_closed'. For SCM repositories that use 'merge request' events, such events map to
+	// the equivalent 'pull request' events.
 	Events []string `json:"events,omitempty"`
 }
 
@@ -6529,9 +6529,9 @@ type TriggerScmTrigger struct {
 	// endpoint /toolchains/{toolchain_id}/tools.
 	Source *TriggerSource `json:"source,omitempty"`
 
-	// Only needed for Git triggers. Events list that defines the events to which a Git trigger listens. Choose one or more
-	// from: 'push', 'pull_request' and 'pull_request_closed'. For SCM repositories that use 'merge request' events, such
-	// events map to the equivalent 'pull request' events.
+	// Only needed for Git triggers. List of events to which a Git trigger listens. Choose one or more from: 'push',
+	// 'pull_request' and 'pull_request_closed'. For SCM repositories that use 'merge request' events, such events map to
+	// the equivalent 'pull request' events.
 	Events []string `json:"events,omitempty"`
 }
 
