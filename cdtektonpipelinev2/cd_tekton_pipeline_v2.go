@@ -180,9 +180,8 @@ func (cdTektonPipeline *CdTektonPipelineV2) DisableRetries() {
 }
 
 // CreateTektonPipeline : Create Tekton pipeline
-// This request creates a Tekton pipeline for a Tekton pipeline toolchain integration. User must use the toolchain
-// endpoint to create the Tekton pipeline toolchain integration first, and then use the generated UUID to create the
-// Tekton pipeline.
+// This request creates a Tekton pipeline. Requires a pipeline tool already created in the toolchain using the toolchain
+// API https://cloud.ibm.com/apidocs/toolchain#create-tool, and use the tool ID to create the Tekton pipeline.
 func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipeline(createTektonPipelineOptions *CreateTektonPipelineOptions) (result *TektonPipeline, response *core.DetailedResponse, err error) {
 	return cdTektonPipeline.CreateTektonPipelineWithContext(context.Background(), createTektonPipelineOptions)
 }
@@ -589,8 +588,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineRunWithContext(c
 }
 
 // GetTektonPipelineRun : Get a pipeline run record
-// This request retrieves details of the pipeline run identified by `{id}`. To get the Kubernetes resource list of this
-// pipeline run use the endpoint `/tekton_pipelines/{pipeline_id}/tekton_pipelinerun_resource_list/{id}`.
+// This request retrieves details of the pipeline run identified by `{id}`.
 func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineRun(getTektonPipelineRunOptions *GetTektonPipelineRunOptions) (result *PipelineRun, response *core.DetailedResponse, err error) {
 	return cdTektonPipeline.GetTektonPipelineRunWithContext(context.Background(), getTektonPipelineRunOptions)
 }
@@ -965,9 +963,9 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineRunLogContentWithCo
 // ListTektonPipelineDefinitions : List pipeline definitions
 // This request fetches pipeline definitions, which is a collection of individual definition entries. Each entry
 // consists of a repository url, a repository path and a branch or tag. The referenced repository URL must match the URL
-// of a repository tool integration in the parent toolchain. Obtain the list of integrations from the toolchain endpoint
-// /toolchains/{toolchain_id}/tools. The branch or tag of the definition must match against a corresponding branch or
-// tag in the chosen repository, and the path must match a subfolder in the repository.
+// of a repository tool integration in the parent toolchain. Obtain the list of integrations from the toolchain API
+// https://cloud.ibm.com/apidocs/toolchain#list-tools. The branch or tag of the definition must match against a
+// corresponding branch or tag in the chosen repository, and the path must match a subfolder in the repository.
 func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineDefinitions(listTektonPipelineDefinitionsOptions *ListTektonPipelineDefinitionsOptions) (result *DefinitionsCollection, response *core.DetailedResponse, err error) {
 	return cdTektonPipeline.ListTektonPipelineDefinitionsWithContext(context.Background(), listTektonPipelineDefinitionsOptions)
 }
@@ -1029,9 +1027,9 @@ func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineDefinitionsWithCon
 // CreateTektonPipelineDefinition : Create a single definition
 // This request adds a single definition. The source properties should consist of a repository url, a repository path
 // and a branch or tag. The referenced repository URL must match the URL of a repository tool integration in the parent
-// toolchain. Obtain the list of integrations from the toolchain endpoint /toolchains/{toolchain_id}/tools. The branch
-// or tag of the definition must match against a corresponding branch or tag in the chosen repository, and the path must
-// match a subfolder in the repository.
+// toolchain. Obtain the list of integrations from the toolchain API https://cloud.ibm.com/apidocs/toolchain#list-tools.
+// The branch or tag of the definition must match against a corresponding branch or tag in the chosen repository, and
+// the path must match a subfolder in the repository.
 func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineDefinition(createTektonPipelineDefinitionOptions *CreateTektonPipelineDefinitionOptions) (result *Definition, response *core.DetailedResponse, err error) {
 	return cdTektonPipeline.CreateTektonPipelineDefinitionWithContext(context.Background(), createTektonPipelineDefinitionOptions)
 }
@@ -2509,7 +2507,7 @@ type CreateTektonPipelineOptions struct {
 	EnablePartialCloning *bool `json:"enable_partial_cloning,omitempty"`
 
 	// The ID for the associated pipeline tool, which was already created in the target toolchain. To get the pipeline ID
-	// call the toolchain endpoint /toolchains/{toolchain_id}/tools and find the pipeline tool.
+	// call the toolchain API https://cloud.ibm.com/apidocs/toolchain#list-tools and find the pipeline tool.
 	ID *string `json:"id,omitempty"`
 
 	// Worker object containing worker ID only. If omitted the IBM Managed shared workers are used by default.
@@ -2758,8 +2756,8 @@ type CreateTektonPipelineTriggerOptions struct {
 	Timezone *string `json:"timezone,omitempty"`
 
 	// Source repository for a Git trigger. Only required for Git triggers. The referenced repository URL must match the
-	// URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from the toolchain
-	// endpoint /toolchains/{toolchain_id}/tools.
+	// URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from the toolchain API
+	// https://cloud.ibm.com/apidocs/toolchain#list-tools.
 	Source *TriggerSource `json:"source,omitempty"`
 
 	// Only needed for Git triggers. List of events to which a Git trigger listens. Choose one or more from: 'push',
@@ -2976,8 +2974,8 @@ func (options *CreateTektonPipelineTriggerPropertiesOptions) SetHeaders(param ma
 
 // Definition : Tekton pipeline definition entry object, consisting of a repository url, a repository path and a branch or tag. The
 // referenced repository URL must match the URL of a repository tool integration in the parent toolchain. Obtain the
-// list of integrations from the toolchain endpoint /toolchains/{toolchain_id}/tools. The branch or tag of the
-// definition must match against a corresponding branch or tag in the chosen repository, and the path must match a
+// list of integrations from the toolchain API https://cloud.ibm.com/apidocs/toolchain#list-tools. The branch or tag of
+// the definition must match against a corresponding branch or tag in the chosen repository, and the path must match a
 // subfolder in the repository.
 type Definition struct {
 	// Source repository containing the Tekton pipeline definition.
@@ -3128,8 +3126,8 @@ func UnmarshalDefinitionsCollection(m map[string]json.RawMessage, result interfa
 
 // DefinitionsCollectionDefinitionsItem : Tekton pipeline definition entry object, consisting of a repository url, a repository path and a branch or tag. The
 // referenced repository URL must match the URL of a repository tool integration in the parent toolchain. Obtain the
-// list of integrations from the toolchain endpoint /toolchains/{toolchain_id}/tools. The branch or tag of the
-// definition must match against a corresponding branch or tag in the chosen repository, and the path must match a
+// list of integrations from the toolchain API https://cloud.ibm.com/apidocs/toolchain#list-tools. The branch or tag of
+// the definition must match against a corresponding branch or tag in the chosen repository, and the path must match a
 // subfolder in the repository.
 type DefinitionsCollectionDefinitionsItem struct {
 	// Source repository containing the Tekton pipeline definition.
@@ -5294,8 +5292,8 @@ type Trigger struct {
 	Enabled *bool `json:"enabled,omitempty"`
 
 	// Source repository for a Git trigger. Only required for Git triggers. The referenced repository URL must match the
-	// URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from the toolchain
-	// endpoint /toolchains/{toolchain_id}/tools.
+	// URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from the toolchain API
+	// https://cloud.ibm.com/apidocs/toolchain#list-tools.
 	Source *TriggerSource `json:"source,omitempty"`
 
 	// Only needed for Git triggers. List of events to which a Git trigger listens. Choose one or more from: 'push',
@@ -5572,8 +5570,8 @@ type TriggerPatch struct {
 	Timezone *string `json:"timezone,omitempty"`
 
 	// Source repository for a Git trigger. Only required for Git triggers. The referenced repository URL must match the
-	// URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from the toolchain
-	// endpoint /toolchains/{toolchain_id}/tools.
+	// URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from the toolchain API
+	// https://cloud.ibm.com/apidocs/toolchain#list-tools.
 	Source *TriggerSource `json:"source,omitempty"`
 
 	// Only needed for Git triggers. List of events to which a Git trigger listens. Choose one or more from: 'push',
@@ -5928,8 +5926,8 @@ func UnmarshalTriggerScmTriggerPropertiesItem(m map[string]json.RawMessage, resu
 }
 
 // TriggerSource : Source repository for a Git trigger. Only required for Git triggers. The referenced repository URL must match the URL
-// of a repository tool integration in the parent toolchain. Obtain the list of integrations from the toolchain endpoint
-// /toolchains/{toolchain_id}/tools.
+// of a repository tool integration in the parent toolchain. Obtain the list of integrations from the toolchain API
+// https://cloud.ibm.com/apidocs/toolchain#list-tools.
 type TriggerSource struct {
 	// The only supported source type is "git", indicating that the source is a git repository.
 	Type *string `json:"type" validate:"required"`
@@ -6525,8 +6523,8 @@ type TriggerScmTrigger struct {
 	Enabled *bool `json:"enabled" validate:"required"`
 
 	// Source repository for a Git trigger. Only required for Git triggers. The referenced repository URL must match the
-	// URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from the toolchain
-	// endpoint /toolchains/{toolchain_id}/tools.
+	// URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from the toolchain API
+	// https://cloud.ibm.com/apidocs/toolchain#list-tools.
 	Source *TriggerSource `json:"source,omitempty"`
 
 	// Only needed for Git triggers. List of events to which a Git trigger listens. Choose one or more from: 'push',
