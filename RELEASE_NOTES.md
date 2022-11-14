@@ -1030,6 +1030,11 @@ This is a new resource and data source
 
 ### ibm_cd_toolchain_tool_bitbucket
 
+The `type` property within the `initialization` object supports new values:
+- `type` can be set to `clone_if_not_exists`
+- `type` can be set to `fork_if_not_exists`
+- `type` can be set to `new_if_not_exists`
+
 A nested property within the `parameters` object is changed:
 
 - `integration_owner` is now a configurable property
@@ -1040,6 +1045,11 @@ New nested computed properties are added to the `parameters` object:
 - `repo_id`
 
 ### ibm_cd_toolchain_tool_githubconsolidated
+
+The `type` property within the `initialization` object supports new values:
+- `type` can be set to `clone_if_not_exists`
+- `type` can be set to `fork_if_not_exists`
+- `type` can be set to `new_if_not_exists`
 
 A nested property within the `parameters` object is changed:
 
@@ -1052,6 +1062,11 @@ New nested computed properties are added to the `parameters` object:
 
 ### ibm_cd_toolchain_tool_gitlab
 
+The `type` property within the `initialization` object supports new values:
+- `type` can be set to `clone_if_not_exists`
+- `type` can be set to `fork_if_not_exists`
+- `type` can be set to `new_if_not_exists`
+
 A nested property within the `parameters` object is changed:
 
 - `integration_owner` is now a configurable property
@@ -1062,6 +1077,11 @@ New nested computed properties are added to the `parameters` object:
 - `repo_id`
 
 ### ibm_cd_toolchain_tool_hostedgit
+
+The `type` property within the `initialization` object supports new values:
+- `type` can be set to `clone_if_not_exists`
+- `type` can be set to `fork_if_not_exists`
+- `type` can be set to `new_if_not_exists`
 
 A nested property within the `parameters` object is changed:
 
