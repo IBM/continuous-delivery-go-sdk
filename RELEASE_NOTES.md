@@ -254,11 +254,11 @@ Example:
 resource "ibm_cd_toolchain_tool_pagerduty" "my_pagerduty_toolchain" {
   toolchain_id = ibm_cd_toolchain.toolchain.id
   parameters {
-    key_type = “api“
-    api_key = “<api_key>“
-    service_name = “AS34FR4“
-    user_email = “<user_email>“
-    user_phone = “<user_phone>“
+    key_type = "api"
+    api_key = "<api_key>"
+    service_name = "AS34FR4"
+    user_email = "<user_email>"
+    user_phone = "<user_phone>"
   }
 }
 ```
@@ -291,7 +291,7 @@ resource "ibm_cd_toolchain_tool_pipeline" "my_pipeline_tool" {
   toolchain_id = ibm_cd_toolchain.toolchain.id
   parameters {
     name = "pipeline-tool-01"
-    type = “tekton“
+    type = "tekton"
     ui_pipeline = false
   }
 }
@@ -407,7 +407,7 @@ resource "ibm_cd_toolchain_tool_securitycompliance" "my_securitycompliance_tool"
     trigger_scan = "disabled"
     scope = "my-scope"
     profile = "IBM Cloud Security Best Practices v1.0.0"
-    location = “https://cloud.ibm.com”
+    location = "https://cloud.ibm.com"
     evidence_repo_name = "https://github.example.com/<username>/compliance-evidence-<datestamp>"
   }
 }
@@ -1024,8 +1024,8 @@ A nested property within the `parameters` object is changed:
 
 New nested computed properties are added to the `parameters` object:
 
-“default_branch”
-“repo_id“
+- `default_branch`
+- `repo_id`
 
 ### ibm_cd_toolchain_tool_githubconsolidated
 
@@ -1069,7 +1069,7 @@ A new nested property is added to the `initialization` object:
 ## Schedule
 
 - October 3, 2022 - IBM Cloud Terraform Provider version 1.46.0 is published: https://registry.terraform.io/providers/IBM-Cloud/ibm/1.46.0. The CD Tekton Pipeline and CD Toolchain Beta resources and data sources within this Provider contain a number of breaking changes. These changes will not work with the IBM Cloud Continuous Delivery service APIs until we deliver corresponding changes to the APIs. Until then (see next bullet), you should use IBM Cloud Terraform Provider version 1.45.1 highest.
-- October 5, 2022 - Breaking changes to the IBM Cloud Continuous Delivery service’s “v2” Beta HTTP APIs and Go SDKs are deployed to production. These changes are compatible with IBM Cloud Terraform Provider versions 1.46.0-beta0 and 1.46.0. Once these changes are deployed, you should use IBM Cloud Terraform Provider version 1.46.0.
+- October 5, 2022 - Breaking changes to the IBM Cloud Continuous Delivery service’s v2 Beta HTTP APIs and Go SDKs are deployed to production. These changes are compatible with IBM Cloud Terraform Provider versions 1.46.0-beta0 and 1.46.0. Once these changes are deployed, you should use IBM Cloud Terraform Provider version 1.46.0.
 
 ## Breaking changes to APIs and SDKs
 
