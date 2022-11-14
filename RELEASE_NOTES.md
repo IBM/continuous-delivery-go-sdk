@@ -44,6 +44,18 @@ This release is in progress. Dates are approximate:
 - `events` reshaped from object of booleans into array of strings
 - `scm_source` object restructured to `source` object
 
+### Tekton pipeline runs
+
+`/pipeline/v2/tekton_pipelines/{pipeline_id}/pipeline_runs`
+
+- When fetching pipeline runs, in the response data `worker.agent` has been renamed to `worker.agent_id`
+- When triggering a pipeline run, in the request body `trigger_header` has been renamed to `trigger_headers`
+
+`/pipeline/v2/tekton_pipelines/{pipeline_id}/pipeline_runs/{run_id}`
+
+- When fetching a pipeline run, in the response data `worker.agent` has been renamed to `worker.agent_id`
+- When fetching a pipeline run, in the request body `event_params_header_blob` has been renamed to `trigger_headers`, matching with the property of the same name that was passed in the request body when triggering the run
+
 ## Backward compatible changes to APIs and SDKs
 
 ### Toolchain API authentication and authorization
