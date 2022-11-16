@@ -119,48 +119,6 @@ resource "ibm_cd_toolchain_tool_appconfig" "my_appconfig_tool" {
 }
 ```
 
-### ibm_cd_toolchain_tool_artifactory
-
-A nested property within the `parameters` object is renamed:
-
-- `token` --> `api_key`
-
-Example:
-
-#### v1.46.0
-
-```
-resource "ibm_cd_toolchain_tool_artifactory" "my_artifactory_tool" {
-  toolchain_id = ibm_cd_toolchain.toolchain.id
-  parameters {
-    name = "artifactory-tool-01"
-    dashboard_url = "https://mycompany.example.jfrog.io"
-    type = "docker"
-    user_id = "<user_id>"
-    repository_name = "default-docker-local"
-    repository_url = "https://mycompany.example.jfrog.io/artifactory/default-docker-local"
-    token = "<api_key>"
-  }
-}
-```
-
-#### v1.48.0
-
-```
-resource "ibm_cd_toolchain_tool_artifactory" "my_artifactory_tool" {
-  toolchain_id = ibm_cd_toolchain.toolchain.id
-  parameters {
-    name = "artifactory-tool-01"
-    dashboard_url = "https://mycompany.example.jfrog.io"
-    type = "docker"
-    user_id = "<user_id>"
-    repository_name = "default-docker-local"
-    repository_url = "https://mycompany.example.jfrog.io/artifactory/default-docker-local"
-    api_key = "<api_key>"
-  }
-}
-```
-
 ### ibm_cd_toolchain_tool_jenkins
 
 A nested property within the `parameters` object is changed:
