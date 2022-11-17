@@ -1,3 +1,20 @@
+## [0.1.5](https://github.com/IBM/continuous-delivery-go-sdk/compare/v0.1.4...v0.1.5) (2022-11-11)
+
+
+### Bug Fixes
+
+* **tekton:** fix up integration tests ([711d693](https://github.com/IBM/continuous-delivery-go-sdk/commit/711d69331ebad33afaf59b6088fc8bbbdae39f90))
+* **tekton:** ga review updates ([d28353a](https://github.com/IBM/continuous-delivery-go-sdk/commit/d28353a420143e559ba93c17d0b267ff77eab241))
+* **tekton:** latest GA changes ([4e237f1](https://github.com/IBM/continuous-delivery-go-sdk/commit/4e237f1b143ff4231899f2988e36f1cfc1f25414))
+* **tekton:** reshape service_instance_id ([1307184](https://github.com/IBM/continuous-delivery-go-sdk/commit/1307184862f1b7ca71844c6a325e6ff773e98187))
+
+## [0.1.4](https://github.com/IBM/continuous-delivery-go-sdk/compare/v0.1.3...v0.1.4) (2022-10-12)
+
+
+### Bug Fixes
+
+* **tekton:** documentation change ([d3692c5](https://github.com/IBM/continuous-delivery-go-sdk/commit/d3692c50baf6d40b826af83c60547070f0039374))
+
 ## [0.1.3](https://github.com/IBM/continuous-delivery-go-sdk/compare/v0.1.2...v0.1.3) (2022-10-06)
 
 
