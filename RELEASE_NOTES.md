@@ -10,11 +10,9 @@ This section outlines changes to the CD APIs, SDKs, and Terraform resources accr
 
 ## Schedule
 
-This release is in progress. Dates are approximate:
-
-- November 16, 2022 - IBM Cloud Terraform Provider version `1.48.0-beta0` will be published, which corresponds to and uses this release of the Go SDK. This release includes breaking changes. It will not work with the IBM Cloud Continuous Delivery service APIs until corresponding changes to the APIs go live.
-- November 17, 2022 - Corresponding changes to the IBM Cloud Continuous Delivery APIs will go live. Before the changes go live, you should use Go SDK release `0.1.4` latest and IBM Cloud Terraform Provider version `1.47.1` latest. After the changes go live, you should use this release of the Go SDK and IBM Cloud Terraform Provider version `1.48.0-beta0`.
-- November 30, 2022 - IBM Cloud Terraform Provider version `1.48.0` will be published.
+- November 17, 2022 - IBM Cloud Terraform Provider version `1.48.0-beta0` is published, which corresponds to and uses this release of the Go SDK. This release includes breaking changes.
+- November 18, 2022 - Corresponding changes to the IBM Cloud Continuous Delivery APIs are live. You should use this release of the Go SDK and IBM Cloud Terraform Provider version `1.48.0-beta0`.
+- November 30, 2022 - IBM Cloud Terraform Provider version `1.48.0` will be published. Date is approximate.
 
 ## Breaking changes to APIs and SDKs
 
