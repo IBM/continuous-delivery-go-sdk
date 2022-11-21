@@ -1,3 +1,10 @@
+## [0.1.6](https://github.com/IBM/continuous-delivery-go-sdk/compare/v0.1.5...v0.1.6) (2022-11-21)
+
+
+### Bug Fixes
+
+* **toolchain:** remove 'offset' and 'limit' from list examples ([#29](https://github.com/IBM/continuous-delivery-go-sdk/issues/29)) ([cc1de6a](https://github.com/IBM/continuous-delivery-go-sdk/commit/cc1de6a1e47e5002f7e7c01f6d227da649622ac8))
+
 ## [0.1.5](https://github.com/IBM/continuous-delivery-go-sdk/compare/v0.1.4...v0.1.5) (2022-11-11)
 
 
