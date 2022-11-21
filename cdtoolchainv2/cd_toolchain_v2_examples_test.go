@@ -159,8 +159,6 @@ var _ = Describe(`CdToolchainV2 Examples Tests`, func() {
 			// begin-list_toolchains
 			listToolchainsOptions := &cdtoolchainv2.ListToolchainsOptions{
 				ResourceGroupID: core.StringPtr("testString"),
-				Limit: core.Int64Ptr(int64(10)),
-				Offset: core.Int64Ptr(int64(0)),
 			}
 
 			pager, err := cdToolchainService.NewToolchainsPager(listToolchainsOptions)
@@ -235,8 +233,6 @@ var _ = Describe(`CdToolchainV2 Examples Tests`, func() {
 			// begin-list_tools
 			listToolsOptions := &cdtoolchainv2.ListToolsOptions{
 				ToolchainID: &toolchainIDLink,
-				Limit: core.Int64Ptr(int64(10)),
-				Offset: core.Int64Ptr(int64(0)),
 			}
 
 			pager, err := cdToolchainService.NewToolsPager(listToolsOptions)
