@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.56.0-9d92579f-20220914-180148
+ * IBM OpenAPI SDK Code Generator Version: 3.60.0-13f6e1ba-20221019-164457
  */
 
 // Package cdtoolchainv2 : Operations and models for the CdToolchainV2 service
@@ -217,9 +217,6 @@ func (cdToolchain *CdToolchainV2) ListToolchainsWithContext(ctx context.Context,
 	builder.AddQuery("resource_group_id", fmt.Sprint(*listToolchainsOptions.ResourceGroupID))
 	if listToolchainsOptions.Limit != nil {
 		builder.AddQuery("limit", fmt.Sprint(*listToolchainsOptions.Limit))
-	}
-	if listToolchainsOptions.Offset != nil {
-		builder.AddQuery("offset", fmt.Sprint(*listToolchainsOptions.Offset))
 	}
 	if listToolchainsOptions.Start != nil {
 		builder.AddQuery("start", fmt.Sprint(*listToolchainsOptions.Start))
@@ -535,9 +532,6 @@ func (cdToolchain *CdToolchainV2) ListToolsWithContext(ctx context.Context, list
 	if listToolsOptions.Limit != nil {
 		builder.AddQuery("limit", fmt.Sprint(*listToolsOptions.Limit))
 	}
-	if listToolsOptions.Offset != nil {
-		builder.AddQuery("offset", fmt.Sprint(*listToolsOptions.Offset))
-	}
 	if listToolsOptions.Start != nil {
 		builder.AddQuery("start", fmt.Sprint(*listToolsOptions.Start))
 	}
@@ -821,13 +815,19 @@ type CreateToolOptions struct {
 	// ID of the toolchain to bind the tool to.
 	ToolchainID *string `json:"toolchain_id" validate:"required,ne="`
 
-	// The unique short name of the tool that should be provisioned.
+	// The unique short name of the tool that should be provisioned. A table of `tool_type_id` values corresponding to each
+	// tool integration can be found in the <a
+	// href="https://cloud.ibm.com/docs/ContinuousDelivery?topic=ContinuousDelivery-integrations">Configuring tool
+	// integrations page</a>.
 	ToolTypeID *string `json:"tool_type_id" validate:"required"`
 
-	// Name of tool.
+	// Name of the tool.
 	Name *string `json:"name,omitempty"`
 
-	// Unique key-value pairs representing parameters to be used to create the tool.
+	// Unique key-value pairs representing parameters to be used to create the tool. A list of parameters for each tool
+	// integration can be found in the <a
+	// href="https://cloud.ibm.com/docs/ContinuousDelivery?topic=ContinuousDelivery-integrations">Configuring tool
+	// integrations page</a>.
 	Parameters map[string]interface{} `json:"parameters,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -1059,10 +1059,7 @@ type ListToolchainsOptions struct {
 	// Limit the number of results.
 	Limit *int64 `json:"limit,omitempty"`
 
-	// Offset the results from the beginning of the list. Cannot be used if 'start' is provided.
-	Offset *int64 `json:"offset,omitempty"`
-
-	// Pagination token. Cannot be used if 'offset' is provided.
+	// Pagination token.
 	Start *string `json:"start,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -1088,12 +1085,6 @@ func (_options *ListToolchainsOptions) SetLimit(limit int64) *ListToolchainsOpti
 	return _options
 }
 
-// SetOffset : Allow user to set Offset
-func (_options *ListToolchainsOptions) SetOffset(offset int64) *ListToolchainsOptions {
-	_options.Offset = core.Int64Ptr(offset)
-	return _options
-}
-
 // SetStart : Allow user to set Start
 func (_options *ListToolchainsOptions) SetStart(start string) *ListToolchainsOptions {
 	_options.Start = core.StringPtr(start)
@@ -1114,10 +1105,7 @@ type ListToolsOptions struct {
 	// Limit the number of results.
 	Limit *int64 `json:"limit,omitempty"`
 
-	// Offset the number of results from the beginning of the list. Cannot be used if 'start' is provided.
-	Offset *int64 `json:"offset,omitempty"`
-
-	// Pagination token. Cannot be used if 'offset' is provided.
+	// Pagination token.
 	Start *string `json:"start,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -1143,12 +1131,6 @@ func (_options *ListToolsOptions) SetLimit(limit int64) *ListToolsOptions {
 	return _options
 }
 
-// SetOffset : Allow user to set Offset
-func (_options *ListToolsOptions) SetOffset(offset int64) *ListToolsOptions {
-	_options.Offset = core.Int64Ptr(offset)
-	return _options
-}
-
 // SetStart : Allow user to set Start
 func (_options *ListToolsOptions) SetStart(start string) *ListToolsOptions {
 	_options.Start = core.StringPtr(start)
@@ -1166,13 +1148,16 @@ type ToolModel struct {
 	// Tool ID.
 	ID *string `json:"id" validate:"required"`
 
-	// Resource group where tool can be found.
+	// Resource group where the tool is located.
 	ResourceGroupID *string `json:"resource_group_id" validate:"required"`
 
 	// Tool CRN.
 	CRN *string `json:"crn" validate:"required"`
 
-	// The unique name of the provisioned tool.
+	// The unique name of the provisioned tool. A table of `tool_type_id` values corresponding to each tool integration can
+	// be found in the <a
+	// href="https://cloud.ibm.com/docs/ContinuousDelivery?topic=ContinuousDelivery-integrations">Configuring tool
+	// integrations page</a>.
 	ToolTypeID *string `json:"tool_type_id" validate:"required"`
 
 	// ID of toolchain which the tool is bound to.
@@ -1193,7 +1178,10 @@ type ToolModel struct {
 	// Latest tool update timestamp.
 	UpdatedAt *strfmt.DateTime `json:"updated_at" validate:"required"`
 
-	// Unique key-value pairs representing parameters to be used to create the tool.
+	// Unique key-value pairs representing parameters to be used to create the tool. A list of parameters for each tool
+	// integration can be found in the <a
+	// href="https://cloud.ibm.com/docs/ContinuousDelivery?topic=ContinuousDelivery-integrations">Configuring tool
+	// integrations page</a>.
 	Parameters map[string]interface{} `json:"parameters" validate:"required"`
 
 	// Current configuration state of the tool.
@@ -1266,10 +1254,10 @@ func UnmarshalToolModel(m map[string]json.RawMessage, result interface{}) (err e
 
 // ToolModelReferent : Information on URIs to access this resource through the UI or API.
 type ToolModelReferent struct {
-	// URI representing the this resource through the UI.
+	// URI representing this resource through the UI.
 	UIHref *string `json:"ui_href,omitempty"`
 
-	// URI representing the this resource through an API.
+	// URI representing this resource through an API.
 	APIHref *string `json:"api_href,omitempty"`
 }
 
@@ -1305,7 +1293,7 @@ type Toolchain struct {
 	// Toolchain region.
 	Location *string `json:"location" validate:"required"`
 
-	// Resource group where toolchain can be found.
+	// Resource group where the toolchain is located.
 	ResourceGroupID *string `json:"resource_group_id" validate:"required"`
 
 	// Toolchain CRN.
@@ -1397,9 +1385,6 @@ type ToolchainCollection struct {
 	// Maximum number of toolchains returned from collection.
 	Limit *int64 `json:"limit" validate:"required"`
 
-	// Offset applied to toolchains collection. Returned only if 'offset' query parameter is used.
-	Offset *int64 `json:"offset,omitempty"`
-
 	// Information about retrieving first toolchain results from the collection.
 	First *ToolchainCollectionFirst `json:"first" validate:"required"`
 
@@ -1424,10 +1409,6 @@ func UnmarshalToolchainCollection(m map[string]json.RawMessage, result interface
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "offset", &obj.Offset)
 	if err != nil {
 		return
 	}
@@ -1569,7 +1550,7 @@ type ToolchainModel struct {
 	// Toolchain region.
 	Location *string `json:"location" validate:"required"`
 
-	// Resource group where toolchain can be found.
+	// Resource group where the toolchain is located.
 	ResourceGroupID *string `json:"resource_group_id" validate:"required"`
 
 	// Toolchain CRN.
@@ -1670,7 +1651,7 @@ type ToolchainPatch struct {
 	// Toolchain region.
 	Location *string `json:"location" validate:"required"`
 
-	// Resource group where toolchain can be found.
+	// Resource group where the toolchain is located.
 	ResourceGroupID *string `json:"resource_group_id" validate:"required"`
 
 	// Toolchain CRN.
@@ -1771,7 +1752,7 @@ type ToolchainPost struct {
 	// Toolchain region.
 	Location *string `json:"location" validate:"required"`
 
-	// Resource group where toolchain can be found.
+	// Resource group where the toolchain is located.
 	ResourceGroupID *string `json:"resource_group_id" validate:"required"`
 
 	// Toolchain CRN.
@@ -1894,13 +1875,16 @@ type ToolchainTool struct {
 	// Tool ID.
 	ID *string `json:"id" validate:"required"`
 
-	// Resource group where tool can be found.
+	// Resource group where the tool is located.
 	ResourceGroupID *string `json:"resource_group_id" validate:"required"`
 
 	// Tool CRN.
 	CRN *string `json:"crn" validate:"required"`
 
-	// The unique name of the provisioned tool.
+	// The unique name of the provisioned tool. A table of `tool_type_id` values corresponding to each tool integration can
+	// be found in the <a
+	// href="https://cloud.ibm.com/docs/ContinuousDelivery?topic=ContinuousDelivery-integrations">Configuring tool
+	// integrations page</a>.
 	ToolTypeID *string `json:"tool_type_id" validate:"required"`
 
 	// ID of toolchain which the tool is bound to.
@@ -1921,7 +1905,10 @@ type ToolchainTool struct {
 	// Latest tool update timestamp.
 	UpdatedAt *strfmt.DateTime `json:"updated_at" validate:"required"`
 
-	// Unique key-value pairs representing parameters to be used to create the tool.
+	// Unique key-value pairs representing parameters to be used to create the tool. A list of parameters for each tool
+	// integration can be found in the <a
+	// href="https://cloud.ibm.com/docs/ContinuousDelivery?topic=ContinuousDelivery-integrations">Configuring tool
+	// integrations page</a>.
 	Parameters map[string]interface{} `json:"parameters" validate:"required"`
 
 	// Current configuration state of the tool.
@@ -2000,9 +1987,6 @@ type ToolchainToolCollection struct {
 	// Total number of tools found in collection.
 	TotalCount *int64 `json:"total_count" validate:"required"`
 
-	// Offset applied to tools collection.
-	Offset *int64 `json:"offset,omitempty"`
-
 	// Information about retrieving first tool results from the collection.
 	First *ToolchainToolCollectionFirst `json:"first" validate:"required"`
 
@@ -2027,10 +2011,6 @@ func UnmarshalToolchainToolCollection(m map[string]json.RawMessage, result inter
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "total_count", &obj.TotalCount)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "offset", &obj.Offset)
 	if err != nil {
 		return
 	}
@@ -2160,13 +2140,16 @@ type ToolchainToolPatch struct {
 	// Tool ID.
 	ID *string `json:"id" validate:"required"`
 
-	// Resource group where tool can be found.
+	// Resource group where the tool is located.
 	ResourceGroupID *string `json:"resource_group_id" validate:"required"`
 
 	// Tool CRN.
 	CRN *string `json:"crn" validate:"required"`
 
-	// The unique name of the provisioned tool.
+	// The unique name of the provisioned tool. A table of `tool_type_id` values corresponding to each tool integration can
+	// be found in the <a
+	// href="https://cloud.ibm.com/docs/ContinuousDelivery?topic=ContinuousDelivery-integrations">Configuring tool
+	// integrations page</a>.
 	ToolTypeID *string `json:"tool_type_id" validate:"required"`
 
 	// ID of toolchain which the tool is bound to.
@@ -2187,7 +2170,10 @@ type ToolchainToolPatch struct {
 	// Latest tool update timestamp.
 	UpdatedAt *strfmt.DateTime `json:"updated_at" validate:"required"`
 
-	// Unique key-value pairs representing parameters to be used to create the tool.
+	// Unique key-value pairs representing parameters to be used to create the tool. A list of parameters for each tool
+	// integration can be found in the <a
+	// href="https://cloud.ibm.com/docs/ContinuousDelivery?topic=ContinuousDelivery-integrations">Configuring tool
+	// integrations page</a>.
 	Parameters map[string]interface{} `json:"parameters" validate:"required"`
 
 	// Current configuration state of the tool.
@@ -2263,13 +2249,16 @@ type ToolchainToolPost struct {
 	// Tool ID.
 	ID *string `json:"id" validate:"required"`
 
-	// Resource group where tool can be found.
+	// Resource group where the tool is located.
 	ResourceGroupID *string `json:"resource_group_id" validate:"required"`
 
 	// Tool CRN.
 	CRN *string `json:"crn" validate:"required"`
 
-	// The unique name of the provisioned tool.
+	// The unique name of the provisioned tool. A table of `tool_type_id` values corresponding to each tool integration can
+	// be found in the <a
+	// href="https://cloud.ibm.com/docs/ContinuousDelivery?topic=ContinuousDelivery-integrations">Configuring tool
+	// integrations page</a>.
 	ToolTypeID *string `json:"tool_type_id" validate:"required"`
 
 	// ID of toolchain which the tool is bound to.
@@ -2290,7 +2279,10 @@ type ToolchainToolPost struct {
 	// Latest tool update timestamp.
 	UpdatedAt *strfmt.DateTime `json:"updated_at" validate:"required"`
 
-	// Unique key-value pairs representing parameters to be used to create the tool.
+	// Unique key-value pairs representing parameters to be used to create the tool. A list of parameters for each tool
+	// integration can be found in the <a
+	// href="https://cloud.ibm.com/docs/ContinuousDelivery?topic=ContinuousDelivery-integrations">Configuring tool
+	// integrations page</a>.
 	Parameters map[string]interface{} `json:"parameters" validate:"required"`
 
 	// Current configuration state of the tool.
@@ -2363,13 +2355,19 @@ func UnmarshalToolchainToolPost(m map[string]json.RawMessage, result interface{}
 
 // ToolchainToolPrototypePatch : Details on the new tool.
 type ToolchainToolPrototypePatch struct {
-	// Name of tool.
+	// Name of the tool.
 	Name *string `json:"name,omitempty"`
 
-	// The unique short name of the tool that should be provisioned or updated.
+	// The unique short name of the tool that should be provisioned or updated. A table of `tool_type_id` values
+	// corresponding to each tool integration can be found in the <a
+	// href="https://cloud.ibm.com/docs/ContinuousDelivery?topic=ContinuousDelivery-integrations">Configuring tool
+	// integrations page</a>.
 	ToolTypeID *string `json:"tool_type_id,omitempty"`
 
-	// Unique key-value pairs representing parameters to be used to create the tool.
+	// Unique key-value pairs representing parameters to be used to create the tool. A list of parameters for each tool
+	// integration can be found in the <a
+	// href="https://cloud.ibm.com/docs/ContinuousDelivery?topic=ContinuousDelivery-integrations">Configuring tool
+	// integrations page</a>.
 	Parameters map[string]interface{} `json:"parameters,omitempty"`
 }
 

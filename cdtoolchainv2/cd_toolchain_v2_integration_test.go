@@ -125,7 +125,7 @@ var _ = Describe(`CdToolchainV2 Integration Tests`, func() {
 				ToolchainID: &toolchainIDLink,
 				ToolTypeID: core.StringPtr("draservicebroker"),
 				Name: core.StringPtr("testString"),
-				Parameters: make(map[string]interface{}),
+				Parameters: map[string]interface{}{"anyKey": "anyValue"},
 			}
 
 			toolchainToolPost, response, err := cdToolchainService.CreateTool(createToolOptions)
@@ -146,7 +146,6 @@ var _ = Describe(`CdToolchainV2 Integration Tests`, func() {
 			listToolchainsOptions := &cdtoolchainv2.ListToolchainsOptions{
 				ResourceGroupID: core.StringPtr("testString"),
 				Limit: core.Int64Ptr(int64(10)),
-				Offset: core.Int64Ptr(int64(0)),
 				Start: core.StringPtr("testString"),
 			}
 
@@ -174,7 +173,6 @@ var _ = Describe(`CdToolchainV2 Integration Tests`, func() {
 			listToolchainsOptions := &cdtoolchainv2.ListToolchainsOptions{
 				ResourceGroupID: core.StringPtr("testString"),
 				Limit: core.Int64Ptr(int64(10)),
-				Offset: core.Int64Ptr(int64(0)),
 			}
 
 			// Test GetNext().
@@ -252,7 +250,6 @@ var _ = Describe(`CdToolchainV2 Integration Tests`, func() {
 			listToolsOptions := &cdtoolchainv2.ListToolsOptions{
 				ToolchainID: &toolchainIDLink,
 				Limit: core.Int64Ptr(int64(10)),
-				Offset: core.Int64Ptr(int64(0)),
 				Start: core.StringPtr("testString"),
 			}
 
@@ -280,7 +277,6 @@ var _ = Describe(`CdToolchainV2 Integration Tests`, func() {
 			listToolsOptions := &cdtoolchainv2.ListToolsOptions{
 				ToolchainID: &toolchainIDLink,
 				Limit: core.Int64Ptr(int64(10)),
-				Offset: core.Int64Ptr(int64(0)),
 			}
 
 			// Test GetNext().
@@ -335,7 +331,7 @@ var _ = Describe(`CdToolchainV2 Integration Tests`, func() {
 			toolchainToolPrototypePatchModel := &cdtoolchainv2.ToolchainToolPrototypePatch{
 				Name: core.StringPtr("MyTool"),
 				ToolTypeID: core.StringPtr("draservicebroker"),
-				Parameters: make(map[string]interface{}),
+				Parameters: map[string]interface{}{"anyKey": "anyValue"},
 			}
 			toolchainToolPrototypePatchModelAsPatch, asPatchErr := toolchainToolPrototypePatchModel.AsPatch()
 			Expect(asPatchErr).To(BeNil())
