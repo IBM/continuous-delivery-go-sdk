@@ -1,3 +1,10 @@
+## [0.1.7](https://github.com/IBM/continuous-delivery-go-sdk/compare/v0.1.6...v0.1.7) (2022-11-23)
+
+
+### Bug Fixes
+
+* **toolchain:** remove offset pagination parameter ([#30](https://github.com/IBM/continuous-delivery-go-sdk/issues/30)) ([5ffec28](https://github.com/IBM/continuous-delivery-go-sdk/commit/5ffec2827bf178d6a18076dd5b12a1b0c9ed70e0))
+
 ## [0.1.6](https://github.com/IBM/continuous-delivery-go-sdk/compare/v0.1.5...v0.1.6) (2022-11-21)
 
 
