@@ -38,7 +38,8 @@ import (
 // CD_TOOLCHAIN_APIKEY=<IAM apikey>
 //
 // These configuration properties can be exported as environment variables, or stored
-// in the "../cd_toolchain_v2.env" configuration file as defined above
+// in a configuration file and then:
+// export IBM_CREDENTIALS_FILE=<name of configuration file>
 //
 var _ = Describe(`CdToolchainV2 Examples Tests`, func() {
 
@@ -49,7 +50,7 @@ var _ = Describe(`CdToolchainV2 Examples Tests`, func() {
 		config       map[string]string
 
 		// Variables to hold link values
-		toolIDLink      string
+		toolIDLink string
 		toolchainIDLink string
 	)
 
@@ -198,7 +199,6 @@ var _ = Describe(`CdToolchainV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(toolchain).ToNot(BeNil())
-
 		})
 		It(`UpdateToolchain request example`, func() {
 			fmt.Println("\nUpdateToolchain() result:")
@@ -226,7 +226,6 @@ var _ = Describe(`CdToolchainV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(toolchainPatch).ToNot(BeNil())
-
 		})
 		It(`ListTools request example`, func() {
 			fmt.Println("\nListTools() result:")
@@ -273,7 +272,6 @@ var _ = Describe(`CdToolchainV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(toolchainTool).ToNot(BeNil())
-
 		})
 		It(`UpdateTool request example`, func() {
 			fmt.Println("\nUpdateTool() result:")
@@ -302,7 +300,6 @@ var _ = Describe(`CdToolchainV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(toolchainToolPatch).ToNot(BeNil())
-
 		})
 		It(`DeleteTool request example`, func() {
 			// begin-delete_tool
@@ -324,7 +321,6 @@ var _ = Describe(`CdToolchainV2 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
-
 		})
 		It(`DeleteToolchain request example`, func() {
 			// begin-delete_toolchain
@@ -345,7 +341,6 @@ var _ = Describe(`CdToolchainV2 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
-
 		})
 	})
 })

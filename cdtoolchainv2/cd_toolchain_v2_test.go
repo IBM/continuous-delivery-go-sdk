@@ -211,7 +211,6 @@ var _ = Describe(`CdToolchainV2`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
-					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(0))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -230,7 +229,6 @@ var _ = Describe(`CdToolchainV2`, func() {
 				listToolchainsOptionsModel := new(cdtoolchainv2.ListToolchainsOptions)
 				listToolchainsOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				listToolchainsOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listToolchainsOptionsModel.Offset = core.Int64Ptr(int64(0))
 				listToolchainsOptionsModel.Start = core.StringPtr("testString")
 				listToolchainsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -264,7 +262,6 @@ var _ = Describe(`CdToolchainV2`, func() {
 
 					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
-					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(0))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
@@ -272,7 +269,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"total_count": 10, "limit": 5, "offset": 6, "first": {"href": "Href"}, "previous": {"start": "Start", "href": "Href"}, "next": {"start": "Start", "href": "Href"}, "last": {"start": "Start", "href": "Href"}, "toolchains": [{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "tags": ["Tags"]}]}`)
+					fmt.Fprintf(res, "%s", `{"total_count": 10, "limit": 5, "first": {"href": "Href"}, "previous": {"start": "Start", "href": "Href"}, "next": {"start": "Start", "href": "Href"}, "last": {"start": "Start", "href": "Href"}, "toolchains": [{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "tags": ["Tags"]}]}`)
 				}))
 			})
 			It(`Invoke ListToolchains successfully with retries`, func() {
@@ -288,7 +285,6 @@ var _ = Describe(`CdToolchainV2`, func() {
 				listToolchainsOptionsModel := new(cdtoolchainv2.ListToolchainsOptions)
 				listToolchainsOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				listToolchainsOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listToolchainsOptionsModel.Offset = core.Int64Ptr(int64(0))
 				listToolchainsOptionsModel.Start = core.StringPtr("testString")
 				listToolchainsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -328,12 +324,11 @@ var _ = Describe(`CdToolchainV2`, func() {
 
 					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
-					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(0))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"total_count": 10, "limit": 5, "offset": 6, "first": {"href": "Href"}, "previous": {"start": "Start", "href": "Href"}, "next": {"start": "Start", "href": "Href"}, "last": {"start": "Start", "href": "Href"}, "toolchains": [{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "tags": ["Tags"]}]}`)
+					fmt.Fprintf(res, "%s", `{"total_count": 10, "limit": 5, "first": {"href": "Href"}, "previous": {"start": "Start", "href": "Href"}, "next": {"start": "Start", "href": "Href"}, "last": {"start": "Start", "href": "Href"}, "toolchains": [{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "tags": ["Tags"]}]}`)
 				}))
 			})
 			It(`Invoke ListToolchains successfully`, func() {
@@ -354,7 +349,6 @@ var _ = Describe(`CdToolchainV2`, func() {
 				listToolchainsOptionsModel := new(cdtoolchainv2.ListToolchainsOptions)
 				listToolchainsOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				listToolchainsOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listToolchainsOptionsModel.Offset = core.Int64Ptr(int64(0))
 				listToolchainsOptionsModel.Start = core.StringPtr("testString")
 				listToolchainsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -377,7 +371,6 @@ var _ = Describe(`CdToolchainV2`, func() {
 				listToolchainsOptionsModel := new(cdtoolchainv2.ListToolchainsOptions)
 				listToolchainsOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				listToolchainsOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listToolchainsOptionsModel.Offset = core.Int64Ptr(int64(0))
 				listToolchainsOptionsModel.Start = core.StringPtr("testString")
 				listToolchainsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -421,7 +414,6 @@ var _ = Describe(`CdToolchainV2`, func() {
 				listToolchainsOptionsModel := new(cdtoolchainv2.ListToolchainsOptions)
 				listToolchainsOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				listToolchainsOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listToolchainsOptionsModel.Offset = core.Int64Ptr(int64(0))
 				listToolchainsOptionsModel.Start = core.StringPtr("testString")
 				listToolchainsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -490,7 +482,6 @@ var _ = Describe(`CdToolchainV2`, func() {
 				listToolchainsOptionsModel := &cdtoolchainv2.ListToolchainsOptions{
 					ResourceGroupID: core.StringPtr("testString"),
 					Limit: core.Int64Ptr(int64(10)),
-					Offset: core.Int64Ptr(int64(0)),
 				}
 
 				pager, err := cdToolchainService.NewToolchainsPager(listToolchainsOptionsModel)
@@ -517,7 +508,6 @@ var _ = Describe(`CdToolchainV2`, func() {
 				listToolchainsOptionsModel := &cdtoolchainv2.ListToolchainsOptions{
 					ResourceGroupID: core.StringPtr("testString"),
 					Limit: core.Int64Ptr(int64(10)),
-					Offset: core.Int64Ptr(int64(0)),
 				}
 
 				pager, err := cdToolchainService.NewToolchainsPager(listToolchainsOptionsModel)
@@ -1360,7 +1350,6 @@ var _ = Describe(`CdToolchainV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listToolsPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
-					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(0))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -1379,7 +1368,6 @@ var _ = Describe(`CdToolchainV2`, func() {
 				listToolsOptionsModel := new(cdtoolchainv2.ListToolsOptions)
 				listToolsOptionsModel.ToolchainID = core.StringPtr("testString")
 				listToolsOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listToolsOptionsModel.Offset = core.Int64Ptr(int64(0))
 				listToolsOptionsModel.Start = core.StringPtr("testString")
 				listToolsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -1412,7 +1400,6 @@ var _ = Describe(`CdToolchainV2`, func() {
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
-					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(0))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
@@ -1420,7 +1407,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "total_count": 10, "offset": 6, "first": {"href": "Href"}, "previous": {"start": "Start", "href": "Href"}, "next": {"start": "Start", "href": "Href"}, "last": {"start": "Start", "href": "Href"}, "tools": [{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"anyKey": "anyValue"}, "state": "configured"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "total_count": 10, "first": {"href": "Href"}, "previous": {"start": "Start", "href": "Href"}, "next": {"start": "Start", "href": "Href"}, "last": {"start": "Start", "href": "Href"}, "tools": [{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"anyKey": "anyValue"}, "state": "configured"}]}`)
 				}))
 			})
 			It(`Invoke ListTools successfully with retries`, func() {
@@ -1436,7 +1423,6 @@ var _ = Describe(`CdToolchainV2`, func() {
 				listToolsOptionsModel := new(cdtoolchainv2.ListToolsOptions)
 				listToolsOptionsModel.ToolchainID = core.StringPtr("testString")
 				listToolsOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listToolsOptionsModel.Offset = core.Int64Ptr(int64(0))
 				listToolsOptionsModel.Start = core.StringPtr("testString")
 				listToolsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -1475,12 +1461,11 @@ var _ = Describe(`CdToolchainV2`, func() {
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
-					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(0))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "total_count": 10, "offset": 6, "first": {"href": "Href"}, "previous": {"start": "Start", "href": "Href"}, "next": {"start": "Start", "href": "Href"}, "last": {"start": "Start", "href": "Href"}, "tools": [{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"anyKey": "anyValue"}, "state": "configured"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "total_count": 10, "first": {"href": "Href"}, "previous": {"start": "Start", "href": "Href"}, "next": {"start": "Start", "href": "Href"}, "last": {"start": "Start", "href": "Href"}, "tools": [{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"anyKey": "anyValue"}, "state": "configured"}]}`)
 				}))
 			})
 			It(`Invoke ListTools successfully`, func() {
@@ -1501,7 +1486,6 @@ var _ = Describe(`CdToolchainV2`, func() {
 				listToolsOptionsModel := new(cdtoolchainv2.ListToolsOptions)
 				listToolsOptionsModel.ToolchainID = core.StringPtr("testString")
 				listToolsOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listToolsOptionsModel.Offset = core.Int64Ptr(int64(0))
 				listToolsOptionsModel.Start = core.StringPtr("testString")
 				listToolsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -1524,7 +1508,6 @@ var _ = Describe(`CdToolchainV2`, func() {
 				listToolsOptionsModel := new(cdtoolchainv2.ListToolsOptions)
 				listToolsOptionsModel.ToolchainID = core.StringPtr("testString")
 				listToolsOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listToolsOptionsModel.Offset = core.Int64Ptr(int64(0))
 				listToolsOptionsModel.Start = core.StringPtr("testString")
 				listToolsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -1568,7 +1551,6 @@ var _ = Describe(`CdToolchainV2`, func() {
 				listToolsOptionsModel := new(cdtoolchainv2.ListToolsOptions)
 				listToolsOptionsModel.ToolchainID = core.StringPtr("testString")
 				listToolsOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listToolsOptionsModel.Offset = core.Int64Ptr(int64(0))
 				listToolsOptionsModel.Start = core.StringPtr("testString")
 				listToolsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -1637,7 +1619,6 @@ var _ = Describe(`CdToolchainV2`, func() {
 				listToolsOptionsModel := &cdtoolchainv2.ListToolsOptions{
 					ToolchainID: core.StringPtr("testString"),
 					Limit: core.Int64Ptr(int64(10)),
-					Offset: core.Int64Ptr(int64(0)),
 				}
 
 				pager, err := cdToolchainService.NewToolsPager(listToolsOptionsModel)
@@ -1664,7 +1645,6 @@ var _ = Describe(`CdToolchainV2`, func() {
 				listToolsOptionsModel := &cdtoolchainv2.ListToolsOptions{
 					ToolchainID: core.StringPtr("testString"),
 					Limit: core.Int64Ptr(int64(10)),
-					Offset: core.Int64Ptr(int64(0)),
 				}
 
 				pager, err := cdToolchainService.NewToolsPager(listToolsOptionsModel)
@@ -1704,7 +1684,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the CreateToolOptions model
 				createToolOptionsModel := new(cdtoolchainv2.CreateToolOptions)
 				createToolOptionsModel.ToolchainID = core.StringPtr("testString")
-				createToolOptionsModel.ToolTypeID = core.StringPtr("slack")
+				createToolOptionsModel.ToolTypeID = core.StringPtr("draservicebroker")
 				createToolOptionsModel.Name = core.StringPtr("testString")
 				createToolOptionsModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
 				createToolOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1774,7 +1754,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the CreateToolOptions model
 				createToolOptionsModel := new(cdtoolchainv2.CreateToolOptions)
 				createToolOptionsModel.ToolchainID = core.StringPtr("testString")
-				createToolOptionsModel.ToolTypeID = core.StringPtr("slack")
+				createToolOptionsModel.ToolTypeID = core.StringPtr("draservicebroker")
 				createToolOptionsModel.Name = core.StringPtr("testString")
 				createToolOptionsModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
 				createToolOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1852,7 +1832,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the CreateToolOptions model
 				createToolOptionsModel := new(cdtoolchainv2.CreateToolOptions)
 				createToolOptionsModel.ToolchainID = core.StringPtr("testString")
-				createToolOptionsModel.ToolTypeID = core.StringPtr("slack")
+				createToolOptionsModel.ToolTypeID = core.StringPtr("draservicebroker")
 				createToolOptionsModel.Name = core.StringPtr("testString")
 				createToolOptionsModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
 				createToolOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1875,7 +1855,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the CreateToolOptions model
 				createToolOptionsModel := new(cdtoolchainv2.CreateToolOptions)
 				createToolOptionsModel.ToolchainID = core.StringPtr("testString")
-				createToolOptionsModel.ToolTypeID = core.StringPtr("slack")
+				createToolOptionsModel.ToolTypeID = core.StringPtr("draservicebroker")
 				createToolOptionsModel.Name = core.StringPtr("testString")
 				createToolOptionsModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
 				createToolOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1919,7 +1899,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the CreateToolOptions model
 				createToolOptionsModel := new(cdtoolchainv2.CreateToolOptions)
 				createToolOptionsModel.ToolchainID = core.StringPtr("testString")
-				createToolOptionsModel.ToolTypeID = core.StringPtr("slack")
+				createToolOptionsModel.ToolTypeID = core.StringPtr("draservicebroker")
 				createToolOptionsModel.Name = core.StringPtr("testString")
 				createToolOptionsModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
 				createToolOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -2250,7 +2230,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the ToolchainToolPrototypePatch model
 				toolchainToolPrototypePatchModel := new(cdtoolchainv2.ToolchainToolPrototypePatch)
 				toolchainToolPrototypePatchModel.Name = core.StringPtr("MyTool")
-				toolchainToolPrototypePatchModel.ToolTypeID = core.StringPtr("todolist")
+				toolchainToolPrototypePatchModel.ToolTypeID = core.StringPtr("draservicebroker")
 				toolchainToolPrototypePatchModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
 				toolchainToolPrototypePatchModelAsPatch, asPatchErr := toolchainToolPrototypePatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
@@ -2327,7 +2307,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the ToolchainToolPrototypePatch model
 				toolchainToolPrototypePatchModel := new(cdtoolchainv2.ToolchainToolPrototypePatch)
 				toolchainToolPrototypePatchModel.Name = core.StringPtr("MyTool")
-				toolchainToolPrototypePatchModel.ToolTypeID = core.StringPtr("todolist")
+				toolchainToolPrototypePatchModel.ToolTypeID = core.StringPtr("draservicebroker")
 				toolchainToolPrototypePatchModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
 				toolchainToolPrototypePatchModelAsPatch, asPatchErr := toolchainToolPrototypePatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
@@ -2412,7 +2392,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the ToolchainToolPrototypePatch model
 				toolchainToolPrototypePatchModel := new(cdtoolchainv2.ToolchainToolPrototypePatch)
 				toolchainToolPrototypePatchModel.Name = core.StringPtr("MyTool")
-				toolchainToolPrototypePatchModel.ToolTypeID = core.StringPtr("todolist")
+				toolchainToolPrototypePatchModel.ToolTypeID = core.StringPtr("draservicebroker")
 				toolchainToolPrototypePatchModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
 				toolchainToolPrototypePatchModelAsPatch, asPatchErr := toolchainToolPrototypePatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
@@ -2442,7 +2422,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the ToolchainToolPrototypePatch model
 				toolchainToolPrototypePatchModel := new(cdtoolchainv2.ToolchainToolPrototypePatch)
 				toolchainToolPrototypePatchModel.Name = core.StringPtr("MyTool")
-				toolchainToolPrototypePatchModel.ToolTypeID = core.StringPtr("todolist")
+				toolchainToolPrototypePatchModel.ToolTypeID = core.StringPtr("draservicebroker")
 				toolchainToolPrototypePatchModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
 				toolchainToolPrototypePatchModelAsPatch, asPatchErr := toolchainToolPrototypePatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
@@ -2493,7 +2473,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the ToolchainToolPrototypePatch model
 				toolchainToolPrototypePatchModel := new(cdtoolchainv2.ToolchainToolPrototypePatch)
 				toolchainToolPrototypePatchModel.Name = core.StringPtr("MyTool")
-				toolchainToolPrototypePatchModel.ToolTypeID = core.StringPtr("todolist")
+				toolchainToolPrototypePatchModel.ToolTypeID = core.StringPtr("draservicebroker")
 				toolchainToolPrototypePatchModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
 				toolchainToolPrototypePatchModelAsPatch, asPatchErr := toolchainToolPrototypePatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
@@ -2527,16 +2507,16 @@ var _ = Describe(`CdToolchainV2`, func() {
 			It(`Invoke NewCreateToolOptions successfully`, func() {
 				// Construct an instance of the CreateToolOptions model
 				toolchainID := "testString"
-				createToolOptionsToolTypeID := "slack"
+				createToolOptionsToolTypeID := "draservicebroker"
 				createToolOptionsModel := cdToolchainService.NewCreateToolOptions(toolchainID, createToolOptionsToolTypeID)
 				createToolOptionsModel.SetToolchainID("testString")
-				createToolOptionsModel.SetToolTypeID("slack")
+				createToolOptionsModel.SetToolTypeID("draservicebroker")
 				createToolOptionsModel.SetName("testString")
 				createToolOptionsModel.SetParameters(map[string]interface{}{"anyKey": "anyValue"})
 				createToolOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createToolOptionsModel).ToNot(BeNil())
 				Expect(createToolOptionsModel.ToolchainID).To(Equal(core.StringPtr("testString")))
-				Expect(createToolOptionsModel.ToolTypeID).To(Equal(core.StringPtr("slack")))
+				Expect(createToolOptionsModel.ToolTypeID).To(Equal(core.StringPtr("draservicebroker")))
 				Expect(createToolOptionsModel.Name).To(Equal(core.StringPtr("testString")))
 				Expect(createToolOptionsModel.Parameters).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(createToolOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
@@ -2608,13 +2588,11 @@ var _ = Describe(`CdToolchainV2`, func() {
 				listToolchainsOptionsModel := cdToolchainService.NewListToolchainsOptions(resourceGroupID)
 				listToolchainsOptionsModel.SetResourceGroupID("testString")
 				listToolchainsOptionsModel.SetLimit(int64(10))
-				listToolchainsOptionsModel.SetOffset(int64(0))
 				listToolchainsOptionsModel.SetStart("testString")
 				listToolchainsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listToolchainsOptionsModel).ToNot(BeNil())
 				Expect(listToolchainsOptionsModel.ResourceGroupID).To(Equal(core.StringPtr("testString")))
 				Expect(listToolchainsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
-				Expect(listToolchainsOptionsModel.Offset).To(Equal(core.Int64Ptr(int64(0))))
 				Expect(listToolchainsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listToolchainsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
@@ -2624,13 +2602,11 @@ var _ = Describe(`CdToolchainV2`, func() {
 				listToolsOptionsModel := cdToolchainService.NewListToolsOptions(toolchainID)
 				listToolsOptionsModel.SetToolchainID("testString")
 				listToolsOptionsModel.SetLimit(int64(10))
-				listToolsOptionsModel.SetOffset(int64(0))
 				listToolsOptionsModel.SetStart("testString")
 				listToolsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listToolsOptionsModel).ToNot(BeNil())
 				Expect(listToolsOptionsModel.ToolchainID).To(Equal(core.StringPtr("testString")))
 				Expect(listToolsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
-				Expect(listToolsOptionsModel.Offset).To(Equal(core.Int64Ptr(int64(0))))
 				Expect(listToolsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listToolsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
