@@ -1,3 +1,10 @@
+## [0.1.9](https://github.com/IBM/continuous-delivery-go-sdk/compare/v0.1.8...v0.1.9) (2022-11-28)
+
+
+### Bug Fixes
+
+* **tekton:** final GA review changes ([7dcdb4b](https://github.com/IBM/continuous-delivery-go-sdk/commit/7dcdb4b7f39539c0c0e3af6b84908f7e28951bb1))
+
 ## [0.1.8](https://github.com/IBM/continuous-delivery-go-sdk/compare/v0.1.7...v0.1.8) (2022-11-24)
 
 
