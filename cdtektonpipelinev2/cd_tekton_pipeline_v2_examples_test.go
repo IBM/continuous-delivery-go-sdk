@@ -186,7 +186,6 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 			listTektonPipelineRunsOptions := &cdtektonpipelinev2.ListTektonPipelineRunsOptions{
 				PipelineID: core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90"),
 				Limit: core.Int64Ptr(int64(10)),
-				Offset: core.Int64Ptr(int64(38)),
 				Status: core.StringPtr("succeeded"),
 				TriggerName: core.StringPtr("manual-trigger"),
 			}
