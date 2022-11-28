@@ -1313,9 +1313,6 @@ type Toolchain struct {
 
 	// Identity that created the toolchain.
 	CreatedBy *string `json:"created_by" validate:"required"`
-
-	// Tags associated with the toolchain.
-	Tags []string `json:"tags" validate:"required"`
 }
 
 // UnmarshalToolchain unmarshals an instance of Toolchain from the specified map of raw messages.
@@ -1366,10 +1363,6 @@ func UnmarshalToolchain(m map[string]json.RawMessage, result interface{}) (err e
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_by", &obj.CreatedBy)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "tags", &obj.Tags)
 	if err != nil {
 		return
 	}
@@ -1570,9 +1563,6 @@ type ToolchainModel struct {
 
 	// Identity that created the toolchain.
 	CreatedBy *string `json:"created_by" validate:"required"`
-
-	// Tags associated with the toolchain.
-	Tags []string `json:"tags" validate:"required"`
 }
 
 // UnmarshalToolchainModel unmarshals an instance of ToolchainModel from the specified map of raw messages.
@@ -1626,10 +1616,6 @@ func UnmarshalToolchainModel(m map[string]json.RawMessage, result interface{}) (
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "tags", &obj.Tags)
-	if err != nil {
-		return
-	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -1671,9 +1657,6 @@ type ToolchainPatch struct {
 
 	// Identity that created the toolchain.
 	CreatedBy *string `json:"created_by" validate:"required"`
-
-	// Tags associated with the toolchain.
-	Tags []string `json:"tags" validate:"required"`
 }
 
 // UnmarshalToolchainPatch unmarshals an instance of ToolchainPatch from the specified map of raw messages.
@@ -1727,10 +1710,6 @@ func UnmarshalToolchainPatch(m map[string]json.RawMessage, result interface{}) (
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "tags", &obj.Tags)
-	if err != nil {
-		return
-	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -1772,9 +1751,6 @@ type ToolchainPost struct {
 
 	// Identity that created the toolchain.
 	CreatedBy *string `json:"created_by" validate:"required"`
-
-	// Tags associated with the toolchain.
-	Tags []string `json:"tags" validate:"required"`
 }
 
 // UnmarshalToolchainPost unmarshals an instance of ToolchainPost from the specified map of raw messages.
@@ -1825,10 +1801,6 @@ func UnmarshalToolchainPost(m map[string]json.RawMessage, result interface{}) (e
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_by", &obj.CreatedBy)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "tags", &obj.Tags)
 	if err != nil {
 		return
 	}
