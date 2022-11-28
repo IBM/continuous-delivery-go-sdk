@@ -474,9 +474,6 @@ func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineRunsWithContext(ct
 	if listTektonPipelineRunsOptions.Limit != nil {
 		builder.AddQuery("limit", fmt.Sprint(*listTektonPipelineRunsOptions.Limit))
 	}
-	if listTektonPipelineRunsOptions.Offset != nil {
-		builder.AddQuery("offset", fmt.Sprint(*listTektonPipelineRunsOptions.Offset))
-	}
 	if listTektonPipelineRunsOptions.Status != nil {
 		builder.AddQuery("status", fmt.Sprint(*listTektonPipelineRunsOptions.Status))
 	}
@@ -3936,15 +3933,12 @@ type ListTektonPipelineRunsOptions struct {
 	// The Tekton pipeline ID.
 	PipelineID *string `json:"pipeline_id" validate:"required,ne="`
 
-	// A page token that identifies the start point of the list of pipeline runs. This value is computed and included in
-	// the response body. Cannot be used in combination with `offset`.
+	// A page token that identifies the start point of the list of pipeline runs. This value is included in the response
+	// body of each request to fetch pipeline runs.
 	Start *string `json:"start,omitempty"`
 
 	// The number of pipeline runs to return, sorted by creation time, most recent first.
 	Limit *int64 `json:"limit,omitempty"`
-
-	// Skip the specified number of pipeline runs. Cannot be used in combination with `start`.
-	Offset *int64 `json:"offset,omitempty"`
 
 	// Filters the collection to resources with the specified status.
 	Status *string `json:"status,omitempty"`
@@ -3992,12 +3986,6 @@ func (_options *ListTektonPipelineRunsOptions) SetStart(start string) *ListTekto
 // SetLimit : Allow user to set Limit
 func (_options *ListTektonPipelineRunsOptions) SetLimit(limit int64) *ListTektonPipelineRunsOptions {
 	_options.Limit = core.Int64Ptr(limit)
-	return _options
-}
-
-// SetOffset : Allow user to set Offset
-func (_options *ListTektonPipelineRunsOptions) SetOffset(offset int64) *ListTektonPipelineRunsOptions {
-	_options.Offset = core.Int64Ptr(offset)
 	return _options
 }
 
@@ -4394,23 +4382,18 @@ type PipelineRunsCollection struct {
 	// Tekton pipeline runs list.
 	PipelineRuns []PipelineRunsCollectionPipelineRunsItem `json:"pipeline_runs" validate:"required"`
 
-	// Skip a specified number of pipeline runs.
-	Offset *int64 `json:"offset" validate:"required"`
-
 	// The number of pipeline runs to return, sorted by creation time, most recent first.
 	Limit *int64 `json:"limit" validate:"required"`
 
 	// First page of pipeline runs.
 	First *PipelineRunsCollectionFirst `json:"first" validate:"required"`
 
-	// Next page of pipeline runs relative to the `start` and `limit` params, or relative to the `offset` and `limit`
-	// params, depending on which of `start` or `offset` were used in the request. Only included when there are more pages
+	// Next page of pipeline runs relative to the `start` and `limit` params. Only included when there are more pages
 	// available.
 	Next *PipelineRunsCollectionNext `json:"next,omitempty"`
 
-	// Last page of pipeline runs relative to the `start` and `limit` params, or relative to the `offset` and `limit`
-	// params, depending on which of `start` or `offset` were used in the request. Only included when the last page has
-	// been reached.
+	// Last page of pipeline runs relative to the `start` and `limit` params. Only included when the last page has been
+	// reached.
 	Last *PipelineRunsCollectionLast `json:"last,omitempty"`
 }
 
@@ -4418,10 +4401,6 @@ type PipelineRunsCollection struct {
 func UnmarshalPipelineRunsCollection(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(PipelineRunsCollection)
 	err = core.UnmarshalModel(m, "pipeline_runs", &obj.PipelineRuns, UnmarshalPipelineRunsCollectionPipelineRunsItem)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "offset", &obj.Offset)
 	if err != nil {
 		return
 	}
@@ -4474,8 +4453,7 @@ func UnmarshalPipelineRunsCollectionFirst(m map[string]json.RawMessage, result i
 	return
 }
 
-// PipelineRunsCollectionLast : Last page of pipeline runs relative to the `start` and `limit` params, or relative to the `offset` and `limit`
-// params, depending on which of `start` or `offset` were used in the request. Only included when the last page has been
+// PipelineRunsCollectionLast : Last page of pipeline runs relative to the `start` and `limit` params. Only included when the last page has been
 // reached.
 type PipelineRunsCollectionLast struct {
 	// General href URL.
@@ -4493,8 +4471,7 @@ func UnmarshalPipelineRunsCollectionLast(m map[string]json.RawMessage, result in
 	return
 }
 
-// PipelineRunsCollectionNext : Next page of pipeline runs relative to the `start` and `limit` params, or relative to the `offset` and `limit`
-// params, depending on which of `start` or `offset` were used in the request. Only included when there are more pages
+// PipelineRunsCollectionNext : Next page of pipeline runs relative to the `start` and `limit` params. Only included when there are more pages
 // available.
 type PipelineRunsCollectionNext struct {
 	// General href URL.
