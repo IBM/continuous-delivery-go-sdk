@@ -269,7 +269,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"total_count": 10, "limit": 5, "first": {"href": "Href"}, "previous": {"start": "Start", "href": "Href"}, "next": {"start": "Start", "href": "Href"}, "last": {"start": "Start", "href": "Href"}, "toolchains": [{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "tags": ["Tags"]}]}`)
+					fmt.Fprintf(res, "%s", `{"total_count": 10, "limit": 5, "first": {"href": "Href"}, "previous": {"start": "Start", "href": "Href"}, "next": {"start": "Start", "href": "Href"}, "last": {"start": "Start", "href": "Href"}, "toolchains": [{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy"}]}`)
 				}))
 			})
 			It(`Invoke ListToolchains successfully with retries`, func() {
@@ -328,7 +328,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"total_count": 10, "limit": 5, "first": {"href": "Href"}, "previous": {"start": "Start", "href": "Href"}, "next": {"start": "Start", "href": "Href"}, "last": {"start": "Start", "href": "Href"}, "toolchains": [{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "tags": ["Tags"]}]}`)
+					fmt.Fprintf(res, "%s", `{"total_count": 10, "limit": 5, "first": {"href": "Href"}, "previous": {"start": "Start", "href": "Href"}, "next": {"start": "Start", "href": "Href"}, "last": {"start": "Start", "href": "Href"}, "toolchains": [{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy"}]}`)
 				}))
 			})
 			It(`Invoke ListToolchains successfully`, func() {
@@ -463,9 +463,9 @@ var _ = Describe(`CdToolchainV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"toolchains":[{"id":"ID","name":"Name","description":"Description","account_id":"AccountID","location":"Location","resource_group_id":"ResourceGroupID","crn":"CRN","href":"Href","ui_href":"UIHref","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","created_by":"CreatedBy","tags":["Tags"]}],"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"toolchains":[{"id":"ID","name":"Name","description":"Description","account_id":"AccountID","location":"Location","resource_group_id":"ResourceGroupID","crn":"CRN","href":"Href","ui_href":"UIHref","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","created_by":"CreatedBy"}],"limit":1}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"toolchains":[{"id":"ID","name":"Name","description":"Description","account_id":"AccountID","location":"Location","resource_group_id":"ResourceGroupID","crn":"CRN","href":"Href","ui_href":"UIHref","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","created_by":"CreatedBy","tags":["Tags"]}],"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"toolchains":[{"id":"ID","name":"Name","description":"Description","account_id":"AccountID","location":"Location","resource_group_id":"ResourceGroupID","crn":"CRN","href":"Href","ui_href":"UIHref","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","created_by":"CreatedBy"}],"limit":1}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -601,7 +601,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "tags": ["Tags"]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy"}`)
 				}))
 			})
 			It(`Invoke CreateToolchain successfully with retries`, func() {
@@ -673,7 +673,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "tags": ["Tags"]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy"}`)
 				}))
 			})
 			It(`Invoke CreateToolchain successfully`, func() {
@@ -837,7 +837,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "tags": ["Tags"]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy"}`)
 				}))
 			})
 			It(`Invoke GetToolchainByID successfully with retries`, func() {
@@ -891,7 +891,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "tags": ["Tags"]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy"}`)
 				}))
 			})
 			It(`Invoke GetToolchainByID successfully`, func() {
@@ -1141,7 +1141,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "tags": ["Tags"]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy"}`)
 				}))
 			})
 			It(`Invoke UpdateToolchain successfully with retries`, func() {
@@ -1219,7 +1219,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "tags": ["Tags"]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy"}`)
 				}))
 			})
 			It(`Invoke UpdateToolchain successfully`, func() {
