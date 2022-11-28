@@ -5530,7 +5530,7 @@ type TriggerPatch struct {
 	// for this trigger.
 	MaxConcurrentRuns *int64 `json:"max_concurrent_runs,omitempty"`
 
-	// Defines if this trigger is enabled. If omitted the trigger is enabled by default.
+	// Defines if this trigger is enabled.
 	Enabled *bool `json:"enabled,omitempty"`
 
 	// Only needed for generic webhook trigger type. Secret used to start generic webhook trigger.
