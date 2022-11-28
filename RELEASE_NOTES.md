@@ -2,7 +2,28 @@ This document contains details about [changes](CHANGELOG.md) to IBM Cloud Contin
 
 # Pending release
 
-This section outlines changes to the CD APIs, SDKs, and Terraform resources accrued since release [0.1.5](#015-2022-11-11-beta). **No changes to date.**
+This section outlines changes to the CD APIs, SDKs, and Terraform resources accrued since release [0.1.5](#015-2022-11-11-beta).
+
+## Schedule
+
+- November 28-30, 2022 - Changes to CD APIs and Go SDK will go live. This release includes breaking changes.
+- December 1, 2022 - IBM Cloud Terraform Provider version `1.48.0` will be published. Date is approximate.
+
+## Breaking changes to APIs and SDKs
+
+### Offset-based pagination removed
+
+`/toolchain/v2/toolchains`
+`/toolhains/v2/toolchains/{toolchain_id}/tools`
+`/pipeline/v2/tekton_pipelines/{pipeline_id}/pipeline_runs`
+
+- The `offset` parameter for offset-based pagination is removed. Pagination is exclusively cursor based.
+
+### Toolchain tags removed
+
+`/toolhain/v2/toolchains/{toolchain_id}`
+
+- The `tags` parameter is removed from toolchain resources. To work with tags, use [IBM Cloud Global Tagging](https://cloud.ibm.com/apidocs/tagging).
 
 # [0.1.5 (2022-11-11)](CHANGELOG.md#015-2022-11-11) Beta
 
