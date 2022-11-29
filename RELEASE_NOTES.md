@@ -2,9 +2,13 @@ This document contains details about [changes](CHANGELOG.md) to IBM Cloud Contin
 
 # Pending release
 
-This section outlines changes to the CD APIs, SDKs, and Terraform resources accrued since release [0.1.9](#019-2022-11-28-beta).
+This section outlines changes to the CD APIs, SDKs, and Terraform resources accrued since release [1.0.1](#101-2022-11-29).
 
 **No pending changes**
+
+# [1.0.1 (2022-11-29)](CHANGELOG.md#101-2022-11-29)
+
+Open Beta [0.1.9](#019-2022-11-28-beta) promoted to GA.
 
 # [0.1.9 (2022-11-28)](CHANGELOG.md#019-2022-11-28) Beta
 
