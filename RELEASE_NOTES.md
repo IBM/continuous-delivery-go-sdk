@@ -1044,6 +1044,7 @@ New nested computed properties are added to the `parameters` object:
 ### ibm_cd_toolchain_tool_gitlab
 
 The `type` property within the `initialization` object supports new values:
+
 - `type` can be set to `clone_if_not_exists`
 - `type` can be set to `fork_if_not_exists`
 - `type` can be set to `new_if_not_exists`
@@ -1060,6 +1061,7 @@ New nested computed properties are added to the `parameters` object:
 ### ibm_cd_toolchain_tool_hostedgit
 
 The `type` property within the `initialization` object supports new values:
+
 - `type` can be set to `clone_if_not_exists`
 - `type` can be set to `fork_if_not_exists`
 - `type` can be set to `new_if_not_exists`
@@ -1091,27 +1093,33 @@ General changes
 - Tekton Pipeline base URLs changed from https://api.{region}.devops.cloud.ibm.com/v2 to https://api.{region}.devops.cloud.ibm.com/pipeline/v2
 
 `toolchains` and `toolchains/../tools`
+
 - Removed `parameters_references` in POST/PATCH tool request body. Calling the endpoint with this property will now result in a 400 error.
 - Added of cursor-based pagination in GET `toolchains` and GET `toolchains/../tools` collection endpoints, controlled using the `start` and `limit` query parameters. While offset/limit pagination is still supported, cursor-based pagination is now the default behaviour.
 - Calling the POST `toolchains/../tools` endpoint with all required broker parameters will now return an error in the event of broker failure during provision or bind operation or any other internal error, as opposed to the previous behaviour which would return a status 200 and a 'misconfigured' tool
 - Calling the POST `toolchains/../tools` endpoint without all required broker parameters will now return an error, as opposed to the previous behaviour which would return a status 200 and an 'unconfigured' tool
 
 `tekton_pipelines`
+
 - Field `created` renamed to `created_at`
 - Field `html_url` renamed to `runs_url`
 
 `tekton_pipelines/../pipeline_runs`
+
 - Field `html_url` renamed to `run_url` for individual runs
 
 `tekton_pipelines/../definitions`
+
 - Field `service_instance_id` relocated inside `scm_source`
 
 `tekton_pipelines/../triggers`
+
 - `trigger` object removed and replaced by its nested properties
 - `concurrency` object replaced by `max_concurrent_runs` integer
 - For triggers of type `scm`, field `service_instance_id` relocated inside `scm_source`
 
 `tekton_pipelines/../properties` and `tekton_pipelines/../triggers/../properties`
+
 - `enum` property for `single_select` type reshaped to remove `default` param and use `value` param instead
 - Non-snake_case property types renamed to conform to snake_case
   - `SECURE` --> `secure`
@@ -1132,7 +1140,7 @@ Added support for token based pagination when fetching the collection of `pipeli
 
 Example: Response from GET pipeline_runs endpoint
 
-```
+```json
 {
     "limit": 10,
     "pipeline_runs": [...],
@@ -1152,7 +1160,7 @@ Added support for `enable_slack_notifications` and `enable_partial_cloning` sett
 
 Example: Create Tekton Pipeline with optional settings enabled
 
-```
+```curl
 curl -X POST \
 --location \
 --header "Authorization: Bearer $IAM_TOKEN" \
@@ -1168,7 +1176,7 @@ Added `webhook_url` in generic webhook trigger response payload
 
 Example: Response from GET triggers endpoint, trigger type "generic"
 
-```
+```json
 {
     "type": "generic",
     "name": "my-generic-trigger",
@@ -1188,20 +1196,25 @@ Example: Response from GET triggers endpoint, trigger type "generic"
 ## Breaking changes to Terraform resources
 
 `ibm_cd_tekton_pipeline` data source output
+
 - `created` renamed `created_at`
 - `html_url` renamed `runs_url`
 
 `ibm_cd_tekton_pipeline_definition` data source output
+
 - `service_instance_id` relocated inside `scm_source`
 
 `ibm_cd_tekton_pipeline_trigger` resource
+
 - `trigger` object removed and replaced by its nested properties
 - `concurrency` object replaced by `max_concurrent_runs` integer
 
 `ibm_cd_tekton_pipeline_trigger` data source output
+
 - For triggers of type `scm`, `service_instance_id` relocated inside `scm_source`
 
 `ibm_cd_tekton_pipeline_property` and `ibm_cd_tekton_pipeline_trigger_property` resources
+
 - `enum` property for `single_select` type reshaped to remove `default` param and use `value` param instead
 - Non-snake_case property types renamed to conform to snake_case
   - `SECURE` --> `secure`
@@ -1219,14 +1232,17 @@ Example: Response from GET triggers endpoint, trigger type "generic"
 ### Example: `created_at`, `runs_url`
 
 Version 1.45.0
-```
+
+```terraform
 data "ibm_cd_tekton_pipeline" "get_pipeline" {
   pipeline_id = ibm_cd_tekton_pipeline.my_pipeline.pipeline_id
 }
 output "data_pipeline_output" { value = data.ibm_cd_tekton_pipeline.get_pipeline }
 ```
+
 Result
-```
+
+```terraform
 data_pipeline_output = {
   "created" = "2022-09-22T12:50:53.041Z"
   "id" = "11112222-3333-4444-5555-666677778888"
@@ -1238,14 +1254,17 @@ data_pipeline_output = {
 ```
 
 Version 1.46.0-beta0, 1.46.0
-```
+
+```terraform
 data "ibm_cd_tekton_pipeline" "get_pipeline" {
   pipeline_id = ibm_cd_tekton_pipeline.my_pipeline.pipeline_id
 }
 output "data_pipeline_output" { value = data.ibm_cd_tekton_pipeline.get_pipeline }
 ```
+
 Result
-```
+
+```terraform
 data_pipeline_output = {
   "created_at" = "2022-09-22T12:50:53.041Z"
   "id" = "11112222-3333-4444-5555-666677778888"
@@ -1259,15 +1278,18 @@ data_pipeline_output = {
 ### Example: `service_instance_id` (pipeline definition)
 
 Version 1.45.0
-```
+
+```terraform
 data "ibm_cd_tekton_pipeline_definition" "get_definition" {
   pipeline_id = ibm_cd_tekton_pipeline.my_pipeline.pipeline_id
   definition_id = ibm_cd_tekton_pipeline_definition.my_definition.definition_id
 }
 output "data_definition_output" { value=data.ibm_cd_tekton_pipeline_definition.get_definition }
 ```
+
 Result
-```
+
+```terraform
 data_definition_output = {
   "definition_id" = "11112222-3333-4444-5555-666677778888"
   "id" = "aaaabbbb-cccc-dddd-eeee-ffff00001111/11112222-3333-4444-5555-666677778888"
@@ -1285,15 +1307,18 @@ data_definition_output = {
 ```
 
 Version 1.46.0-beta0, 1.46.0
-```
+
+```terraform
 data "ibm_cd_tekton_pipeline_definition" "get_definition" {
   pipeline_id = ibm_cd_tekton_pipeline.my_pipeline.pipeline_id
   definition_id = ibm_cd_tekton_pipeline_definition.my_definition.definition_id
 }
 output "data_definition_output" { value=data.ibm_cd_tekton_pipeline_definition.get_definition }
 ```
+
 Result
-```
+
+```terraform
 data_definition_output = {
   "definition_id" = "11112222-3333-4444-5555-666677778888"
   "id" = "aaaabbbb-cccc-dddd-eeee-ffff00001111/11112222-3333-4444-5555-666677778888"
@@ -1313,7 +1338,8 @@ data_definition_output = {
 ### Example: `trigger`
 
 Version 1.45.0
-```
+
+```terraform
 resource "ibm_cd_tekton_pipeline_trigger" "manual_trigger" {
   trigger {
     type = "manual"
@@ -1328,7 +1354,8 @@ resource "ibm_cd_tekton_pipeline_trigger" "manual_trigger" {
 ```
 
 Version 1.46.0-beta0, 1.46.0
-```
+
+```terraform
 resource "ibm_cd_tekton_pipeline_trigger" "manual_trigger" {
   type = "manual"
   name = "manual-trigger-1"
@@ -1341,15 +1368,18 @@ resource "ibm_cd_tekton_pipeline_trigger" "manual_trigger" {
 ### Example: `service_instance_id` (pipeline trigger)
 
 Version 1.45.0
-```
+
+```terraform
 data "ibm_cd_tekton_pipeline_trigger" "get_scm_trigger" {
  pipeline_id = ibm_cd_tekton_pipeline.my_pipeline.pipeline_id
  trigger_id = ibm_cd_tekton_pipeline_trigger.my_scm_trigger.trigger_id
 }
 output "data_output_scm_trigger" { value=data.ibm_cd_tekton_pipeline_trigger.get_scm_trigger }
 ```
+
 Result
-```
+
+```terraform
 data_output_scm_trigger = {
   "event_listener" = "my-listener"
   "id" = "aaaabbbb-cccc-dddd-eeee-ffff00001111/11112222-3333-4444-5555-666677778888"
@@ -1371,15 +1401,18 @@ data_output_scm_trigger = {
 ```
 
 Version 1.46.0-beta0, 1.46.0
-```
+
+```terraform
 data "ibm_cd_tekton_pipeline_trigger" "get_scm_trigger" {
  pipeline_id = ibm_cd_tekton_pipeline.my_pipeline.pipeline_id
  trigger_id = ibm_cd_tekton_pipeline_trigger.my_scm_trigger.trigger_id
 }
 output "data_output_scm_trigger" { value=data.ibm_cd_tekton_pipeline_trigger.get_scm_trigger }
 ```
+
 Result
-```
+
+```terraform
 data_output_scm_trigger = {
   "event_listener" = "my-listener"
   "id" = "aaaabbbb-cccc-dddd-eeee-ffff00001111/11112222-3333-4444-5555-666677778888"
@@ -1403,7 +1436,8 @@ data_output_scm_trigger = {
 ### Example: type `text`
 
 Version 1.45.0
-```
+
+```terraform
 resource "ibm_cd_tekton_pipeline_property" "my-text-prop" {
   name = "evidence-repo"
   type = "TEXT"
@@ -1413,7 +1447,8 @@ resource "ibm_cd_tekton_pipeline_property" "my-text-prop" {
 ```
 
 Version 1.46.0-beta0, 1.46.0
-```
+
+```terraform
 resource "ibm_cd_tekton_pipeline_property" "my-text-prop" {
   name = "evidence-repo"
   type = "text"
@@ -1425,7 +1460,8 @@ resource "ibm_cd_tekton_pipeline_property" "my-text-prop" {
 ### Example: type `secure`
 
 Version 1.45.0
-```
+
+```terraform
 resource "ibm_cd_tekton_pipeline_property" "my-secure-prop" {
   name = "my-api-key"
   type = "SECURE"
@@ -1435,7 +1471,8 @@ resource "ibm_cd_tekton_pipeline_property" "my-secure-prop" {
 ```
 
 Version 1.46.0-beta0, 1.46.0
-```
+
+```terraform
 resource "ibm_cd_tekton_pipeline_property" "my-secure-prop" {
   name = "my-api-key"
   type = "secure"
@@ -1447,7 +1484,8 @@ resource "ibm_cd_tekton_pipeline_property" "my-secure-prop" {
 ### Example: type `single_select`
 
 Version 1.45.0
-```
+
+```terraform
 resource "ibm_cd_tekton_pipeline_property" "regions" {
   name = "regions"
   type = "SINGLE_SELECT"
@@ -1458,7 +1496,8 @@ resource "ibm_cd_tekton_pipeline_property" "regions" {
 ```
 
 Version 1.46.0-beta0, 1.46.0
-```
+
+```terraform
 resource "ibm_cd_tekton_pipeline_property" "regions" {
   name = "regions"
   type = "single_select"
@@ -1469,8 +1508,10 @@ resource "ibm_cd_tekton_pipeline_property" "regions" {
 ```
 
 ### Example: type `integration`
+
 Version 1.45.0
-```
+
+```terraform
 resource "ibm_cd_tekton_pipeline_property" "integration_property" {
   name = "my_integration_prop"
   value = ibm_cd_toolchain_tool_githubconsolidated.repo1.tool_id
@@ -1481,7 +1522,8 @@ resource "ibm_cd_tekton_pipeline_property" "integration_property" {
 ```
 
 Version 1.46.0-beta0, 1.46.0
-```
+
+```terraform
 resource "ibm_cd_tekton_pipeline_property" "integration_property" {
   name = "my_integration_prop"
   value = ibm_cd_toolchain_tool_githubconsolidated.repo1.tool_id
@@ -1492,8 +1534,10 @@ resource "ibm_cd_tekton_pipeline_property" "integration_property" {
 ```
 
 ### Example: type `appconfig`
+
 Version 1.45.0
-```
+
+```terraform
 resource "ibm_cd_tekton_pipeline_property" "appconfig_property" {
   name = "myAppConfig"
   value = "{appconfig::11112222-3333-4444-5555-666677778888.prop.myproperty}"
@@ -1503,7 +1547,8 @@ resource "ibm_cd_tekton_pipeline_property" "appconfig_property" {
 ```
 
 Version 1.46.0-beta0, 1.46.0
-```
+
+```terraform
 resource "ibm_cd_tekton_pipeline_property" "appconfig_property" {
   name = "myAppConfig"
   value = "{appconfig::11112222-3333-4444-5555-666677778888.prop.myproperty}"
@@ -1515,7 +1560,8 @@ resource "ibm_cd_tekton_pipeline_property" "appconfig_property" {
 ### Example: type `digest_matches`
 
 Version 1.45.0
-```
+
+```terraform
 resource "ibm_cd_tekton_pipeline_trigger" "generic_trigger_digest" {
   pipeline_id = ibm_cd_tekton_pipeline.my_pipeline.pipeline_id
   type = "generic"
@@ -1532,7 +1578,8 @@ resource "ibm_cd_tekton_pipeline_trigger" "generic_trigger_digest" {
 ```
 
 Version 1.46.0-beta0, 1.46.0
-```
+
+```terraform
 resource "ibm_cd_tekton_pipeline_trigger" "generic_trigger_digest" {
   pipeline_id = ibm_cd_tekton_pipeline.my_pipeline.pipeline_id
   type = "generic"
@@ -1551,7 +1598,8 @@ resource "ibm_cd_tekton_pipeline_trigger" "generic_trigger_digest" {
 ### Example: type `internal_validation`
 
 Version 1.45.0
-```
+
+```terraform
 resource "ibm_cd_tekton_pipeline_trigger" "generic_trigger_internal" {
   pipeline_id = ibm_cd_tekton_pipeline.my_pipeline.pipeline_id
   type = "generic"
@@ -1564,7 +1612,8 @@ resource "ibm_cd_tekton_pipeline_trigger" "generic_trigger_internal" {
 ```
 
 Version 1.46.0-beta0, 1.46.0
-```
+
+```terraform
 resource "ibm_cd_tekton_pipeline_trigger" "generic_trigger_internal" {
   pipeline_id = ibm_cd_tekton_pipeline.my_pipeline.pipeline_id
   type = "generic"
@@ -1579,7 +1628,8 @@ resource "ibm_cd_tekton_pipeline_trigger" "generic_trigger_internal" {
 ### Example: type `token_matches`
 
 Version 1.45.0
-```
+
+```terraform
 resource "ibm_cd_tekton_pipeline_trigger" "generic_trigger_token" {
   pipeline_id = ibm_cd_tekton_pipeline.my_pipeline.pipeline_id
   type = "generic"
@@ -1595,7 +1645,8 @@ resource "ibm_cd_tekton_pipeline_trigger" "generic_trigger_token" {
 ```
 
 Version 1.46.0-beta0, 1.46.0
-```
+
+```terraform
 resource "ibm_cd_tekton_pipeline_trigger" "generic_trigger_token" {
   pipeline_id = ibm_cd_tekton_pipeline.my_pipeline.pipeline_id
   type = "generic"
@@ -1618,7 +1669,7 @@ Added support for `enable_slack_notifications` and `enable_partial_cloning` sett
 
 Example
 
-```
+```terraform
 resource "ibm_cd_tekton_pipeline" "my_pipeline" {
   enable_slack_notifications = true
   enable_partial_cloning = true
@@ -1635,7 +1686,7 @@ Added `webhook_url` in generic webhook trigger response payload
 
 Example
 
-```
+```terraform
 data_trigger_generic_output = {
   "event_listener" = "my-listener"
   "id" = "11112222-3333-4444-5555-666677778888/99990000-aaaa-ffff-1111-8888bbbbcccc"
