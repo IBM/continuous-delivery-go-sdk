@@ -8,8 +8,6 @@
 
 The Go client library to interact with the [IBM Cloud Continuous Delivery Toolchain and Tekton Pipeline APIs](https://cloud.ibm.com/docs?tab=api-docs&category=devops).
 
-***Disclaimer***: this SDK is in **Beta**, and is subject to breaking changes that might impact applications that use this SDK.
-
 ## Table of Contents
 
 <!--
