@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.0.0...v1.0.1) (2022-11-29)
+
+
+### Bug Fixes
+
+* **doc:** Promote Open Beta to GA ([4d5a2f6](https://github.com/IBM/continuous-delivery-go-sdk/commit/4d5a2f6d6e28924a0fefce614f07e4c86f8a52f2))
+
 # [1.0.0](https://github.com/IBM/continuous-delivery-go-sdk/compare/v0.1.9...v1.0.0) (2022-11-29)
 
 
