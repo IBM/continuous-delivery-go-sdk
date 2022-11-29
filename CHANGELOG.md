@@ -1,3 +1,17 @@
+# [1.0.0](https://github.com/IBM/continuous-delivery-go-sdk/compare/v0.1.9...v1.0.0) (2022-11-29)
+
+
+### Features
+
+* **build:** dummy commit to trigger major version build ([d176144](https://github.com/IBM/continuous-delivery-go-sdk/commit/d176144866e81c690843a3a780729d614f8daf6a))
+
+
+### BREAKING CHANGES
+
+* **build:** retract v1.0.0 and create dummy v1.0.0 tag/release in github
+
+Signed-off-by: Brian Gleeson <brian.gleeson@ie.ibm.com>
+
 ## [0.1.9](https://github.com/IBM/continuous-delivery-go-sdk/compare/v0.1.8...v0.1.9) (2022-11-28)
 
 
