@@ -23,7 +23,9 @@ This section outlines changes to the CD APIs, SDKs, and Terraform resources accr
 
 ### Offset-based pagination removed
 
-`/toolchain/v2/toolchains`
+These changes affect the APIs and Go SDK only.
+
+API/SDK: `/toolchain/v2/toolchains`
 `/toolhains/v2/toolchains/{toolchain_id}/tools`
 `/pipeline/v2/tekton_pipelines/{pipeline_id}/pipeline_runs`
 
@@ -31,7 +33,11 @@ This section outlines changes to the CD APIs, SDKs, and Terraform resources accr
 
 ### Toolchain tags removed
 
-`/toolhain/v2/toolchains/{toolchain_id}`
+This change affects the APIs, Go SDK, and Terraform.
+
+API/SDK: `/toolhain/v2/toolchains/{toolchain_id}`
+
+Terraform: [`ibm_cd_toolchain`](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/cd_toolchain)
 
 - The `tags` parameter is removed from toolchain resources. To work with tags, use [IBM Cloud Global Tagging](https://cloud.ibm.com/apidocs/tagging).
 
