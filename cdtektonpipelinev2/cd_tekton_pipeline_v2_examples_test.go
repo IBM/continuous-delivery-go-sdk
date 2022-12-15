@@ -110,8 +110,9 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 				ID: core.StringPtr("public"),
 			}
 
-			createTektonPipelineOptions := cdTektonPipelineService.NewCreateTektonPipelineOptions()
-			createTektonPipelineOptions.SetID("94619026-912b-4d92-8f51-6c74f0692d90")
+			createTektonPipelineOptions := cdTektonPipelineService.NewCreateTektonPipelineOptions(
+				"94619026-912b-4d92-8f51-6c74f0692d90",
+			)
 			createTektonPipelineOptions.SetWorker(workerIdentityModel)
 
 			tektonPipeline, response, err := cdTektonPipelineService.CreateTektonPipeline(createTektonPipelineOptions)
@@ -213,13 +214,14 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 
 			propertyModel := &cdtektonpipelinev2.Property{
 				Name: core.StringPtr("testString"),
+				Href: core.StringPtr("testString"),
 				Type: core.StringPtr("secure"),
 			}
 
 			createTektonPipelineRunOptions := cdTektonPipelineService.NewCreateTektonPipelineRunOptions(
 				"94619026-912b-4d92-8f51-6c74f0692d90",
+				"Generic Webhook Trigger - 0",
 			)
-			createTektonPipelineRunOptions.SetTriggerName("Generic Webhook Trigger - 0")
 			createTektonPipelineRunOptions.SetTriggerProperties([]cdtektonpipelinev2.Property{*propertyModel})
 			createTektonPipelineRunOptions.SetSecureTriggerProperties([]cdtektonpipelinev2.Property{*propertyModel})
 
@@ -387,8 +389,8 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 
 			createTektonPipelineDefinitionOptions := cdTektonPipelineService.NewCreateTektonPipelineDefinitionOptions(
 				"94619026-912b-4d92-8f51-6c74f0692d90",
+				definitionSourceModel,
 			)
-			createTektonPipelineDefinitionOptions.SetSource(definitionSourceModel)
 
 			definition, response, err := cdTektonPipelineService.CreateTektonPipelineDefinition(createTektonPipelineDefinitionOptions)
 			if err != nil {
@@ -442,8 +444,8 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 			replaceTektonPipelineDefinitionOptions := cdTektonPipelineService.NewReplaceTektonPipelineDefinitionOptions(
 				"94619026-912b-4d92-8f51-6c74f0692d90",
 				"94299034-d45f-4e9a-8ed5-6bd5c7bb7ada",
+				definitionSourceModel,
 			)
-			replaceTektonPipelineDefinitionOptions.SetSource(definitionSourceModel)
 
 			definition, response, err := cdTektonPipelineService.ReplaceTektonPipelineDefinition(replaceTektonPipelineDefinitionOptions)
 			if err != nil {
@@ -488,10 +490,10 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 
 			createTektonPipelinePropertiesOptions := cdTektonPipelineService.NewCreateTektonPipelinePropertiesOptions(
 				"94619026-912b-4d92-8f51-6c74f0692d90",
+				"prop1",
+				"text",
 			)
-			createTektonPipelinePropertiesOptions.SetName("prop1")
 			createTektonPipelinePropertiesOptions.SetValue("https://github.com/open-toolchain/hello-tekton.git")
-			createTektonPipelinePropertiesOptions.SetType("text")
 
 			property, response, err := cdTektonPipelineService.CreateTektonPipelineProperties(createTektonPipelinePropertiesOptions)
 			if err != nil {
@@ -535,10 +537,10 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 			replaceTektonPipelinePropertyOptions := cdTektonPipelineService.NewReplaceTektonPipelinePropertyOptions(
 				"94619026-912b-4d92-8f51-6c74f0692d90",
 				"debug-pipeline",
+				"prop1",
+				"text",
 			)
-			replaceTektonPipelinePropertyOptions.SetName("prop1")
 			replaceTektonPipelinePropertyOptions.SetValue("https://github.com/open-toolchain/hello-tekton.git")
-			replaceTektonPipelinePropertyOptions.SetType("text")
 
 			property, response, err := cdTektonPipelineService.ReplaceTektonPipelineProperty(replaceTektonPipelinePropertyOptions)
 			if err != nil {
@@ -587,10 +589,10 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 
 			createTektonPipelineTriggerOptions := cdTektonPipelineService.NewCreateTektonPipelineTriggerOptions(
 				"94619026-912b-4d92-8f51-6c74f0692d90",
+				"manual",
+				"Manual Trigger",
+				"pr-listener",
 			)
-			createTektonPipelineTriggerOptions.SetType("manual")
-			createTektonPipelineTriggerOptions.SetName("Manual Trigger")
-			createTektonPipelineTriggerOptions.SetEventListener("pr-listener")
 			createTektonPipelineTriggerOptions.SetWorker(workerModel)
 			createTektonPipelineTriggerOptions.SetMaxConcurrentRuns(int64(3))
 			createTektonPipelineTriggerOptions.SetEnabled(true)
@@ -666,8 +668,8 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 			duplicateTektonPipelineTriggerOptions := cdTektonPipelineService.NewDuplicateTektonPipelineTriggerOptions(
 				"94619026-912b-4d92-8f51-6c74f0692d90",
 				"1bb892a1-2e04-4768-a369-b1159eace147",
+				"triggerName",
 			)
-			duplicateTektonPipelineTriggerOptions.SetName("triggerName")
 
 			trigger, response, err := cdTektonPipelineService.DuplicateTektonPipelineTrigger(duplicateTektonPipelineTriggerOptions)
 			if err != nil {
@@ -714,10 +716,10 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 			createTektonPipelineTriggerPropertiesOptions := cdTektonPipelineService.NewCreateTektonPipelineTriggerPropertiesOptions(
 				"94619026-912b-4d92-8f51-6c74f0692d90",
 				"1bb892a1-2e04-4768-a369-b1159eace147",
+				"prop1",
+				"text",
 			)
-			createTektonPipelineTriggerPropertiesOptions.SetName("prop1")
 			createTektonPipelineTriggerPropertiesOptions.SetValue("https://github.com/open-toolchain/hello-tekton.git")
-			createTektonPipelineTriggerPropertiesOptions.SetType("text")
 
 			triggerProperty, response, err := cdTektonPipelineService.CreateTektonPipelineTriggerProperties(createTektonPipelineTriggerPropertiesOptions)
 			if err != nil {
@@ -763,10 +765,10 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 				"94619026-912b-4d92-8f51-6c74f0692d90",
 				"1bb892a1-2e04-4768-a369-b1159eace147",
 				"debug-pipeline",
+				"prop1",
+				"text",
 			)
-			replaceTektonPipelineTriggerPropertyOptions.SetName("prop1")
 			replaceTektonPipelineTriggerPropertyOptions.SetValue("https://github.com/open-toolchain/hello-tekton.git")
-			replaceTektonPipelineTriggerPropertyOptions.SetType("text")
 
 			triggerProperty, response, err := cdTektonPipelineService.ReplaceTektonPipelineTriggerProperty(replaceTektonPipelineTriggerPropertyOptions)
 			if err != nil {
@@ -781,45 +783,22 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(triggerProperty).ToNot(BeNil())
 		})
-		It(`DeleteTektonPipelineTriggerProperty request example`, func() {
-			// begin-delete_tekton_pipeline_trigger_property
+		It(`DeleteTektonPipeline request example`, func() {
+			// begin-delete_tekton_pipeline
 
-			deleteTektonPipelineTriggerPropertyOptions := cdTektonPipelineService.NewDeleteTektonPipelineTriggerPropertyOptions(
+			deleteTektonPipelineOptions := cdTektonPipelineService.NewDeleteTektonPipelineOptions(
 				"94619026-912b-4d92-8f51-6c74f0692d90",
-				"1bb892a1-2e04-4768-a369-b1159eace147",
-				"debug-pipeline",
 			)
 
-			response, err := cdTektonPipelineService.DeleteTektonPipelineTriggerProperty(deleteTektonPipelineTriggerPropertyOptions)
+			response, err := cdTektonPipelineService.DeleteTektonPipeline(deleteTektonPipelineOptions)
 			if err != nil {
 				panic(err)
 			}
 			if response.StatusCode != 204 {
-				fmt.Printf("\nUnexpected response status code received from DeleteTektonPipelineTriggerProperty(): %d\n", response.StatusCode)
+				fmt.Printf("\nUnexpected response status code received from DeleteTektonPipeline(): %d\n", response.StatusCode)
 			}
 
-			// end-delete_tekton_pipeline_trigger_property
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(204))
-		})
-		It(`DeleteTektonPipelineTrigger request example`, func() {
-			// begin-delete_tekton_pipeline_trigger
-
-			deleteTektonPipelineTriggerOptions := cdTektonPipelineService.NewDeleteTektonPipelineTriggerOptions(
-				"94619026-912b-4d92-8f51-6c74f0692d90",
-				"1bb892a1-2e04-4768-a369-b1159eace147",
-			)
-
-			response, err := cdTektonPipelineService.DeleteTektonPipelineTrigger(deleteTektonPipelineTriggerOptions)
-			if err != nil {
-				panic(err)
-			}
-			if response.StatusCode != 204 {
-				fmt.Printf("\nUnexpected response status code received from DeleteTektonPipelineTrigger(): %d\n", response.StatusCode)
-			}
-
-			// end-delete_tekton_pipeline_trigger
+			// end-delete_tekton_pipeline
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
@@ -845,27 +824,6 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 		})
-		It(`DeleteTektonPipelineProperty request example`, func() {
-			// begin-delete_tekton_pipeline_property
-
-			deleteTektonPipelinePropertyOptions := cdTektonPipelineService.NewDeleteTektonPipelinePropertyOptions(
-				"94619026-912b-4d92-8f51-6c74f0692d90",
-				"debug-pipeline",
-			)
-
-			response, err := cdTektonPipelineService.DeleteTektonPipelineProperty(deleteTektonPipelinePropertyOptions)
-			if err != nil {
-				panic(err)
-			}
-			if response.StatusCode != 204 {
-				fmt.Printf("\nUnexpected response status code received from DeleteTektonPipelineProperty(): %d\n", response.StatusCode)
-			}
-
-			// end-delete_tekton_pipeline_property
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(204))
-		})
 		It(`DeleteTektonPipelineDefinition request example`, func() {
 			// begin-delete_tekton_pipeline_definition
 
@@ -887,22 +845,66 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 		})
-		It(`DeleteTektonPipeline request example`, func() {
-			// begin-delete_tekton_pipeline
+		It(`DeleteTektonPipelineProperty request example`, func() {
+			// begin-delete_tekton_pipeline_property
 
-			deleteTektonPipelineOptions := cdTektonPipelineService.NewDeleteTektonPipelineOptions(
+			deleteTektonPipelinePropertyOptions := cdTektonPipelineService.NewDeleteTektonPipelinePropertyOptions(
 				"94619026-912b-4d92-8f51-6c74f0692d90",
+				"debug-pipeline",
 			)
 
-			response, err := cdTektonPipelineService.DeleteTektonPipeline(deleteTektonPipelineOptions)
+			response, err := cdTektonPipelineService.DeleteTektonPipelineProperty(deleteTektonPipelinePropertyOptions)
 			if err != nil {
 				panic(err)
 			}
 			if response.StatusCode != 204 {
-				fmt.Printf("\nUnexpected response status code received from DeleteTektonPipeline(): %d\n", response.StatusCode)
+				fmt.Printf("\nUnexpected response status code received from DeleteTektonPipelineProperty(): %d\n", response.StatusCode)
 			}
 
-			// end-delete_tekton_pipeline
+			// end-delete_tekton_pipeline_property
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+		It(`DeleteTektonPipelineTrigger request example`, func() {
+			// begin-delete_tekton_pipeline_trigger
+
+			deleteTektonPipelineTriggerOptions := cdTektonPipelineService.NewDeleteTektonPipelineTriggerOptions(
+				"94619026-912b-4d92-8f51-6c74f0692d90",
+				"1bb892a1-2e04-4768-a369-b1159eace147",
+			)
+
+			response, err := cdTektonPipelineService.DeleteTektonPipelineTrigger(deleteTektonPipelineTriggerOptions)
+			if err != nil {
+				panic(err)
+			}
+			if response.StatusCode != 204 {
+				fmt.Printf("\nUnexpected response status code received from DeleteTektonPipelineTrigger(): %d\n", response.StatusCode)
+			}
+
+			// end-delete_tekton_pipeline_trigger
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+		It(`DeleteTektonPipelineTriggerProperty request example`, func() {
+			// begin-delete_tekton_pipeline_trigger_property
+
+			deleteTektonPipelineTriggerPropertyOptions := cdTektonPipelineService.NewDeleteTektonPipelineTriggerPropertyOptions(
+				"94619026-912b-4d92-8f51-6c74f0692d90",
+				"1bb892a1-2e04-4768-a369-b1159eace147",
+				"debug-pipeline",
+			)
+
+			response, err := cdTektonPipelineService.DeleteTektonPipelineTriggerProperty(deleteTektonPipelineTriggerPropertyOptions)
+			if err != nil {
+				panic(err)
+			}
+			if response.StatusCode != 204 {
+				fmt.Printf("\nUnexpected response status code received from DeleteTektonPipelineTriggerProperty(): %d\n", response.StatusCode)
+			}
+
+			// end-delete_tekton_pipeline_trigger_property
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
