@@ -218,12 +218,16 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 				Type: core.StringPtr("secure"),
 			}
 
+			pipelineRunTriggerModel := &cdtektonpipelinev2.PipelineRunTrigger{
+				Name: core.StringPtr("Generic Webhook Trigger - 0"),
+				Properties: []cdtektonpipelinev2.Property{*propertyModel},
+				SecureProperties: []cdtektonpipelinev2.Property{*propertyModel},
+			}
+
 			createTektonPipelineRunOptions := cdTektonPipelineService.NewCreateTektonPipelineRunOptions(
 				"94619026-912b-4d92-8f51-6c74f0692d90",
 			)
-			createTektonPipelineRunOptions.SetTriggerName("Generic Webhook Trigger - 0")
-			createTektonPipelineRunOptions.SetTriggerProperties([]cdtektonpipelinev2.Property{*propertyModel})
-			createTektonPipelineRunOptions.SetSecureTriggerProperties([]cdtektonpipelinev2.Property{*propertyModel})
+			createTektonPipelineRunOptions.SetTrigger(pipelineRunTriggerModel)
 
 			pipelineRun, response, err := cdTektonPipelineService.CreateTektonPipelineRun(createTektonPipelineRunOptions)
 			if err != nil {

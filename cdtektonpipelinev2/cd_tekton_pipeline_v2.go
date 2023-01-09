@@ -507,7 +507,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineRunsWithContext(ct
 }
 
 // CreateTektonPipelineRun : Trigger a pipeline run
-// Trigger a new pipeline run using the named trigger, using the provided additional or override properties.
+// Trigger a new pipeline run using the named manual trigger, using the provided additional or override properties.
 func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineRun(createTektonPipelineRunOptions *CreateTektonPipelineRunOptions) (result *PipelineRun, response *core.DetailedResponse, err error) {
 	return cdTektonPipeline.CreateTektonPipelineRunWithContext(context.Background(), createTektonPipelineRunOptions)
 }
@@ -4448,15 +4448,15 @@ type PipelineRunsCollection struct {
 	Limit *int64 `json:"limit" validate:"required"`
 
 	// First page of pipeline runs.
-	First *RunsFirst `json:"first" validate:"required"`
+	First *RunsFirstPage `json:"first" validate:"required"`
 
 	// Next page of pipeline runs relative to the `start` and `limit` params. Only included when there are more pages
 	// available.
-	Next *RunsNext `json:"next,omitempty"`
+	Next *RunsNextPage `json:"next,omitempty"`
 
 	// Last page of pipeline runs relative to the `start` and `limit` params. Only included when the last page has been
 	// reached.
-	Last *RunsLast `json:"last,omitempty"`
+	Last *RunsLastPage `json:"last,omitempty"`
 }
 
 // UnmarshalPipelineRunsCollection unmarshals an instance of PipelineRunsCollection from the specified map of raw messages.
@@ -4470,15 +4470,15 @@ func UnmarshalPipelineRunsCollection(m map[string]json.RawMessage, result interf
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalRunsFirst)
+	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalRunsFirstPage)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalRunsNext)
+	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalRunsNextPage)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "last", &obj.Last, UnmarshalRunsLast)
+	err = core.UnmarshalModel(m, "last", &obj.Last, UnmarshalRunsLastPage)
 	if err != nil {
 		return
 	}
@@ -4928,15 +4928,15 @@ func UnmarshalRunPipeline(m map[string]json.RawMessage, result interface{}) (err
 	return
 }
 
-// RunsFirst : First page of pipeline runs.
-type RunsFirst struct {
+// RunsFirstPage : First page of pipeline runs.
+type RunsFirstPage struct {
 	// General href URL.
 	Href *string `json:"href" validate:"required"`
 }
 
-// UnmarshalRunsFirst unmarshals an instance of RunsFirst from the specified map of raw messages.
-func UnmarshalRunsFirst(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(RunsFirst)
+// UnmarshalRunsFirstPage unmarshals an instance of RunsFirstPage from the specified map of raw messages.
+func UnmarshalRunsFirstPage(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(RunsFirstPage)
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
 		return
@@ -4945,16 +4945,16 @@ func UnmarshalRunsFirst(m map[string]json.RawMessage, result interface{}) (err e
 	return
 }
 
-// RunsLast : Last page of pipeline runs relative to the `start` and `limit` params. Only included when the last page has been
+// RunsLastPage : Last page of pipeline runs relative to the `start` and `limit` params. Only included when the last page has been
 // reached.
-type RunsLast struct {
+type RunsLastPage struct {
 	// General href URL.
 	Href *string `json:"href" validate:"required"`
 }
 
-// UnmarshalRunsLast unmarshals an instance of RunsLast from the specified map of raw messages.
-func UnmarshalRunsLast(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(RunsLast)
+// UnmarshalRunsLastPage unmarshals an instance of RunsLastPage from the specified map of raw messages.
+func UnmarshalRunsLastPage(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(RunsLastPage)
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
 		return
@@ -4963,16 +4963,16 @@ func UnmarshalRunsLast(m map[string]json.RawMessage, result interface{}) (err er
 	return
 }
 
-// RunsNext : Next page of pipeline runs relative to the `start` and `limit` params. Only included when there are more pages
+// RunsNextPage : Next page of pipeline runs relative to the `start` and `limit` params. Only included when there are more pages
 // available.
-type RunsNext struct {
+type RunsNextPage struct {
 	// General href URL.
 	Href *string `json:"href" validate:"required"`
 }
 
-// UnmarshalRunsNext unmarshals an instance of RunsNext from the specified map of raw messages.
-func UnmarshalRunsNext(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(RunsNext)
+// UnmarshalRunsNextPage unmarshals an instance of RunsNextPage from the specified map of raw messages.
+func UnmarshalRunsNextPage(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(RunsNextPage)
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
 		return
