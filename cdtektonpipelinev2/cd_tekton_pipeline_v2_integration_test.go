@@ -301,10 +301,10 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 				Properties: definitionSourcePropertiesModel,
 			}
 
-			createTektonPipelineDefinitionOptions := &cdtektonpipelinev2.CreateTektonPipelineDefinitionOptions{
-				PipelineID: core.StringPtr(pipelineIDLink),
-				Source: definitionSourceModel,
-			}
+			createTektonPipelineDefinitionOptions := cdTektonPipelineService.NewCreateTektonPipelineDefinitionOptions(
+				pipelineIDLink,
+				definitionSourceModel,
+			)
 
 			definition, response, err := cdTektonPipelineService.CreateTektonPipelineDefinition(createTektonPipelineDefinitionOptions)
 			Expect(err).To(BeNil())
@@ -830,7 +830,7 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			listTektonPipelineRunsOptions.Start = nil
 			listTektonPipelineRunsOptions.Limit = core.Int64Ptr(1)
 
-			var allResults []cdtektonpipelinev2.PipelineRunsCollectionPipelineRunsItem
+			var allResults []cdtektonpipelinev2.PipelineRun
 			for {
 				pipelineRunsCollection, response, err := cdTektonPipelineService.ListTektonPipelineRuns(listTektonPipelineRunsOptions)
 				Expect(err).To(BeNil())
@@ -864,7 +864,7 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(pager).ToNot(BeNil())
 
-			var allResults []cdtektonpipelinev2.PipelineRunsCollectionPipelineRunsItem
+			var allResults []cdtektonpipelinev2.PipelineRun
 			for pager.HasNext() {
 				nextPage, err := pager.GetNext()
 				Expect(err).To(BeNil())

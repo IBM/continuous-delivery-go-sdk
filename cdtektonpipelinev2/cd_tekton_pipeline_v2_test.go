@@ -1313,7 +1313,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 		Context(`Test pagination helper method on response`, func() {
 			It(`Invoke GetNextStart successfully`, func() {
 				responseObject := new(cdtektonpipelinev2.PipelineRunsCollection)
-				nextObject := new(cdtektonpipelinev2.RunsNext)
+				nextObject := new(cdtektonpipelinev2.RunsNextPage)
 				nextObject.Href = core.StringPtr("ibm.com?start=abc-123")
 				responseObject.Next = nextObject
 	
@@ -1330,7 +1330,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 			})
 			It(`Invoke GetNextStart without any query params in the "Next" URL`, func() {
 				responseObject := new(cdtektonpipelinev2.PipelineRunsCollection)
-				nextObject := new(cdtektonpipelinev2.RunsNext)
+				nextObject := new(cdtektonpipelinev2.RunsNextPage)
 				nextObject.Href = core.StringPtr("ibm.com")
 				responseObject.Next = nextObject
 	
@@ -1450,7 +1450,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 
 				// Construct an instance of the PipelineRunTrigger model
 				pipelineRunTriggerModel := new(cdtektonpipelinev2.PipelineRunTrigger)
-				pipelineRunTriggerModel.Name = core.StringPtr("start-deploy")
+				pipelineRunTriggerModel.Name = core.StringPtr("Generic Webhook Trigger - 0")
 				pipelineRunTriggerModel.Properties = []cdtektonpipelinev2.Property{*propertyModel}
 				pipelineRunTriggerModel.SecureProperties = []cdtektonpipelinev2.Property{*propertyModel}
 				pipelineRunTriggerModel.HeadersVar = map[string]interface{}{"anyKey": "anyValue"}
@@ -1459,7 +1459,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				// Construct an instance of the CreateTektonPipelineRunOptions model
 				createTektonPipelineRunOptionsModel := new(cdtektonpipelinev2.CreateTektonPipelineRunOptions)
 				createTektonPipelineRunOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
-				createTektonPipelineRunOptionsModel.TriggerName = core.StringPtr("Generic Webhook Trigger - 0")
+				createTektonPipelineRunOptionsModel.TriggerName = core.StringPtr("testString")
 				createTektonPipelineRunOptionsModel.TriggerProperties = []cdtektonpipelinev2.Property{*propertyModel}
 				createTektonPipelineRunOptionsModel.SecureTriggerProperties = []cdtektonpipelinev2.Property{*propertyModel}
 				createTektonPipelineRunOptionsModel.TriggerHeaders = map[string]interface{}{"anyKey": "anyValue"}
@@ -1540,7 +1540,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 
 				// Construct an instance of the PipelineRunTrigger model
 				pipelineRunTriggerModel := new(cdtektonpipelinev2.PipelineRunTrigger)
-				pipelineRunTriggerModel.Name = core.StringPtr("start-deploy")
+				pipelineRunTriggerModel.Name = core.StringPtr("Generic Webhook Trigger - 0")
 				pipelineRunTriggerModel.Properties = []cdtektonpipelinev2.Property{*propertyModel}
 				pipelineRunTriggerModel.SecureProperties = []cdtektonpipelinev2.Property{*propertyModel}
 				pipelineRunTriggerModel.HeadersVar = map[string]interface{}{"anyKey": "anyValue"}
@@ -1549,7 +1549,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				// Construct an instance of the CreateTektonPipelineRunOptions model
 				createTektonPipelineRunOptionsModel := new(cdtektonpipelinev2.CreateTektonPipelineRunOptions)
 				createTektonPipelineRunOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
-				createTektonPipelineRunOptionsModel.TriggerName = core.StringPtr("Generic Webhook Trigger - 0")
+				createTektonPipelineRunOptionsModel.TriggerName = core.StringPtr("testString")
 				createTektonPipelineRunOptionsModel.TriggerProperties = []cdtektonpipelinev2.Property{*propertyModel}
 				createTektonPipelineRunOptionsModel.SecureTriggerProperties = []cdtektonpipelinev2.Property{*propertyModel}
 				createTektonPipelineRunOptionsModel.TriggerHeaders = map[string]interface{}{"anyKey": "anyValue"}
@@ -1638,7 +1638,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 
 				// Construct an instance of the PipelineRunTrigger model
 				pipelineRunTriggerModel := new(cdtektonpipelinev2.PipelineRunTrigger)
-				pipelineRunTriggerModel.Name = core.StringPtr("start-deploy")
+				pipelineRunTriggerModel.Name = core.StringPtr("Generic Webhook Trigger - 0")
 				pipelineRunTriggerModel.Properties = []cdtektonpipelinev2.Property{*propertyModel}
 				pipelineRunTriggerModel.SecureProperties = []cdtektonpipelinev2.Property{*propertyModel}
 				pipelineRunTriggerModel.HeadersVar = map[string]interface{}{"anyKey": "anyValue"}
@@ -1647,7 +1647,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				// Construct an instance of the CreateTektonPipelineRunOptions model
 				createTektonPipelineRunOptionsModel := new(cdtektonpipelinev2.CreateTektonPipelineRunOptions)
 				createTektonPipelineRunOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
-				createTektonPipelineRunOptionsModel.TriggerName = core.StringPtr("Generic Webhook Trigger - 0")
+				createTektonPipelineRunOptionsModel.TriggerName = core.StringPtr("testString")
 				createTektonPipelineRunOptionsModel.TriggerProperties = []cdtektonpipelinev2.Property{*propertyModel}
 				createTektonPipelineRunOptionsModel.SecureTriggerProperties = []cdtektonpipelinev2.Property{*propertyModel}
 				createTektonPipelineRunOptionsModel.TriggerHeaders = map[string]interface{}{"anyKey": "anyValue"}
@@ -1681,7 +1681,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 
 				// Construct an instance of the PipelineRunTrigger model
 				pipelineRunTriggerModel := new(cdtektonpipelinev2.PipelineRunTrigger)
-				pipelineRunTriggerModel.Name = core.StringPtr("start-deploy")
+				pipelineRunTriggerModel.Name = core.StringPtr("Generic Webhook Trigger - 0")
 				pipelineRunTriggerModel.Properties = []cdtektonpipelinev2.Property{*propertyModel}
 				pipelineRunTriggerModel.SecureProperties = []cdtektonpipelinev2.Property{*propertyModel}
 				pipelineRunTriggerModel.HeadersVar = map[string]interface{}{"anyKey": "anyValue"}
@@ -1690,7 +1690,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				// Construct an instance of the CreateTektonPipelineRunOptions model
 				createTektonPipelineRunOptionsModel := new(cdtektonpipelinev2.CreateTektonPipelineRunOptions)
 				createTektonPipelineRunOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
-				createTektonPipelineRunOptionsModel.TriggerName = core.StringPtr("Generic Webhook Trigger - 0")
+				createTektonPipelineRunOptionsModel.TriggerName = core.StringPtr("testString")
 				createTektonPipelineRunOptionsModel.TriggerProperties = []cdtektonpipelinev2.Property{*propertyModel}
 				createTektonPipelineRunOptionsModel.SecureTriggerProperties = []cdtektonpipelinev2.Property{*propertyModel}
 				createTektonPipelineRunOptionsModel.TriggerHeaders = map[string]interface{}{"anyKey": "anyValue"}
@@ -1745,7 +1745,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 
 				// Construct an instance of the PipelineRunTrigger model
 				pipelineRunTriggerModel := new(cdtektonpipelinev2.PipelineRunTrigger)
-				pipelineRunTriggerModel.Name = core.StringPtr("start-deploy")
+				pipelineRunTriggerModel.Name = core.StringPtr("Generic Webhook Trigger - 0")
 				pipelineRunTriggerModel.Properties = []cdtektonpipelinev2.Property{*propertyModel}
 				pipelineRunTriggerModel.SecureProperties = []cdtektonpipelinev2.Property{*propertyModel}
 				pipelineRunTriggerModel.HeadersVar = map[string]interface{}{"anyKey": "anyValue"}
@@ -1754,7 +1754,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				// Construct an instance of the CreateTektonPipelineRunOptions model
 				createTektonPipelineRunOptionsModel := new(cdtektonpipelinev2.CreateTektonPipelineRunOptions)
 				createTektonPipelineRunOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
-				createTektonPipelineRunOptionsModel.TriggerName = core.StringPtr("Generic Webhook Trigger - 0")
+				createTektonPipelineRunOptionsModel.TriggerName = core.StringPtr("testString")
 				createTektonPipelineRunOptionsModel.TriggerProperties = []cdtektonpipelinev2.Property{*propertyModel}
 				createTektonPipelineRunOptionsModel.SecureTriggerProperties = []cdtektonpipelinev2.Property{*propertyModel}
 				createTektonPipelineRunOptionsModel.TriggerHeaders = map[string]interface{}{"anyKey": "anyValue"}
@@ -8131,12 +8131,12 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				// Construct an instance of the PipelineRunTrigger model
 				pipelineRunTriggerModel := new(cdtektonpipelinev2.PipelineRunTrigger)
 				Expect(pipelineRunTriggerModel).ToNot(BeNil())
-				pipelineRunTriggerModel.Name = core.StringPtr("start-deploy")
+				pipelineRunTriggerModel.Name = core.StringPtr("Generic Webhook Trigger - 0")
 				pipelineRunTriggerModel.Properties = []cdtektonpipelinev2.Property{*propertyModel}
 				pipelineRunTriggerModel.SecureProperties = []cdtektonpipelinev2.Property{*propertyModel}
 				pipelineRunTriggerModel.HeadersVar = map[string]interface{}{"anyKey": "anyValue"}
 				pipelineRunTriggerModel.Body = map[string]interface{}{"anyKey": "anyValue"}
-				Expect(pipelineRunTriggerModel.Name).To(Equal(core.StringPtr("start-deploy")))
+				Expect(pipelineRunTriggerModel.Name).To(Equal(core.StringPtr("Generic Webhook Trigger - 0")))
 				Expect(pipelineRunTriggerModel.Properties).To(Equal([]cdtektonpipelinev2.Property{*propertyModel}))
 				Expect(pipelineRunTriggerModel.SecureProperties).To(Equal([]cdtektonpipelinev2.Property{*propertyModel}))
 				Expect(pipelineRunTriggerModel.HeadersVar).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
@@ -8146,7 +8146,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				pipelineID := "94619026-912b-4d92-8f51-6c74f0692d90"
 				createTektonPipelineRunOptionsModel := cdTektonPipelineService.NewCreateTektonPipelineRunOptions(pipelineID)
 				createTektonPipelineRunOptionsModel.SetPipelineID("94619026-912b-4d92-8f51-6c74f0692d90")
-				createTektonPipelineRunOptionsModel.SetTriggerName("Generic Webhook Trigger - 0")
+				createTektonPipelineRunOptionsModel.SetTriggerName("testString")
 				createTektonPipelineRunOptionsModel.SetTriggerProperties([]cdtektonpipelinev2.Property{*propertyModel})
 				createTektonPipelineRunOptionsModel.SetSecureTriggerProperties([]cdtektonpipelinev2.Property{*propertyModel})
 				createTektonPipelineRunOptionsModel.SetTriggerHeaders(map[string]interface{}{"anyKey": "anyValue"})
@@ -8155,7 +8155,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				createTektonPipelineRunOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createTektonPipelineRunOptionsModel).ToNot(BeNil())
 				Expect(createTektonPipelineRunOptionsModel.PipelineID).To(Equal(core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")))
-				Expect(createTektonPipelineRunOptionsModel.TriggerName).To(Equal(core.StringPtr("Generic Webhook Trigger - 0")))
+				Expect(createTektonPipelineRunOptionsModel.TriggerName).To(Equal(core.StringPtr("testString")))
 				Expect(createTektonPipelineRunOptionsModel.TriggerProperties).To(Equal([]cdtektonpipelinev2.Property{*propertyModel}))
 				Expect(createTektonPipelineRunOptionsModel.SecureTriggerProperties).To(Equal([]cdtektonpipelinev2.Property{*propertyModel}))
 				Expect(createTektonPipelineRunOptionsModel.TriggerHeaders).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
