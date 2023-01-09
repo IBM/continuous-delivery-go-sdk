@@ -1,7 +1,7 @@
 // +build examples
 
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -196,7 +196,7 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 				panic(err)
 			}
 
-			var allResults []cdtektonpipelinev2.PipelineRunsCollectionPipelineRunsItem
+			var allResults []cdtektonpipelinev2.PipelineRun
 			for pager.HasNext() {
 				nextPage, err := pager.GetNext()
 				if err != nil {
@@ -220,8 +220,8 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 
 			createTektonPipelineRunOptions := cdTektonPipelineService.NewCreateTektonPipelineRunOptions(
 				"94619026-912b-4d92-8f51-6c74f0692d90",
-				"Generic Webhook Trigger - 0",
 			)
+			createTektonPipelineRunOptions.SetTriggerName("Generic Webhook Trigger - 0")
 			createTektonPipelineRunOptions.SetTriggerProperties([]cdtektonpipelinev2.Property{*propertyModel})
 			createTektonPipelineRunOptions.SetSecureTriggerProperties([]cdtektonpipelinev2.Property{*propertyModel})
 
