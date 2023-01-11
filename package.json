@@ -3,7 +3,6 @@
   "version": "1.0.1",
   "description": "IBM Cloud Continuous Delivery GO SDK",
   "license": "Apache-2.0",
-  "release": { "branches": [ "main" ] },
   "repository": {
     "type": "git",
     "url": "https://github.com/IBM/continuous-delivery-go-sdk"
