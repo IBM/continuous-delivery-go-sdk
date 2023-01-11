@@ -1,3 +1,14 @@
+## [1.0.2](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.0.1...v1.0.2) (2023-01-11)
+
+
+### Bug Fixes
+
+* **build:** fix semVer issue ([3e7a4a8](https://github.com/IBM/continuous-delivery-go-sdk/commit/3e7a4a852e1f5e991bf35ac2cfe0aa81def666f8))
+* **build:** remove release line from package.json ([3513289](https://github.com/IBM/continuous-delivery-go-sdk/commit/35132899f607e6248b1e018a421ca4acb6ce2252))
+* **tekton:** fix integration tests ([d725ad4](https://github.com/IBM/continuous-delivery-go-sdk/commit/d725ad4141e00271b7059f78d8ab98e3d19f7841))
+* **tekton:** post GA updates for tekton APIs ([53b6220](https://github.com/IBM/continuous-delivery-go-sdk/commit/53b6220e93571ac894076142234f5b33e143c01f))
+* **tekton:** updates based on API linting ([1a3fd13](https://github.com/IBM/continuous-delivery-go-sdk/commit/1a3fd137fc4d0dca3903ee4ab0e753a7d57a05a4))
+
 ## [1.0.1](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.0.0...v1.0.1) (2022-11-29)
 
 
