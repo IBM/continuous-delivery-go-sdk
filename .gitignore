@@ -1,5 +1,5 @@
 .DS_Store
-.env
+*.env
 
 # ignore vendor/
 vendor/
@@ -9,8 +9,9 @@ vendor/
 .openapi-generator/VERSION
 /.project
 
-# credentials files
-*.env
+# files produced by "npm install" commands during build
+package-lock.json
+node_modules/
 
 # IDE files
 *.idea
@@ -19,8 +20,3 @@ vendor/
 
 # coverage
 coverage.txt
-
-# files produced by "npm install" commands during build
-package.json
-package-lock.json
-node_modules/
