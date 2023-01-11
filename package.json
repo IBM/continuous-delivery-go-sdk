@@ -1,12 +1,8 @@
 {
-  "name": "ibm-continuous-delivery",
-  "version": "1.0.1",
-  "description": "IBM Cloud Continuous Delivery GO SDK",
+  "name": "semantic-release-dependencies",
+  "version": "0.0.0",
+  "description": "This package.json is being used to manage semantic-release and its dependencies",
   "license": "Apache-2.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/IBM/continuous-delivery-go-sdk"
-  },
   "devDependencies": {
     "semantic-release": "19.0.5",
     "@semantic-release/changelog": "6.0.2",
