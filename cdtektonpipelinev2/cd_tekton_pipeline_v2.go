@@ -2751,7 +2751,7 @@ type CreateTektonPipelineTriggerOptions struct {
 	Tags []string `json:"tags,omitempty"`
 
 	// Worker used to run the trigger. If not specified the trigger will use the default pipeline worker.
-	Worker *Worker `json:"worker,omitempty"`
+	Worker *WorkerIdentity `json:"worker,omitempty"`
 
 	// Defines the maximum number of concurrent runs for this trigger. If omitted then the concurrency limit is disabled
 	// for this trigger.
@@ -2846,7 +2846,7 @@ func (_options *CreateTektonPipelineTriggerOptions) SetTags(tags []string) *Crea
 }
 
 // SetWorker : Allow user to set Worker
-func (_options *CreateTektonPipelineTriggerOptions) SetWorker(worker *Worker) *CreateTektonPipelineTriggerOptions {
+func (_options *CreateTektonPipelineTriggerOptions) SetWorker(worker *WorkerIdentity) *CreateTektonPipelineTriggerOptions {
 	_options.Worker = worker
 	return _options
 }
@@ -3005,7 +3005,7 @@ type Definition struct {
 	Source *DefinitionSource `json:"source" validate:"required"`
 
 	// API URL for interacting with the definition.
-	Href *string `json:"href" validate:"required"`
+	Href *string `json:"href,omitempty"`
 
 	// The aggregated definition ID.
 	ID *string `json:"id" validate:"required"`
@@ -4150,7 +4150,7 @@ func (options *ListTektonPipelineTriggersOptions) SetHeaders(param map[string]st
 // Log : Log data for Tekton pipeline run steps.
 type Log struct {
 	// API for getting log content.
-	Href *string `json:"href" validate:"required"`
+	Href *string `json:"href,omitempty"`
 
 	// Step log ID.
 	ID *string `json:"id" validate:"required"`
@@ -4201,7 +4201,7 @@ type PipelineRun struct {
 	ID *string `json:"id" validate:"required"`
 
 	// General href URL.
-	Href *string `json:"href" validate:"required"`
+	Href *string `json:"href,omitempty"`
 
 	// Information about the user that triggered a pipeline run. Only included for pipeline runs that were manually
 	// triggered.
@@ -4524,7 +4524,7 @@ type Property struct {
 	Value *string `json:"value,omitempty"`
 
 	// API URL for interacting with the property.
-	Href *string `json:"href" validate:"required"`
+	Href *string `json:"href,omitempty"`
 
 	// Options for `single_select` property type. Only needed when using `single_select` property type.
 	Enum []string `json:"enum,omitempty"`
@@ -4548,10 +4548,9 @@ const (
 )
 
 // NewProperty : Instantiate Property (Generic Model Constructor)
-func (*CdTektonPipelineV2) NewProperty(name string, href string, typeVar string) (_model *Property, err error) {
+func (*CdTektonPipelineV2) NewProperty(name string, typeVar string) (_model *Property, err error) {
 	_model = &Property{
 		Name: core.StringPtr(name),
-		Href: core.StringPtr(href),
 		Type: core.StringPtr(typeVar),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -5044,7 +5043,7 @@ type TektonPipeline struct {
 	RunsURL *string `json:"runs_url" validate:"required"`
 
 	// API URL for interacting with the pipeline.
-	Href *string `json:"href" validate:"required"`
+	Href *string `json:"href,omitempty"`
 
 	// The latest pipeline run build number. If this property is absent, the pipeline hasn't had any pipeline runs.
 	BuildNumber *int64 `json:"build_number" validate:"required"`
@@ -5407,7 +5406,7 @@ type TriggerPatch struct {
 	Tags []string `json:"tags,omitempty"`
 
 	// Worker used to run the trigger. If not specified the trigger will use the default pipeline worker.
-	Worker *Worker `json:"worker,omitempty"`
+	Worker *WorkerIdentity `json:"worker,omitempty"`
 
 	// Defines the maximum number of concurrent runs for this trigger. If omitted then the concurrency limit is disabled
 	// for this trigger.
@@ -5477,7 +5476,7 @@ func UnmarshalTriggerPatch(m map[string]json.RawMessage, result interface{}) (er
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "worker", &obj.Worker, UnmarshalWorker)
+	err = core.UnmarshalModel(m, "worker", &obj.Worker, UnmarshalWorkerIdentity)
 	if err != nil {
 		return
 	}
@@ -5549,7 +5548,7 @@ type TriggerProperty struct {
 	Value *string `json:"value,omitempty"`
 
 	// API URL for interacting with the trigger property.
-	Href *string `json:"href" validate:"required"`
+	Href *string `json:"href,omitempty"`
 
 	// Options for `single_select` property type. Only needed for `single_select` property type.
 	Enum []string `json:"enum,omitempty"`
@@ -5898,15 +5897,6 @@ type Worker struct {
 
 	// ID of the worker.
 	ID *string `json:"id" validate:"required"`
-}
-
-// NewWorker : Instantiate Worker (Generic Model Constructor)
-func (*CdTektonPipelineV2) NewWorker(id string) (_model *Worker, err error) {
-	_model = &Worker{
-		ID: core.StringPtr(id),
-	}
-	err = core.ValidateStruct(_model, "required parameters")
-	return
 }
 
 // UnmarshalWorker unmarshals an instance of Worker from the specified map of raw messages.

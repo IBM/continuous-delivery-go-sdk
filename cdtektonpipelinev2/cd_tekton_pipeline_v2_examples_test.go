@@ -214,7 +214,6 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 
 			propertyModel := &cdtektonpipelinev2.Property{
 				Name: core.StringPtr("testString"),
-				Href: core.StringPtr("testString"),
 				Type: core.StringPtr("secure"),
 			}
 
@@ -587,7 +586,7 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 			fmt.Println("\nCreateTektonPipelineTrigger() result:")
 			// begin-create_tekton_pipeline_trigger
 
-			workerModel := &cdtektonpipelinev2.Worker{
+			workerIdentityModel := &cdtektonpipelinev2.WorkerIdentity{
 				ID: core.StringPtr("public"),
 			}
 
@@ -597,7 +596,7 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 				"Manual Trigger",
 				"pr-listener",
 			)
-			createTektonPipelineTriggerOptions.SetWorker(workerModel)
+			createTektonPipelineTriggerOptions.SetWorker(workerIdentityModel)
 			createTektonPipelineTriggerOptions.SetMaxConcurrentRuns(int64(3))
 			createTektonPipelineTriggerOptions.SetEnabled(true)
 

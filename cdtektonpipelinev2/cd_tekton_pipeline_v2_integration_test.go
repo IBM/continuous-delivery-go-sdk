@@ -135,6 +135,7 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			Expect(toolchainPost).ToNot(BeNil())
 
 			toolchainIDLink = *toolchainPost.ID
+			// log.Printf("[DEBUG] === toolchainIDLink: %v\n", toolchainIDLink)
 			fmt.Fprintf(GinkgoWriter, "Saved toolchainIDLink value: %v\n", toolchainIDLink)
 		})
 	})
@@ -490,7 +491,7 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateTektonPipelineTrigger(createTektonPipelineTriggerOptions *CreateTektonPipelineTriggerOptions)`, func() {
-			workerModel := &cdtektonpipelinev2.Worker{
+			workerModel := &cdtektonpipelinev2.WorkerIdentity{
 				ID: core.StringPtr("public"),
 			}
 
@@ -942,6 +943,22 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 		})
 	})
 
+	Describe(`DeleteTektonPipelineProperty - Delete a single pipeline environment property`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteTektonPipelineProperty(deleteTektonPipelinePropertyOptions *DeleteTektonPipelinePropertyOptions)`, func() {
+			deleteTektonPipelinePropertyOptions := &cdtektonpipelinev2.DeleteTektonPipelinePropertyOptions{
+				PipelineID: core.StringPtr(pipelineIDLink),
+				PropertyName: core.StringPtr("prop1"),
+			}
+
+			response, err := cdTektonPipelineService.DeleteTektonPipelineProperty(deleteTektonPipelinePropertyOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+	})
+
 	Describe(`GetTektonPipelineRunLogs - Get a list of pipeline run log objects`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -958,7 +975,7 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			Expect(logsCollection).ToNot(BeNil())
 			logs := logsCollection.Logs
 			Expect(logs).ToNot(BeNil())
-			runLogLink = logs[0]
+			runLogLink = logs[1]
 		})
 	})
 
@@ -994,22 +1011,6 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			}
 
 			response, err := cdTektonPipelineService.DeleteTektonPipelineRun(deleteTektonPipelineRunOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(204))
-		})
-	})
-
-	Describe(`DeleteTektonPipelineProperty - Delete a single pipeline environment property`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`DeleteTektonPipelineProperty(deleteTektonPipelinePropertyOptions *DeleteTektonPipelinePropertyOptions)`, func() {
-			deleteTektonPipelinePropertyOptions := &cdtektonpipelinev2.DeleteTektonPipelinePropertyOptions{
-				PipelineID: core.StringPtr(pipelineIDLink),
-				PropertyName: core.StringPtr("prop1"),
-			}
-
-			response, err := cdTektonPipelineService.DeleteTektonPipelineProperty(deleteTektonPipelinePropertyOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 		})
