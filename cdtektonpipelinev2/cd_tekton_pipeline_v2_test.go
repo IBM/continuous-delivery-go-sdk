@@ -5506,11 +5506,9 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(cdTektonPipelineService).ToNot(BeNil())
 
-				// Construct an instance of the Worker model
-				workerModel := new(cdtektonpipelinev2.Worker)
-				workerModel.Name = core.StringPtr("testString")
-				workerModel.Type = core.StringPtr("testString")
-				workerModel.ID = core.StringPtr("public")
+				// Construct an instance of the WorkerIdentity model
+				workerIdentityModel := new(cdtektonpipelinev2.WorkerIdentity)
+				workerIdentityModel.ID = core.StringPtr("public")
 
 				// Construct an instance of the GenericSecret model
 				genericSecretModel := new(cdtektonpipelinev2.GenericSecret)
@@ -5538,7 +5536,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				createTektonPipelineTriggerOptionsModel.Name = core.StringPtr("Manual Trigger")
 				createTektonPipelineTriggerOptionsModel.EventListener = core.StringPtr("pr-listener")
 				createTektonPipelineTriggerOptionsModel.Tags = []string{"testString"}
-				createTektonPipelineTriggerOptionsModel.Worker = workerModel
+				createTektonPipelineTriggerOptionsModel.Worker = workerIdentityModel
 				createTektonPipelineTriggerOptionsModel.MaxConcurrentRuns = core.Int64Ptr(int64(3))
 				createTektonPipelineTriggerOptionsModel.Enabled = core.BoolPtr(true)
 				createTektonPipelineTriggerOptionsModel.Secret = genericSecretModel
@@ -5610,11 +5608,9 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				Expect(cdTektonPipelineService).ToNot(BeNil())
 				cdTektonPipelineService.EnableRetries(0, 0)
 
-				// Construct an instance of the Worker model
-				workerModel := new(cdtektonpipelinev2.Worker)
-				workerModel.Name = core.StringPtr("testString")
-				workerModel.Type = core.StringPtr("testString")
-				workerModel.ID = core.StringPtr("public")
+				// Construct an instance of the WorkerIdentity model
+				workerIdentityModel := new(cdtektonpipelinev2.WorkerIdentity)
+				workerIdentityModel.ID = core.StringPtr("public")
 
 				// Construct an instance of the GenericSecret model
 				genericSecretModel := new(cdtektonpipelinev2.GenericSecret)
@@ -5642,7 +5638,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				createTektonPipelineTriggerOptionsModel.Name = core.StringPtr("Manual Trigger")
 				createTektonPipelineTriggerOptionsModel.EventListener = core.StringPtr("pr-listener")
 				createTektonPipelineTriggerOptionsModel.Tags = []string{"testString"}
-				createTektonPipelineTriggerOptionsModel.Worker = workerModel
+				createTektonPipelineTriggerOptionsModel.Worker = workerIdentityModel
 				createTektonPipelineTriggerOptionsModel.MaxConcurrentRuns = core.Int64Ptr(int64(3))
 				createTektonPipelineTriggerOptionsModel.Enabled = core.BoolPtr(true)
 				createTektonPipelineTriggerOptionsModel.Secret = genericSecretModel
@@ -5722,11 +5718,9 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the Worker model
-				workerModel := new(cdtektonpipelinev2.Worker)
-				workerModel.Name = core.StringPtr("testString")
-				workerModel.Type = core.StringPtr("testString")
-				workerModel.ID = core.StringPtr("public")
+				// Construct an instance of the WorkerIdentity model
+				workerIdentityModel := new(cdtektonpipelinev2.WorkerIdentity)
+				workerIdentityModel.ID = core.StringPtr("public")
 
 				// Construct an instance of the GenericSecret model
 				genericSecretModel := new(cdtektonpipelinev2.GenericSecret)
@@ -5754,7 +5748,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				createTektonPipelineTriggerOptionsModel.Name = core.StringPtr("Manual Trigger")
 				createTektonPipelineTriggerOptionsModel.EventListener = core.StringPtr("pr-listener")
 				createTektonPipelineTriggerOptionsModel.Tags = []string{"testString"}
-				createTektonPipelineTriggerOptionsModel.Worker = workerModel
+				createTektonPipelineTriggerOptionsModel.Worker = workerIdentityModel
 				createTektonPipelineTriggerOptionsModel.MaxConcurrentRuns = core.Int64Ptr(int64(3))
 				createTektonPipelineTriggerOptionsModel.Enabled = core.BoolPtr(true)
 				createTektonPipelineTriggerOptionsModel.Secret = genericSecretModel
@@ -5779,11 +5773,9 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(cdTektonPipelineService).ToNot(BeNil())
 
-				// Construct an instance of the Worker model
-				workerModel := new(cdtektonpipelinev2.Worker)
-				workerModel.Name = core.StringPtr("testString")
-				workerModel.Type = core.StringPtr("testString")
-				workerModel.ID = core.StringPtr("public")
+				// Construct an instance of the WorkerIdentity model
+				workerIdentityModel := new(cdtektonpipelinev2.WorkerIdentity)
+				workerIdentityModel.ID = core.StringPtr("public")
 
 				// Construct an instance of the GenericSecret model
 				genericSecretModel := new(cdtektonpipelinev2.GenericSecret)
@@ -5811,7 +5803,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				createTektonPipelineTriggerOptionsModel.Name = core.StringPtr("Manual Trigger")
 				createTektonPipelineTriggerOptionsModel.EventListener = core.StringPtr("pr-listener")
 				createTektonPipelineTriggerOptionsModel.Tags = []string{"testString"}
-				createTektonPipelineTriggerOptionsModel.Worker = workerModel
+				createTektonPipelineTriggerOptionsModel.Worker = workerIdentityModel
 				createTektonPipelineTriggerOptionsModel.MaxConcurrentRuns = core.Int64Ptr(int64(3))
 				createTektonPipelineTriggerOptionsModel.Enabled = core.BoolPtr(true)
 				createTektonPipelineTriggerOptionsModel.Secret = genericSecretModel
@@ -5857,11 +5849,9 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(cdTektonPipelineService).ToNot(BeNil())
 
-				// Construct an instance of the Worker model
-				workerModel := new(cdtektonpipelinev2.Worker)
-				workerModel.Name = core.StringPtr("testString")
-				workerModel.Type = core.StringPtr("testString")
-				workerModel.ID = core.StringPtr("public")
+				// Construct an instance of the WorkerIdentity model
+				workerIdentityModel := new(cdtektonpipelinev2.WorkerIdentity)
+				workerIdentityModel.ID = core.StringPtr("public")
 
 				// Construct an instance of the GenericSecret model
 				genericSecretModel := new(cdtektonpipelinev2.GenericSecret)
@@ -5889,7 +5879,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				createTektonPipelineTriggerOptionsModel.Name = core.StringPtr("Manual Trigger")
 				createTektonPipelineTriggerOptionsModel.EventListener = core.StringPtr("pr-listener")
 				createTektonPipelineTriggerOptionsModel.Tags = []string{"testString"}
-				createTektonPipelineTriggerOptionsModel.Worker = workerModel
+				createTektonPipelineTriggerOptionsModel.Worker = workerIdentityModel
 				createTektonPipelineTriggerOptionsModel.MaxConcurrentRuns = core.Int64Ptr(int64(3))
 				createTektonPipelineTriggerOptionsModel.Enabled = core.BoolPtr(true)
 				createTektonPipelineTriggerOptionsModel.Secret = genericSecretModel
@@ -6152,11 +6142,9 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(cdTektonPipelineService).ToNot(BeNil())
 
-				// Construct an instance of the Worker model
-				workerModel := new(cdtektonpipelinev2.Worker)
-				workerModel.Name = core.StringPtr("testString")
-				workerModel.Type = core.StringPtr("testString")
-				workerModel.ID = core.StringPtr("testString")
+				// Construct an instance of the WorkerIdentity model
+				workerIdentityModel := new(cdtektonpipelinev2.WorkerIdentity)
+				workerIdentityModel.ID = core.StringPtr("testString")
 
 				// Construct an instance of the GenericSecret model
 				genericSecretModel := new(cdtektonpipelinev2.GenericSecret)
@@ -6183,7 +6171,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				triggerPatchModel.Name = core.StringPtr("start-deploy")
 				triggerPatchModel.EventListener = core.StringPtr("testString")
 				triggerPatchModel.Tags = []string{"testString"}
-				triggerPatchModel.Worker = workerModel
+				triggerPatchModel.Worker = workerIdentityModel
 				triggerPatchModel.MaxConcurrentRuns = core.Int64Ptr(int64(4))
 				triggerPatchModel.Enabled = core.BoolPtr(true)
 				triggerPatchModel.Secret = genericSecretModel
@@ -6263,11 +6251,9 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				Expect(cdTektonPipelineService).ToNot(BeNil())
 				cdTektonPipelineService.EnableRetries(0, 0)
 
-				// Construct an instance of the Worker model
-				workerModel := new(cdtektonpipelinev2.Worker)
-				workerModel.Name = core.StringPtr("testString")
-				workerModel.Type = core.StringPtr("testString")
-				workerModel.ID = core.StringPtr("testString")
+				// Construct an instance of the WorkerIdentity model
+				workerIdentityModel := new(cdtektonpipelinev2.WorkerIdentity)
+				workerIdentityModel.ID = core.StringPtr("testString")
 
 				// Construct an instance of the GenericSecret model
 				genericSecretModel := new(cdtektonpipelinev2.GenericSecret)
@@ -6294,7 +6280,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				triggerPatchModel.Name = core.StringPtr("start-deploy")
 				triggerPatchModel.EventListener = core.StringPtr("testString")
 				triggerPatchModel.Tags = []string{"testString"}
-				triggerPatchModel.Worker = workerModel
+				triggerPatchModel.Worker = workerIdentityModel
 				triggerPatchModel.MaxConcurrentRuns = core.Int64Ptr(int64(4))
 				triggerPatchModel.Enabled = core.BoolPtr(true)
 				triggerPatchModel.Secret = genericSecretModel
@@ -6382,11 +6368,9 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the Worker model
-				workerModel := new(cdtektonpipelinev2.Worker)
-				workerModel.Name = core.StringPtr("testString")
-				workerModel.Type = core.StringPtr("testString")
-				workerModel.ID = core.StringPtr("testString")
+				// Construct an instance of the WorkerIdentity model
+				workerIdentityModel := new(cdtektonpipelinev2.WorkerIdentity)
+				workerIdentityModel.ID = core.StringPtr("testString")
 
 				// Construct an instance of the GenericSecret model
 				genericSecretModel := new(cdtektonpipelinev2.GenericSecret)
@@ -6413,7 +6397,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				triggerPatchModel.Name = core.StringPtr("start-deploy")
 				triggerPatchModel.EventListener = core.StringPtr("testString")
 				triggerPatchModel.Tags = []string{"testString"}
-				triggerPatchModel.Worker = workerModel
+				triggerPatchModel.Worker = workerIdentityModel
 				triggerPatchModel.MaxConcurrentRuns = core.Int64Ptr(int64(4))
 				triggerPatchModel.Enabled = core.BoolPtr(true)
 				triggerPatchModel.Secret = genericSecretModel
@@ -6446,11 +6430,9 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(cdTektonPipelineService).ToNot(BeNil())
 
-				// Construct an instance of the Worker model
-				workerModel := new(cdtektonpipelinev2.Worker)
-				workerModel.Name = core.StringPtr("testString")
-				workerModel.Type = core.StringPtr("testString")
-				workerModel.ID = core.StringPtr("testString")
+				// Construct an instance of the WorkerIdentity model
+				workerIdentityModel := new(cdtektonpipelinev2.WorkerIdentity)
+				workerIdentityModel.ID = core.StringPtr("testString")
 
 				// Construct an instance of the GenericSecret model
 				genericSecretModel := new(cdtektonpipelinev2.GenericSecret)
@@ -6477,7 +6459,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				triggerPatchModel.Name = core.StringPtr("start-deploy")
 				triggerPatchModel.EventListener = core.StringPtr("testString")
 				triggerPatchModel.Tags = []string{"testString"}
-				triggerPatchModel.Worker = workerModel
+				triggerPatchModel.Worker = workerIdentityModel
 				triggerPatchModel.MaxConcurrentRuns = core.Int64Ptr(int64(4))
 				triggerPatchModel.Enabled = core.BoolPtr(true)
 				triggerPatchModel.Secret = genericSecretModel
@@ -6531,11 +6513,9 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(cdTektonPipelineService).ToNot(BeNil())
 
-				// Construct an instance of the Worker model
-				workerModel := new(cdtektonpipelinev2.Worker)
-				workerModel.Name = core.StringPtr("testString")
-				workerModel.Type = core.StringPtr("testString")
-				workerModel.ID = core.StringPtr("testString")
+				// Construct an instance of the WorkerIdentity model
+				workerIdentityModel := new(cdtektonpipelinev2.WorkerIdentity)
+				workerIdentityModel.ID = core.StringPtr("testString")
 
 				// Construct an instance of the GenericSecret model
 				genericSecretModel := new(cdtektonpipelinev2.GenericSecret)
@@ -6562,7 +6542,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				triggerPatchModel.Name = core.StringPtr("start-deploy")
 				triggerPatchModel.EventListener = core.StringPtr("testString")
 				triggerPatchModel.Tags = []string{"testString"}
-				triggerPatchModel.Worker = workerModel
+				triggerPatchModel.Worker = workerIdentityModel
 				triggerPatchModel.MaxConcurrentRuns = core.Int64Ptr(int64(4))
 				triggerPatchModel.Enabled = core.BoolPtr(true)
 				triggerPatchModel.Secret = genericSecretModel
@@ -8164,15 +8144,11 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				Expect(createTektonPipelineRunOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateTektonPipelineTriggerOptions successfully`, func() {
-				// Construct an instance of the Worker model
-				workerModel := new(cdtektonpipelinev2.Worker)
-				Expect(workerModel).ToNot(BeNil())
-				workerModel.Name = core.StringPtr("testString")
-				workerModel.Type = core.StringPtr("testString")
-				workerModel.ID = core.StringPtr("public")
-				Expect(workerModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(workerModel.Type).To(Equal(core.StringPtr("testString")))
-				Expect(workerModel.ID).To(Equal(core.StringPtr("public")))
+				// Construct an instance of the WorkerIdentity model
+				workerIdentityModel := new(cdtektonpipelinev2.WorkerIdentity)
+				Expect(workerIdentityModel).ToNot(BeNil())
+				workerIdentityModel.ID = core.StringPtr("public")
+				Expect(workerIdentityModel.ID).To(Equal(core.StringPtr("public")))
 
 				// Construct an instance of the GenericSecret model
 				genericSecretModel := new(cdtektonpipelinev2.GenericSecret)
@@ -8217,7 +8193,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				createTektonPipelineTriggerOptionsModel.SetName("Manual Trigger")
 				createTektonPipelineTriggerOptionsModel.SetEventListener("pr-listener")
 				createTektonPipelineTriggerOptionsModel.SetTags([]string{"testString"})
-				createTektonPipelineTriggerOptionsModel.SetWorker(workerModel)
+				createTektonPipelineTriggerOptionsModel.SetWorker(workerIdentityModel)
 				createTektonPipelineTriggerOptionsModel.SetMaxConcurrentRuns(int64(3))
 				createTektonPipelineTriggerOptionsModel.SetEnabled(true)
 				createTektonPipelineTriggerOptionsModel.SetSecret(genericSecretModel)
@@ -8232,7 +8208,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				Expect(createTektonPipelineTriggerOptionsModel.Name).To(Equal(core.StringPtr("Manual Trigger")))
 				Expect(createTektonPipelineTriggerOptionsModel.EventListener).To(Equal(core.StringPtr("pr-listener")))
 				Expect(createTektonPipelineTriggerOptionsModel.Tags).To(Equal([]string{"testString"}))
-				Expect(createTektonPipelineTriggerOptionsModel.Worker).To(Equal(workerModel))
+				Expect(createTektonPipelineTriggerOptionsModel.Worker).To(Equal(workerIdentityModel))
 				Expect(createTektonPipelineTriggerOptionsModel.MaxConcurrentRuns).To(Equal(core.Int64Ptr(int64(3))))
 				Expect(createTektonPipelineTriggerOptionsModel.Enabled).To(Equal(core.BoolPtr(true)))
 				Expect(createTektonPipelineTriggerOptionsModel.Secret).To(Equal(genericSecretModel))
@@ -8578,9 +8554,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 			})
 			It(`Invoke NewProperty successfully`, func() {
 				name := "testString"
-				href := "testString"
 				typeVar := "secure"
-				_model, err := cdTektonPipelineService.NewProperty(name, href, typeVar)
+				_model, err := cdTektonPipelineService.NewProperty(name, typeVar)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
@@ -8738,12 +8713,6 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				Expect(updateTektonPipelineTriggerOptionsModel.TriggerID).To(Equal(core.StringPtr("1bb892a1-2e04-4768-a369-b1159eace147")))
 				Expect(updateTektonPipelineTriggerOptionsModel.TriggerPatch).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(updateTektonPipelineTriggerOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
-			It(`Invoke NewWorker successfully`, func() {
-				id := "testString"
-				_model, err := cdTektonPipelineService.NewWorker(id)
-				Expect(_model).ToNot(BeNil())
-				Expect(err).To(BeNil())
 			})
 			It(`Invoke NewWorkerIdentity successfully`, func() {
 				id := "testString"
