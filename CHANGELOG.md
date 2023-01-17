@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.0.2...v1.0.3) (2023-01-17)
+
+
+### Bug Fixes
+
+* **tekton:** WorkerIdentity and href updates ([5482480](https://github.com/IBM/continuous-delivery-go-sdk/commit/54824807d0e8ce5b43ae627081eaddae705efb51))
+
 ## [1.0.2](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.0.1...v1.0.2) (2023-01-11)
 
 
