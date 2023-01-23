@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.0.3...v1.0.4) (2023-01-23)
+
+
+### Bug Fixes
+
+* **tekton:** fix for empty tags and events ([9976e87](https://github.com/IBM/continuous-delivery-go-sdk/commit/9976e878600e37a9d454d9edf22244d4fdaed196))
+
 ## [1.0.3](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.0.2...v1.0.3) (2023-01-17)
 
 
