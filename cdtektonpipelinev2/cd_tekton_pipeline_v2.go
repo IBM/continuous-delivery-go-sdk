@@ -2748,7 +2748,7 @@ type CreateTektonPipelineTriggerOptions struct {
 	EventListener *string `json:"event_listener" validate:"required"`
 
 	// Trigger tags array.
-	Tags []string `json:"tags,omitempty"`
+	Tags []string `json:"tags"`
 
 	// Worker used to run the trigger. If not specified the trigger will use the default pipeline worker.
 	Worker *WorkerIdentity `json:"worker,omitempty"`
@@ -2781,7 +2781,7 @@ type CreateTektonPipelineTriggerOptions struct {
 	// Only needed for Git triggers. List of events to which a Git trigger listens. Choose one or more from: 'push',
 	// 'pull_request' and 'pull_request_closed'. For SCM repositories that use 'merge request' events, such events map to
 	// the equivalent 'pull request' events.
-	Events []string `json:"events,omitempty"`
+	Events []string `json:"events"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -5264,7 +5264,7 @@ type Trigger struct {
 	Properties []TriggerProperty `json:"properties,omitempty"`
 
 	// Optional trigger tags array.
-	Tags []string `json:"tags,omitempty"`
+	Tags []string `json:"tags"`
 
 	// Worker used to run the trigger. If not specified the trigger will use the default pipeline worker.
 	Worker *Worker `json:"worker,omitempty"`
@@ -5284,7 +5284,7 @@ type Trigger struct {
 	// Only needed for Git triggers. List of events to which a Git trigger listens. Choose one or more from: 'push',
 	// 'pull_request' and 'pull_request_closed'. For SCM repositories that use 'merge request' events, such events map to
 	// the equivalent 'pull request' events.
-	Events []string `json:"events,omitempty"`
+	Events []string `json:"events"`
 
 	// Only needed for timer triggers. Cron expression that indicates when this trigger will activate. Maximum frequency is
 	// every 5 minutes. The string is based on UNIX crontab syntax: minute, hour, day of month, month, day of week.
@@ -5403,7 +5403,7 @@ type TriggerPatch struct {
 	EventListener *string `json:"event_listener,omitempty"`
 
 	// Trigger tags array. Optional tags for the trigger.
-	Tags []string `json:"tags,omitempty"`
+	Tags []string `json:"tags"`
 
 	// Worker used to run the trigger. If not specified the trigger will use the default pipeline worker.
 	Worker *WorkerIdentity `json:"worker,omitempty"`
@@ -5436,7 +5436,7 @@ type TriggerPatch struct {
 	// Only needed for Git triggers. List of events to which a Git trigger listens. Choose one or more from: 'push',
 	// 'pull_request' and 'pull_request_closed'. For SCM repositories that use 'merge request' events, such events map to
 	// the equivalent 'pull request' events.
-	Events []string `json:"events,omitempty"`
+	Events []string `json:"events"`
 }
 
 // Constants associated with the TriggerPatch.Type property.
@@ -5968,7 +5968,7 @@ type TriggerGenericTrigger struct {
 	Properties []TriggerProperty `json:"properties,omitempty"`
 
 	// Optional trigger tags array.
-	Tags []string `json:"tags,omitempty"`
+	Tags []string `json:"tags"`
 
 	// Worker used to run the trigger. If not specified the trigger will use the default pipeline worker.
 	Worker *Worker `json:"worker,omitempty"`
@@ -6069,7 +6069,7 @@ type TriggerManualTrigger struct {
 	Properties []TriggerProperty `json:"properties,omitempty"`
 
 	// Optional trigger tags array.
-	Tags []string `json:"tags,omitempty"`
+	Tags []string `json:"tags"`
 
 	// Worker used to run the trigger. If not specified the trigger will use the default pipeline worker.
 	Worker *Worker `json:"worker,omitempty"`
@@ -6157,7 +6157,7 @@ type TriggerScmTrigger struct {
 	Properties []TriggerProperty `json:"properties,omitempty"`
 
 	// Optional trigger tags array.
-	Tags []string `json:"tags,omitempty"`
+	Tags []string `json:"tags"`
 
 	// Worker used to run the trigger. If not specified the trigger will use the default pipeline worker.
 	Worker *Worker `json:"worker,omitempty"`
@@ -6177,7 +6177,7 @@ type TriggerScmTrigger struct {
 	// Only needed for Git triggers. List of events to which a Git trigger listens. Choose one or more from: 'push',
 	// 'pull_request' and 'pull_request_closed'. For SCM repositories that use 'merge request' events, such events map to
 	// the equivalent 'pull request' events.
-	Events []string `json:"events,omitempty"`
+	Events []string `json:"events"`
 }
 
 // Constants associated with the TriggerScmTrigger.Events property.
@@ -6271,7 +6271,7 @@ type TriggerTimerTrigger struct {
 	Properties []TriggerProperty `json:"properties,omitempty"`
 
 	// Optional trigger tags array.
-	Tags []string `json:"tags,omitempty"`
+	Tags []string `json:"tags"`
 
 	// Worker used to run the trigger. If not specified the trigger will use the default pipeline worker.
 	Worker *Worker `json:"worker,omitempty"`
