@@ -95,6 +95,7 @@ For general SDK usage information, see [IBM Cloud SDK Common README](https://git
 ## Questions
 
 If you are having difficulties using this SDK or you have a question about the IBM Cloud services, ask a question at [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-cloud).
+Alternatively, you can reach out to the IBM Cloud Continuous Delivery development team by joining us on [Slack](https://ic-devops-slack-invite.us-south.devops.cloud.ibm.com/).
 
 ## Issues
 
