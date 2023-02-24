@@ -23,17 +23,19 @@ The Go client library to interact with the [IBM Cloud Continuous Delivery Toolch
 
 <!-- toc -->
 
-- [Overview](#overview)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-  - [Go modules](#go-modules)
-  - [`go get` command](#go-get-command)
-- [Using the SDK](#using-the-sdk)
-- [Questions](#questions)
-- [Issues](#issues)
-- [Open source @ IBM](#open-source--ibm)
-- [Contributing](#contributing)
-- [License](#license)
+- [IBM Cloud Continuous Delivery Go SDK 1.0.4](#ibm-cloud-continuous-delivery-go-sdk-104)
+  - [Table of Contents](#table-of-contents)
+  - [Overview](#overview)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+    - [Go modules](#go-modules)
+    - [`go get` command](#go-get-command)
+  - [Using the SDK](#using-the-sdk)
+  - [Questions](#questions)
+  - [Issues](#issues)
+  - [Open source @ IBM](#open-source--ibm)
+  - [Contributing](#contributing)
+  - [License](#license)
 
 <!-- tocstop -->
 
@@ -54,7 +56,7 @@ Table 1. IBM Cloud services
 
 - An [IBM Cloud][ibm-cloud-onboarding] account.
 - An IAM API key to allow the SDK to access your account. Create an [API key](https://cloud.ibm.com/iam/apikeys).
-- Go version 1.16 or above.
+- Go version 1.18 or above.
 
 ## Installation
 
