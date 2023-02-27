@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.0.4...v1.0.5) (2023-02-27)
+
+
+### Bug Fixes
+
+* sync with latest template repo updates ([38ad7ff](https://github.com/IBM/continuous-delivery-go-sdk/commit/38ad7ff1dd94bb49ad260936ae764001e32b503e))
+
 ## [1.0.4](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.0.3...v1.0.4) (2023-01-23)
 
 
