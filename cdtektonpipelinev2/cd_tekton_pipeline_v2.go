@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.62.0-a2a22f95-20221115-162524
+ * IBM OpenAPI SDK Code Generator Version: 3.68.2-ac7def68-20230310-195410
  */
 
 // Package cdtektonpipelinev2 : Operations and models for the CdTektonPipelineV2 service
@@ -219,6 +219,9 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineWithContext(ctx 
 	body := make(map[string]interface{})
 	if createTektonPipelineOptions.ID != nil {
 		body["id"] = createTektonPipelineOptions.ID
+	}
+	if createTektonPipelineOptions.NextBuildNumber != nil {
+		body["next_build_number"] = createTektonPipelineOptions.NextBuildNumber
 	}
 	if createTektonPipelineOptions.EnableNotifications != nil {
 		body["enable_notifications"] = createTektonPipelineOptions.EnableNotifications
@@ -507,7 +510,8 @@ func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineRunsWithContext(ct
 }
 
 // CreateTektonPipelineRun : Trigger a pipeline run
-// Trigger a new pipeline run using the named manual trigger, using the provided additional or override properties.
+// Trigger a new pipeline run with the named manual or timer trigger, using the provided additional or override
+// properties.
 func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineRun(createTektonPipelineRunOptions *CreateTektonPipelineRunOptions) (result *PipelineRun, response *core.DetailedResponse, err error) {
 	return cdTektonPipeline.CreateTektonPipelineRunWithContext(context.Background(), createTektonPipelineRunOptions)
 }
@@ -2506,6 +2510,10 @@ type CreateTektonPipelineOptions struct {
 	// call the toolchain API https://cloud.ibm.com/apidocs/toolchain#list-tools and find the pipeline tool.
 	ID *string `json:"id" validate:"required"`
 
+	// Specify the build number that will be used for the next pipeline run. Build numbers can be any positive whole number
+	// between 0 and 100000000000000.
+	NextBuildNumber *int64 `json:"next_build_number,omitempty"`
+
 	// Flag whether to enable notifications for this pipeline. When enabled, pipeline run events are published on all slack
 	// integration specified channels in the parent toolchain.
 	EnableNotifications *bool `json:"enable_notifications,omitempty"`
@@ -2532,6 +2540,12 @@ func (*CdTektonPipelineV2) NewCreateTektonPipelineOptions(id string) *CreateTekt
 // SetID : Allow user to set ID
 func (_options *CreateTektonPipelineOptions) SetID(id string) *CreateTektonPipelineOptions {
 	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetNextBuildNumber : Allow user to set NextBuildNumber
+func (_options *CreateTektonPipelineOptions) SetNextBuildNumber(nextBuildNumber int64) *CreateTektonPipelineOptions {
+	_options.NextBuildNumber = core.Int64Ptr(nextBuildNumber)
 	return _options
 }
 
@@ -5048,6 +5062,9 @@ type TektonPipeline struct {
 	// The latest pipeline run build number. If this property is absent, the pipeline hasn't had any pipeline runs.
 	BuildNumber *int64 `json:"build_number" validate:"required"`
 
+	// The build number that will be used for the next pipeline run.
+	NextBuildNumber *int64 `json:"next_build_number" validate:"required"`
+
 	// Flag whether to enable notifications for this pipeline. When enabled, pipeline run events will be published on all
 	// slack integration specified channels in the parent toolchain. If omitted, this feature is disabled by default.
 	EnableNotifications *bool `json:"enable_notifications" validate:"required"`
@@ -5127,6 +5144,10 @@ func UnmarshalTektonPipeline(m map[string]json.RawMessage, result interface{}) (
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "next_build_number", &obj.NextBuildNumber)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "enable_notifications", &obj.EnableNotifications)
 	if err != nil {
 		return
@@ -5145,6 +5166,10 @@ func UnmarshalTektonPipeline(m map[string]json.RawMessage, result interface{}) (
 
 // TektonPipelinePatch : Request body used to update this pipeline.
 type TektonPipelinePatch struct {
+	// Specify the build number that will be used for the next pipeline run. Build numbers can be any positive whole number
+	// between 0 and 100000000000000.
+	NextBuildNumber *int64 `json:"next_build_number,omitempty"`
+
 	// Flag whether to enable notifications for this pipeline. When enabled, pipeline run events are published on all slack
 	// integration specified channels in the parent toolchain.
 	EnableNotifications *bool `json:"enable_notifications,omitempty"`
@@ -5161,6 +5186,10 @@ type TektonPipelinePatch struct {
 // UnmarshalTektonPipelinePatch unmarshals an instance of TektonPipelinePatch from the specified map of raw messages.
 func UnmarshalTektonPipelinePatch(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(TektonPipelinePatch)
+	err = core.UnmarshalPrimitive(m, "next_build_number", &obj.NextBuildNumber)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "enable_notifications", &obj.EnableNotifications)
 	if err != nil {
 		return
@@ -5636,9 +5665,11 @@ type TriggerSourceProperties struct {
 	// Name of a branch from the repo. One of branch or pattern must be specified, but only one or the other.
 	Branch *string `json:"branch,omitempty"`
 
-	// Git branch or tag pattern to listen to, specify one of branch or pattern only. When specifying a tag to listen to,
-	// you can also specify a simple glob pattern such as '!test' or '*master' to match against multiple tags/branches in
-	// the repository.
+	// The pattern of Git branch or tag to which to listen. You can specify a glob pattern such as '!test' or '*master' to
+	// match against multiple tags/branches in the repository. The glob pattern used must conform to Bash 4.3
+	// specifications, see bash documentation for more info:
+	// https://www.gnu.org/software/bash/manual/bash.html#Pattern-Matching. One of branch or pattern must be specified, but
+	// only one or the other.
 	Pattern *string `json:"pattern,omitempty"`
 
 	// True if the repository server is not addressable on the public internet. IBM Cloud will not be able to validate the
@@ -5691,9 +5722,11 @@ type TriggerSourcePropertiesPrototype struct {
 	// Name of a branch from the repo. One of branch or pattern must be specified, but only one or the other.
 	Branch *string `json:"branch,omitempty"`
 
-	// Git branch or tag pattern to listen to, specify one of branch or pattern only. When specifying a tag to listen to,
-	// you can also specify a simple glob pattern such as '!test' or '*master' to match against multiple tags/branches in
-	// the repository.
+	// The pattern of Git branch or tag to which to listen. You can specify a glob pattern such as '!test' or '*master' to
+	// match against multiple tags/branches in the repository. The glob pattern used must conform to Bash 4.3
+	// specifications, see bash documentation for more info:
+	// https://www.gnu.org/software/bash/manual/bash.html#Pattern-Matching. One of branch or pattern must be specified, but
+	// only one or the other.
 	Pattern *string `json:"pattern,omitempty"`
 }
 
