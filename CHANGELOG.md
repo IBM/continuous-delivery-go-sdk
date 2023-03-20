@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.0.5...v1.1.0) (2023-03-20)
+
+
+### Features
+
+* **tekton:** add next build number support ([3dbec03](https://github.com/IBM/continuous-delivery-go-sdk/commit/3dbec03f6bb5dbf90354a744ac214ce42bf45fae))
+
 ## [1.0.5](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.0.4...v1.0.5) (2023-02-27)
 
 
