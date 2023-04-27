@@ -1,6 +1,6 @@
 language: go
 
-dist: bionic
+dist: focal
 
 go:
 - 1.18.x
