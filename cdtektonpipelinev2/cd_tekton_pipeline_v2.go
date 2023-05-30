@@ -5063,7 +5063,7 @@ type TektonPipeline struct {
 	BuildNumber *int64 `json:"build_number" validate:"required"`
 
 	// The build number that will be used for the next pipeline run.
-	NextBuildNumber *int64 `json:"next_build_number" validate:"required"`
+	NextBuildNumber *int64 `json:"next_build_number,omitempty"`
 
 	// Flag whether to enable notifications for this pipeline. When enabled, pipeline run events will be published on all
 	// slack integration specified channels in the parent toolchain. If omitted, this feature is disabled by default.
