@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.1.0...v1.1.1) (2023-05-30)
+
+
+### Bug Fixes
+
+* **tekton:** update nextBuildNumber ([6b59938](https://github.com/IBM/continuous-delivery-go-sdk/commit/6b59938a786b052408c70b81c194164aefd24676))
+
 # [1.1.0](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.0.5...v1.1.0) (2023-03-20)
 
 
