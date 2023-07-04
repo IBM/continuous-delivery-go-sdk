@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.68.2-ac7def68-20230310-195410
+ * IBM OpenAPI SDK Code Generator Version: 3.72.0-5d70f2bb-20230511-203609
  */
 
 // Package cdtektonpipelinev2 : Operations and models for the CdTektonPipelineV2 service
@@ -5437,8 +5437,8 @@ type TriggerPatch struct {
 	// Worker used to run the trigger. If not specified the trigger will use the default pipeline worker.
 	Worker *WorkerIdentity `json:"worker,omitempty"`
 
-	// Defines the maximum number of concurrent runs for this trigger. If omitted then the concurrency limit is disabled
-	// for this trigger.
+	// Defines the maximum number of concurrent runs for this trigger. If set to 0 then the custom concurrency limit is
+	// disabled for this trigger.
 	MaxConcurrentRuns *int64 `json:"max_concurrent_runs,omitempty"`
 
 	// Defines if this trigger is enabled.

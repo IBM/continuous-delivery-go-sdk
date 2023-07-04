@@ -1460,7 +1460,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 
 				// Construct an instance of the PipelineRunTrigger model
 				pipelineRunTriggerModel := new(cdtektonpipelinev2.PipelineRunTrigger)
-				pipelineRunTriggerModel.Name = core.StringPtr("Generic Webhook Trigger - 0")
+				pipelineRunTriggerModel.Name = core.StringPtr("Manual Trigger 1")
 				pipelineRunTriggerModel.Properties = []cdtektonpipelinev2.Property{*propertyModel}
 				pipelineRunTriggerModel.SecureProperties = []cdtektonpipelinev2.Property{*propertyModel}
 				pipelineRunTriggerModel.HeadersVar = map[string]interface{}{"anyKey": "anyValue"}
@@ -1550,7 +1550,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 
 				// Construct an instance of the PipelineRunTrigger model
 				pipelineRunTriggerModel := new(cdtektonpipelinev2.PipelineRunTrigger)
-				pipelineRunTriggerModel.Name = core.StringPtr("Generic Webhook Trigger - 0")
+				pipelineRunTriggerModel.Name = core.StringPtr("Manual Trigger 1")
 				pipelineRunTriggerModel.Properties = []cdtektonpipelinev2.Property{*propertyModel}
 				pipelineRunTriggerModel.SecureProperties = []cdtektonpipelinev2.Property{*propertyModel}
 				pipelineRunTriggerModel.HeadersVar = map[string]interface{}{"anyKey": "anyValue"}
@@ -1648,7 +1648,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 
 				// Construct an instance of the PipelineRunTrigger model
 				pipelineRunTriggerModel := new(cdtektonpipelinev2.PipelineRunTrigger)
-				pipelineRunTriggerModel.Name = core.StringPtr("Generic Webhook Trigger - 0")
+				pipelineRunTriggerModel.Name = core.StringPtr("Manual Trigger 1")
 				pipelineRunTriggerModel.Properties = []cdtektonpipelinev2.Property{*propertyModel}
 				pipelineRunTriggerModel.SecureProperties = []cdtektonpipelinev2.Property{*propertyModel}
 				pipelineRunTriggerModel.HeadersVar = map[string]interface{}{"anyKey": "anyValue"}
@@ -1691,7 +1691,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 
 				// Construct an instance of the PipelineRunTrigger model
 				pipelineRunTriggerModel := new(cdtektonpipelinev2.PipelineRunTrigger)
-				pipelineRunTriggerModel.Name = core.StringPtr("Generic Webhook Trigger - 0")
+				pipelineRunTriggerModel.Name = core.StringPtr("Manual Trigger 1")
 				pipelineRunTriggerModel.Properties = []cdtektonpipelinev2.Property{*propertyModel}
 				pipelineRunTriggerModel.SecureProperties = []cdtektonpipelinev2.Property{*propertyModel}
 				pipelineRunTriggerModel.HeadersVar = map[string]interface{}{"anyKey": "anyValue"}
@@ -1755,7 +1755,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 
 				// Construct an instance of the PipelineRunTrigger model
 				pipelineRunTriggerModel := new(cdtektonpipelinev2.PipelineRunTrigger)
-				pipelineRunTriggerModel.Name = core.StringPtr("Generic Webhook Trigger - 0")
+				pipelineRunTriggerModel.Name = core.StringPtr("Manual Trigger 1")
 				pipelineRunTriggerModel.Properties = []cdtektonpipelinev2.Property{*propertyModel}
 				pipelineRunTriggerModel.SecureProperties = []cdtektonpipelinev2.Property{*propertyModel}
 				pipelineRunTriggerModel.HeadersVar = map[string]interface{}{"anyKey": "anyValue"}
@@ -8123,12 +8123,12 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				// Construct an instance of the PipelineRunTrigger model
 				pipelineRunTriggerModel := new(cdtektonpipelinev2.PipelineRunTrigger)
 				Expect(pipelineRunTriggerModel).ToNot(BeNil())
-				pipelineRunTriggerModel.Name = core.StringPtr("Generic Webhook Trigger - 0")
+				pipelineRunTriggerModel.Name = core.StringPtr("Manual Trigger 1")
 				pipelineRunTriggerModel.Properties = []cdtektonpipelinev2.Property{*propertyModel}
 				pipelineRunTriggerModel.SecureProperties = []cdtektonpipelinev2.Property{*propertyModel}
 				pipelineRunTriggerModel.HeadersVar = map[string]interface{}{"anyKey": "anyValue"}
 				pipelineRunTriggerModel.Body = map[string]interface{}{"anyKey": "anyValue"}
-				Expect(pipelineRunTriggerModel.Name).To(Equal(core.StringPtr("Generic Webhook Trigger - 0")))
+				Expect(pipelineRunTriggerModel.Name).To(Equal(core.StringPtr("Manual Trigger 1")))
 				Expect(pipelineRunTriggerModel.Properties).To(Equal([]cdtektonpipelinev2.Property{*propertyModel}))
 				Expect(pipelineRunTriggerModel.SecureProperties).To(Equal([]cdtektonpipelinev2.Property{*propertyModel}))
 				Expect(pipelineRunTriggerModel.HeadersVar).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
