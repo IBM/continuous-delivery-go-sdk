@@ -218,7 +218,7 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 			}
 
 			pipelineRunTriggerModel := &cdtektonpipelinev2.PipelineRunTrigger{
-				Name: core.StringPtr("Generic Webhook Trigger - 0"),
+				Name: core.StringPtr("Manual Trigger 1"),
 				Properties: []cdtektonpipelinev2.Property{*propertyModel},
 				SecureProperties: []cdtektonpipelinev2.Property{*propertyModel},
 			}
