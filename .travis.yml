@@ -27,6 +27,8 @@ script:
 
 before_deploy:
   - nvm install 18
+  - node --version
+  - npm --version
   - npm install
   - pip install --user bump2version
 
