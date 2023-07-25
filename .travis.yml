@@ -25,9 +25,8 @@ install:
 script:
   - make travis-ci
 
-# To enable semantic-release, uncomment these sections.
 before_deploy:
-  - nvm install 14
+  - nvm install 18
   - npm install
   - pip install --user bump2version
 
