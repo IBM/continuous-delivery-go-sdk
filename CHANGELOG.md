@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.1.1...v1.1.2) (2023-08-01)
+
+
+### Bug Fixes
+
+* **tekton:** add trigger favorite field ([cd01eba](https://github.com/IBM/continuous-delivery-go-sdk/commit/cd01ebad52adaccec81a3620889b86dc6c39b165))
+
 ## [1.1.1](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.1.0...v1.1.1) (2023-05-30)
 
 
