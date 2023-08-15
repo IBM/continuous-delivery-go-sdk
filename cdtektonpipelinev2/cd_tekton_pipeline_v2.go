@@ -2673,11 +2673,11 @@ type CreateTektonPipelineRunOptions struct {
 
 	// An object containing string values only that provides additional `text` properties, or overrides existing
 	// pipeline/trigger properties, to use for the created run.
-	TriggerProperties []Property `json:"trigger_properties,omitempty"`
+	TriggerProperties map[string]interface{} `json:"trigger_properties,omitempty"`
 
 	// An object containing string values only that provides additional `secure` properties, or overrides existing `secure`
 	// pipeline/trigger properties, to use for the created run.
-	SecureTriggerProperties []Property `json:"secure_trigger_properties,omitempty"`
+	SecureTriggerProperties map[string]interface{} `json:"secure_trigger_properties,omitempty"`
 
 	// An object containing string values only that provides the request headers. Use `$(header.header_key_name)` to access
 	// it in a TriggerBinding. Most commonly used as part of a Generic Webhook to provide a verification token or signature
@@ -2715,13 +2715,13 @@ func (_options *CreateTektonPipelineRunOptions) SetTriggerName(triggerName strin
 }
 
 // SetTriggerProperties : Allow user to set TriggerProperties
-func (_options *CreateTektonPipelineRunOptions) SetTriggerProperties(triggerProperties []Property) *CreateTektonPipelineRunOptions {
+func (_options *CreateTektonPipelineRunOptions) SetTriggerProperties(triggerProperties map[string]interface{}) *CreateTektonPipelineRunOptions {
 	_options.TriggerProperties = triggerProperties
 	return _options
 }
 
 // SetSecureTriggerProperties : Allow user to set SecureTriggerProperties
-func (_options *CreateTektonPipelineRunOptions) SetSecureTriggerProperties(secureTriggerProperties []Property) *CreateTektonPipelineRunOptions {
+func (_options *CreateTektonPipelineRunOptions) SetSecureTriggerProperties(secureTriggerProperties map[string]interface{}) *CreateTektonPipelineRunOptions {
 	_options.SecureTriggerProperties = secureTriggerProperties
 	return _options
 }
@@ -4377,11 +4377,11 @@ type PipelineRunTrigger struct {
 
 	// An object containing string values only that provides additional `text` properties, or overrides existing
 	// pipeline/trigger properties, to use for the created run.
-	Properties []Property `json:"properties,omitempty"`
+	Properties map[string]interface{} `json:"properties,omitempty"`
 
 	// An object containing string values only that provides additional `secure` properties, or overrides existing `secure`
 	// pipeline/trigger properties, to use for the created run.
-	SecureProperties []Property `json:"secure_properties,omitempty"`
+	SecureProperties map[string]interface{} `json:"secure_properties,omitempty"`
 
 	// An object containing string values only that provides the request headers. Use `$(header.header_key_name)` to access
 	// it in a TriggerBinding. Most commonly used as part of a Generic Webhook to provide a verification token or signature
@@ -4409,11 +4409,11 @@ func UnmarshalPipelineRunTrigger(m map[string]json.RawMessage, result interface{
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "properties", &obj.Properties, UnmarshalProperty)
+	err = core.UnmarshalPrimitive(m, "properties", &obj.Properties)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "secure_properties", &obj.SecureProperties, UnmarshalProperty)
+	err = core.UnmarshalPrimitive(m, "secure_properties", &obj.SecureProperties)
 	if err != nil {
 		return
 	}
@@ -4574,16 +4574,6 @@ const (
 	PropertyTypeSingleSelectConst = "single_select"
 	PropertyTypeTextConst = "text"
 )
-
-// NewProperty : Instantiate Property (Generic Model Constructor)
-func (*CdTektonPipelineV2) NewProperty(name string, typeVar string) (_model *Property, err error) {
-	_model = &Property{
-		Name: core.StringPtr(name),
-		Type: core.StringPtr(typeVar),
-	}
-	err = core.ValidateStruct(_model, "required parameters")
-	return
-}
 
 // UnmarshalProperty unmarshals an instance of Property from the specified map of raw messages.
 func UnmarshalProperty(m map[string]json.RawMessage, result interface{}) (err error) {

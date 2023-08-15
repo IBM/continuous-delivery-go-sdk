@@ -212,15 +212,8 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 			fmt.Println("\nCreateTektonPipelineRun() result:")
 			// begin-create_tekton_pipeline_run
 
-			propertyModel := &cdtektonpipelinev2.Property{
-				Name: core.StringPtr("testString"),
-				Type: core.StringPtr("secure"),
-			}
-
 			pipelineRunTriggerModel := &cdtektonpipelinev2.PipelineRunTrigger{
 				Name: core.StringPtr("Manual Trigger 1"),
-				Properties: []cdtektonpipelinev2.Property{*propertyModel},
-				SecureProperties: []cdtektonpipelinev2.Property{*propertyModel},
 			}
 
 			createTektonPipelineRunOptions := cdTektonPipelineService.NewCreateTektonPipelineRunOptions(
