@@ -1449,20 +1449,11 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(cdTektonPipelineService).ToNot(BeNil())
 
-				// Construct an instance of the Property model
-				propertyModel := new(cdtektonpipelinev2.Property)
-				propertyModel.Name = core.StringPtr("testString")
-				propertyModel.Value = core.StringPtr("testString")
-				propertyModel.Href = core.StringPtr("testString")
-				propertyModel.Enum = []string{"testString"}
-				propertyModel.Type = core.StringPtr("secure")
-				propertyModel.Path = core.StringPtr("testString")
-
 				// Construct an instance of the PipelineRunTrigger model
 				pipelineRunTriggerModel := new(cdtektonpipelinev2.PipelineRunTrigger)
 				pipelineRunTriggerModel.Name = core.StringPtr("Manual Trigger 1")
-				pipelineRunTriggerModel.Properties = []cdtektonpipelinev2.Property{*propertyModel}
-				pipelineRunTriggerModel.SecureProperties = []cdtektonpipelinev2.Property{*propertyModel}
+				pipelineRunTriggerModel.Properties = map[string]interface{}{"anyKey": "anyValue"}
+				pipelineRunTriggerModel.SecureProperties = map[string]interface{}{"anyKey": "anyValue"}
 				pipelineRunTriggerModel.HeadersVar = map[string]interface{}{"anyKey": "anyValue"}
 				pipelineRunTriggerModel.Body = map[string]interface{}{"anyKey": "anyValue"}
 
@@ -1470,8 +1461,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				createTektonPipelineRunOptionsModel := new(cdtektonpipelinev2.CreateTektonPipelineRunOptions)
 				createTektonPipelineRunOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
 				createTektonPipelineRunOptionsModel.TriggerName = core.StringPtr("testString")
-				createTektonPipelineRunOptionsModel.TriggerProperties = []cdtektonpipelinev2.Property{*propertyModel}
-				createTektonPipelineRunOptionsModel.SecureTriggerProperties = []cdtektonpipelinev2.Property{*propertyModel}
+				createTektonPipelineRunOptionsModel.TriggerProperties = map[string]interface{}{"anyKey": "anyValue"}
+				createTektonPipelineRunOptionsModel.SecureTriggerProperties = map[string]interface{}{"anyKey": "anyValue"}
 				createTektonPipelineRunOptionsModel.TriggerHeaders = map[string]interface{}{"anyKey": "anyValue"}
 				createTektonPipelineRunOptionsModel.TriggerBody = map[string]interface{}{"anyKey": "anyValue"}
 				createTektonPipelineRunOptionsModel.Trigger = pipelineRunTriggerModel
@@ -1539,20 +1530,11 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				Expect(cdTektonPipelineService).ToNot(BeNil())
 				cdTektonPipelineService.EnableRetries(0, 0)
 
-				// Construct an instance of the Property model
-				propertyModel := new(cdtektonpipelinev2.Property)
-				propertyModel.Name = core.StringPtr("testString")
-				propertyModel.Value = core.StringPtr("testString")
-				propertyModel.Href = core.StringPtr("testString")
-				propertyModel.Enum = []string{"testString"}
-				propertyModel.Type = core.StringPtr("secure")
-				propertyModel.Path = core.StringPtr("testString")
-
 				// Construct an instance of the PipelineRunTrigger model
 				pipelineRunTriggerModel := new(cdtektonpipelinev2.PipelineRunTrigger)
 				pipelineRunTriggerModel.Name = core.StringPtr("Manual Trigger 1")
-				pipelineRunTriggerModel.Properties = []cdtektonpipelinev2.Property{*propertyModel}
-				pipelineRunTriggerModel.SecureProperties = []cdtektonpipelinev2.Property{*propertyModel}
+				pipelineRunTriggerModel.Properties = map[string]interface{}{"anyKey": "anyValue"}
+				pipelineRunTriggerModel.SecureProperties = map[string]interface{}{"anyKey": "anyValue"}
 				pipelineRunTriggerModel.HeadersVar = map[string]interface{}{"anyKey": "anyValue"}
 				pipelineRunTriggerModel.Body = map[string]interface{}{"anyKey": "anyValue"}
 
@@ -1560,8 +1542,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				createTektonPipelineRunOptionsModel := new(cdtektonpipelinev2.CreateTektonPipelineRunOptions)
 				createTektonPipelineRunOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
 				createTektonPipelineRunOptionsModel.TriggerName = core.StringPtr("testString")
-				createTektonPipelineRunOptionsModel.TriggerProperties = []cdtektonpipelinev2.Property{*propertyModel}
-				createTektonPipelineRunOptionsModel.SecureTriggerProperties = []cdtektonpipelinev2.Property{*propertyModel}
+				createTektonPipelineRunOptionsModel.TriggerProperties = map[string]interface{}{"anyKey": "anyValue"}
+				createTektonPipelineRunOptionsModel.SecureTriggerProperties = map[string]interface{}{"anyKey": "anyValue"}
 				createTektonPipelineRunOptionsModel.TriggerHeaders = map[string]interface{}{"anyKey": "anyValue"}
 				createTektonPipelineRunOptionsModel.TriggerBody = map[string]interface{}{"anyKey": "anyValue"}
 				createTektonPipelineRunOptionsModel.Trigger = pipelineRunTriggerModel
@@ -1637,20 +1619,11 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the Property model
-				propertyModel := new(cdtektonpipelinev2.Property)
-				propertyModel.Name = core.StringPtr("testString")
-				propertyModel.Value = core.StringPtr("testString")
-				propertyModel.Href = core.StringPtr("testString")
-				propertyModel.Enum = []string{"testString"}
-				propertyModel.Type = core.StringPtr("secure")
-				propertyModel.Path = core.StringPtr("testString")
-
 				// Construct an instance of the PipelineRunTrigger model
 				pipelineRunTriggerModel := new(cdtektonpipelinev2.PipelineRunTrigger)
 				pipelineRunTriggerModel.Name = core.StringPtr("Manual Trigger 1")
-				pipelineRunTriggerModel.Properties = []cdtektonpipelinev2.Property{*propertyModel}
-				pipelineRunTriggerModel.SecureProperties = []cdtektonpipelinev2.Property{*propertyModel}
+				pipelineRunTriggerModel.Properties = map[string]interface{}{"anyKey": "anyValue"}
+				pipelineRunTriggerModel.SecureProperties = map[string]interface{}{"anyKey": "anyValue"}
 				pipelineRunTriggerModel.HeadersVar = map[string]interface{}{"anyKey": "anyValue"}
 				pipelineRunTriggerModel.Body = map[string]interface{}{"anyKey": "anyValue"}
 
@@ -1658,8 +1631,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				createTektonPipelineRunOptionsModel := new(cdtektonpipelinev2.CreateTektonPipelineRunOptions)
 				createTektonPipelineRunOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
 				createTektonPipelineRunOptionsModel.TriggerName = core.StringPtr("testString")
-				createTektonPipelineRunOptionsModel.TriggerProperties = []cdtektonpipelinev2.Property{*propertyModel}
-				createTektonPipelineRunOptionsModel.SecureTriggerProperties = []cdtektonpipelinev2.Property{*propertyModel}
+				createTektonPipelineRunOptionsModel.TriggerProperties = map[string]interface{}{"anyKey": "anyValue"}
+				createTektonPipelineRunOptionsModel.SecureTriggerProperties = map[string]interface{}{"anyKey": "anyValue"}
 				createTektonPipelineRunOptionsModel.TriggerHeaders = map[string]interface{}{"anyKey": "anyValue"}
 				createTektonPipelineRunOptionsModel.TriggerBody = map[string]interface{}{"anyKey": "anyValue"}
 				createTektonPipelineRunOptionsModel.Trigger = pipelineRunTriggerModel
@@ -1680,20 +1653,11 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(cdTektonPipelineService).ToNot(BeNil())
 
-				// Construct an instance of the Property model
-				propertyModel := new(cdtektonpipelinev2.Property)
-				propertyModel.Name = core.StringPtr("testString")
-				propertyModel.Value = core.StringPtr("testString")
-				propertyModel.Href = core.StringPtr("testString")
-				propertyModel.Enum = []string{"testString"}
-				propertyModel.Type = core.StringPtr("secure")
-				propertyModel.Path = core.StringPtr("testString")
-
 				// Construct an instance of the PipelineRunTrigger model
 				pipelineRunTriggerModel := new(cdtektonpipelinev2.PipelineRunTrigger)
 				pipelineRunTriggerModel.Name = core.StringPtr("Manual Trigger 1")
-				pipelineRunTriggerModel.Properties = []cdtektonpipelinev2.Property{*propertyModel}
-				pipelineRunTriggerModel.SecureProperties = []cdtektonpipelinev2.Property{*propertyModel}
+				pipelineRunTriggerModel.Properties = map[string]interface{}{"anyKey": "anyValue"}
+				pipelineRunTriggerModel.SecureProperties = map[string]interface{}{"anyKey": "anyValue"}
 				pipelineRunTriggerModel.HeadersVar = map[string]interface{}{"anyKey": "anyValue"}
 				pipelineRunTriggerModel.Body = map[string]interface{}{"anyKey": "anyValue"}
 
@@ -1701,8 +1665,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				createTektonPipelineRunOptionsModel := new(cdtektonpipelinev2.CreateTektonPipelineRunOptions)
 				createTektonPipelineRunOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
 				createTektonPipelineRunOptionsModel.TriggerName = core.StringPtr("testString")
-				createTektonPipelineRunOptionsModel.TriggerProperties = []cdtektonpipelinev2.Property{*propertyModel}
-				createTektonPipelineRunOptionsModel.SecureTriggerProperties = []cdtektonpipelinev2.Property{*propertyModel}
+				createTektonPipelineRunOptionsModel.TriggerProperties = map[string]interface{}{"anyKey": "anyValue"}
+				createTektonPipelineRunOptionsModel.SecureTriggerProperties = map[string]interface{}{"anyKey": "anyValue"}
 				createTektonPipelineRunOptionsModel.TriggerHeaders = map[string]interface{}{"anyKey": "anyValue"}
 				createTektonPipelineRunOptionsModel.TriggerBody = map[string]interface{}{"anyKey": "anyValue"}
 				createTektonPipelineRunOptionsModel.Trigger = pipelineRunTriggerModel
@@ -1744,20 +1708,11 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(cdTektonPipelineService).ToNot(BeNil())
 
-				// Construct an instance of the Property model
-				propertyModel := new(cdtektonpipelinev2.Property)
-				propertyModel.Name = core.StringPtr("testString")
-				propertyModel.Value = core.StringPtr("testString")
-				propertyModel.Href = core.StringPtr("testString")
-				propertyModel.Enum = []string{"testString"}
-				propertyModel.Type = core.StringPtr("secure")
-				propertyModel.Path = core.StringPtr("testString")
-
 				// Construct an instance of the PipelineRunTrigger model
 				pipelineRunTriggerModel := new(cdtektonpipelinev2.PipelineRunTrigger)
 				pipelineRunTriggerModel.Name = core.StringPtr("Manual Trigger 1")
-				pipelineRunTriggerModel.Properties = []cdtektonpipelinev2.Property{*propertyModel}
-				pipelineRunTriggerModel.SecureProperties = []cdtektonpipelinev2.Property{*propertyModel}
+				pipelineRunTriggerModel.Properties = map[string]interface{}{"anyKey": "anyValue"}
+				pipelineRunTriggerModel.SecureProperties = map[string]interface{}{"anyKey": "anyValue"}
 				pipelineRunTriggerModel.HeadersVar = map[string]interface{}{"anyKey": "anyValue"}
 				pipelineRunTriggerModel.Body = map[string]interface{}{"anyKey": "anyValue"}
 
@@ -1765,8 +1720,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				createTektonPipelineRunOptionsModel := new(cdtektonpipelinev2.CreateTektonPipelineRunOptions)
 				createTektonPipelineRunOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
 				createTektonPipelineRunOptionsModel.TriggerName = core.StringPtr("testString")
-				createTektonPipelineRunOptionsModel.TriggerProperties = []cdtektonpipelinev2.Property{*propertyModel}
-				createTektonPipelineRunOptionsModel.SecureTriggerProperties = []cdtektonpipelinev2.Property{*propertyModel}
+				createTektonPipelineRunOptionsModel.TriggerProperties = map[string]interface{}{"anyKey": "anyValue"}
+				createTektonPipelineRunOptionsModel.SecureTriggerProperties = map[string]interface{}{"anyKey": "anyValue"}
 				createTektonPipelineRunOptionsModel.TriggerHeaders = map[string]interface{}{"anyKey": "anyValue"}
 				createTektonPipelineRunOptionsModel.TriggerBody = map[string]interface{}{"anyKey": "anyValue"}
 				createTektonPipelineRunOptionsModel.Trigger = pipelineRunTriggerModel
@@ -8114,33 +8069,17 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				Expect(createTektonPipelinePropertiesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateTektonPipelineRunOptions successfully`, func() {
-				// Construct an instance of the Property model
-				propertyModel := new(cdtektonpipelinev2.Property)
-				Expect(propertyModel).ToNot(BeNil())
-				propertyModel.Name = core.StringPtr("testString")
-				propertyModel.Value = core.StringPtr("testString")
-				propertyModel.Href = core.StringPtr("testString")
-				propertyModel.Enum = []string{"testString"}
-				propertyModel.Type = core.StringPtr("secure")
-				propertyModel.Path = core.StringPtr("testString")
-				Expect(propertyModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(propertyModel.Value).To(Equal(core.StringPtr("testString")))
-				Expect(propertyModel.Href).To(Equal(core.StringPtr("testString")))
-				Expect(propertyModel.Enum).To(Equal([]string{"testString"}))
-				Expect(propertyModel.Type).To(Equal(core.StringPtr("secure")))
-				Expect(propertyModel.Path).To(Equal(core.StringPtr("testString")))
-
 				// Construct an instance of the PipelineRunTrigger model
 				pipelineRunTriggerModel := new(cdtektonpipelinev2.PipelineRunTrigger)
 				Expect(pipelineRunTriggerModel).ToNot(BeNil())
 				pipelineRunTriggerModel.Name = core.StringPtr("Manual Trigger 1")
-				pipelineRunTriggerModel.Properties = []cdtektonpipelinev2.Property{*propertyModel}
-				pipelineRunTriggerModel.SecureProperties = []cdtektonpipelinev2.Property{*propertyModel}
+				pipelineRunTriggerModel.Properties = map[string]interface{}{"anyKey": "anyValue"}
+				pipelineRunTriggerModel.SecureProperties = map[string]interface{}{"anyKey": "anyValue"}
 				pipelineRunTriggerModel.HeadersVar = map[string]interface{}{"anyKey": "anyValue"}
 				pipelineRunTriggerModel.Body = map[string]interface{}{"anyKey": "anyValue"}
 				Expect(pipelineRunTriggerModel.Name).To(Equal(core.StringPtr("Manual Trigger 1")))
-				Expect(pipelineRunTriggerModel.Properties).To(Equal([]cdtektonpipelinev2.Property{*propertyModel}))
-				Expect(pipelineRunTriggerModel.SecureProperties).To(Equal([]cdtektonpipelinev2.Property{*propertyModel}))
+				Expect(pipelineRunTriggerModel.Properties).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
+				Expect(pipelineRunTriggerModel.SecureProperties).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(pipelineRunTriggerModel.HeadersVar).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(pipelineRunTriggerModel.Body).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 
@@ -8149,8 +8088,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				createTektonPipelineRunOptionsModel := cdTektonPipelineService.NewCreateTektonPipelineRunOptions(pipelineID)
 				createTektonPipelineRunOptionsModel.SetPipelineID("94619026-912b-4d92-8f51-6c74f0692d90")
 				createTektonPipelineRunOptionsModel.SetTriggerName("testString")
-				createTektonPipelineRunOptionsModel.SetTriggerProperties([]cdtektonpipelinev2.Property{*propertyModel})
-				createTektonPipelineRunOptionsModel.SetSecureTriggerProperties([]cdtektonpipelinev2.Property{*propertyModel})
+				createTektonPipelineRunOptionsModel.SetTriggerProperties(map[string]interface{}{"anyKey": "anyValue"})
+				createTektonPipelineRunOptionsModel.SetSecureTriggerProperties(map[string]interface{}{"anyKey": "anyValue"})
 				createTektonPipelineRunOptionsModel.SetTriggerHeaders(map[string]interface{}{"anyKey": "anyValue"})
 				createTektonPipelineRunOptionsModel.SetTriggerBody(map[string]interface{}{"anyKey": "anyValue"})
 				createTektonPipelineRunOptionsModel.SetTrigger(pipelineRunTriggerModel)
@@ -8158,8 +8097,8 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				Expect(createTektonPipelineRunOptionsModel).ToNot(BeNil())
 				Expect(createTektonPipelineRunOptionsModel.PipelineID).To(Equal(core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")))
 				Expect(createTektonPipelineRunOptionsModel.TriggerName).To(Equal(core.StringPtr("testString")))
-				Expect(createTektonPipelineRunOptionsModel.TriggerProperties).To(Equal([]cdtektonpipelinev2.Property{*propertyModel}))
-				Expect(createTektonPipelineRunOptionsModel.SecureTriggerProperties).To(Equal([]cdtektonpipelinev2.Property{*propertyModel}))
+				Expect(createTektonPipelineRunOptionsModel.TriggerProperties).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
+				Expect(createTektonPipelineRunOptionsModel.SecureTriggerProperties).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(createTektonPipelineRunOptionsModel.TriggerHeaders).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(createTektonPipelineRunOptionsModel.TriggerBody).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(createTektonPipelineRunOptionsModel.Trigger).To(Equal(pipelineRunTriggerModel))
@@ -8573,13 +8512,6 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 			It(`Invoke NewPipelineRunTrigger successfully`, func() {
 				name := "start-deploy"
 				_model, err := cdTektonPipelineService.NewPipelineRunTrigger(name)
-				Expect(_model).ToNot(BeNil())
-				Expect(err).To(BeNil())
-			})
-			It(`Invoke NewProperty successfully`, func() {
-				name := "testString"
-				typeVar := "secure"
-				_model, err := cdTektonPipelineService.NewProperty(name, typeVar)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})

@@ -1,7 +1,7 @@
 // +build integration
 
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2022, 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,12 +43,13 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 	const externalConfigFile = "../cd_tekton_pipeline_v2.env"
 
 	var (
-		err          error
+		err              error
 		cdToolchainService *cdtoolchainv2.CdToolchainV2
 		cdTektonPipelineService *cdtektonpipelinev2.CdTektonPipelineV2
-		toolchainURL string
-		pipelineURL  string
-		config       map[string]string
+		toolchainURL     string
+		pipelineURL      string
+		toolchainConfig  map[string]string
+		pipelineConfig   map[string]string
 
 		// Variables to hold link values
 		toolchainIDLink        string
@@ -73,17 +74,21 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			}
 
 			os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
-			config, err = core.GetServiceProperties(cdtektonpipelinev2.DefaultServiceName)
+			toolchainConfig, err = core.GetServiceProperties(cdtoolchainv2.DefaultServiceName)
 			if err != nil {
 				Skip("Error loading service properties, skipping tests: " + err.Error())
 			}
-			toolchainURL = config["TOOLCHAIN_URL"]
-			// log.Printf("[DEBUG] === toolchainURL: %v\n", toolchainURL)
+			pipelineConfig, err = core.GetServiceProperties(cdtektonpipelinev2.DefaultServiceName)
+			if err != nil {
+				Skip("Error loading service properties, skipping tests: " + err.Error())
+			}
+			toolchainURL = toolchainConfig["URL"]
+			// log.Printf("[INFO] === toolchainURL: %v\n", toolchainURL)
 			if toolchainURL == "" {
 				Skip("Unable to load toolchain service URL configuration property, skipping tests")
 			}
-			pipelineURL = config["URL"]
-			// log.Printf("[DEBUG] === pipelineURL: %v\n", pipelineURL)
+			pipelineURL = pipelineConfig["URL"]
+			// log.Printf("[INFO] === pipelineURL: %v\n", pipelineURL)
 			if pipelineURL == "" {
 				Skip("Unable to load pipeline service URL configuration property, skipping tests")
 			}
@@ -117,14 +122,14 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateToolchain(createToolchainOptions *CreateToolchainOptions)`, func() {
-			rgId := config["RESOURCE_GROUP_ID"]
+			rgId := pipelineConfig["RESOURCE_GROUP_ID"]
 			now := time.Now()
 			timeString := now.Format("20060102-1504")
 			if rgId == "" {
 				Skip("Unable to load resource group ID configuration property, skipping tests")
 			}
 			createToolchainOptions := &cdtoolchainv2.CreateToolchainOptions{
-				Name: core.StringPtr("TestSDKTektonV2-" + timeString),
+				Name: core.StringPtr("TestGoSDK-" + timeString),
 				ResourceGroupID: &rgId,
 				Description: core.StringPtr("A sample toolchain to test the API"),
 			}
@@ -135,7 +140,6 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			Expect(toolchainPost).ToNot(BeNil())
 
 			toolchainIDLink = *toolchainPost.ID
-			// log.Printf("[DEBUG] === toolchainIDLink: %v\n", toolchainIDLink)
 			fmt.Fprintf(GinkgoWriter, "Saved toolchainIDLink value: %v\n", toolchainIDLink)
 		})
 	})
@@ -192,12 +196,12 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 				Parameters: params,
 			}
 
-			toolchainToolPost, response, err := cdToolchainService.CreateTool(createToolOptions)
+			toolchainPipelinePost, response, err := cdToolchainService.CreateTool(createToolOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
-			Expect(toolchainToolPost).ToNot(BeNil())
+			Expect(toolchainPipelinePost).ToNot(BeNil())
 
-			pipelineIDLink = *toolchainToolPost.ID
+			pipelineIDLink = *toolchainPipelinePost.ID
 			fmt.Fprintf(GinkgoWriter, "Saved pipelineIDLink value: %v\n", pipelineIDLink)
 		})
 	})
@@ -530,11 +534,16 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateTektonPipelineRun(createTektonPipelineRunOptions *CreateTektonPipelineRunOptions)`, func() {
+			runTriggerModel := new(cdtektonpipelinev2.PipelineRunTrigger)
+			runTriggerModel.Name = core.StringPtr("ManualTrigger")
+			runTriggerModel.Properties = map[string]interface{}{"addedProp1": "addedValue", "triggerProp1": "overrideValue"}
+			runTriggerModel.SecureProperties = map[string]interface{}{"triggerSecProp1": "overrideValue"}
+			runTriggerModel.HeadersVar = map[string]interface{}{"x-custom-header": "x-custom-value"}
+			runTriggerModel.Body = map[string]interface{}{"bodyKey": "bodyValue"}
 			createTektonPipelineRunOptions := &cdtektonpipelinev2.CreateTektonPipelineRunOptions{
 				PipelineID: core.StringPtr(pipelineIDLink),
-				TriggerName: core.StringPtr("ManualTrigger"),
+				Trigger: runTriggerModel,
 			}
-
 			pipelineRun, response, err := cdTektonPipelineService.CreateTektonPipelineRun(createTektonPipelineRunOptions)
 			runIDLink = *pipelineRun.ID
 			Expect(err).To(BeNil())
@@ -551,6 +560,9 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			runCreatedAt := *pipelineRun.CreatedAt
 			runUpdatedAt := *pipelineRun.UpdatedAt
 			runURL := *pipelineRun.RunURL
+			properties := pipelineRun.Properties
+			eventParams := pipelineRun.EventParamsBlob
+			triggerHeaders := pipelineRun.TriggerHeaders
 			Expect(runPipelineID).To(Equal(pipelineIDLink))
 			Expect(triggerID).To(Equal(triggerIDLink))
 			Expect(triggerName).To(Equal("ManualTrigger"))
@@ -560,6 +572,9 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 			Expect(runCreatedAt).ToNot(BeNil())
 			Expect(runUpdatedAt).ToNot(BeNil())
 			Expect(runURL).ToNot(BeNil())
+			Expect(properties).ToNot(BeNil())
+			Expect(eventParams).ToNot(BeNil())
+			Expect(triggerHeaders).ToNot(BeNil())
 		})
 	})
 
