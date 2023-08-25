@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.1.2...v1.1.3) (2023-08-25)
+
+
+### Bug Fixes
+
+* **tekton:** Fix PipelineRun trigger properties ([a0b0932](https://github.com/IBM/continuous-delivery-go-sdk/commit/a0b09327c82a19f0e87db11f293e1ce5674213df))
+
 ## [1.1.2](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.1.1...v1.1.2) (2023-08-01)
 
 
