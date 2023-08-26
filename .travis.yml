@@ -3,9 +3,9 @@ language: go
 dist: focal
 
 go:
-- 1.18.x
 - 1.19.x
 - 1.20.x
+- 1.21.x
 
 notifications:
   email: true
@@ -15,6 +15,7 @@ env:
     - GO111MODULE=on
 
 before_install:
+  - wget -qO - https://package.perforce.com/perforce.pubkey | sudo apt-key add -
   - sudo apt-get update
   - pyenv global 3.8
 
