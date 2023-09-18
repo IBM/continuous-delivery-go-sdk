@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -212,6 +212,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["name"]).To(Equal([]string{"TestToolchainV2"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -230,6 +231,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 				listToolchainsOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				listToolchainsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listToolchainsOptionsModel.Start = core.StringPtr("testString")
+				listToolchainsOptionsModel.Name = core.StringPtr("TestToolchainV2")
 				listToolchainsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := cdToolchainService.ListToolchains(listToolchainsOptionsModel)
@@ -263,6 +265,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["name"]).To(Equal([]string{"TestToolchainV2"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -286,6 +289,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 				listToolchainsOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				listToolchainsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listToolchainsOptionsModel.Start = core.StringPtr("testString")
+				listToolchainsOptionsModel.Name = core.StringPtr("TestToolchainV2")
 				listToolchainsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -325,6 +329,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["name"]).To(Equal([]string{"TestToolchainV2"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -350,6 +355,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 				listToolchainsOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				listToolchainsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listToolchainsOptionsModel.Start = core.StringPtr("testString")
+				listToolchainsOptionsModel.Name = core.StringPtr("TestToolchainV2")
 				listToolchainsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -372,6 +378,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 				listToolchainsOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				listToolchainsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listToolchainsOptionsModel.Start = core.StringPtr("testString")
+				listToolchainsOptionsModel.Name = core.StringPtr("TestToolchainV2")
 				listToolchainsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := cdToolchainService.SetServiceURL("")
@@ -415,6 +422,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 				listToolchainsOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				listToolchainsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listToolchainsOptionsModel.Start = core.StringPtr("testString")
+				listToolchainsOptionsModel.Name = core.StringPtr("TestToolchainV2")
 				listToolchainsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -482,6 +490,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 				listToolchainsOptionsModel := &cdtoolchainv2.ListToolchainsOptions{
 					ResourceGroupID: core.StringPtr("testString"),
 					Limit: core.Int64Ptr(int64(10)),
+					Name: core.StringPtr("TestToolchainV2"),
 				}
 
 				pager, err := cdToolchainService.NewToolchainsPager(listToolchainsOptionsModel)
@@ -508,6 +517,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 				listToolchainsOptionsModel := &cdtoolchainv2.ListToolchainsOptions{
 					ResourceGroupID: core.StringPtr("testString"),
 					Limit: core.Int64Ptr(int64(10)),
+					Name: core.StringPtr("TestToolchainV2"),
 				}
 
 				pager, err := cdToolchainService.NewToolchainsPager(listToolchainsOptionsModel)
@@ -2589,11 +2599,13 @@ var _ = Describe(`CdToolchainV2`, func() {
 				listToolchainsOptionsModel.SetResourceGroupID("testString")
 				listToolchainsOptionsModel.SetLimit(int64(10))
 				listToolchainsOptionsModel.SetStart("testString")
+				listToolchainsOptionsModel.SetName("TestToolchainV2")
 				listToolchainsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listToolchainsOptionsModel).ToNot(BeNil())
 				Expect(listToolchainsOptionsModel.ResourceGroupID).To(Equal(core.StringPtr("testString")))
 				Expect(listToolchainsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
 				Expect(listToolchainsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
+				Expect(listToolchainsOptionsModel.Name).To(Equal(core.StringPtr("TestToolchainV2")))
 				Expect(listToolchainsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListToolsOptions successfully`, func() {

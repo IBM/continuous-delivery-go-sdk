@@ -1,7 +1,7 @@
 // +build examples
 
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -160,6 +160,7 @@ var _ = Describe(`CdToolchainV2 Examples Tests`, func() {
 			// begin-list_toolchains
 			listToolchainsOptions := &cdtoolchainv2.ListToolchainsOptions{
 				ResourceGroupID: core.StringPtr("testString"),
+				Name: core.StringPtr("TestToolchainV2"),
 			}
 
 			pager, err := cdToolchainService.NewToolchainsPager(listToolchainsOptions)
