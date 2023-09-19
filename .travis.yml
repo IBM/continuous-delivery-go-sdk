@@ -38,5 +38,5 @@ deploy:
     script: npm run semantic-release
     skip_cleanup: true
     on:
-      go: '1.18.x'
+      go: '1.19.x'
       branch: main
