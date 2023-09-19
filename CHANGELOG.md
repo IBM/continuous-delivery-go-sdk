@@ -1,3 +1,15 @@
+# [1.2.0](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.1.3...v1.2.0) (2023-09-19)
+
+
+### Bug Fixes
+
+* upgrade deploy go version in travis build ([#60](https://github.com/IBM/continuous-delivery-go-sdk/issues/60)) ([0dd3c40](https://github.com/IBM/continuous-delivery-go-sdk/commit/0dd3c406565b6815941e2cf4c09bf6adfdb5079e))
+
+
+### Features
+
+* **toolchain:** add name query param to list toolchains ([a6b0a30](https://github.com/IBM/continuous-delivery-go-sdk/commit/a6b0a30a16849c12584ff78ff8f316b32e922cfb))
+
 ## [1.1.3](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.1.2...v1.1.3) (2023-08-25)
 
 
