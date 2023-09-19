@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.60.0-13f6e1ba-20221019-164457
+ * IBM OpenAPI SDK Code Generator Version: 3.77.0-42417df0-20230811-192318
  */
 
 // Package cdtoolchainv2 : Operations and models for the CdToolchainV2 service
@@ -220,6 +220,9 @@ func (cdToolchain *CdToolchainV2) ListToolchainsWithContext(ctx context.Context,
 	}
 	if listToolchainsOptions.Start != nil {
 		builder.AddQuery("start", fmt.Sprint(*listToolchainsOptions.Start))
+	}
+	if listToolchainsOptions.Name != nil {
+		builder.AddQuery("name", fmt.Sprint(*listToolchainsOptions.Name))
 	}
 
 	request, err := builder.Build()
@@ -1062,6 +1065,9 @@ type ListToolchainsOptions struct {
 	// Pagination token.
 	Start *string `json:"start,omitempty"`
 
+	// Name of toolchain to look up.
+	Name *string `json:"name,omitempty"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -1088,6 +1094,12 @@ func (_options *ListToolchainsOptions) SetLimit(limit int64) *ListToolchainsOpti
 // SetStart : Allow user to set Start
 func (_options *ListToolchainsOptions) SetStart(start string) *ListToolchainsOptions {
 	_options.Start = core.StringPtr(start)
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *ListToolchainsOptions) SetName(name string) *ListToolchainsOptions {
+	_options.Name = core.StringPtr(name)
 	return _options
 }
 

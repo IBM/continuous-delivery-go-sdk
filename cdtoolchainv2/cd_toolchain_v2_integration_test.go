@@ -1,7 +1,7 @@
 // +build integration
 
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -147,6 +147,7 @@ var _ = Describe(`CdToolchainV2 Integration Tests`, func() {
 				ResourceGroupID: core.StringPtr("testString"),
 				Limit: core.Int64Ptr(int64(10)),
 				Start: core.StringPtr("testString"),
+				Name: core.StringPtr("TestToolchainV2"),
 			}
 
 			listToolchainsOptions.Start = nil
@@ -173,6 +174,7 @@ var _ = Describe(`CdToolchainV2 Integration Tests`, func() {
 			listToolchainsOptions := &cdtoolchainv2.ListToolchainsOptions{
 				ResourceGroupID: core.StringPtr("testString"),
 				Limit: core.Int64Ptr(int64(10)),
+				Name: core.StringPtr("TestToolchainV2"),
 			}
 
 			// Test GetNext().
