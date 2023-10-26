@@ -4279,6 +4279,9 @@ type PipelineRun struct {
 
 	// URL for the details page of this pipeline run.
 	RunURL *string `json:"run_url" validate:"required"`
+
+	// Error message that provides details when a pipeline run encounters an error.
+	ErrorMessage *string `json:"error_message,omitempty"`
 }
 
 // Constants associated with the PipelineRun.Status property.
@@ -4363,6 +4366,10 @@ func UnmarshalPipelineRun(m map[string]json.RawMessage, result interface{}) (err
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "run_url", &obj.RunURL)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "error_message", &obj.ErrorMessage)
 	if err != nil {
 		return
 	}
