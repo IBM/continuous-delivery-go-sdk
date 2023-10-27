@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.2.0...v1.2.1) (2023-10-27)
+
+
+### Bug Fixes
+
+* **tekton:** add error message to PipelineRun ([4b65026](https://github.com/IBM/continuous-delivery-go-sdk/commit/4b6502699a6d1cd90b89c87165b2a478ecf7deff))
+
 # [1.2.0](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.1.3...v1.2.0) (2023-09-19)
 
 
