@@ -1,3 +1,22 @@
+## [1.2.1](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.2.0...v1.2.1) (2023-10-27)
+
+
+### Bug Fixes
+
+* **tekton:** add error message to PipelineRun ([4b65026](https://github.com/IBM/continuous-delivery-go-sdk/commit/4b6502699a6d1cd90b89c87165b2a478ecf7deff))
+
+# [1.2.0](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.1.3...v1.2.0) (2023-09-19)
+
+
+### Bug Fixes
+
+* upgrade deploy go version in travis build ([#60](https://github.com/IBM/continuous-delivery-go-sdk/issues/60)) ([0dd3c40](https://github.com/IBM/continuous-delivery-go-sdk/commit/0dd3c406565b6815941e2cf4c09bf6adfdb5079e))
+
+
+### Features
+
+* **toolchain:** add name query param to list toolchains ([a6b0a30](https://github.com/IBM/continuous-delivery-go-sdk/commit/a6b0a30a16849c12584ff78ff8f316b32e922cfb))
+
 ## [1.1.3](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.1.2...v1.1.3) (2023-08-25)
 
 
