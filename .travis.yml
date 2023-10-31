@@ -15,7 +15,6 @@ env:
     - GO111MODULE=on
 
 before_install:
-  - wget -qO - https://package.perforce.com/perforce.pubkey | sudo apt-key add -
   - sudo apt-get update
   - pyenv global 3.8
 
