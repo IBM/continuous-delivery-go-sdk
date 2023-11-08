@@ -144,7 +144,7 @@ var _ = Describe(`CdToolchainV2 Integration Tests`, func() {
 		})
 		It(`ListToolchains(listToolchainsOptions *ListToolchainsOptions) with pagination`, func(){
 			listToolchainsOptions := &cdtoolchainv2.ListToolchainsOptions{
-				ResourceGroupID: core.StringPtr("testString"),
+				ResourceGroupID: core.StringPtr("6a9a01f2cff54a7f966f803d92877123"),
 				Limit: core.Int64Ptr(int64(10)),
 				Start: core.StringPtr("testString"),
 				Name: core.StringPtr("TestToolchainV2"),
@@ -172,7 +172,7 @@ var _ = Describe(`CdToolchainV2 Integration Tests`, func() {
 		})
 		It(`ListToolchains(listToolchainsOptions *ListToolchainsOptions) using ToolchainsPager`, func(){
 			listToolchainsOptions := &cdtoolchainv2.ListToolchainsOptions{
-				ResourceGroupID: core.StringPtr("testString"),
+				ResourceGroupID: core.StringPtr("6a9a01f2cff54a7f966f803d92877123"),
 				Limit: core.Int64Ptr(int64(10)),
 				Name: core.StringPtr("TestToolchainV2"),
 			}

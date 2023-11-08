@@ -193,6 +193,10 @@ var _ = Describe(`CdToolchainV2`, func() {
 			Expect(url).To(Equal("https://api.br-sao.devops.cloud.ibm.com/toolchain/v2"))
 			Expect(err).To(BeNil())
 
+			url, err = cdtoolchainv2.GetServiceURLForRegion("eu-es")
+			Expect(url).To(Equal("https://api.eu-es.devops.cloud.ibm.com/toolchain/v2"))
+			Expect(err).To(BeNil())
+
 			url, err = cdtoolchainv2.GetServiceURLForRegion("INVALID_REGION")
 			Expect(url).To(BeEmpty())
 			Expect(err).ToNot(BeNil())
@@ -209,7 +213,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(listToolchainsPath))
 					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"6a9a01f2cff54a7f966f803d92877123"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["name"]).To(Equal([]string{"TestToolchainV2"}))
@@ -228,7 +232,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 
 				// Construct an instance of the ListToolchainsOptions model
 				listToolchainsOptionsModel := new(cdtoolchainv2.ListToolchainsOptions)
-				listToolchainsOptionsModel.ResourceGroupID = core.StringPtr("testString")
+				listToolchainsOptionsModel.ResourceGroupID = core.StringPtr("6a9a01f2cff54a7f966f803d92877123")
 				listToolchainsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listToolchainsOptionsModel.Start = core.StringPtr("testString")
 				listToolchainsOptionsModel.Name = core.StringPtr("TestToolchainV2")
@@ -262,7 +266,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listToolchainsPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"6a9a01f2cff54a7f966f803d92877123"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["name"]).To(Equal([]string{"TestToolchainV2"}))
@@ -272,7 +276,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"total_count": 10, "limit": 5, "first": {"href": "Href"}, "previous": {"start": "Start", "href": "Href"}, "next": {"start": "Start", "href": "Href"}, "last": {"start": "Start", "href": "Href"}, "toolchains": [{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy"}]}`)
+					fmt.Fprintf(res, "%s", `{"total_count": 10, "limit": 5, "first": {"href": "Href"}, "previous": {"start": "Start", "href": "Href"}, "next": {"start": "Start", "href": "Href"}, "last": {"start": "Start", "href": "Href"}, "toolchains": [{"id": "ID", "name": "TestToolchainV2", "description": "A sample toolchain to test the API", "account_id": "AccountID", "location": "Location", "resource_group_id": "6a9a01f2cff54a7f966f803d92877123", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy"}]}`)
 				}))
 			})
 			It(`Invoke ListToolchains successfully with retries`, func() {
@@ -286,7 +290,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 
 				// Construct an instance of the ListToolchainsOptions model
 				listToolchainsOptionsModel := new(cdtoolchainv2.ListToolchainsOptions)
-				listToolchainsOptionsModel.ResourceGroupID = core.StringPtr("testString")
+				listToolchainsOptionsModel.ResourceGroupID = core.StringPtr("6a9a01f2cff54a7f966f803d92877123")
 				listToolchainsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listToolchainsOptionsModel.Start = core.StringPtr("testString")
 				listToolchainsOptionsModel.Name = core.StringPtr("TestToolchainV2")
@@ -326,14 +330,14 @@ var _ = Describe(`CdToolchainV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listToolchainsPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"6a9a01f2cff54a7f966f803d92877123"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["name"]).To(Equal([]string{"TestToolchainV2"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"total_count": 10, "limit": 5, "first": {"href": "Href"}, "previous": {"start": "Start", "href": "Href"}, "next": {"start": "Start", "href": "Href"}, "last": {"start": "Start", "href": "Href"}, "toolchains": [{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy"}]}`)
+					fmt.Fprintf(res, "%s", `{"total_count": 10, "limit": 5, "first": {"href": "Href"}, "previous": {"start": "Start", "href": "Href"}, "next": {"start": "Start", "href": "Href"}, "last": {"start": "Start", "href": "Href"}, "toolchains": [{"id": "ID", "name": "TestToolchainV2", "description": "A sample toolchain to test the API", "account_id": "AccountID", "location": "Location", "resource_group_id": "6a9a01f2cff54a7f966f803d92877123", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy"}]}`)
 				}))
 			})
 			It(`Invoke ListToolchains successfully`, func() {
@@ -352,7 +356,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 
 				// Construct an instance of the ListToolchainsOptions model
 				listToolchainsOptionsModel := new(cdtoolchainv2.ListToolchainsOptions)
-				listToolchainsOptionsModel.ResourceGroupID = core.StringPtr("testString")
+				listToolchainsOptionsModel.ResourceGroupID = core.StringPtr("6a9a01f2cff54a7f966f803d92877123")
 				listToolchainsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listToolchainsOptionsModel.Start = core.StringPtr("testString")
 				listToolchainsOptionsModel.Name = core.StringPtr("TestToolchainV2")
@@ -375,7 +379,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 
 				// Construct an instance of the ListToolchainsOptions model
 				listToolchainsOptionsModel := new(cdtoolchainv2.ListToolchainsOptions)
-				listToolchainsOptionsModel.ResourceGroupID = core.StringPtr("testString")
+				listToolchainsOptionsModel.ResourceGroupID = core.StringPtr("6a9a01f2cff54a7f966f803d92877123")
 				listToolchainsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listToolchainsOptionsModel.Start = core.StringPtr("testString")
 				listToolchainsOptionsModel.Name = core.StringPtr("TestToolchainV2")
@@ -419,7 +423,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 
 				// Construct an instance of the ListToolchainsOptions model
 				listToolchainsOptionsModel := new(cdtoolchainv2.ListToolchainsOptions)
-				listToolchainsOptionsModel.ResourceGroupID = core.StringPtr("testString")
+				listToolchainsOptionsModel.ResourceGroupID = core.StringPtr("6a9a01f2cff54a7f966f803d92877123")
 				listToolchainsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listToolchainsOptionsModel.Start = core.StringPtr("testString")
 				listToolchainsOptionsModel.Name = core.StringPtr("TestToolchainV2")
@@ -471,9 +475,9 @@ var _ = Describe(`CdToolchainV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"toolchains":[{"id":"ID","name":"Name","description":"Description","account_id":"AccountID","location":"Location","resource_group_id":"ResourceGroupID","crn":"CRN","href":"Href","ui_href":"UIHref","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","created_by":"CreatedBy"}],"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"toolchains":[{"id":"ID","name":"TestToolchainV2","description":"A sample toolchain to test the API","account_id":"AccountID","location":"Location","resource_group_id":"6a9a01f2cff54a7f966f803d92877123","crn":"CRN","href":"Href","ui_href":"UIHref","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","created_by":"CreatedBy"}],"limit":1}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"toolchains":[{"id":"ID","name":"Name","description":"Description","account_id":"AccountID","location":"Location","resource_group_id":"ResourceGroupID","crn":"CRN","href":"Href","ui_href":"UIHref","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","created_by":"CreatedBy"}],"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"toolchains":[{"id":"ID","name":"TestToolchainV2","description":"A sample toolchain to test the API","account_id":"AccountID","location":"Location","resource_group_id":"6a9a01f2cff54a7f966f803d92877123","crn":"CRN","href":"Href","ui_href":"UIHref","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","created_by":"CreatedBy"}],"limit":1}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -488,7 +492,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 				Expect(cdToolchainService).ToNot(BeNil())
 
 				listToolchainsOptionsModel := &cdtoolchainv2.ListToolchainsOptions{
-					ResourceGroupID: core.StringPtr("testString"),
+					ResourceGroupID: core.StringPtr("6a9a01f2cff54a7f966f803d92877123"),
 					Limit: core.Int64Ptr(int64(10)),
 					Name: core.StringPtr("TestToolchainV2"),
 				}
@@ -515,7 +519,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 				Expect(cdToolchainService).ToNot(BeNil())
 
 				listToolchainsOptionsModel := &cdtoolchainv2.ListToolchainsOptions{
-					ResourceGroupID: core.StringPtr("testString"),
+					ResourceGroupID: core.StringPtr("6a9a01f2cff54a7f966f803d92877123"),
 					Limit: core.Int64Ptr(int64(10)),
 					Name: core.StringPtr("TestToolchainV2"),
 				}
@@ -611,7 +615,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "TestToolchainV2", "description": "A sample toolchain to test the API", "account_id": "AccountID", "location": "Location", "resource_group_id": "6a9a01f2cff54a7f966f803d92877123", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy"}`)
 				}))
 			})
 			It(`Invoke CreateToolchain successfully with retries`, func() {
@@ -683,7 +687,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "TestToolchainV2", "description": "A sample toolchain to test the API", "account_id": "AccountID", "location": "Location", "resource_group_id": "6a9a01f2cff54a7f966f803d92877123", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy"}`)
 				}))
 			})
 			It(`Invoke CreateToolchain successfully`, func() {
@@ -847,7 +851,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "TestToolchainV2", "description": "A sample toolchain to test the API", "account_id": "AccountID", "location": "Location", "resource_group_id": "6a9a01f2cff54a7f966f803d92877123", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy"}`)
 				}))
 			})
 			It(`Invoke GetToolchainByID successfully with retries`, func() {
@@ -901,7 +905,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "TestToolchainV2", "description": "A sample toolchain to test the API", "account_id": "AccountID", "location": "Location", "resource_group_id": "6a9a01f2cff54a7f966f803d92877123", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy"}`)
 				}))
 			})
 			It(`Invoke GetToolchainByID successfully`, func() {
@@ -1151,7 +1155,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "TestToolchainV2", "description": "A sample toolchain to test the API", "account_id": "AccountID", "location": "Location", "resource_group_id": "6a9a01f2cff54a7f966f803d92877123", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy"}`)
 				}))
 			})
 			It(`Invoke UpdateToolchain successfully with retries`, func() {
@@ -1229,7 +1233,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "location": "Location", "resource_group_id": "ResourceGroupID", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "TestToolchainV2", "description": "A sample toolchain to test the API", "account_id": "AccountID", "location": "Location", "resource_group_id": "6a9a01f2cff54a7f966f803d92877123", "crn": "CRN", "href": "Href", "ui_href": "UIHref", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy"}`)
 				}))
 			})
 			It(`Invoke UpdateToolchain successfully`, func() {
@@ -1417,7 +1421,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "total_count": 10, "first": {"href": "Href"}, "previous": {"start": "Start", "href": "Href"}, "next": {"start": "Start", "href": "Href"}, "last": {"start": "Start", "href": "Href"}, "tools": [{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"anyKey": "anyValue"}, "state": "configured"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "total_count": 10, "first": {"href": "Href"}, "previous": {"start": "Start", "href": "Href"}, "next": {"start": "Start", "href": "Href"}, "last": {"start": "Start", "href": "Href"}, "tools": [{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "MyTool", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"anyKey": "anyValue"}, "state": "configured"}]}`)
 				}))
 			})
 			It(`Invoke ListTools successfully with retries`, func() {
@@ -1475,7 +1479,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "total_count": 10, "first": {"href": "Href"}, "previous": {"start": "Start", "href": "Href"}, "next": {"start": "Start", "href": "Href"}, "last": {"start": "Start", "href": "Href"}, "tools": [{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"anyKey": "anyValue"}, "state": "configured"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "total_count": 10, "first": {"href": "Href"}, "previous": {"start": "Start", "href": "Href"}, "next": {"start": "Start", "href": "Href"}, "last": {"start": "Start", "href": "Href"}, "tools": [{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "MyTool", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"anyKey": "anyValue"}, "state": "configured"}]}`)
 				}))
 			})
 			It(`Invoke ListTools successfully`, func() {
@@ -1610,9 +1614,9 @@ var _ = Describe(`CdToolchainV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"tools":[{"id":"ID","resource_group_id":"ResourceGroupID","crn":"CRN","tool_type_id":"ToolTypeID","toolchain_id":"ToolchainID","toolchain_crn":"ToolchainCRN","href":"Href","referent":{"ui_href":"UIHref","api_href":"APIHref"},"name":"Name","updated_at":"2019-01-01T12:00:00.000Z","parameters":{"anyKey":"anyValue"},"state":"configured"}]}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"tools":[{"id":"ID","resource_group_id":"ResourceGroupID","crn":"CRN","tool_type_id":"ToolTypeID","toolchain_id":"ToolchainID","toolchain_crn":"ToolchainCRN","href":"Href","referent":{"ui_href":"UIHref","api_href":"APIHref"},"name":"MyTool","updated_at":"2019-01-01T12:00:00.000Z","parameters":{"anyKey":"anyValue"},"state":"configured"}]}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"tools":[{"id":"ID","resource_group_id":"ResourceGroupID","crn":"CRN","tool_type_id":"ToolTypeID","toolchain_id":"ToolchainID","toolchain_crn":"ToolchainCRN","href":"Href","referent":{"ui_href":"UIHref","api_href":"APIHref"},"name":"Name","updated_at":"2019-01-01T12:00:00.000Z","parameters":{"anyKey":"anyValue"},"state":"configured"}]}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"tools":[{"id":"ID","resource_group_id":"ResourceGroupID","crn":"CRN","tool_type_id":"ToolTypeID","toolchain_id":"ToolchainID","toolchain_crn":"ToolchainCRN","href":"Href","referent":{"ui_href":"UIHref","api_href":"APIHref"},"name":"MyTool","updated_at":"2019-01-01T12:00:00.000Z","parameters":{"anyKey":"anyValue"},"state":"configured"}]}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -1749,7 +1753,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"anyKey": "anyValue"}, "state": "configured"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "MyTool", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"anyKey": "anyValue"}, "state": "configured"}`)
 				}))
 			})
 			It(`Invoke CreateTool successfully with retries`, func() {
@@ -1822,7 +1826,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"anyKey": "anyValue"}, "state": "configured"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "MyTool", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"anyKey": "anyValue"}, "state": "configured"}`)
 				}))
 			})
 			It(`Invoke CreateTool successfully`, func() {
@@ -1990,7 +1994,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"anyKey": "anyValue"}, "state": "configured"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "MyTool", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"anyKey": "anyValue"}, "state": "configured"}`)
 				}))
 			})
 			It(`Invoke GetToolByID successfully with retries`, func() {
@@ -2045,7 +2049,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"anyKey": "anyValue"}, "state": "configured"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "MyTool", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"anyKey": "anyValue"}, "state": "configured"}`)
 				}))
 			})
 			It(`Invoke GetToolByID successfully`, func() {
@@ -2302,7 +2306,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"anyKey": "anyValue"}, "state": "configured"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "MyTool", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"anyKey": "anyValue"}, "state": "configured"}`)
 				}))
 			})
 			It(`Invoke UpdateTool successfully with retries`, func() {
@@ -2382,7 +2386,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "Name", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"anyKey": "anyValue"}, "state": "configured"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "tool_type_id": "ToolTypeID", "toolchain_id": "ToolchainID", "toolchain_crn": "ToolchainCRN", "href": "Href", "referent": {"ui_href": "UIHref", "api_href": "APIHref"}, "name": "MyTool", "updated_at": "2019-01-01T12:00:00.000Z", "parameters": {"anyKey": "anyValue"}, "state": "configured"}`)
 				}))
 			})
 			It(`Invoke UpdateTool successfully`, func() {
@@ -2594,15 +2598,15 @@ var _ = Describe(`CdToolchainV2`, func() {
 			})
 			It(`Invoke NewListToolchainsOptions successfully`, func() {
 				// Construct an instance of the ListToolchainsOptions model
-				resourceGroupID := "testString"
+				resourceGroupID := "6a9a01f2cff54a7f966f803d92877123"
 				listToolchainsOptionsModel := cdToolchainService.NewListToolchainsOptions(resourceGroupID)
-				listToolchainsOptionsModel.SetResourceGroupID("testString")
+				listToolchainsOptionsModel.SetResourceGroupID("6a9a01f2cff54a7f966f803d92877123")
 				listToolchainsOptionsModel.SetLimit(int64(10))
 				listToolchainsOptionsModel.SetStart("testString")
 				listToolchainsOptionsModel.SetName("TestToolchainV2")
 				listToolchainsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listToolchainsOptionsModel).ToNot(BeNil())
-				Expect(listToolchainsOptionsModel.ResourceGroupID).To(Equal(core.StringPtr("testString")))
+				Expect(listToolchainsOptionsModel.ResourceGroupID).To(Equal(core.StringPtr("6a9a01f2cff54a7f966f803d92877123")))
 				Expect(listToolchainsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
 				Expect(listToolchainsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listToolchainsOptionsModel.Name).To(Equal(core.StringPtr("TestToolchainV2")))
