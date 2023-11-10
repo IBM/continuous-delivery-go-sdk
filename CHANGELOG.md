@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.2.1...v1.3.0) (2023-11-10)
+
+
+### Features
+
+* support eu-es region ([#65](https://github.com/IBM/continuous-delivery-go-sdk/issues/65)) ([3d6eaa0](https://github.com/IBM/continuous-delivery-go-sdk/commit/3d6eaa07a42b34c1c2ebc0982f2c5e99dec00f98)), closes [#63](https://github.com/IBM/continuous-delivery-go-sdk/issues/63)
+
 ## [1.2.1](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.2.0...v1.2.1) (2023-10-27)
 
 
