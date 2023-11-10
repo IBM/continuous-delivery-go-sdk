@@ -125,6 +125,7 @@ func GetServiceURLForRegion(region string) (string, error) {
 		"au-syd": "https://api.au-syd.devops.cloud.ibm.com/toolchain/v2", // The toolchain API endpoint in the au-syd region
 		"ca-tor": "https://api.ca-tor.devops.cloud.ibm.com/toolchain/v2", // The toolchain API endpoint in the ca-tor region
 		"br-sao": "https://api.br-sao.devops.cloud.ibm.com/toolchain/v2", // The toolchain API endpoint in the br-sao region
+		"eu-es": "https://api.eu-es.devops.cloud.ibm.com/toolchain/v2", // The toolchain API endpoint in the eu-es region
 	}
 
 	if url, ok := endpoints[region]; ok {
@@ -1065,7 +1066,7 @@ type ListToolchainsOptions struct {
 	// Pagination token.
 	Start *string `json:"start,omitempty"`
 
-	// Name of toolchain to look up.
+	// Exact name of toolchain to look up. This parameter is case sensitive.
 	Name *string `json:"name,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -1184,7 +1185,7 @@ type ToolModel struct {
 	// Information on URIs to access this resource through the UI or API.
 	Referent *ToolModelReferent `json:"referent" validate:"required"`
 
-	// Tool name.
+	// Name of the tool.
 	Name *string `json:"name,omitempty"`
 
 	// Latest tool update timestamp.
@@ -1296,7 +1297,7 @@ type Toolchain struct {
 	// Toolchain name.
 	Name *string `json:"name" validate:"required"`
 
-	// Toolchain description.
+	// Describes the toolchain.
 	Description *string `json:"description" validate:"required"`
 
 	// Account ID where toolchain can be found.
@@ -1546,7 +1547,7 @@ type ToolchainModel struct {
 	// Toolchain name.
 	Name *string `json:"name" validate:"required"`
 
-	// Toolchain description.
+	// Describes the toolchain.
 	Description *string `json:"description" validate:"required"`
 
 	// Account ID where toolchain can be found.
@@ -1640,7 +1641,7 @@ type ToolchainPatch struct {
 	// Toolchain name.
 	Name *string `json:"name" validate:"required"`
 
-	// Toolchain description.
+	// Describes the toolchain.
 	Description *string `json:"description" validate:"required"`
 
 	// Account ID where toolchain can be found.
@@ -1734,7 +1735,7 @@ type ToolchainPost struct {
 	// Toolchain name.
 	Name *string `json:"name" validate:"required"`
 
-	// Toolchain description.
+	// Describes the toolchain.
 	Description *string `json:"description" validate:"required"`
 
 	// Account ID where toolchain can be found.
@@ -1883,7 +1884,7 @@ type ToolchainTool struct {
 	// Information on URIs to access this resource through the UI or API.
 	Referent *ToolModelReferent `json:"referent" validate:"required"`
 
-	// Tool name.
+	// Name of the tool.
 	Name *string `json:"name,omitempty"`
 
 	// Latest tool update timestamp.
@@ -2148,7 +2149,7 @@ type ToolchainToolPatch struct {
 	// Information on URIs to access this resource through the UI or API.
 	Referent *ToolModelReferent `json:"referent" validate:"required"`
 
-	// Tool name.
+	// Name of the tool.
 	Name *string `json:"name,omitempty"`
 
 	// Latest tool update timestamp.
@@ -2257,7 +2258,7 @@ type ToolchainToolPost struct {
 	// Information on URIs to access this resource through the UI or API.
 	Referent *ToolModelReferent `json:"referent" validate:"required"`
 
-	// Tool name.
+	// Name of the tool.
 	Name *string `json:"name,omitempty"`
 
 	// Latest tool update timestamp.

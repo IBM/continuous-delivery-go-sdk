@@ -159,7 +159,7 @@ var _ = Describe(`CdToolchainV2 Examples Tests`, func() {
 			fmt.Println("\nListToolchains() result:")
 			// begin-list_toolchains
 			listToolchainsOptions := &cdtoolchainv2.ListToolchainsOptions{
-				ResourceGroupID: core.StringPtr("testString"),
+				ResourceGroupID: core.StringPtr("6a9a01f2cff54a7f966f803d92877123"),
 				Name: core.StringPtr("TestToolchainV2"),
 			}
 
