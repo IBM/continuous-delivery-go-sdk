@@ -244,6 +244,35 @@ var _ = Describe(`CdToolchainV2 Integration Tests`, func() {
 		})
 	})
 
+	Describe(`CreateToolchainEvent - Create a toolchain event`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateToolchainEvent(createToolchainEventOptions *CreateToolchainEventOptions)`, func() {
+			toolchainEventPrototypeDataApplicationJSONModel := &cdtoolchainv2.ToolchainEventPrototypeDataApplicationJSON{
+				Content: map[string]interface{}{"anyKey": "anyValue"},
+			}
+
+			toolchainEventPrototypeDataModel := &cdtoolchainv2.ToolchainEventPrototypeData{
+				ApplicationJSON: toolchainEventPrototypeDataApplicationJSONModel,
+				TextPlain: core.StringPtr("This event is dispatched because the pipeline failed"),
+			}
+
+			createToolchainEventOptions := &cdtoolchainv2.CreateToolchainEventOptions{
+				ToolchainID: &toolchainIDLink,
+				Title: core.StringPtr("My-custom-event"),
+				Description: core.StringPtr("This is my custom event"),
+				ContentType: core.StringPtr("application/json"),
+				Data: toolchainEventPrototypeDataModel,
+			}
+
+			toolchainEventPost, response, err := cdToolchainService.CreateToolchainEvent(createToolchainEventOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(toolchainEventPost).ToNot(BeNil())
+		})
+	})
+
 	Describe(`ListTools - Get a list of tools bound to a toolchain`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()

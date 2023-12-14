@@ -228,6 +228,30 @@ var _ = Describe(`CdToolchainV2 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(toolchainPatch).ToNot(BeNil())
 		})
+		It(`CreateToolchainEvent request example`, func() {
+			fmt.Println("\nCreateToolchainEvent() result:")
+			// begin-create_toolchain_event
+
+			createToolchainEventOptions := cdToolchainService.NewCreateToolchainEventOptions(
+				toolchainIDLink,
+				"My-custom-event",
+				"This is my custom event",
+				"application/json",
+			)
+
+			toolchainEventPost, response, err := cdToolchainService.CreateToolchainEvent(createToolchainEventOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(toolchainEventPost, "", "  ")
+			fmt.Println(string(b))
+
+			// end-create_toolchain_event
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(toolchainEventPost).ToNot(BeNil())
+		})
 		It(`ListTools request example`, func() {
 			fmt.Println("\nListTools() result:")
 			// begin-list_tools
