@@ -1353,6 +1353,315 @@ var _ = Describe(`CdToolchainV2`, func() {
 			})
 		})
 	})
+	Describe(`CreateToolchainEvent(createToolchainEventOptions *CreateToolchainEventOptions) - Operation response error`, func() {
+		createToolchainEventPath := "/toolchains/testString/events"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createToolchainEventPath))
+					Expect(req.Method).To(Equal("POST"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke CreateToolchainEvent with error: Operation response processing error`, func() {
+				cdToolchainService, serviceErr := cdtoolchainv2.NewCdToolchainV2(&cdtoolchainv2.CdToolchainV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(cdToolchainService).ToNot(BeNil())
+
+				// Construct an instance of the ToolchainEventPrototypeDataApplicationJSON model
+				toolchainEventPrototypeDataApplicationJSONModel := new(cdtoolchainv2.ToolchainEventPrototypeDataApplicationJSON)
+				toolchainEventPrototypeDataApplicationJSONModel.Content = map[string]interface{}{"anyKey": "anyValue"}
+
+				// Construct an instance of the ToolchainEventPrototypeData model
+				toolchainEventPrototypeDataModel := new(cdtoolchainv2.ToolchainEventPrototypeData)
+				toolchainEventPrototypeDataModel.ApplicationJSON = toolchainEventPrototypeDataApplicationJSONModel
+				toolchainEventPrototypeDataModel.TextPlain = core.StringPtr("This event is dispatched because the pipeline failed")
+
+				// Construct an instance of the CreateToolchainEventOptions model
+				createToolchainEventOptionsModel := new(cdtoolchainv2.CreateToolchainEventOptions)
+				createToolchainEventOptionsModel.ToolchainID = core.StringPtr("testString")
+				createToolchainEventOptionsModel.Title = core.StringPtr("My-custom-event")
+				createToolchainEventOptionsModel.Description = core.StringPtr("This is my custom event")
+				createToolchainEventOptionsModel.ContentType = core.StringPtr("application/json")
+				createToolchainEventOptionsModel.Data = toolchainEventPrototypeDataModel
+				createToolchainEventOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := cdToolchainService.CreateToolchainEvent(createToolchainEventOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				cdToolchainService.EnableRetries(0, 0)
+				result, response, operationErr = cdToolchainService.CreateToolchainEvent(createToolchainEventOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateToolchainEvent(createToolchainEventOptions *CreateToolchainEventOptions)`, func() {
+		createToolchainEventPath := "/toolchains/testString/events"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createToolchainEventPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID"}`)
+				}))
+			})
+			It(`Invoke CreateToolchainEvent successfully with retries`, func() {
+				cdToolchainService, serviceErr := cdtoolchainv2.NewCdToolchainV2(&cdtoolchainv2.CdToolchainV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(cdToolchainService).ToNot(BeNil())
+				cdToolchainService.EnableRetries(0, 0)
+
+				// Construct an instance of the ToolchainEventPrototypeDataApplicationJSON model
+				toolchainEventPrototypeDataApplicationJSONModel := new(cdtoolchainv2.ToolchainEventPrototypeDataApplicationJSON)
+				toolchainEventPrototypeDataApplicationJSONModel.Content = map[string]interface{}{"anyKey": "anyValue"}
+
+				// Construct an instance of the ToolchainEventPrototypeData model
+				toolchainEventPrototypeDataModel := new(cdtoolchainv2.ToolchainEventPrototypeData)
+				toolchainEventPrototypeDataModel.ApplicationJSON = toolchainEventPrototypeDataApplicationJSONModel
+				toolchainEventPrototypeDataModel.TextPlain = core.StringPtr("This event is dispatched because the pipeline failed")
+
+				// Construct an instance of the CreateToolchainEventOptions model
+				createToolchainEventOptionsModel := new(cdtoolchainv2.CreateToolchainEventOptions)
+				createToolchainEventOptionsModel.ToolchainID = core.StringPtr("testString")
+				createToolchainEventOptionsModel.Title = core.StringPtr("My-custom-event")
+				createToolchainEventOptionsModel.Description = core.StringPtr("This is my custom event")
+				createToolchainEventOptionsModel.ContentType = core.StringPtr("application/json")
+				createToolchainEventOptionsModel.Data = toolchainEventPrototypeDataModel
+				createToolchainEventOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := cdToolchainService.CreateToolchainEventWithContext(ctx, createToolchainEventOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				cdToolchainService.DisableRetries()
+				result, response, operationErr := cdToolchainService.CreateToolchainEvent(createToolchainEventOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = cdToolchainService.CreateToolchainEventWithContext(ctx, createToolchainEventOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createToolchainEventPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID"}`)
+				}))
+			})
+			It(`Invoke CreateToolchainEvent successfully`, func() {
+				cdToolchainService, serviceErr := cdtoolchainv2.NewCdToolchainV2(&cdtoolchainv2.CdToolchainV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(cdToolchainService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := cdToolchainService.CreateToolchainEvent(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ToolchainEventPrototypeDataApplicationJSON model
+				toolchainEventPrototypeDataApplicationJSONModel := new(cdtoolchainv2.ToolchainEventPrototypeDataApplicationJSON)
+				toolchainEventPrototypeDataApplicationJSONModel.Content = map[string]interface{}{"anyKey": "anyValue"}
+
+				// Construct an instance of the ToolchainEventPrototypeData model
+				toolchainEventPrototypeDataModel := new(cdtoolchainv2.ToolchainEventPrototypeData)
+				toolchainEventPrototypeDataModel.ApplicationJSON = toolchainEventPrototypeDataApplicationJSONModel
+				toolchainEventPrototypeDataModel.TextPlain = core.StringPtr("This event is dispatched because the pipeline failed")
+
+				// Construct an instance of the CreateToolchainEventOptions model
+				createToolchainEventOptionsModel := new(cdtoolchainv2.CreateToolchainEventOptions)
+				createToolchainEventOptionsModel.ToolchainID = core.StringPtr("testString")
+				createToolchainEventOptionsModel.Title = core.StringPtr("My-custom-event")
+				createToolchainEventOptionsModel.Description = core.StringPtr("This is my custom event")
+				createToolchainEventOptionsModel.ContentType = core.StringPtr("application/json")
+				createToolchainEventOptionsModel.Data = toolchainEventPrototypeDataModel
+				createToolchainEventOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = cdToolchainService.CreateToolchainEvent(createToolchainEventOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke CreateToolchainEvent with error: Operation validation and request error`, func() {
+				cdToolchainService, serviceErr := cdtoolchainv2.NewCdToolchainV2(&cdtoolchainv2.CdToolchainV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(cdToolchainService).ToNot(BeNil())
+
+				// Construct an instance of the ToolchainEventPrototypeDataApplicationJSON model
+				toolchainEventPrototypeDataApplicationJSONModel := new(cdtoolchainv2.ToolchainEventPrototypeDataApplicationJSON)
+				toolchainEventPrototypeDataApplicationJSONModel.Content = map[string]interface{}{"anyKey": "anyValue"}
+
+				// Construct an instance of the ToolchainEventPrototypeData model
+				toolchainEventPrototypeDataModel := new(cdtoolchainv2.ToolchainEventPrototypeData)
+				toolchainEventPrototypeDataModel.ApplicationJSON = toolchainEventPrototypeDataApplicationJSONModel
+				toolchainEventPrototypeDataModel.TextPlain = core.StringPtr("This event is dispatched because the pipeline failed")
+
+				// Construct an instance of the CreateToolchainEventOptions model
+				createToolchainEventOptionsModel := new(cdtoolchainv2.CreateToolchainEventOptions)
+				createToolchainEventOptionsModel.ToolchainID = core.StringPtr("testString")
+				createToolchainEventOptionsModel.Title = core.StringPtr("My-custom-event")
+				createToolchainEventOptionsModel.Description = core.StringPtr("This is my custom event")
+				createToolchainEventOptionsModel.ContentType = core.StringPtr("application/json")
+				createToolchainEventOptionsModel.Data = toolchainEventPrototypeDataModel
+				createToolchainEventOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := cdToolchainService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := cdToolchainService.CreateToolchainEvent(createToolchainEventOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the CreateToolchainEventOptions model with no property values
+				createToolchainEventOptionsModelNew := new(cdtoolchainv2.CreateToolchainEventOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = cdToolchainService.CreateToolchainEvent(createToolchainEventOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke CreateToolchainEvent successfully`, func() {
+				cdToolchainService, serviceErr := cdtoolchainv2.NewCdToolchainV2(&cdtoolchainv2.CdToolchainV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(cdToolchainService).ToNot(BeNil())
+
+				// Construct an instance of the ToolchainEventPrototypeDataApplicationJSON model
+				toolchainEventPrototypeDataApplicationJSONModel := new(cdtoolchainv2.ToolchainEventPrototypeDataApplicationJSON)
+				toolchainEventPrototypeDataApplicationJSONModel.Content = map[string]interface{}{"anyKey": "anyValue"}
+
+				// Construct an instance of the ToolchainEventPrototypeData model
+				toolchainEventPrototypeDataModel := new(cdtoolchainv2.ToolchainEventPrototypeData)
+				toolchainEventPrototypeDataModel.ApplicationJSON = toolchainEventPrototypeDataApplicationJSONModel
+				toolchainEventPrototypeDataModel.TextPlain = core.StringPtr("This event is dispatched because the pipeline failed")
+
+				// Construct an instance of the CreateToolchainEventOptions model
+				createToolchainEventOptionsModel := new(cdtoolchainv2.CreateToolchainEventOptions)
+				createToolchainEventOptionsModel.ToolchainID = core.StringPtr("testString")
+				createToolchainEventOptionsModel.Title = core.StringPtr("My-custom-event")
+				createToolchainEventOptionsModel.Description = core.StringPtr("This is my custom event")
+				createToolchainEventOptionsModel.ContentType = core.StringPtr("application/json")
+				createToolchainEventOptionsModel.Data = toolchainEventPrototypeDataModel
+				createToolchainEventOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := cdToolchainService.CreateToolchainEvent(createToolchainEventOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`ListTools(listToolsOptions *ListToolsOptions) - Operation response error`, func() {
 		listToolsPath := "/toolchains/testString/tools"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
@@ -2535,6 +2844,41 @@ var _ = Describe(`CdToolchainV2`, func() {
 				Expect(createToolOptionsModel.Parameters).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(createToolOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewCreateToolchainEventOptions successfully`, func() {
+				// Construct an instance of the ToolchainEventPrototypeDataApplicationJSON model
+				toolchainEventPrototypeDataApplicationJSONModel := new(cdtoolchainv2.ToolchainEventPrototypeDataApplicationJSON)
+				Expect(toolchainEventPrototypeDataApplicationJSONModel).ToNot(BeNil())
+				toolchainEventPrototypeDataApplicationJSONModel.Content = map[string]interface{}{"anyKey": "anyValue"}
+				Expect(toolchainEventPrototypeDataApplicationJSONModel.Content).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
+
+				// Construct an instance of the ToolchainEventPrototypeData model
+				toolchainEventPrototypeDataModel := new(cdtoolchainv2.ToolchainEventPrototypeData)
+				Expect(toolchainEventPrototypeDataModel).ToNot(BeNil())
+				toolchainEventPrototypeDataModel.ApplicationJSON = toolchainEventPrototypeDataApplicationJSONModel
+				toolchainEventPrototypeDataModel.TextPlain = core.StringPtr("This event is dispatched because the pipeline failed")
+				Expect(toolchainEventPrototypeDataModel.ApplicationJSON).To(Equal(toolchainEventPrototypeDataApplicationJSONModel))
+				Expect(toolchainEventPrototypeDataModel.TextPlain).To(Equal(core.StringPtr("This event is dispatched because the pipeline failed")))
+
+				// Construct an instance of the CreateToolchainEventOptions model
+				toolchainID := "testString"
+				createToolchainEventOptionsTitle := "My-custom-event"
+				createToolchainEventOptionsDescription := "This is my custom event"
+				createToolchainEventOptionsContentType := "application/json"
+				createToolchainEventOptionsModel := cdToolchainService.NewCreateToolchainEventOptions(toolchainID, createToolchainEventOptionsTitle, createToolchainEventOptionsDescription, createToolchainEventOptionsContentType)
+				createToolchainEventOptionsModel.SetToolchainID("testString")
+				createToolchainEventOptionsModel.SetTitle("My-custom-event")
+				createToolchainEventOptionsModel.SetDescription("This is my custom event")
+				createToolchainEventOptionsModel.SetContentType("application/json")
+				createToolchainEventOptionsModel.SetData(toolchainEventPrototypeDataModel)
+				createToolchainEventOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(createToolchainEventOptionsModel).ToNot(BeNil())
+				Expect(createToolchainEventOptionsModel.ToolchainID).To(Equal(core.StringPtr("testString")))
+				Expect(createToolchainEventOptionsModel.Title).To(Equal(core.StringPtr("My-custom-event")))
+				Expect(createToolchainEventOptionsModel.Description).To(Equal(core.StringPtr("This is my custom event")))
+				Expect(createToolchainEventOptionsModel.ContentType).To(Equal(core.StringPtr("application/json")))
+				Expect(createToolchainEventOptionsModel.Data).To(Equal(toolchainEventPrototypeDataModel))
+				Expect(createToolchainEventOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewCreateToolchainOptions successfully`, func() {
 				// Construct an instance of the CreateToolchainOptions model
 				createToolchainOptionsName := "TestToolchainV2"
@@ -2625,6 +2969,12 @@ var _ = Describe(`CdToolchainV2`, func() {
 				Expect(listToolsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
 				Expect(listToolsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listToolsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewToolchainEventPrototypeDataApplicationJSON successfully`, func() {
+				content := map[string]interface{}{"anyKey": "anyValue"}
+				_model, err := cdToolchainService.NewToolchainEventPrototypeDataApplicationJSON(content)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
 			})
 			It(`Invoke NewUpdateToolOptions successfully`, func() {
 				// Construct an instance of the UpdateToolOptions model
