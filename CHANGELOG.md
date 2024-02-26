@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.3.0...v1.4.0) (2023-12-15)
+
+
+### Features
+
+* **toolchain:** add function to create toolchain event ([#66](https://github.com/IBM/continuous-delivery-go-sdk/issues/66)) ([ca97028](https://github.com/IBM/continuous-delivery-go-sdk/commit/ca97028026a24827070a93d6b1e1703ba8135be2))
+
 # [1.3.0](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.2.1...v1.3.0) (2023-11-10)
 
 
