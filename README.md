@@ -1,6 +1,6 @@
 # IBM Cloud Continuous Delivery Go SDK 1.4.0
 
-[![Build Status](https://v3.travis.ibm.com/CloudEngineering/go-sdk-template.svg?token=Z799xXryYYPor3yyJxEs&branch=main)](https://v3.travis.ibm.com/CloudEngineering/go-sdk-template)
+[![Build Status](https://app.travis-ci.com/IBM/continuous-delivery-go-sdk.svg?branch=main)](https://app.travis-ci.com/github/IBM/continuous-delivery-go-sdk)
 [![Release](https://img.shields.io/github/v/release/IBM/continuous-delivery-go-sdk)](https://github.com/IBM/continuous-delivery-go-sdk/releases/latest)
 [![Go Reference](https://pkg.go.dev/badge/github.com/IBM/continuous-delivery-go-sdk.svg)](https://pkg.go.dev/github.com/IBM/continuous-delivery-go-sdk)
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/IBM/continuous-delivery-go-sdk)
