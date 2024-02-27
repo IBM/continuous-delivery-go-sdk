@@ -1,6 +1,6 @@
 # IBM Cloud Continuous Delivery Go SDK 1.4.0
 
-[![Build Status](https://app.travis-ci.com/IBM/continuous-delivery-go-sdk.svg?branch=main)](https://app.travis-ci.com/IBM/continuous-delivery-go-sdk)
+[![Build Status](https://app.travis-ci.com/IBM/continuous-delivery-go-sdk.svg?branch=main)](https://app.travis-ci.com/github/IBM/continuous-delivery-go-sdk)
 [![Release](https://img.shields.io/github/v/release/IBM/continuous-delivery-go-sdk)](https://github.com/IBM/continuous-delivery-go-sdk/releases/latest)
 [![Go Reference](https://pkg.go.dev/badge/github.com/IBM/continuous-delivery-go-sdk.svg)](https://pkg.go.dev/github.com/IBM/continuous-delivery-go-sdk)
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/IBM/continuous-delivery-go-sdk)
@@ -23,7 +23,7 @@ The Go client library to interact with the [IBM Cloud Continuous Delivery Toolch
 
 <!-- toc -->
 
-- [IBM Cloud Continuous Delivery Go SDK 1.4.0](#ibm-cloud-continuous-delivery-go-sdk-113)
+- [IBM Cloud Continuous Delivery Go SDK 1.4.0](#ibm-cloud-continuous-delivery-go-sdk-140)
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
   - [Prerequisites](#prerequisites)
