@@ -1,3 +1,11 @@
+# [1.5.0](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.4.0...v1.5.0) (2024-04-15)
+
+
+### Features
+
+* bump go and sdk-core versions ([684c7ed](https://github.com/IBM/continuous-delivery-go-sdk/commit/684c7ed38588b9bb2450da561b2a488777461608))
+* **tekton:** Add property locking support ([b54c541](https://github.com/IBM/continuous-delivery-go-sdk/commit/b54c5411980af030277c7b01ec36055bd5b9a0a2))
+
 # [1.4.0](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.3.0...v1.4.0) (2023-12-15)
 
 
