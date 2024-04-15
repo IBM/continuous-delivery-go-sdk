@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1411,6 +1411,9 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelinePropertiesWithCo
 	if createTektonPipelinePropertiesOptions.Enum != nil {
 		body["enum"] = createTektonPipelinePropertiesOptions.Enum
 	}
+	if createTektonPipelinePropertiesOptions.Locked != nil {
+		body["locked"] = createTektonPipelinePropertiesOptions.Locked
+	}
 	if createTektonPipelinePropertiesOptions.Path != nil {
 		body["path"] = createTektonPipelinePropertiesOptions.Path
 	}
@@ -1555,6 +1558,9 @@ func (cdTektonPipeline *CdTektonPipelineV2) ReplaceTektonPipelinePropertyWithCon
 	}
 	if replaceTektonPipelinePropertyOptions.Enum != nil {
 		body["enum"] = replaceTektonPipelinePropertyOptions.Enum
+	}
+	if replaceTektonPipelinePropertyOptions.Locked != nil {
+		body["locked"] = replaceTektonPipelinePropertyOptions.Locked
 	}
 	if replaceTektonPipelinePropertyOptions.Path != nil {
 		body["path"] = replaceTektonPipelinePropertyOptions.Path
@@ -2201,6 +2207,9 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineTriggerPropertie
 	if createTektonPipelineTriggerPropertiesOptions.Path != nil {
 		body["path"] = createTektonPipelineTriggerPropertiesOptions.Path
 	}
+	if createTektonPipelineTriggerPropertiesOptions.Locked != nil {
+		body["locked"] = createTektonPipelineTriggerPropertiesOptions.Locked
+	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
 		return
@@ -2346,6 +2355,9 @@ func (cdTektonPipeline *CdTektonPipelineV2) ReplaceTektonPipelineTriggerProperty
 	}
 	if replaceTektonPipelineTriggerPropertyOptions.Path != nil {
 		body["path"] = replaceTektonPipelineTriggerPropertyOptions.Path
+	}
+	if replaceTektonPipelineTriggerPropertyOptions.Locked != nil {
+		body["locked"] = replaceTektonPipelineTriggerPropertyOptions.Locked
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -2595,6 +2607,10 @@ type CreateTektonPipelinePropertiesOptions struct {
 	// Options for `single_select` property type. Only needed when using `single_select` property type.
 	Enum []string `json:"enum,omitempty"`
 
+	// When true, this property cannot be overridden by a trigger property or at runtime. Attempting to override it will
+	// result in run requests being rejected. The default is false.
+	Locked *bool `json:"locked,omitempty"`
+
 	// A dot notation path for `integration` type properties only, to select a value from the tool integration. If left
 	// blank the full tool integration data will be used.
 	Path *string `json:"path,omitempty"`
@@ -2649,6 +2665,12 @@ func (_options *CreateTektonPipelinePropertiesOptions) SetValue(value string) *C
 // SetEnum : Allow user to set Enum
 func (_options *CreateTektonPipelinePropertiesOptions) SetEnum(enum []string) *CreateTektonPipelinePropertiesOptions {
 	_options.Enum = enum
+	return _options
+}
+
+// SetLocked : Allow user to set Locked
+func (_options *CreateTektonPipelinePropertiesOptions) SetLocked(locked bool) *CreateTektonPipelinePropertiesOptions {
+	_options.Locked = core.BoolPtr(locked)
 	return _options
 }
 
@@ -2769,8 +2791,9 @@ type CreateTektonPipelineTriggerOptions struct {
 	// Trigger tags array.
 	Tags []string `json:"tags"`
 
-	// Specify the worker used to run the trigger. Use `worker: { id: 'public' }` to use the IBM Managed workers. Use
-	// `worker: { id: 'inherit' }` to inherit the worker used by the pipeline.
+	// Specify the worker used to run the trigger. Use `worker: { id: 'public' }` to use the IBM Managed workers. The
+	// default is to inherit the worker set in the pipeline settings, which can also be explicitly set using `worker: { id:
+	// 'inherit' }`.
 	Worker *WorkerIdentity `json:"worker,omitempty"`
 
 	// Defines the maximum number of concurrent runs for this trigger. If omitted then the concurrency limit is disabled
@@ -2952,6 +2975,10 @@ type CreateTektonPipelineTriggerPropertiesOptions struct {
 	// blank the full tool integration data will be used.
 	Path *string `json:"path,omitempty"`
 
+	// When true, this property cannot be overridden at runtime. Attempting to override it will result in run requests
+	// being rejected. The default is false.
+	Locked *bool `json:"locked,omitempty"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -3015,6 +3042,12 @@ func (_options *CreateTektonPipelineTriggerPropertiesOptions) SetEnum(enum []str
 // SetPath : Allow user to set Path
 func (_options *CreateTektonPipelineTriggerPropertiesOptions) SetPath(path string) *CreateTektonPipelineTriggerPropertiesOptions {
 	_options.Path = core.StringPtr(path)
+	return _options
+}
+
+// SetLocked : Allow user to set Locked
+func (_options *CreateTektonPipelineTriggerPropertiesOptions) SetLocked(locked bool) *CreateTektonPipelineTriggerPropertiesOptions {
+	_options.Locked = core.BoolPtr(locked)
 	return _options
 }
 
@@ -3965,7 +3998,6 @@ type ListTektonPipelineRunsOptions struct {
 // Filters the collection to resources with the specified status.
 const (
 	ListTektonPipelineRunsOptionsStatusCancelledConst = "cancelled"
-	ListTektonPipelineRunsOptionsStatusCancellingConst = "cancelling"
 	ListTektonPipelineRunsOptionsStatusErrorConst = "error"
 	ListTektonPipelineRunsOptionsStatusFailedConst = "failed"
 	ListTektonPipelineRunsOptionsStatusPendingConst = "pending"
@@ -4289,7 +4321,6 @@ type PipelineRun struct {
 // Status of the pipeline run.
 const (
 	PipelineRunStatusCancelledConst = "cancelled"
-	PipelineRunStatusCancellingConst = "cancelling"
 	PipelineRunStatusErrorConst = "error"
 	PipelineRunStatusFailedConst = "failed"
 	PipelineRunStatusPendingConst = "pending"
@@ -4568,6 +4599,10 @@ type Property struct {
 	// Property type.
 	Type *string `json:"type" validate:"required"`
 
+	// When true, this property cannot be overridden by a trigger property or at runtime. Attempting to override it will
+	// result in run requests being rejected. The default is false.
+	Locked *bool `json:"locked,omitempty"`
+
 	// A dot notation path for `integration` type properties only, that selects a value from the tool integration. If left
 	// blank the full tool integration data will be used.
 	Path *string `json:"path,omitempty"`
@@ -4603,6 +4638,10 @@ func UnmarshalProperty(m map[string]json.RawMessage, result interface{}) (err er
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "locked", &obj.Locked)
 	if err != nil {
 		return
 	}
@@ -4682,6 +4721,10 @@ type ReplaceTektonPipelinePropertyOptions struct {
 	// Options for `single_select` property type. Only needed when using `single_select` property type.
 	Enum []string `json:"enum,omitempty"`
 
+	// When true, this property cannot be overridden by a trigger property or at runtime. Attempting to override it will
+	// result in run requests being rejected. The default is false.
+	Locked *bool `json:"locked,omitempty"`
+
 	// A dot notation path for `integration` type properties only, to select a value from the tool integration. If left
 	// blank the full tool integration data will be used.
 	Path *string `json:"path,omitempty"`
@@ -4746,6 +4789,12 @@ func (_options *ReplaceTektonPipelinePropertyOptions) SetEnum(enum []string) *Re
 	return _options
 }
 
+// SetLocked : Allow user to set Locked
+func (_options *ReplaceTektonPipelinePropertyOptions) SetLocked(locked bool) *ReplaceTektonPipelinePropertyOptions {
+	_options.Locked = core.BoolPtr(locked)
+	return _options
+}
+
 // SetPath : Allow user to set Path
 func (_options *ReplaceTektonPipelinePropertyOptions) SetPath(path string) *ReplaceTektonPipelinePropertyOptions {
 	_options.Path = core.StringPtr(path)
@@ -4784,6 +4833,10 @@ type ReplaceTektonPipelineTriggerPropertyOptions struct {
 	// A dot notation path for `integration` type properties only, to select a value from the tool integration. If left
 	// blank the full tool integration data will be used.
 	Path *string `json:"path,omitempty"`
+
+	// When true, this property cannot be overridden at runtime. Attempting to override it will result in run requests
+	// being rejected. The default is false.
+	Locked *bool `json:"locked,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -4855,6 +4908,12 @@ func (_options *ReplaceTektonPipelineTriggerPropertyOptions) SetEnum(enum []stri
 // SetPath : Allow user to set Path
 func (_options *ReplaceTektonPipelineTriggerPropertyOptions) SetPath(path string) *ReplaceTektonPipelineTriggerPropertyOptions {
 	_options.Path = core.StringPtr(path)
+	return _options
+}
+
+// SetLocked : Allow user to set Locked
+func (_options *ReplaceTektonPipelineTriggerPropertyOptions) SetLocked(locked bool) *ReplaceTektonPipelineTriggerPropertyOptions {
+	_options.Locked = core.BoolPtr(locked)
 	return _options
 }
 
@@ -5616,6 +5675,10 @@ type TriggerProperty struct {
 	// A dot notation path for `integration` type properties only, that selects a value from the tool integration. If left
 	// blank the full tool integration data will be used.
 	Path *string `json:"path,omitempty"`
+
+	// When true, this property cannot be overridden at runtime. Attempting to override it will result in run requests
+	// being rejected. The default is false.
+	Locked *bool `json:"locked,omitempty"`
 }
 
 // Constants associated with the TriggerProperty.Type property.
@@ -5652,6 +5715,10 @@ func UnmarshalTriggerProperty(m map[string]json.RawMessage, result interface{}) 
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "path", &obj.Path)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "locked", &obj.Locked)
 	if err != nil {
 		return
 	}
