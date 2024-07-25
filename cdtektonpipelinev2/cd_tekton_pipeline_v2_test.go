@@ -5523,6 +5523,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				createTektonPipelineTriggerOptionsModel.Timezone = core.StringPtr("testString")
 				createTektonPipelineTriggerOptionsModel.Source = triggerSourcePrototypeModel
 				createTektonPipelineTriggerOptionsModel.Events = []string{"push"}
+				createTektonPipelineTriggerOptionsModel.Filter = core.StringPtr("testString")
 				createTektonPipelineTriggerOptionsModel.Favorite = core.BoolPtr(false)
 				createTektonPipelineTriggerOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -5626,6 +5627,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				createTektonPipelineTriggerOptionsModel.Timezone = core.StringPtr("testString")
 				createTektonPipelineTriggerOptionsModel.Source = triggerSourcePrototypeModel
 				createTektonPipelineTriggerOptionsModel.Events = []string{"push"}
+				createTektonPipelineTriggerOptionsModel.Filter = core.StringPtr("testString")
 				createTektonPipelineTriggerOptionsModel.Favorite = core.BoolPtr(false)
 				createTektonPipelineTriggerOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -5737,6 +5739,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				createTektonPipelineTriggerOptionsModel.Timezone = core.StringPtr("testString")
 				createTektonPipelineTriggerOptionsModel.Source = triggerSourcePrototypeModel
 				createTektonPipelineTriggerOptionsModel.Events = []string{"push"}
+				createTektonPipelineTriggerOptionsModel.Filter = core.StringPtr("testString")
 				createTektonPipelineTriggerOptionsModel.Favorite = core.BoolPtr(false)
 				createTektonPipelineTriggerOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -5793,6 +5796,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				createTektonPipelineTriggerOptionsModel.Timezone = core.StringPtr("testString")
 				createTektonPipelineTriggerOptionsModel.Source = triggerSourcePrototypeModel
 				createTektonPipelineTriggerOptionsModel.Events = []string{"push"}
+				createTektonPipelineTriggerOptionsModel.Filter = core.StringPtr("testString")
 				createTektonPipelineTriggerOptionsModel.Favorite = core.BoolPtr(false)
 				createTektonPipelineTriggerOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -5870,6 +5874,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				createTektonPipelineTriggerOptionsModel.Timezone = core.StringPtr("testString")
 				createTektonPipelineTriggerOptionsModel.Source = triggerSourcePrototypeModel
 				createTektonPipelineTriggerOptionsModel.Events = []string{"push"}
+				createTektonPipelineTriggerOptionsModel.Filter = core.StringPtr("testString")
 				createTektonPipelineTriggerOptionsModel.Favorite = core.BoolPtr(false)
 				createTektonPipelineTriggerOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -6163,6 +6168,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				triggerPatchModel.Timezone = core.StringPtr("America/Los_Angeles, CET, Europe/London, GMT, US/Eastern, or UTC")
 				triggerPatchModel.Source = triggerSourcePrototypeModel
 				triggerPatchModel.Events = []string{"push", "pull_request"}
+				triggerPatchModel.Filter = core.StringPtr("header['x-github-event'] == 'push' && body.ref == 'refs/heads/main'")
 				triggerPatchModel.Favorite = core.BoolPtr(false)
 				triggerPatchModelAsPatch, asPatchErr := triggerPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
@@ -6273,6 +6279,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				triggerPatchModel.Timezone = core.StringPtr("America/Los_Angeles, CET, Europe/London, GMT, US/Eastern, or UTC")
 				triggerPatchModel.Source = triggerSourcePrototypeModel
 				triggerPatchModel.Events = []string{"push", "pull_request"}
+				triggerPatchModel.Filter = core.StringPtr("header['x-github-event'] == 'push' && body.ref == 'refs/heads/main'")
 				triggerPatchModel.Favorite = core.BoolPtr(false)
 				triggerPatchModelAsPatch, asPatchErr := triggerPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
@@ -6391,6 +6398,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				triggerPatchModel.Timezone = core.StringPtr("America/Los_Angeles, CET, Europe/London, GMT, US/Eastern, or UTC")
 				triggerPatchModel.Source = triggerSourcePrototypeModel
 				triggerPatchModel.Events = []string{"push", "pull_request"}
+				triggerPatchModel.Filter = core.StringPtr("header['x-github-event'] == 'push' && body.ref == 'refs/heads/main'")
 				triggerPatchModel.Favorite = core.BoolPtr(false)
 				triggerPatchModelAsPatch, asPatchErr := triggerPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
@@ -6454,6 +6462,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				triggerPatchModel.Timezone = core.StringPtr("America/Los_Angeles, CET, Europe/London, GMT, US/Eastern, or UTC")
 				triggerPatchModel.Source = triggerSourcePrototypeModel
 				triggerPatchModel.Events = []string{"push", "pull_request"}
+				triggerPatchModel.Filter = core.StringPtr("header['x-github-event'] == 'push' && body.ref == 'refs/heads/main'")
 				triggerPatchModel.Favorite = core.BoolPtr(false)
 				triggerPatchModelAsPatch, asPatchErr := triggerPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
@@ -6538,6 +6547,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				triggerPatchModel.Timezone = core.StringPtr("America/Los_Angeles, CET, Europe/London, GMT, US/Eastern, or UTC")
 				triggerPatchModel.Source = triggerSourcePrototypeModel
 				triggerPatchModel.Events = []string{"push", "pull_request"}
+				triggerPatchModel.Filter = core.StringPtr("header['x-github-event'] == 'push' && body.ref == 'refs/heads/main'")
 				triggerPatchModel.Favorite = core.BoolPtr(false)
 				triggerPatchModelAsPatch, asPatchErr := triggerPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
@@ -8188,6 +8198,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				createTektonPipelineTriggerOptionsModel.SetTimezone("testString")
 				createTektonPipelineTriggerOptionsModel.SetSource(triggerSourcePrototypeModel)
 				createTektonPipelineTriggerOptionsModel.SetEvents([]string{"push"})
+				createTektonPipelineTriggerOptionsModel.SetFilter("testString")
 				createTektonPipelineTriggerOptionsModel.SetFavorite(false)
 				createTektonPipelineTriggerOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createTektonPipelineTriggerOptionsModel).ToNot(BeNil())
@@ -8204,6 +8215,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				Expect(createTektonPipelineTriggerOptionsModel.Timezone).To(Equal(core.StringPtr("testString")))
 				Expect(createTektonPipelineTriggerOptionsModel.Source).To(Equal(triggerSourcePrototypeModel))
 				Expect(createTektonPipelineTriggerOptionsModel.Events).To(Equal([]string{"push"}))
+				Expect(createTektonPipelineTriggerOptionsModel.Filter).To(Equal(core.StringPtr("testString")))
 				Expect(createTektonPipelineTriggerOptionsModel.Favorite).To(Equal(core.BoolPtr(false)))
 				Expect(createTektonPipelineTriggerOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
