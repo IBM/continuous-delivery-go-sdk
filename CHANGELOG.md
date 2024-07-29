@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.5.0...v1.6.0) (2024-07-29)
+
+
+### Features
+
+* **tekton:** add support for CEL filtering ([b601c76](https://github.com/IBM/continuous-delivery-go-sdk/commit/b601c764cc77e9fce065a4690c5c654b06f7ee10))
+
 # [1.5.0](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.4.0...v1.5.0) (2024-04-15)
 
 
