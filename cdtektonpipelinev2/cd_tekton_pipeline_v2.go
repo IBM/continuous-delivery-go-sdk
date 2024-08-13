@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.76.0-ad3e6f96-20230724-172814
+ * IBM OpenAPI SDK Code Generator Version: 3.72.0-5d70f2bb-20230511-203609
  */
 
 // Package cdtektonpipelinev2 : Operations and models for the CdTektonPipelineV2 service
@@ -511,8 +511,8 @@ func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineRunsWithContext(ct
 }
 
 // CreateTektonPipelineRun : Trigger a pipeline run
-// Trigger a new pipeline run with the named manual or timer trigger, using the provided additional or override
-// properties.
+// Trigger a new pipeline run using either the manual or the timed trigger, specifying the additional properties or
+// overriding existing ones as needed.
 func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineRun(createTektonPipelineRunOptions *CreateTektonPipelineRunOptions) (result *PipelineRun, response *core.DetailedResponse, err error) {
 	return cdTektonPipeline.CreateTektonPipelineRunWithContext(context.Background(), createTektonPipelineRunOptions)
 }
@@ -1108,7 +1108,8 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineDefinitionWithCo
 }
 
 // GetTektonPipelineDefinition : Retrieve a single definition entry
-// This request fetches a single definition entry, which consists of the definition repository URL, branch/tag and path.
+// This request fetches a single definition entry, which consists of the definition repository URL, a repository path,
+// and a branch or tag.
 func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineDefinition(getTektonPipelineDefinitionOptions *GetTektonPipelineDefinitionOptions) (result *Definition, response *core.DetailedResponse, err error) {
 	return cdTektonPipeline.GetTektonPipelineDefinitionWithContext(context.Background(), getTektonPipelineDefinitionOptions)
 }
@@ -1289,7 +1290,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelineDefinitionWithCo
 }
 
 // ListTektonPipelineProperties : List the pipeline's environment properties
-// This request lists the environment properties the pipeline identified by `{pipeline_id}`.
+// This request lists the environment properties of the pipeline identified by  `{pipeline_id}`.
 func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineProperties(listTektonPipelinePropertiesOptions *ListTektonPipelinePropertiesOptions) (result *PropertiesCollection, response *core.DetailedResponse, err error) {
 	return cdTektonPipeline.ListTektonPipelinePropertiesWithContext(context.Background(), listTektonPipelinePropertiesOptions)
 }
@@ -1411,6 +1412,9 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelinePropertiesWithCo
 	if createTektonPipelinePropertiesOptions.Enum != nil {
 		body["enum"] = createTektonPipelinePropertiesOptions.Enum
 	}
+	if createTektonPipelinePropertiesOptions.Locked != nil {
+		body["locked"] = createTektonPipelinePropertiesOptions.Locked
+	}
 	if createTektonPipelinePropertiesOptions.Path != nil {
 		body["path"] = createTektonPipelinePropertiesOptions.Path
 	}
@@ -1502,7 +1506,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelinePropertyWithContext
 }
 
 // ReplaceTektonPipelineProperty : Replace the value of an environment property
-// This request updates the value of an environment property identified by `{property_name}`, its type or name are
+// This request updates the value of an environment property identified by `{property_name}`, its type and name are
 // immutable.
 func (cdTektonPipeline *CdTektonPipelineV2) ReplaceTektonPipelineProperty(replaceTektonPipelinePropertyOptions *ReplaceTektonPipelinePropertyOptions) (result *Property, response *core.DetailedResponse, err error) {
 	return cdTektonPipeline.ReplaceTektonPipelinePropertyWithContext(context.Background(), replaceTektonPipelinePropertyOptions)
@@ -1555,6 +1559,9 @@ func (cdTektonPipeline *CdTektonPipelineV2) ReplaceTektonPipelinePropertyWithCon
 	}
 	if replaceTektonPipelinePropertyOptions.Enum != nil {
 		body["enum"] = replaceTektonPipelinePropertyOptions.Enum
+	}
+	if replaceTektonPipelinePropertyOptions.Locked != nil {
+		body["locked"] = replaceTektonPipelinePropertyOptions.Locked
 	}
 	if replaceTektonPipelinePropertyOptions.Path != nil {
 		body["path"] = replaceTektonPipelinePropertyOptions.Path
@@ -1792,6 +1799,9 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineTriggerWithConte
 	}
 	if createTektonPipelineTriggerOptions.Events != nil {
 		body["events"] = createTektonPipelineTriggerOptions.Events
+	}
+	if createTektonPipelineTriggerOptions.Filter != nil {
+		body["filter"] = createTektonPipelineTriggerOptions.Filter
 	}
 	if createTektonPipelineTriggerOptions.Favorite != nil {
 		body["favorite"] = createTektonPipelineTriggerOptions.Favorite
@@ -2201,6 +2211,9 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineTriggerPropertie
 	if createTektonPipelineTriggerPropertiesOptions.Path != nil {
 		body["path"] = createTektonPipelineTriggerPropertiesOptions.Path
 	}
+	if createTektonPipelineTriggerPropertiesOptions.Locked != nil {
+		body["locked"] = createTektonPipelineTriggerPropertiesOptions.Locked
+	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
 		return
@@ -2347,6 +2360,9 @@ func (cdTektonPipeline *CdTektonPipelineV2) ReplaceTektonPipelineTriggerProperty
 	if replaceTektonPipelineTriggerPropertyOptions.Path != nil {
 		body["path"] = replaceTektonPipelineTriggerPropertyOptions.Path
 	}
+	if replaceTektonPipelineTriggerPropertyOptions.Locked != nil {
+		body["locked"] = replaceTektonPipelineTriggerPropertyOptions.Locked
+	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
 		return
@@ -2431,7 +2447,7 @@ type CancelTektonPipelineRunOptions struct {
 	// ID of current instance.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Flag whether force cancel.
+	// Flag indicating whether the pipeline cancellation action is forced or not.
 	Force *bool `json:"force,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -2518,17 +2534,16 @@ type CreateTektonPipelineOptions struct {
 	// between 0 and 100000000000000.
 	NextBuildNumber *int64 `json:"next_build_number,omitempty"`
 
-	// Flag whether to enable notifications for this pipeline. When enabled, pipeline run events are published on all slack
-	// integration specified channels in the parent toolchain.
+	// Flag to enable notifications for this pipeline. If enabled, the Tekton pipeline run events will be published to all
+	// the destinations specified by the Slack and Event Notifications integrations in the parent toolchain.
 	EnableNotifications *bool `json:"enable_notifications,omitempty"`
 
-	// Flag whether to enable partial cloning for this pipeline. When partial clone is enabled, only the files contained
-	// within the paths specified in definition repositories are read and cloned, this means that symbolic links might not
-	// work.
+	// Flag to enable partial cloning for this pipeline. When partial clone is enabled, only the files contained within the
+	// paths specified in definition repositories are read and cloned, this means that symbolic links might not work.
 	EnablePartialCloning *bool `json:"enable_partial_cloning,omitempty"`
 
-	// Specify the worker used to run the trigger, as a worker object containing the worker ID only. If omitted, or
-	// specified as `worker: { id: 'public' }`, the IBM Managed shared workers are used.
+	// Specify the worker that is to be used to run the trigger, indicated by a worker object with only the worker ID. If
+	// not specified or set as `worker: { id: 'public' }`, the IBM Managed shared workers are used.
 	Worker *WorkerIdentity `json:"worker,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -2595,6 +2610,10 @@ type CreateTektonPipelinePropertiesOptions struct {
 	// Options for `single_select` property type. Only needed when using `single_select` property type.
 	Enum []string `json:"enum,omitempty"`
 
+	// When true, this property cannot be overridden by a trigger property or at runtime. Attempting to override it will
+	// result in run requests being rejected. The default is false.
+	Locked *bool `json:"locked,omitempty"`
+
 	// A dot notation path for `integration` type properties only, to select a value from the tool integration. If left
 	// blank the full tool integration data will be used.
 	Path *string `json:"path,omitempty"`
@@ -2652,6 +2671,12 @@ func (_options *CreateTektonPipelinePropertiesOptions) SetEnum(enum []string) *C
 	return _options
 }
 
+// SetLocked : Allow user to set Locked
+func (_options *CreateTektonPipelinePropertiesOptions) SetLocked(locked bool) *CreateTektonPipelinePropertiesOptions {
+	_options.Locked = core.BoolPtr(locked)
+	return _options
+}
+
 // SetPath : Allow user to set Path
 func (_options *CreateTektonPipelinePropertiesOptions) SetPath(path string) *CreateTektonPipelinePropertiesOptions {
 	_options.Path = core.StringPtr(path)
@@ -2672,12 +2697,12 @@ type CreateTektonPipelineRunOptions struct {
 	// Trigger name.
 	TriggerName *string `json:"trigger_name,omitempty"`
 
-	// An object containing string values only that provides additional `text` properties, or overrides existing
-	// pipeline/trigger properties, to use for the created run.
+	// An object containing string values only. It provides additional 'text' properties or overrides existing
+	// pipeline/trigger properties that can be used in the created run.
 	TriggerProperties map[string]interface{} `json:"trigger_properties,omitempty"`
 
-	// An object containing string values only that provides additional `secure` properties, or overrides existing `secure`
-	// pipeline/trigger properties, to use for the created run.
+	// An object containing string values only. It provides additional `secure` properties or overrides existing `secure`
+	// pipeline/trigger properties that can be used in the created run.
 	SecureTriggerProperties map[string]interface{} `json:"secure_trigger_properties,omitempty"`
 
 	// An object containing string values only that provides the request headers. Use `$(header.header_key_name)` to access
@@ -2769,26 +2794,27 @@ type CreateTektonPipelineTriggerOptions struct {
 	// Trigger tags array.
 	Tags []string `json:"tags"`
 
-	// Specify the worker used to run the trigger. Use `worker: { id: 'public' }` to use the IBM Managed workers. Use
-	// `worker: { id: 'inherit' }` to inherit the worker used by the pipeline.
+	// Specify the worker used to run the trigger. Use `worker: { id: 'public' }` to use the IBM Managed workers. The
+	// default is to inherit the worker set in the pipeline settings, which can also be explicitly set using `worker: { id:
+	// 'inherit' }`.
 	Worker *WorkerIdentity `json:"worker,omitempty"`
 
 	// Defines the maximum number of concurrent runs for this trigger. If omitted then the concurrency limit is disabled
 	// for this trigger.
 	MaxConcurrentRuns *int64 `json:"max_concurrent_runs,omitempty"`
 
-	// Flag whether the trigger is enabled. If omitted the trigger is enabled by default.
+	// Flag to check if the trigger is enabled. If omitted the trigger is enabled by default.
 	Enabled *bool `json:"enabled,omitempty"`
 
-	// Only needed for generic webhook trigger type. Secret used to start generic webhook trigger.
+	// Only needed for Generic Webhook trigger type. The secret is used to start the Generic Webhook trigger.
 	Secret *GenericSecret `json:"secret,omitempty"`
 
-	// Only needed for timer triggers. Cron expression that indicates when this trigger will activate. Maximum frequency is
+	// Only needed for timer triggers. CRON expression that indicates when this trigger will activate. Maximum frequency is
 	// every 5 minutes. The string is based on UNIX crontab syntax: minute, hour, day of month, month, day of week.
-	// Example: 0 *_/2 * * * - every 2 hours.
+	// Example: The CRON expression 0 *_/2 * * * - translates to - every 2 hours.
 	Cron *string `json:"cron,omitempty"`
 
-	// Only used for timer triggers. Specify the timezone used for this timer trigger, which will ensure the cron activates
+	// Only used for timer triggers. Specify the timezone used for this timer trigger, which will ensure the CRON activates
 	// this trigger relative to the specified timezone. If no timezone is specified, the default timezone used is UTC.
 	// Valid timezones are those listed in the IANA timezone database, https://www.iana.org/time-zones.
 	Timezone *string `json:"timezone,omitempty"`
@@ -2798,10 +2824,14 @@ type CreateTektonPipelineTriggerOptions struct {
 	// https://cloud.ibm.com/apidocs/toolchain#list-tools.
 	Source *TriggerSourcePrototype `json:"source,omitempty"`
 
-	// Only needed for Git triggers. List of events to which a Git trigger listens. Choose one or more from: 'push',
-	// 'pull_request' and 'pull_request_closed'. For SCM repositories that use 'merge request' events, such events map to
-	// the equivalent 'pull request' events.
+	// Either 'events' or 'filter' is required specifically for Git triggers. Stores a list of events that a Git trigger
+	// listens to. Choose one or more from 'push', 'pull_request', and 'pull_request_closed'. If SCM repositories use the
+	// 'merge request' term, they correspond to the generic term i.e. 'pull request'.
 	Events []string `json:"events"`
+
+	// Either 'events' or 'filter' can be used. Stores the CEL (Common Expression Language) expression value which is used
+	// for event filtering against the Git webhook payloads.
+	Filter *string `json:"filter,omitempty"`
 
 	// Mark the trigger as a favorite.
 	Favorite *bool `json:"favorite,omitempty"`
@@ -2916,6 +2946,12 @@ func (_options *CreateTektonPipelineTriggerOptions) SetEvents(events []string) *
 	return _options
 }
 
+// SetFilter : Allow user to set Filter
+func (_options *CreateTektonPipelineTriggerOptions) SetFilter(filter string) *CreateTektonPipelineTriggerOptions {
+	_options.Filter = core.StringPtr(filter)
+	return _options
+}
+
 // SetFavorite : Allow user to set Favorite
 func (_options *CreateTektonPipelineTriggerOptions) SetFavorite(favorite bool) *CreateTektonPipelineTriggerOptions {
 	_options.Favorite = core.BoolPtr(favorite)
@@ -2951,6 +2987,10 @@ type CreateTektonPipelineTriggerPropertiesOptions struct {
 	// A dot notation path for `integration` type properties only, to select a value from the tool integration. If left
 	// blank the full tool integration data will be used.
 	Path *string `json:"path,omitempty"`
+
+	// When true, this property cannot be overridden at runtime. Attempting to override it will result in run requests
+	// being rejected. The default is false.
+	Locked *bool `json:"locked,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -3015,6 +3055,12 @@ func (_options *CreateTektonPipelineTriggerPropertiesOptions) SetEnum(enum []str
 // SetPath : Allow user to set Path
 func (_options *CreateTektonPipelineTriggerPropertiesOptions) SetPath(path string) *CreateTektonPipelineTriggerPropertiesOptions {
 	_options.Path = core.StringPtr(path)
+	return _options
+}
+
+// SetLocked : Allow user to set Locked
+func (_options *CreateTektonPipelineTriggerPropertiesOptions) SetLocked(locked bool) *CreateTektonPipelineTriggerPropertiesOptions {
+	_options.Locked = core.BoolPtr(locked)
 	return _options
 }
 
@@ -3148,8 +3194,8 @@ func UnmarshalDefinitionSourceProperties(m map[string]json.RawMessage, result in
 	return
 }
 
-// DefinitionsCollection : Pipeline definitions is a collection of individual definition entries, each entry consists of a repository URL,
-// branch/tag and path.
+// DefinitionsCollection : Pipeline definitions is a collection of individual definition entries, each entry consists of a repository URL, a
+// repository path, and a branch or tag.
 type DefinitionsCollection struct {
 	// The list of all definitions in the pipeline.
 	Definitions []Definition `json:"definitions" validate:"required"`
@@ -3442,7 +3488,7 @@ func (options *DuplicateTektonPipelineTriggerOptions) SetHeaders(param map[strin
 	return options
 }
 
-// GenericSecret : Only needed for generic webhook trigger type. Secret used to start generic webhook trigger.
+// GenericSecret : Only needed for Generic Webhook trigger type. The secret is used to start the Generic Webhook trigger.
 type GenericSecret struct {
 	// Secret type.
 	Type *string `json:"type,omitempty"`
@@ -3965,7 +4011,6 @@ type ListTektonPipelineRunsOptions struct {
 // Filters the collection to resources with the specified status.
 const (
 	ListTektonPipelineRunsOptionsStatusCancelledConst = "cancelled"
-	ListTektonPipelineRunsOptionsStatusCancellingConst = "cancelling"
 	ListTektonPipelineRunsOptionsStatusErrorConst = "error"
 	ListTektonPipelineRunsOptionsStatusFailedConst = "failed"
 	ListTektonPipelineRunsOptionsStatusPendingConst = "pending"
@@ -4289,7 +4334,6 @@ type PipelineRun struct {
 // Status of the pipeline run.
 const (
 	PipelineRunStatusCancelledConst = "cancelled"
-	PipelineRunStatusCancellingConst = "cancelling"
 	PipelineRunStatusErrorConst = "error"
 	PipelineRunStatusFailedConst = "failed"
 	PipelineRunStatusPendingConst = "pending"
@@ -4383,12 +4427,12 @@ type PipelineRunTrigger struct {
 	// Trigger name.
 	Name *string `json:"name" validate:"required"`
 
-	// An object containing string values only that provides additional `text` properties, or overrides existing
-	// pipeline/trigger properties, to use for the created run.
+	// An object containing string values only. It provides additional 'text' properties or overrides existing
+	// pipeline/trigger properties that can be used in the created run.
 	Properties map[string]interface{} `json:"properties,omitempty"`
 
-	// An object containing string values only that provides additional `secure` properties, or overrides existing `secure`
-	// pipeline/trigger properties, to use for the created run.
+	// An object containing string values only. It provides additional `secure` properties or overrides existing `secure`
+	// pipeline/trigger properties that can be used in the created run.
 	SecureProperties map[string]interface{} `json:"secure_properties,omitempty"`
 
 	// An object containing string values only that provides the request headers. Use `$(header.header_key_name)` to access
@@ -4568,6 +4612,10 @@ type Property struct {
 	// Property type.
 	Type *string `json:"type" validate:"required"`
 
+	// When true, this property cannot be overridden by a trigger property or at runtime. Attempting to override it will
+	// result in run requests being rejected. The default is false.
+	Locked *bool `json:"locked,omitempty"`
+
 	// A dot notation path for `integration` type properties only, that selects a value from the tool integration. If left
 	// blank the full tool integration data will be used.
 	Path *string `json:"path,omitempty"`
@@ -4603,6 +4651,10 @@ func UnmarshalProperty(m map[string]json.RawMessage, result interface{}) (err er
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "locked", &obj.Locked)
 	if err != nil {
 		return
 	}
@@ -4682,6 +4734,10 @@ type ReplaceTektonPipelinePropertyOptions struct {
 	// Options for `single_select` property type. Only needed when using `single_select` property type.
 	Enum []string `json:"enum,omitempty"`
 
+	// When true, this property cannot be overridden by a trigger property or at runtime. Attempting to override it will
+	// result in run requests being rejected. The default is false.
+	Locked *bool `json:"locked,omitempty"`
+
 	// A dot notation path for `integration` type properties only, to select a value from the tool integration. If left
 	// blank the full tool integration data will be used.
 	Path *string `json:"path,omitempty"`
@@ -4746,6 +4802,12 @@ func (_options *ReplaceTektonPipelinePropertyOptions) SetEnum(enum []string) *Re
 	return _options
 }
 
+// SetLocked : Allow user to set Locked
+func (_options *ReplaceTektonPipelinePropertyOptions) SetLocked(locked bool) *ReplaceTektonPipelinePropertyOptions {
+	_options.Locked = core.BoolPtr(locked)
+	return _options
+}
+
 // SetPath : Allow user to set Path
 func (_options *ReplaceTektonPipelinePropertyOptions) SetPath(path string) *ReplaceTektonPipelinePropertyOptions {
 	_options.Path = core.StringPtr(path)
@@ -4784,6 +4846,10 @@ type ReplaceTektonPipelineTriggerPropertyOptions struct {
 	// A dot notation path for `integration` type properties only, to select a value from the tool integration. If left
 	// blank the full tool integration data will be used.
 	Path *string `json:"path,omitempty"`
+
+	// When true, this property cannot be overridden at runtime. Attempting to override it will result in run requests
+	// being rejected. The default is false.
+	Locked *bool `json:"locked,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -4855,6 +4921,12 @@ func (_options *ReplaceTektonPipelineTriggerPropertyOptions) SetEnum(enum []stri
 // SetPath : Allow user to set Path
 func (_options *ReplaceTektonPipelineTriggerPropertyOptions) SetPath(path string) *ReplaceTektonPipelineTriggerPropertyOptions {
 	_options.Path = core.StringPtr(path)
+	return _options
+}
+
+// SetLocked : Allow user to set Locked
+func (_options *ReplaceTektonPipelineTriggerPropertyOptions) SetLocked(locked bool) *ReplaceTektonPipelineTriggerPropertyOptions {
+	_options.Locked = core.BoolPtr(locked)
 	return _options
 }
 
@@ -5077,16 +5149,17 @@ type TektonPipeline struct {
 	// The build number that will be used for the next pipeline run.
 	NextBuildNumber *int64 `json:"next_build_number,omitempty"`
 
-	// Flag whether to enable notifications for this pipeline. When enabled, pipeline run events will be published on all
-	// slack integration specified channels in the parent toolchain. If omitted, this feature is disabled by default.
+	// Flag to enable notifications for this pipeline. If enabled, the Tekton pipeline run events will be published to all
+	// the destinations specified by the Slack and Event Notifications integrations in the parent toolchain. If omitted,
+	// this feature is disabled by default.
 	EnableNotifications *bool `json:"enable_notifications" validate:"required"`
 
-	// Flag whether to enable partial cloning for this pipeline. When partial clone is enabled, only the files contained
-	// within the paths specified in definition repositories are read and cloned, this means that symbolic links might not
-	// work. If omitted, this feature is disabled by default.
+	// Flag to enable partial cloning for this pipeline. When partial clone is enabled, only the files contained within the
+	// paths specified in definition repositories are read and cloned, this means that symbolic links might not work. If
+	// omitted, this feature is disabled by default.
 	EnablePartialCloning *bool `json:"enable_partial_cloning" validate:"required"`
 
-	// Flag whether this pipeline is enabled.
+	// Flag to check if the trigger is enabled.
 	Enabled *bool `json:"enabled" validate:"required"`
 }
 
@@ -5182,17 +5255,16 @@ type TektonPipelinePatch struct {
 	// between 0 and 100000000000000.
 	NextBuildNumber *int64 `json:"next_build_number,omitempty"`
 
-	// Flag whether to enable notifications for this pipeline. When enabled, pipeline run events are published on all slack
-	// integration specified channels in the parent toolchain.
+	// Flag to enable notifications for this pipeline. If enabled, the Tekton pipeline run events will be published to all
+	// the destinations specified by the Slack and Event Notifications integrations in the parent toolchain.
 	EnableNotifications *bool `json:"enable_notifications,omitempty"`
 
-	// Flag whether to enable partial cloning for this pipeline. When partial clone is enabled, only the files contained
-	// within the paths specified in definition repositories are read and cloned, this means that symbolic links might not
-	// work.
+	// Flag to enable partial cloning for this pipeline. When partial clone is enabled, only the files contained within the
+	// paths specified in definition repositories are read and cloned, this means that symbolic links might not work.
 	EnablePartialCloning *bool `json:"enable_partial_cloning,omitempty"`
 
-	// Specify the worker used to run the trigger, as a worker object containing the worker ID only. If omitted, or
-	// specified as `worker: { id: 'public' }`, the IBM Managed shared workers are used.
+	// Specify the worker that is to be used to run the trigger, indicated by a worker object with only the worker ID. If
+	// not specified or set as `worker: { id: 'public' }`, the IBM Managed shared workers are used.
 	Worker *WorkerIdentity `json:"worker,omitempty"`
 }
 
@@ -5302,7 +5374,8 @@ type Trigger struct {
 	// The Trigger ID.
 	ID *string `json:"id,omitempty"`
 
-	// Optional trigger properties used to override or supplement the pipeline properties when triggering a pipeline run.
+	// Optional trigger properties are used to override or supplement the pipeline properties when triggering a pipeline
+	// run.
 	Properties []TriggerProperty `json:"properties,omitempty"`
 
 	// Optional trigger tags array.
@@ -5315,7 +5388,7 @@ type Trigger struct {
 	// for this trigger.
 	MaxConcurrentRuns *int64 `json:"max_concurrent_runs,omitempty"`
 
-	// Flag whether the trigger is enabled.
+	// Flag to check if the trigger is enabled.
 	Enabled *bool `json:"enabled,omitempty"`
 
 	// Mark the trigger as a favorite.
@@ -5326,22 +5399,26 @@ type Trigger struct {
 	// https://cloud.ibm.com/apidocs/toolchain#list-tools.
 	Source *TriggerSource `json:"source,omitempty"`
 
-	// Only needed for Git triggers. List of events to which a Git trigger listens. Choose one or more from: 'push',
-	// 'pull_request' and 'pull_request_closed'. For SCM repositories that use 'merge request' events, such events map to
-	// the equivalent 'pull request' events.
+	// Either 'events' or 'filter' is required specifically for Git triggers. Stores a list of events that a Git trigger
+	// listens to. Choose one or more from 'push', 'pull_request', and 'pull_request_closed'. If SCM repositories use the
+	// 'merge request' term, they correspond to the generic term i.e. 'pull request'.
 	Events []string `json:"events"`
 
-	// Only needed for timer triggers. Cron expression that indicates when this trigger will activate. Maximum frequency is
+	// Either 'events' or 'filter' can be used. Stores the CEL (Common Expression Language) expression value which is used
+	// for event filtering against the Git webhook payloads.
+	Filter *string `json:"filter,omitempty"`
+
+	// Only needed for timer triggers. CRON expression that indicates when this trigger will activate. Maximum frequency is
 	// every 5 minutes. The string is based on UNIX crontab syntax: minute, hour, day of month, month, day of week.
-	// Example: 0 *_/2 * * * - every 2 hours.
+	// Example: The CRON expression 0 *_/2 * * * - translates to - every 2 hours.
 	Cron *string `json:"cron,omitempty"`
 
-	// Only used for timer triggers. Specify the timezone used for this timer trigger, which will ensure the cron activates
+	// Only used for timer triggers. Specify the timezone used for this timer trigger, which will ensure the CRON activates
 	// this trigger relative to the specified timezone. If no timezone is specified, the default timezone used is UTC.
 	// Valid timezones are those listed in the IANA timezone database, https://www.iana.org/time-zones.
 	Timezone *string `json:"timezone,omitempty"`
 
-	// Only needed for generic webhook trigger type. Secret used to start generic webhook trigger.
+	// Only needed for Generic Webhook trigger type. The secret is used to start the Generic Webhook trigger.
 	Secret *GenericSecret `json:"secret,omitempty"`
 
 	// Webhook URL that can be used to trigger pipeline runs.
@@ -5419,6 +5496,10 @@ func UnmarshalTrigger(m map[string]json.RawMessage, result interface{}) (err err
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "filter", &obj.Filter)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "cron", &obj.Cron)
 	if err != nil {
 		return
@@ -5465,15 +5546,15 @@ type TriggerPatch struct {
 	// Defines if this trigger is enabled.
 	Enabled *bool `json:"enabled,omitempty"`
 
-	// Only needed for generic webhook trigger type. Secret used to start generic webhook trigger.
+	// Only needed for Generic Webhook trigger type. The secret is used to start the Generic Webhook trigger.
 	Secret *GenericSecret `json:"secret,omitempty"`
 
-	// Only needed for timer triggers. Cron expression that indicates when this trigger will activate. Maximum frequency is
+	// Only needed for timer triggers. CRON expression that indicates when this trigger will activate. Maximum frequency is
 	// every 5 minutes. The string is based on UNIX crontab syntax: minute, hour, day of month, month, day of week.
-	// Example: 0 *_/2 * * * - every 2 hours.
+	// Example: The CRON expression 0 *_/2 * * * - translates to - every 2 hours.
 	Cron *string `json:"cron,omitempty"`
 
-	// Only used for timer triggers. Specify the timezone used for this timer trigger, which will ensure the cron activates
+	// Only used for timer triggers. Specify the timezone used for this timer trigger, which will ensure the CRON activates
 	// this trigger relative to the specified timezone. If no timezone is specified, the default timezone used is UTC.
 	// Valid timezones are those listed in the IANA timezone database, https://www.iana.org/time-zones.
 	Timezone *string `json:"timezone,omitempty"`
@@ -5483,10 +5564,14 @@ type TriggerPatch struct {
 	// https://cloud.ibm.com/apidocs/toolchain#list-tools.
 	Source *TriggerSourcePrototype `json:"source,omitempty"`
 
-	// Only needed for Git triggers. List of events to which a Git trigger listens. Choose one or more from: 'push',
-	// 'pull_request' and 'pull_request_closed'. For SCM repositories that use 'merge request' events, such events map to
-	// the equivalent 'pull request' events.
+	// Either 'events' or 'filter' is required specifically for Git triggers. Stores a list of events that a Git trigger
+	// listens to. Choose one or more from 'push', 'pull_request', and 'pull_request_closed'. If SCM repositories use the
+	// 'merge request' term, they correspond to the generic term i.e. 'pull request'.
 	Events []string `json:"events"`
+
+	// Either 'events' or 'filter' can be used. Stores the CEL (Common Expression Language) expression value which is used
+	// for event filtering against the Git webhook payloads.
+	Filter *string `json:"filter,omitempty"`
 
 	// Mark the trigger as a favorite.
 	Favorite *bool `json:"favorite,omitempty"`
@@ -5561,6 +5646,10 @@ func UnmarshalTriggerPatch(m map[string]json.RawMessage, result interface{}) (er
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "filter", &obj.Filter)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "favorite", &obj.Favorite)
 	if err != nil {
 		return
@@ -5616,6 +5705,10 @@ type TriggerProperty struct {
 	// A dot notation path for `integration` type properties only, that selects a value from the tool integration. If left
 	// blank the full tool integration data will be used.
 	Path *string `json:"path,omitempty"`
+
+	// When true, this property cannot be overridden at runtime. Attempting to override it will result in run requests
+	// being rejected. The default is false.
+	Locked *bool `json:"locked,omitempty"`
 }
 
 // Constants associated with the TriggerProperty.Type property.
@@ -5655,6 +5748,10 @@ func UnmarshalTriggerProperty(m map[string]json.RawMessage, result interface{}) 
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "locked", &obj.Locked)
+	if err != nil {
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -5690,21 +5787,20 @@ type TriggerSourceProperties struct {
 	// URL of the repository to which the trigger is listening.
 	URL *string `json:"url" validate:"required"`
 
-	// Name of a branch from the repo. One of branch or pattern must be specified, but only one or the other.
+	// Name of a branch from the repo. Only one of branch, pattern, or filter should be specified.
 	Branch *string `json:"branch,omitempty"`
 
-	// The pattern of Git branch or tag to which to listen. You can specify a glob pattern such as '!test' or '*master' to
-	// match against multiple tags/branches in the repository. The glob pattern used must conform to Bash 4.3
-	// specifications, see bash documentation for more info:
-	// https://www.gnu.org/software/bash/manual/bash.html#Pattern-Matching. One of branch or pattern must be specified, but
-	// only one or the other.
+	// The pattern of Git branch or tag. You can specify a glob pattern such as '!test' or '*master' to match against
+	// multiple tags or branches in the repository.The glob pattern used must conform to Bash 4.3 specifications, see bash
+	// documentation for more info: https://www.gnu.org/software/bash/manual/bash.html#Pattern-Matching. Only one of
+	// branch, pattern, or filter should be specified.
 	Pattern *string `json:"pattern,omitempty"`
 
 	// True if the repository server is not addressable on the public internet. IBM Cloud will not be able to validate the
 	// connection details you provide.
 	BlindConnection *bool `json:"blind_connection" validate:"required"`
 
-	// ID of the webhook from the repo. Computed upon creation of the trigger.
+	// Repository webhook ID. It is generated upon trigger creation.
 	HookID *string `json:"hook_id,omitempty"`
 
 	// Reference to the repository tool in the parent toolchain.
@@ -5747,14 +5843,13 @@ type TriggerSourcePropertiesPrototype struct {
 	// URL of the repository to which the trigger is listening.
 	URL *string `json:"url" validate:"required"`
 
-	// Name of a branch from the repo. One of branch or pattern must be specified, but only one or the other.
+	// Name of a branch from the repo. Only one of branch, pattern, or filter should be specified.
 	Branch *string `json:"branch,omitempty"`
 
-	// The pattern of Git branch or tag to which to listen. You can specify a glob pattern such as '!test' or '*master' to
-	// match against multiple tags/branches in the repository. The glob pattern used must conform to Bash 4.3
-	// specifications, see bash documentation for more info:
-	// https://www.gnu.org/software/bash/manual/bash.html#Pattern-Matching. One of branch or pattern must be specified, but
-	// only one or the other.
+	// The pattern of Git branch or tag. You can specify a glob pattern such as '!test' or '*master' to match against
+	// multiple tags or branches in the repository.The glob pattern used must conform to Bash 4.3 specifications, see bash
+	// documentation for more info: https://www.gnu.org/software/bash/manual/bash.html#Pattern-Matching. Only one of
+	// branch, pattern, or filter should be specified.
 	Pattern *string `json:"pattern,omitempty"`
 }
 
@@ -5979,8 +6074,8 @@ func UnmarshalWorker(m map[string]json.RawMessage, result interface{}) (err erro
 	return
 }
 
-// WorkerIdentity : Specify the worker used to run the trigger, as a worker object containing the worker ID only. If omitted, or
-// specified as `worker: { id: 'public' }`, the IBM Managed shared workers are used.
+// WorkerIdentity : Specify the worker that is to be used to run the trigger, indicated by a worker object with only the worker ID. If
+// not specified or set as `worker: { id: 'public' }`, the IBM Managed shared workers are used.
 type WorkerIdentity struct {
 	// ID of the worker.
 	ID *string `json:"id" validate:"required"`
@@ -6026,7 +6121,8 @@ type TriggerGenericTrigger struct {
 	// The Trigger ID.
 	ID *string `json:"id" validate:"required"`
 
-	// Optional trigger properties used to override or supplement the pipeline properties when triggering a pipeline run.
+	// Optional trigger properties are used to override or supplement the pipeline properties when triggering a pipeline
+	// run.
 	Properties []TriggerProperty `json:"properties,omitempty"`
 
 	// Optional trigger tags array.
@@ -6039,17 +6135,21 @@ type TriggerGenericTrigger struct {
 	// for this trigger.
 	MaxConcurrentRuns *int64 `json:"max_concurrent_runs,omitempty"`
 
-	// Flag whether the trigger is enabled.
+	// Flag to check if the trigger is enabled.
 	Enabled *bool `json:"enabled" validate:"required"`
 
 	// Mark the trigger as a favorite.
 	Favorite *bool `json:"favorite,omitempty"`
 
-	// Only needed for generic webhook trigger type. Secret used to start generic webhook trigger.
+	// Only needed for Generic Webhook trigger type. The secret is used to start the Generic Webhook trigger.
 	Secret *GenericSecret `json:"secret,omitempty"`
 
 	// Webhook URL that can be used to trigger pipeline runs.
 	WebhookURL *string `json:"webhook_url,omitempty"`
+
+	// Stores the CEL (Common Expression Language) expression value which is used for event filtering against the webhook
+	// payloads.
+	Filter *string `json:"filter,omitempty"`
 }
 
 func (*TriggerGenericTrigger) isaTrigger() bool {
@@ -6111,6 +6211,10 @@ func UnmarshalTriggerGenericTrigger(m map[string]json.RawMessage, result interfa
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "filter", &obj.Filter)
+	if err != nil {
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -6134,7 +6238,8 @@ type TriggerManualTrigger struct {
 	// The Trigger ID.
 	ID *string `json:"id" validate:"required"`
 
-	// Optional trigger properties used to override or supplement the pipeline properties when triggering a pipeline run.
+	// Optional trigger properties are used to override or supplement the pipeline properties when triggering a pipeline
+	// run.
 	Properties []TriggerProperty `json:"properties,omitempty"`
 
 	// Optional trigger tags array.
@@ -6147,7 +6252,7 @@ type TriggerManualTrigger struct {
 	// for this trigger.
 	MaxConcurrentRuns *int64 `json:"max_concurrent_runs,omitempty"`
 
-	// Flag whether the trigger is enabled.
+	// Flag to check if the trigger is enabled.
 	Enabled *bool `json:"enabled" validate:"required"`
 
 	// Mark the trigger as a favorite.
@@ -6209,8 +6314,8 @@ func UnmarshalTriggerManualTrigger(m map[string]json.RawMessage, result interfac
 	return
 }
 
-// TriggerScmTrigger : Git type trigger, which automatically triggers a pipeline run when the Tekton Pipeline Service receives a
-// corresponding Git webhook event.
+// TriggerScmTrigger : Git trigger type. It automatically triggers a pipeline run when the Tekton Pipeline Service receives a corresponding
+// Git webhook event.
 // This model "extends" Trigger
 type TriggerScmTrigger struct {
 	// Trigger type.
@@ -6229,7 +6334,8 @@ type TriggerScmTrigger struct {
 	// The Trigger ID.
 	ID *string `json:"id" validate:"required"`
 
-	// Optional trigger properties used to override or supplement the pipeline properties when triggering a pipeline run.
+	// Optional trigger properties are used to override or supplement the pipeline properties when triggering a pipeline
+	// run.
 	Properties []TriggerProperty `json:"properties,omitempty"`
 
 	// Optional trigger tags array.
@@ -6242,7 +6348,7 @@ type TriggerScmTrigger struct {
 	// for this trigger.
 	MaxConcurrentRuns *int64 `json:"max_concurrent_runs,omitempty"`
 
-	// Flag whether the trigger is enabled.
+	// Flag to check if the trigger is enabled.
 	Enabled *bool `json:"enabled" validate:"required"`
 
 	// Mark the trigger as a favorite.
@@ -6253,10 +6359,14 @@ type TriggerScmTrigger struct {
 	// https://cloud.ibm.com/apidocs/toolchain#list-tools.
 	Source *TriggerSource `json:"source,omitempty"`
 
-	// Only needed for Git triggers. List of events to which a Git trigger listens. Choose one or more from: 'push',
-	// 'pull_request' and 'pull_request_closed'. For SCM repositories that use 'merge request' events, such events map to
-	// the equivalent 'pull request' events.
+	// Either 'events' or 'filter' is required specifically for Git triggers. Stores a list of events that a Git trigger
+	// listens to. Choose one or more from 'push', 'pull_request', and 'pull_request_closed'. If SCM repositories use the
+	// 'merge request' term, they correspond to the generic term i.e. 'pull request'.
 	Events []string `json:"events"`
+
+	// Either 'events' or 'filter' can be used. Stores the CEL (Common Expression Language) expression value which is used
+	// for event filtering against the Git webhook payloads.
+	Filter *string `json:"filter,omitempty"`
 }
 
 // Constants associated with the TriggerScmTrigger.Events property.
@@ -6327,11 +6437,15 @@ func UnmarshalTriggerScmTrigger(m map[string]json.RawMessage, result interface{}
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "filter", &obj.Filter)
+	if err != nil {
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
-// TriggerTimerTrigger : Timer trigger, which triggers pipeline runs according to the provided cron value and timezone.
+// TriggerTimerTrigger : Timer trigger, which triggers pipeline runs according to the provided CRON value and timezone.
 // This model "extends" Trigger
 type TriggerTimerTrigger struct {
 	// Trigger type.
@@ -6350,7 +6464,8 @@ type TriggerTimerTrigger struct {
 	// The Trigger ID.
 	ID *string `json:"id" validate:"required"`
 
-	// Optional trigger properties used to override or supplement the pipeline properties when triggering a pipeline run.
+	// Optional trigger properties are used to override or supplement the pipeline properties when triggering a pipeline
+	// run.
 	Properties []TriggerProperty `json:"properties,omitempty"`
 
 	// Optional trigger tags array.
@@ -6363,18 +6478,18 @@ type TriggerTimerTrigger struct {
 	// for this trigger.
 	MaxConcurrentRuns *int64 `json:"max_concurrent_runs,omitempty"`
 
-	// Flag whether the trigger is enabled.
+	// Flag to check if the trigger is enabled.
 	Enabled *bool `json:"enabled" validate:"required"`
 
 	// Mark the trigger as a favorite.
 	Favorite *bool `json:"favorite,omitempty"`
 
-	// Only needed for timer triggers. Cron expression that indicates when this trigger will activate. Maximum frequency is
+	// Only needed for timer triggers. CRON expression that indicates when this trigger will activate. Maximum frequency is
 	// every 5 minutes. The string is based on UNIX crontab syntax: minute, hour, day of month, month, day of week.
-	// Example: 0 *_/2 * * * - every 2 hours.
+	// Example: The CRON expression 0 *_/2 * * * - translates to - every 2 hours.
 	Cron *string `json:"cron,omitempty"`
 
-	// Only used for timer triggers. Specify the timezone used for this timer trigger, which will ensure the cron activates
+	// Only used for timer triggers. Specify the timezone used for this timer trigger, which will ensure the CRON activates
 	// this trigger relative to the specified timezone. If no timezone is specified, the default timezone used is UTC.
 	// Valid timezones are those listed in the IANA timezone database, https://www.iana.org/time-zones.
 	Timezone *string `json:"timezone,omitempty"`
