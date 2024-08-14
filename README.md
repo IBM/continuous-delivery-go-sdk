@@ -23,7 +23,7 @@ The Go client library to interact with the [IBM Cloud Continuous Delivery Toolch
 
 <!-- toc -->
 
-- [IBM Cloud Continuous Delivery Go SDK 1.6.0](#ibm-cloud-continuous-delivery-go-sdk-140)
+- [IBM Cloud Continuous Delivery Go SDK 1.6.0](#ibm-cloud-continuous-delivery-go-sdk-160)
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
   - [Prerequisites](#prerequisites)
