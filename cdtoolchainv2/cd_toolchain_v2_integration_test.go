@@ -22,6 +22,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/IBM/continuous-delivery-go-sdk/cdtoolchainv2"
@@ -33,10 +34,34 @@ import (
 /**
  * This file contains an integration test for the cdtoolchainv2 package.
  *
+ * Required environment variables:
+ * CD_TOOLCHAIN_APIKEY=<IAM apikey>
+ * CD_TOOLCHAIN_AUTHTYPE=iam
+ * CD_TOOLCHAIN_EVENT_NOTIFICATIONS_SERVICE_CRN=<event notifications service CRN>
+ * CD_TOOLCHAIN_RESOURCE_GROUP_ID=<resource group where resources will be created>
+ * CD_TOOLCHAIN_URL=<service base url>
+ *
  * Notes:
  *
  * The integration test will automatically skip tests if the required config file is not available.
  */
+
+// Helper filter function. Filters list of toolchains, returns new list of toolchains that satisfy the test function
+func filter(toolchains []cdtoolchainv2.ToolchainModel, testFn func(cdtoolchainv2.ToolchainModel) bool) (res []cdtoolchainv2.ToolchainModel) {
+    for _, toolchain := range toolchains {
+		if testFn(toolchain) {
+            res = append(res, toolchain)
+		}
+	}
+	return
+}
+
+// Toolchain name: TestToolchainV2_YYYY_MM_DD_hh_mm_ss
+var currentTime = time.Now()
+var toolchainName = "TestGoSdk_" + currentTime.Format("2006_01_02_15_04_05")
+
+// Returns true if the toolchain has the specified name
+var filterByToolchainName = func(toolchain cdtoolchainv2.ToolchainModel) bool { return strings.HasPrefix(*toolchain.Name, toolchainName) }
 
 var _ = Describe(`CdToolchainV2 Integration Tests`, func() {
 	const externalConfigFile = "../cd_toolchain_v2.env"
@@ -101,8 +126,8 @@ var _ = Describe(`CdToolchainV2 Integration Tests`, func() {
 		})
 		It(`CreateToolchain(createToolchainOptions *CreateToolchainOptions)`, func() {
 			createToolchainOptions := &cdtoolchainv2.CreateToolchainOptions{
-				Name: core.StringPtr("TestToolchainV2"),
-				ResourceGroupID: core.StringPtr("6a9a01f2cff54a7f966f803d92877123"),
+				Name: core.StringPtr(toolchainName),
+				ResourceGroupID: core.StringPtr(config["RESOURCE_GROUP_ID"]),
 				Description: core.StringPtr("A sample toolchain to test the API"),
 			}
 
@@ -144,7 +169,7 @@ var _ = Describe(`CdToolchainV2 Integration Tests`, func() {
 		})
 		It(`ListToolchains(listToolchainsOptions *ListToolchainsOptions) with pagination`, func(){
 			listToolchainsOptions := &cdtoolchainv2.ListToolchainsOptions{
-				ResourceGroupID: core.StringPtr("6a9a01f2cff54a7f966f803d92877123"),
+				ResourceGroupID: core.StringPtr(config["RESOURCE_GROUP_ID"]),
 				Limit: core.Int64Ptr(int64(10)),
 				Start: core.StringPtr("testString"),
 				Name: core.StringPtr("TestToolchainV2"),
@@ -172,9 +197,9 @@ var _ = Describe(`CdToolchainV2 Integration Tests`, func() {
 		})
 		It(`ListToolchains(listToolchainsOptions *ListToolchainsOptions) using ToolchainsPager`, func(){
 			listToolchainsOptions := &cdtoolchainv2.ListToolchainsOptions{
-				ResourceGroupID: core.StringPtr("6a9a01f2cff54a7f966f803d92877123"),
+				ResourceGroupID: core.StringPtr(config["RESOURCE_GROUP_ID"]),
 				Limit: core.Int64Ptr(int64(10)),
-				Name: core.StringPtr("TestToolchainV2"),
+				Name: core.StringPtr(toolchainName),
 			}
 
 			// Test GetNext().
@@ -199,7 +224,7 @@ var _ = Describe(`CdToolchainV2 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(allItems).ToNot(BeNil())
 
-			Expect(len(allItems)).To(Equal(len(allResults)))
+			Expect(len(filter(allItems, filterByToolchainName))).To(Equal(len(filter(allResults, filterByToolchainName))))
 			fmt.Fprintf(GinkgoWriter, "ListToolchains() returned a total of %d item(s) using ToolchainsPager.\n", len(allResults))
 		})
 	})
@@ -248,6 +273,22 @@ var _ = Describe(`CdToolchainV2 Integration Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
+
+		It(`CreateTool(createToolOptions *CreateToolOptions) - Create Event Notifications tool`, func() {
+			createToolOptions := &cdtoolchainv2.CreateToolOptions{
+				ToolchainID: &toolchainIDLink,
+				ToolTypeID: core.StringPtr("eventnotifications"),
+				Parameters: map[string]interface{}{
+					"name": "test-en-tool",
+					"instance-crn": config["EVENT_NOTIFICATIONS_SERVICE_CRN"],
+				},
+			}
+			toolchainToolPost, response, err := cdToolchainService.CreateTool(createToolOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201)) 
+			Expect(toolchainToolPost).ToNot(BeNil())
+		})
+
 		It(`CreateToolchainEvent(createToolchainEventOptions *CreateToolchainEventOptions)`, func() {
 			toolchainEventPrototypeDataApplicationJSONModel := &cdtoolchainv2.ToolchainEventPrototypeDataApplicationJSON{
 				Content: map[string]interface{}{"anyKey": "anyValue"},
@@ -255,7 +296,6 @@ var _ = Describe(`CdToolchainV2 Integration Tests`, func() {
 
 			toolchainEventPrototypeDataModel := &cdtoolchainv2.ToolchainEventPrototypeData{
 				ApplicationJSON: toolchainEventPrototypeDataApplicationJSONModel,
-				TextPlain: core.StringPtr("This event is dispatched because the pipeline failed"),
 			}
 
 			createToolchainEventOptions := &cdtoolchainv2.CreateToolchainEventOptions{
