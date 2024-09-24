@@ -552,6 +552,9 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineRunWithContext(c
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
+	if createTektonPipelineRunOptions.Description != nil {
+		body["description"] = createTektonPipelineRunOptions.Description
+	}
 	if createTektonPipelineRunOptions.TriggerName != nil {
 		body["trigger_name"] = createTektonPipelineRunOptions.TriggerName
 	}
@@ -2694,6 +2697,9 @@ type CreateTektonPipelineRunOptions struct {
 	// The Tekton pipeline ID.
 	PipelineID *string `json:"pipeline_id" validate:"required,ne="`
 
+	// Optional description for the created PipelineRun.
+	Description *string `json:"description,omitempty"`
+
 	// Trigger name.
 	TriggerName *string `json:"trigger_name,omitempty"`
 
@@ -2731,6 +2737,12 @@ func (*CdTektonPipelineV2) NewCreateTektonPipelineRunOptions(pipelineID string) 
 // SetPipelineID : Allow user to set PipelineID
 func (_options *CreateTektonPipelineRunOptions) SetPipelineID(pipelineID string) *CreateTektonPipelineRunOptions {
 	_options.PipelineID = core.StringPtr(pipelineID)
+	return _options
+}
+
+// SetDescription : Allow user to set Description
+func (_options *CreateTektonPipelineRunOptions) SetDescription(description string) *CreateTektonPipelineRunOptions {
+	_options.Description = core.StringPtr(description)
 	return _options
 }
 
@@ -4290,6 +4302,9 @@ type PipelineRun struct {
 	// Reference to the pipeline definition of a pipeline run.
 	Definition *RunDefinition `json:"definition,omitempty"`
 
+	// A description of the PipelineRun.
+	Description interface{} `json:"description,omitempty"`
+
 	// Worker details used in this pipeline run.
 	Worker *PipelineRunWorker `json:"worker" validate:"required"`
 
@@ -4367,6 +4382,10 @@ func UnmarshalPipelineRun(m map[string]json.RawMessage, result interface{}) (err
 		return
 	}
 	err = core.UnmarshalModel(m, "definition", &obj.Definition, UnmarshalRunDefinition)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
 	if err != nil {
 		return
 	}
