@@ -3,9 +3,9 @@ language: go
 dist: focal
 
 go:
-- 1.20.x
 - 1.21.x
 - 1.22.x
+- 1.23.x
 
 notifications:
   email: true
@@ -18,7 +18,7 @@ before_install:
   - pyenv global 3.8
 
 install:
-  - curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s -- -b $(go env GOPATH)/bin v1.59.1
+  - curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s -- -b $(go env GOPATH)/bin v1.61.0
 
 script:
   - make travis-ci
@@ -35,5 +35,5 @@ deploy:
     script: npm run semantic-release
     skip_cleanup: true
     on:
-      go: '1.20.x'
+      go: '1.21.x'
       branch: main
