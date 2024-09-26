@@ -1,3 +1,16 @@
+# [1.7.0](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.6.0...v1.7.0) (2024-09-26)
+
+
+### Bug Fixes
+
+* **build:** Fix format of bumpversion file ([021b630](https://github.com/IBM/continuous-delivery-go-sdk/commit/021b630fea5dd37981e1b37e6bafd2805ff71e69))
+
+
+### Features
+
+* Go version updates ([f34e013](https://github.com/IBM/continuous-delivery-go-sdk/commit/f34e013110f7a3d8de5e5e5b9030df8df2d3da3a))
+* **tekton:** add run description for pipeline runs ([66f3cdd](https://github.com/IBM/continuous-delivery-go-sdk/commit/66f3cddc2bb9cc5a460ed0a65f434c5271eb3496))
+
 # [1.6.0](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.5.0...v1.6.0) (2024-07-29)
 
 
