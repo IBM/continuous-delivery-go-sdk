@@ -5413,6 +5413,9 @@ type Trigger struct {
 	// Mark the trigger as a favorite.
 	Favorite *bool `json:"favorite,omitempty"`
 
+	// When enabled, pull request events from forks of the selected repository will trigger a pipeline run.
+	EnableEventsFromForks *bool `json:"enable_events_from_forks,omitempty"`
+
 	// Source repository for a Git trigger. Only required for Git triggers. The referenced repository URL must match the
 	// URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from the toolchain API
 	// https://cloud.ibm.com/apidocs/toolchain#list-tools.
@@ -5504,6 +5507,10 @@ func UnmarshalTrigger(m map[string]json.RawMessage, result interface{}) (err err
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "favorite", &obj.Favorite)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "enable_events_from_forks", &obj.EnableEventsFromForks)
 	if err != nil {
 		return
 	}
@@ -6373,6 +6380,9 @@ type TriggerScmTrigger struct {
 	// Mark the trigger as a favorite.
 	Favorite *bool `json:"favorite,omitempty"`
 
+	// When enabled, pull request events from forks of the selected repository will trigger a pipeline run.
+	EnableEventsFromForks *bool `json:"enable_events_from_forks,omitempty"`
+
 	// Source repository for a Git trigger. Only required for Git triggers. The referenced repository URL must match the
 	// URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from the toolchain API
 	// https://cloud.ibm.com/apidocs/toolchain#list-tools.
@@ -6445,6 +6455,10 @@ func UnmarshalTriggerScmTrigger(m map[string]json.RawMessage, result interface{}
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "favorite", &obj.Favorite)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "enable_events_from_forks", &obj.EnableEventsFromForks)
 	if err != nil {
 		return
 	}
