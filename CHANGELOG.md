@@ -1,3 +1,10 @@
+## [1.8.1](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.8.0...v1.8.1) (2024-09-30)
+
+
+### Bug Fixes
+
+* **tekton:** full support for fork feature ([cbf05f9](https://github.com/IBM/continuous-delivery-go-sdk/commit/cbf05f93de924b0811694bb9418aa0c6b8ce8126))
+
 # [1.8.0](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.7.0...v1.8.0) (2024-09-30)
 
 
