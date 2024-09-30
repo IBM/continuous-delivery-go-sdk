@@ -1809,6 +1809,9 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineTriggerWithConte
 	if createTektonPipelineTriggerOptions.Favorite != nil {
 		body["favorite"] = createTektonPipelineTriggerOptions.Favorite
 	}
+	if createTektonPipelineTriggerOptions.EnableEventsFromForks != nil {
+		body["enable_events_from_forks"] = createTektonPipelineTriggerOptions.EnableEventsFromForks
+	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
 		return
@@ -2848,6 +2851,10 @@ type CreateTektonPipelineTriggerOptions struct {
 	// Mark the trigger as a favorite.
 	Favorite *bool `json:"favorite,omitempty"`
 
+	// Only used for SCM triggers. When enabled, pull request events from forks of the selected repository will trigger a
+	// pipeline run.
+	EnableEventsFromForks *bool `json:"enable_events_from_forks,omitempty"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -2967,6 +2974,12 @@ func (_options *CreateTektonPipelineTriggerOptions) SetFilter(filter string) *Cr
 // SetFavorite : Allow user to set Favorite
 func (_options *CreateTektonPipelineTriggerOptions) SetFavorite(favorite bool) *CreateTektonPipelineTriggerOptions {
 	_options.Favorite = core.BoolPtr(favorite)
+	return _options
+}
+
+// SetEnableEventsFromForks : Allow user to set EnableEventsFromForks
+func (_options *CreateTektonPipelineTriggerOptions) SetEnableEventsFromForks(enableEventsFromForks bool) *CreateTektonPipelineTriggerOptions {
+	_options.EnableEventsFromForks = core.BoolPtr(enableEventsFromForks)
 	return _options
 }
 
@@ -5601,6 +5614,10 @@ type TriggerPatch struct {
 
 	// Mark the trigger as a favorite.
 	Favorite *bool `json:"favorite,omitempty"`
+
+	// Only used for SCM triggers. When enabled, pull request events from forks of the selected repository will trigger a
+	// pipeline run.
+	EnableEventsFromForks *bool `json:"enable_events_from_forks,omitempty"`
 }
 
 // Constants associated with the TriggerPatch.Type property.
@@ -5677,6 +5694,10 @@ func UnmarshalTriggerPatch(m map[string]json.RawMessage, result interface{}) (er
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "favorite", &obj.Favorite)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "enable_events_from_forks", &obj.EnableEventsFromForks)
 	if err != nil {
 		return
 	}
