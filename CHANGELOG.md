@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.7.0...v1.8.0) (2024-09-30)
+
+
+### Features
+
+* **tekton:** Add fork events option ([aaff1f4](https://github.com/IBM/continuous-delivery-go-sdk/commit/aaff1f4d0c894daea84e09f831a1f85316517179))
+
 # [1.7.0](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.6.0...v1.7.0) (2024-09-26)
 
 
