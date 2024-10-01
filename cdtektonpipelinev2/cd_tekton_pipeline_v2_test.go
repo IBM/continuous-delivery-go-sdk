@@ -19,6 +19,8 @@ package cdtektonpipelinev2_test
 import (
 	"bytes"
 	"context"
+	"encoding/base64"
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -1155,7 +1157,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"pipeline_runs": [{"id": "ID", "href": "Href", "user_info": {"iam_id": "IamID", "sub": "Sub"}, "status": "pending", "definition_id": "DefinitionID", "definition": {"id": "ID"}, "description": "anyValue", "worker": {"name": "Name", "agent_id": "AgentID", "service_id": "ServiceID", "id": "ID"}, "pipeline_id": "PipelineID", "pipeline": {"id": "ID"}, "listener_name": "ListenerName", "trigger": {"type": "Type", "name": "start-deploy", "href": "Href", "event_listener": "EventListener", "id": "ID", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "path": "Path", "locked": true}], "tags": ["Tags"], "worker": {"name": "Name", "type": "Type", "id": "ID"}, "max_concurrent_runs": 4, "enabled": true, "favorite": false}, "event_params_blob": "EventParamsBlob", "trigger_headers": "TriggerHeaders", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "locked": true, "path": "Path"}], "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "run_url": "RunURL", "error_message": "ErrorMessage"}], "limit": 20, "first": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}}`)
+					fmt.Fprintf(res, "%s", `{"pipeline_runs": [{"id": "ID", "href": "Href", "user_info": {"iam_id": "IamID", "sub": "Sub"}, "status": "pending", "definition_id": "DefinitionID", "definition": {"id": "ID"}, "description": "Description", "worker": {"name": "Name", "agent_id": "AgentID", "service_id": "ServiceID", "id": "ID"}, "pipeline_id": "PipelineID", "pipeline": {"id": "ID"}, "listener_name": "ListenerName", "trigger": {"type": "Type", "name": "start-deploy", "href": "Href", "event_listener": "EventListener", "id": "ID", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "path": "Path", "locked": true}], "tags": ["Tags"], "worker": {"name": "Name", "type": "Type", "id": "ID"}, "max_concurrent_runs": 4, "enabled": true, "favorite": false}, "event_params_blob": "EventParamsBlob", "trigger_headers": "TriggerHeaders", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "locked": true, "path": "Path"}], "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "run_url": "RunURL", "error_message": "ErrorMessage"}], "limit": 20, "first": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}}`)
 				}))
 			})
 			It(`Invoke ListTektonPipelineRuns successfully with retries`, func() {
@@ -1217,7 +1219,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"pipeline_runs": [{"id": "ID", "href": "Href", "user_info": {"iam_id": "IamID", "sub": "Sub"}, "status": "pending", "definition_id": "DefinitionID", "definition": {"id": "ID"}, "description": "anyValue", "worker": {"name": "Name", "agent_id": "AgentID", "service_id": "ServiceID", "id": "ID"}, "pipeline_id": "PipelineID", "pipeline": {"id": "ID"}, "listener_name": "ListenerName", "trigger": {"type": "Type", "name": "start-deploy", "href": "Href", "event_listener": "EventListener", "id": "ID", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "path": "Path", "locked": true}], "tags": ["Tags"], "worker": {"name": "Name", "type": "Type", "id": "ID"}, "max_concurrent_runs": 4, "enabled": true, "favorite": false}, "event_params_blob": "EventParamsBlob", "trigger_headers": "TriggerHeaders", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "locked": true, "path": "Path"}], "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "run_url": "RunURL", "error_message": "ErrorMessage"}], "limit": 20, "first": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}}`)
+					fmt.Fprintf(res, "%s", `{"pipeline_runs": [{"id": "ID", "href": "Href", "user_info": {"iam_id": "IamID", "sub": "Sub"}, "status": "pending", "definition_id": "DefinitionID", "definition": {"id": "ID"}, "description": "Description", "worker": {"name": "Name", "agent_id": "AgentID", "service_id": "ServiceID", "id": "ID"}, "pipeline_id": "PipelineID", "pipeline": {"id": "ID"}, "listener_name": "ListenerName", "trigger": {"type": "Type", "name": "start-deploy", "href": "Href", "event_listener": "EventListener", "id": "ID", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "path": "Path", "locked": true}], "tags": ["Tags"], "worker": {"name": "Name", "type": "Type", "id": "ID"}, "max_concurrent_runs": 4, "enabled": true, "favorite": false}, "event_params_blob": "EventParamsBlob", "trigger_headers": "TriggerHeaders", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "locked": true, "path": "Path"}], "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "run_url": "RunURL", "error_message": "ErrorMessage"}], "limit": 20, "first": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}}`)
 				}))
 			})
 			It(`Invoke ListTektonPipelineRuns successfully`, func() {
@@ -1330,14 +1332,14 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				nextObject := new(cdtektonpipelinev2.RunsNextPage)
 				nextObject.Href = core.StringPtr("ibm.com?start=abc-123")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
 				responseObject := new(cdtektonpipelinev2.PipelineRunsCollection)
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -1347,7 +1349,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				nextObject := new(cdtektonpipelinev2.RunsNextPage)
 				nextObject.Href = core.StringPtr("ibm.com")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -1368,9 +1370,9 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"href":"https://myhost.com/somePath?start=1"},"total_count":2,"limit":1,"pipeline_runs":[{"id":"ID","href":"Href","user_info":{"iam_id":"IamID","sub":"Sub"},"status":"pending","definition_id":"DefinitionID","definition":{"id":"ID"},"description":"anyValue","worker":{"name":"Name","agent_id":"AgentID","service_id":"ServiceID","id":"ID"},"pipeline_id":"PipelineID","pipeline":{"id":"ID"},"listener_name":"ListenerName","trigger":{"type":"Type","name":"start-deploy","href":"Href","event_listener":"EventListener","id":"ID","properties":[{"name":"Name","value":"Value","href":"Href","enum":["Enum"],"type":"secure","path":"Path","locked":true}],"tags":["Tags"],"worker":{"name":"Name","type":"Type","id":"ID"},"max_concurrent_runs":4,"enabled":true,"favorite":false},"event_params_blob":"EventParamsBlob","trigger_headers":"TriggerHeaders","properties":[{"name":"Name","value":"Value","href":"Href","enum":["Enum"],"type":"secure","locked":true,"path":"Path"}],"created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","run_url":"RunURL","error_message":"ErrorMessage"}]}`)
+						fmt.Fprintf(res, "%s", `{"next":{"href":"https://myhost.com/somePath?start=1"},"total_count":2,"limit":1,"pipeline_runs":[{"id":"ID","href":"Href","user_info":{"iam_id":"IamID","sub":"Sub"},"status":"pending","definition_id":"DefinitionID","definition":{"id":"ID"},"description":"Description","worker":{"name":"Name","agent_id":"AgentID","service_id":"ServiceID","id":"ID"},"pipeline_id":"PipelineID","pipeline":{"id":"ID"},"listener_name":"ListenerName","trigger":{"type":"Type","name":"start-deploy","href":"Href","event_listener":"EventListener","id":"ID","properties":[{"name":"Name","value":"Value","href":"Href","enum":["Enum"],"type":"secure","path":"Path","locked":true}],"tags":["Tags"],"worker":{"name":"Name","type":"Type","id":"ID"},"max_concurrent_runs":4,"enabled":true,"favorite":false},"event_params_blob":"EventParamsBlob","trigger_headers":"TriggerHeaders","properties":[{"name":"Name","value":"Value","href":"Href","enum":["Enum"],"type":"secure","locked":true,"path":"Path"}],"created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","run_url":"RunURL","error_message":"ErrorMessage"}]}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"pipeline_runs":[{"id":"ID","href":"Href","user_info":{"iam_id":"IamID","sub":"Sub"},"status":"pending","definition_id":"DefinitionID","definition":{"id":"ID"},"description":"anyValue","worker":{"name":"Name","agent_id":"AgentID","service_id":"ServiceID","id":"ID"},"pipeline_id":"PipelineID","pipeline":{"id":"ID"},"listener_name":"ListenerName","trigger":{"type":"Type","name":"start-deploy","href":"Href","event_listener":"EventListener","id":"ID","properties":[{"name":"Name","value":"Value","href":"Href","enum":["Enum"],"type":"secure","path":"Path","locked":true}],"tags":["Tags"],"worker":{"name":"Name","type":"Type","id":"ID"},"max_concurrent_runs":4,"enabled":true,"favorite":false},"event_params_blob":"EventParamsBlob","trigger_headers":"TriggerHeaders","properties":[{"name":"Name","value":"Value","href":"Href","enum":["Enum"],"type":"secure","locked":true,"path":"Path"}],"created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","run_url":"RunURL","error_message":"ErrorMessage"}]}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"pipeline_runs":[{"id":"ID","href":"Href","user_info":{"iam_id":"IamID","sub":"Sub"},"status":"pending","definition_id":"DefinitionID","definition":{"id":"ID"},"description":"Description","worker":{"name":"Name","agent_id":"AgentID","service_id":"ServiceID","id":"ID"},"pipeline_id":"PipelineID","pipeline":{"id":"ID"},"listener_name":"ListenerName","trigger":{"type":"Type","name":"start-deploy","href":"Href","event_listener":"EventListener","id":"ID","properties":[{"name":"Name","value":"Value","href":"Href","enum":["Enum"],"type":"secure","path":"Path","locked":true}],"tags":["Tags"],"worker":{"name":"Name","type":"Type","id":"ID"},"max_concurrent_runs":4,"enabled":true,"favorite":false},"event_params_blob":"EventParamsBlob","trigger_headers":"TriggerHeaders","properties":[{"name":"Name","value":"Value","href":"Href","enum":["Enum"],"type":"secure","locked":true,"path":"Path"}],"created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","run_url":"RunURL","error_message":"ErrorMessage"}]}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -1523,7 +1525,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "href": "Href", "user_info": {"iam_id": "IamID", "sub": "Sub"}, "status": "pending", "definition_id": "DefinitionID", "definition": {"id": "ID"}, "description": "anyValue", "worker": {"name": "Name", "agent_id": "AgentID", "service_id": "ServiceID", "id": "ID"}, "pipeline_id": "PipelineID", "pipeline": {"id": "ID"}, "listener_name": "ListenerName", "trigger": {"type": "Type", "name": "start-deploy", "href": "Href", "event_listener": "EventListener", "id": "ID", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "path": "Path", "locked": true}], "tags": ["Tags"], "worker": {"name": "Name", "type": "Type", "id": "ID"}, "max_concurrent_runs": 4, "enabled": true, "favorite": false}, "event_params_blob": "EventParamsBlob", "trigger_headers": "TriggerHeaders", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "locked": true, "path": "Path"}], "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "run_url": "RunURL", "error_message": "ErrorMessage"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "href": "Href", "user_info": {"iam_id": "IamID", "sub": "Sub"}, "status": "pending", "definition_id": "DefinitionID", "definition": {"id": "ID"}, "description": "Description", "worker": {"name": "Name", "agent_id": "AgentID", "service_id": "ServiceID", "id": "ID"}, "pipeline_id": "PipelineID", "pipeline": {"id": "ID"}, "listener_name": "ListenerName", "trigger": {"type": "Type", "name": "start-deploy", "href": "Href", "event_listener": "EventListener", "id": "ID", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "path": "Path", "locked": true}], "tags": ["Tags"], "worker": {"name": "Name", "type": "Type", "id": "ID"}, "max_concurrent_runs": 4, "enabled": true, "favorite": false}, "event_params_blob": "EventParamsBlob", "trigger_headers": "TriggerHeaders", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "locked": true, "path": "Path"}], "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "run_url": "RunURL", "error_message": "ErrorMessage"}`)
 				}))
 			})
 			It(`Invoke CreateTektonPipelineRun successfully with retries`, func() {
@@ -1608,7 +1610,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "href": "Href", "user_info": {"iam_id": "IamID", "sub": "Sub"}, "status": "pending", "definition_id": "DefinitionID", "definition": {"id": "ID"}, "description": "anyValue", "worker": {"name": "Name", "agent_id": "AgentID", "service_id": "ServiceID", "id": "ID"}, "pipeline_id": "PipelineID", "pipeline": {"id": "ID"}, "listener_name": "ListenerName", "trigger": {"type": "Type", "name": "start-deploy", "href": "Href", "event_listener": "EventListener", "id": "ID", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "path": "Path", "locked": true}], "tags": ["Tags"], "worker": {"name": "Name", "type": "Type", "id": "ID"}, "max_concurrent_runs": 4, "enabled": true, "favorite": false}, "event_params_blob": "EventParamsBlob", "trigger_headers": "TriggerHeaders", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "locked": true, "path": "Path"}], "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "run_url": "RunURL", "error_message": "ErrorMessage"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "href": "Href", "user_info": {"iam_id": "IamID", "sub": "Sub"}, "status": "pending", "definition_id": "DefinitionID", "definition": {"id": "ID"}, "description": "Description", "worker": {"name": "Name", "agent_id": "AgentID", "service_id": "ServiceID", "id": "ID"}, "pipeline_id": "PipelineID", "pipeline": {"id": "ID"}, "listener_name": "ListenerName", "trigger": {"type": "Type", "name": "start-deploy", "href": "Href", "event_listener": "EventListener", "id": "ID", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "path": "Path", "locked": true}], "tags": ["Tags"], "worker": {"name": "Name", "type": "Type", "id": "ID"}, "max_concurrent_runs": 4, "enabled": true, "favorite": false}, "event_params_blob": "EventParamsBlob", "trigger_headers": "TriggerHeaders", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "locked": true, "path": "Path"}], "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "run_url": "RunURL", "error_message": "ErrorMessage"}`)
 				}))
 			})
 			It(`Invoke CreateTektonPipelineRun successfully`, func() {
@@ -1815,7 +1817,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "href": "Href", "user_info": {"iam_id": "IamID", "sub": "Sub"}, "status": "pending", "definition_id": "DefinitionID", "definition": {"id": "ID"}, "description": "anyValue", "worker": {"name": "Name", "agent_id": "AgentID", "service_id": "ServiceID", "id": "ID"}, "pipeline_id": "PipelineID", "pipeline": {"id": "ID"}, "listener_name": "ListenerName", "trigger": {"type": "Type", "name": "start-deploy", "href": "Href", "event_listener": "EventListener", "id": "ID", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "path": "Path", "locked": true}], "tags": ["Tags"], "worker": {"name": "Name", "type": "Type", "id": "ID"}, "max_concurrent_runs": 4, "enabled": true, "favorite": false}, "event_params_blob": "EventParamsBlob", "trigger_headers": "TriggerHeaders", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "locked": true, "path": "Path"}], "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "run_url": "RunURL", "error_message": "ErrorMessage"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "href": "Href", "user_info": {"iam_id": "IamID", "sub": "Sub"}, "status": "pending", "definition_id": "DefinitionID", "definition": {"id": "ID"}, "description": "Description", "worker": {"name": "Name", "agent_id": "AgentID", "service_id": "ServiceID", "id": "ID"}, "pipeline_id": "PipelineID", "pipeline": {"id": "ID"}, "listener_name": "ListenerName", "trigger": {"type": "Type", "name": "start-deploy", "href": "Href", "event_listener": "EventListener", "id": "ID", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "path": "Path", "locked": true}], "tags": ["Tags"], "worker": {"name": "Name", "type": "Type", "id": "ID"}, "max_concurrent_runs": 4, "enabled": true, "favorite": false}, "event_params_blob": "EventParamsBlob", "trigger_headers": "TriggerHeaders", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "locked": true, "path": "Path"}], "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "run_url": "RunURL", "error_message": "ErrorMessage"}`)
 				}))
 			})
 			It(`Invoke GetTektonPipelineRun successfully with retries`, func() {
@@ -1872,7 +1874,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "href": "Href", "user_info": {"iam_id": "IamID", "sub": "Sub"}, "status": "pending", "definition_id": "DefinitionID", "definition": {"id": "ID"}, "description": "anyValue", "worker": {"name": "Name", "agent_id": "AgentID", "service_id": "ServiceID", "id": "ID"}, "pipeline_id": "PipelineID", "pipeline": {"id": "ID"}, "listener_name": "ListenerName", "trigger": {"type": "Type", "name": "start-deploy", "href": "Href", "event_listener": "EventListener", "id": "ID", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "path": "Path", "locked": true}], "tags": ["Tags"], "worker": {"name": "Name", "type": "Type", "id": "ID"}, "max_concurrent_runs": 4, "enabled": true, "favorite": false}, "event_params_blob": "EventParamsBlob", "trigger_headers": "TriggerHeaders", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "locked": true, "path": "Path"}], "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "run_url": "RunURL", "error_message": "ErrorMessage"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "href": "Href", "user_info": {"iam_id": "IamID", "sub": "Sub"}, "status": "pending", "definition_id": "DefinitionID", "definition": {"id": "ID"}, "description": "Description", "worker": {"name": "Name", "agent_id": "AgentID", "service_id": "ServiceID", "id": "ID"}, "pipeline_id": "PipelineID", "pipeline": {"id": "ID"}, "listener_name": "ListenerName", "trigger": {"type": "Type", "name": "start-deploy", "href": "Href", "event_listener": "EventListener", "id": "ID", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "path": "Path", "locked": true}], "tags": ["Tags"], "worker": {"name": "Name", "type": "Type", "id": "ID"}, "max_concurrent_runs": 4, "enabled": true, "favorite": false}, "event_params_blob": "EventParamsBlob", "trigger_headers": "TriggerHeaders", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "locked": true, "path": "Path"}], "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "run_url": "RunURL", "error_message": "ErrorMessage"}`)
 				}))
 			})
 			It(`Invoke GetTektonPipelineRun successfully`, func() {
@@ -2124,7 +2126,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "href": "Href", "user_info": {"iam_id": "IamID", "sub": "Sub"}, "status": "pending", "definition_id": "DefinitionID", "definition": {"id": "ID"}, "description": "anyValue", "worker": {"name": "Name", "agent_id": "AgentID", "service_id": "ServiceID", "id": "ID"}, "pipeline_id": "PipelineID", "pipeline": {"id": "ID"}, "listener_name": "ListenerName", "trigger": {"type": "Type", "name": "start-deploy", "href": "Href", "event_listener": "EventListener", "id": "ID", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "path": "Path", "locked": true}], "tags": ["Tags"], "worker": {"name": "Name", "type": "Type", "id": "ID"}, "max_concurrent_runs": 4, "enabled": true, "favorite": false}, "event_params_blob": "EventParamsBlob", "trigger_headers": "TriggerHeaders", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "locked": true, "path": "Path"}], "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "run_url": "RunURL", "error_message": "ErrorMessage"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "href": "Href", "user_info": {"iam_id": "IamID", "sub": "Sub"}, "status": "pending", "definition_id": "DefinitionID", "definition": {"id": "ID"}, "description": "Description", "worker": {"name": "Name", "agent_id": "AgentID", "service_id": "ServiceID", "id": "ID"}, "pipeline_id": "PipelineID", "pipeline": {"id": "ID"}, "listener_name": "ListenerName", "trigger": {"type": "Type", "name": "start-deploy", "href": "Href", "event_listener": "EventListener", "id": "ID", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "path": "Path", "locked": true}], "tags": ["Tags"], "worker": {"name": "Name", "type": "Type", "id": "ID"}, "max_concurrent_runs": 4, "enabled": true, "favorite": false}, "event_params_blob": "EventParamsBlob", "trigger_headers": "TriggerHeaders", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "locked": true, "path": "Path"}], "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "run_url": "RunURL", "error_message": "ErrorMessage"}`)
 				}))
 			})
 			It(`Invoke CancelTektonPipelineRun successfully with retries`, func() {
@@ -2196,7 +2198,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "href": "Href", "user_info": {"iam_id": "IamID", "sub": "Sub"}, "status": "pending", "definition_id": "DefinitionID", "definition": {"id": "ID"}, "description": "anyValue", "worker": {"name": "Name", "agent_id": "AgentID", "service_id": "ServiceID", "id": "ID"}, "pipeline_id": "PipelineID", "pipeline": {"id": "ID"}, "listener_name": "ListenerName", "trigger": {"type": "Type", "name": "start-deploy", "href": "Href", "event_listener": "EventListener", "id": "ID", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "path": "Path", "locked": true}], "tags": ["Tags"], "worker": {"name": "Name", "type": "Type", "id": "ID"}, "max_concurrent_runs": 4, "enabled": true, "favorite": false}, "event_params_blob": "EventParamsBlob", "trigger_headers": "TriggerHeaders", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "locked": true, "path": "Path"}], "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "run_url": "RunURL", "error_message": "ErrorMessage"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "href": "Href", "user_info": {"iam_id": "IamID", "sub": "Sub"}, "status": "pending", "definition_id": "DefinitionID", "definition": {"id": "ID"}, "description": "Description", "worker": {"name": "Name", "agent_id": "AgentID", "service_id": "ServiceID", "id": "ID"}, "pipeline_id": "PipelineID", "pipeline": {"id": "ID"}, "listener_name": "ListenerName", "trigger": {"type": "Type", "name": "start-deploy", "href": "Href", "event_listener": "EventListener", "id": "ID", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "path": "Path", "locked": true}], "tags": ["Tags"], "worker": {"name": "Name", "type": "Type", "id": "ID"}, "max_concurrent_runs": 4, "enabled": true, "favorite": false}, "event_params_blob": "EventParamsBlob", "trigger_headers": "TriggerHeaders", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "locked": true, "path": "Path"}], "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "run_url": "RunURL", "error_message": "ErrorMessage"}`)
 				}))
 			})
 			It(`Invoke CancelTektonPipelineRun successfully`, func() {
@@ -2361,7 +2363,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "href": "Href", "user_info": {"iam_id": "IamID", "sub": "Sub"}, "status": "pending", "definition_id": "DefinitionID", "definition": {"id": "ID"}, "description": "anyValue", "worker": {"name": "Name", "agent_id": "AgentID", "service_id": "ServiceID", "id": "ID"}, "pipeline_id": "PipelineID", "pipeline": {"id": "ID"}, "listener_name": "ListenerName", "trigger": {"type": "Type", "name": "start-deploy", "href": "Href", "event_listener": "EventListener", "id": "ID", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "path": "Path", "locked": true}], "tags": ["Tags"], "worker": {"name": "Name", "type": "Type", "id": "ID"}, "max_concurrent_runs": 4, "enabled": true, "favorite": false}, "event_params_blob": "EventParamsBlob", "trigger_headers": "TriggerHeaders", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "locked": true, "path": "Path"}], "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "run_url": "RunURL", "error_message": "ErrorMessage"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "href": "Href", "user_info": {"iam_id": "IamID", "sub": "Sub"}, "status": "pending", "definition_id": "DefinitionID", "definition": {"id": "ID"}, "description": "Description", "worker": {"name": "Name", "agent_id": "AgentID", "service_id": "ServiceID", "id": "ID"}, "pipeline_id": "PipelineID", "pipeline": {"id": "ID"}, "listener_name": "ListenerName", "trigger": {"type": "Type", "name": "start-deploy", "href": "Href", "event_listener": "EventListener", "id": "ID", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "path": "Path", "locked": true}], "tags": ["Tags"], "worker": {"name": "Name", "type": "Type", "id": "ID"}, "max_concurrent_runs": 4, "enabled": true, "favorite": false}, "event_params_blob": "EventParamsBlob", "trigger_headers": "TriggerHeaders", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "locked": true, "path": "Path"}], "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "run_url": "RunURL", "error_message": "ErrorMessage"}`)
 				}))
 			})
 			It(`Invoke RerunTektonPipelineRun successfully with retries`, func() {
@@ -2416,7 +2418,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "href": "Href", "user_info": {"iam_id": "IamID", "sub": "Sub"}, "status": "pending", "definition_id": "DefinitionID", "definition": {"id": "ID"}, "description": "anyValue", "worker": {"name": "Name", "agent_id": "AgentID", "service_id": "ServiceID", "id": "ID"}, "pipeline_id": "PipelineID", "pipeline": {"id": "ID"}, "listener_name": "ListenerName", "trigger": {"type": "Type", "name": "start-deploy", "href": "Href", "event_listener": "EventListener", "id": "ID", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "path": "Path", "locked": true}], "tags": ["Tags"], "worker": {"name": "Name", "type": "Type", "id": "ID"}, "max_concurrent_runs": 4, "enabled": true, "favorite": false}, "event_params_blob": "EventParamsBlob", "trigger_headers": "TriggerHeaders", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "locked": true, "path": "Path"}], "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "run_url": "RunURL", "error_message": "ErrorMessage"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "href": "Href", "user_info": {"iam_id": "IamID", "sub": "Sub"}, "status": "pending", "definition_id": "DefinitionID", "definition": {"id": "ID"}, "description": "Description", "worker": {"name": "Name", "agent_id": "AgentID", "service_id": "ServiceID", "id": "ID"}, "pipeline_id": "PipelineID", "pipeline": {"id": "ID"}, "listener_name": "ListenerName", "trigger": {"type": "Type", "name": "start-deploy", "href": "Href", "event_listener": "EventListener", "id": "ID", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "path": "Path", "locked": true}], "tags": ["Tags"], "worker": {"name": "Name", "type": "Type", "id": "ID"}, "max_concurrent_runs": 4, "enabled": true, "favorite": false}, "event_params_blob": "EventParamsBlob", "trigger_headers": "TriggerHeaders", "properties": [{"name": "Name", "value": "Value", "href": "Href", "enum": ["Enum"], "type": "secure", "locked": true, "path": "Path"}], "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "run_url": "RunURL", "error_message": "ErrorMessage"}`)
 				}))
 			})
 			It(`Invoke RerunTektonPipelineRun successfully`, func() {
@@ -8741,9 +8743,224 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 			})
 		})
 	})
+	Describe(`Model unmarshaling tests`, func() {
+		It(`Invoke UnmarshalDefinitionSource successfully`, func() {
+			// Construct an instance of the model.
+			model := new(cdtektonpipelinev2.DefinitionSource)
+			model.Type = core.StringPtr("testString")
+			model.Properties = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *cdtektonpipelinev2.DefinitionSource
+			err = cdtektonpipelinev2.UnmarshalDefinitionSource(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalDefinitionSourceProperties successfully`, func() {
+			// Construct an instance of the model.
+			model := new(cdtektonpipelinev2.DefinitionSourceProperties)
+			model.URL = core.StringPtr("testString")
+			model.Branch = core.StringPtr("testString")
+			model.Tag = core.StringPtr("testString")
+			model.Path = core.StringPtr("testString")
+			model.Tool = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *cdtektonpipelinev2.DefinitionSourceProperties
+			err = cdtektonpipelinev2.UnmarshalDefinitionSourceProperties(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalGenericSecret successfully`, func() {
+			// Construct an instance of the model.
+			model := new(cdtektonpipelinev2.GenericSecret)
+			model.Type = core.StringPtr("token_matches")
+			model.Value = core.StringPtr("testString")
+			model.Source = core.StringPtr("header")
+			model.KeyName = core.StringPtr("testString")
+			model.Algorithm = core.StringPtr("md4")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *cdtektonpipelinev2.GenericSecret
+			err = cdtektonpipelinev2.UnmarshalGenericSecret(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalPipelineRunTrigger successfully`, func() {
+			// Construct an instance of the model.
+			model := new(cdtektonpipelinev2.PipelineRunTrigger)
+			model.Name = core.StringPtr("start-deploy")
+			model.Properties = map[string]interface{}{"anyKey": "anyValue"}
+			model.SecureProperties = map[string]interface{}{"anyKey": "anyValue"}
+			model.HeadersVar = map[string]interface{}{"anyKey": "anyValue"}
+			model.Body = map[string]interface{}{"anyKey": "anyValue"}
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *cdtektonpipelinev2.PipelineRunTrigger
+			err = cdtektonpipelinev2.UnmarshalPipelineRunTrigger(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalTektonPipelinePatch successfully`, func() {
+			// Construct an instance of the model.
+			model := new(cdtektonpipelinev2.TektonPipelinePatch)
+			model.NextBuildNumber = core.Int64Ptr(int64(1))
+			model.EnableNotifications = core.BoolPtr(true)
+			model.EnablePartialCloning = core.BoolPtr(true)
+			model.Worker = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *cdtektonpipelinev2.TektonPipelinePatch
+			err = cdtektonpipelinev2.UnmarshalTektonPipelinePatch(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalTool successfully`, func() {
+			// Construct an instance of the model.
+			model := new(cdtektonpipelinev2.Tool)
+			model.ID = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *cdtektonpipelinev2.Tool
+			err = cdtektonpipelinev2.UnmarshalTool(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalTriggerPatch successfully`, func() {
+			// Construct an instance of the model.
+			model := new(cdtektonpipelinev2.TriggerPatch)
+			model.Type = core.StringPtr("manual")
+			model.Name = core.StringPtr("start-deploy")
+			model.EventListener = core.StringPtr("testString")
+			model.Tags = []string{"testString"}
+			model.Worker = nil
+			model.MaxConcurrentRuns = core.Int64Ptr(int64(4))
+			model.Enabled = core.BoolPtr(true)
+			model.Secret = nil
+			model.Cron = core.StringPtr("testString")
+			model.Timezone = core.StringPtr("America/Los_Angeles, CET, Europe/London, GMT, US/Eastern, or UTC")
+			model.Source = nil
+			model.Events = []string{"push", "pull_request"}
+			model.Filter = core.StringPtr("header['x-github-event'] == 'push' && body.ref == 'refs/heads/main'")
+			model.Favorite = core.BoolPtr(false)
+			model.EnableEventsFromForks = core.BoolPtr(false)
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *cdtektonpipelinev2.TriggerPatch
+			err = cdtektonpipelinev2.UnmarshalTriggerPatch(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalTriggerSourcePropertiesPrototype successfully`, func() {
+			// Construct an instance of the model.
+			model := new(cdtektonpipelinev2.TriggerSourcePropertiesPrototype)
+			model.URL = core.StringPtr("testString")
+			model.Branch = core.StringPtr("testString")
+			model.Pattern = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *cdtektonpipelinev2.TriggerSourcePropertiesPrototype
+			err = cdtektonpipelinev2.UnmarshalTriggerSourcePropertiesPrototype(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalTriggerSourcePrototype successfully`, func() {
+			// Construct an instance of the model.
+			model := new(cdtektonpipelinev2.TriggerSourcePrototype)
+			model.Type = core.StringPtr("testString")
+			model.Properties = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *cdtektonpipelinev2.TriggerSourcePrototype
+			err = cdtektonpipelinev2.UnmarshalTriggerSourcePrototype(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalWorkerIdentity successfully`, func() {
+			// Construct an instance of the model.
+			model := new(cdtektonpipelinev2.WorkerIdentity)
+			model.ID = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *cdtektonpipelinev2.WorkerIdentity
+			err = cdtektonpipelinev2.UnmarshalWorkerIdentity(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+	})
 	Describe(`Utility function tests`, func() {
 		It(`Invoke CreateMockByteArray() successfully`, func() {
-			mockByteArray := CreateMockByteArray("This is a test")
+			mockByteArray := CreateMockByteArray("VGhpcyBpcyBhIHRlc3Qgb2YgdGhlIGVtZXJnZW5jeSBicm9hZGNhc3Qgc3lzdGVt")
 			Expect(mockByteArray).ToNot(BeNil())
 		})
 		It(`Invoke CreateMockUUID() successfully`, func() {
@@ -8769,9 +8986,11 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 // Utility functions used by the generated test code
 //
 
-func CreateMockByteArray(mockData string) *[]byte {
-	ba := make([]byte, 0)
-	ba = append(ba, mockData...)
+func CreateMockByteArray(encodedString string) *[]byte {
+	ba, err := base64.StdEncoding.DecodeString(encodedString)
+	if err != nil {
+		panic(err)
+	}
 	return &ba
 }
 
