@@ -1,3 +1,10 @@
+## [1.8.2](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.8.1...v1.8.2) (2024-10-10)
+
+
+### Bug Fixes
+
+* **tekton:** regenerate tekton after openapi lint fixes ([031b5c4](https://github.com/IBM/continuous-delivery-go-sdk/commit/031b5c4c7fd1c7f72a159fd2040bfa9636837200))
+
 ## [1.8.1](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.8.0...v1.8.1) (2024-09-30)
 
 
