@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.72.0-5d70f2bb-20230511-203609
+ * IBM OpenAPI SDK Code Generator Version: 3.95.2-120e65bc-20240924-152329
  */
 
 // Package cdtektonpipelinev2 : Operations and models for the CdTektonPipelineV2 service
@@ -67,22 +67,26 @@ func NewCdTektonPipelineV2UsingExternalConfig(options *CdTektonPipelineV2Options
 	if options.Authenticator == nil {
 		options.Authenticator, err = core.GetAuthenticatorFromEnvironment(options.ServiceName)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "env-auth-error", common.GetComponentInfo())
 			return
 		}
 	}
 
 	cdTektonPipeline, err = NewCdTektonPipelineV2(options)
+	err = core.RepurposeSDKProblem(err, "new-client-error")
 	if err != nil {
 		return
 	}
 
 	err = cdTektonPipeline.Service.ConfigureService(options.ServiceName)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "client-config-error", common.GetComponentInfo())
 		return
 	}
 
 	if options.URL != "" {
 		err = cdTektonPipeline.Service.SetServiceURL(options.URL)
+		err = core.RepurposeSDKProblem(err, "url-set-error")
 	}
 	return
 }
@@ -96,12 +100,14 @@ func NewCdTektonPipelineV2(options *CdTektonPipelineV2Options) (service *CdTekto
 
 	baseService, err := core.NewBaseService(serviceOptions)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "new-base-error", common.GetComponentInfo())
 		return
 	}
 
 	if options.URL != "" {
 		err = baseService.SetServiceURL(options.URL)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "set-url-error", common.GetComponentInfo())
 			return
 		}
 	}
@@ -131,7 +137,7 @@ func GetServiceURLForRegion(region string) (string, error) {
 	if url, ok := endpoints[region]; ok {
 		return url, nil
 	}
-	return "", fmt.Errorf("service URL for region '%s' not found", region)
+	return "", core.SDKErrorf(nil, fmt.Sprintf("service URL for region '%s' not found", region), "invalid-region", common.GetComponentInfo())
 }
 
 // Clone makes a copy of "cdTektonPipeline" suitable for processing requests.
@@ -146,7 +152,11 @@ func (cdTektonPipeline *CdTektonPipelineV2) Clone() *CdTektonPipelineV2 {
 
 // SetServiceURL sets the service URL
 func (cdTektonPipeline *CdTektonPipelineV2) SetServiceURL(url string) error {
-	return cdTektonPipeline.Service.SetServiceURL(url)
+	err := cdTektonPipeline.Service.SetServiceURL(url)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-set-error", common.GetComponentInfo())
+	}
+	return err
 }
 
 // GetServiceURL returns the service URL
@@ -184,17 +194,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) DisableRetries() {
 // This request creates a Tekton pipeline. Requires a pipeline tool already created in the toolchain using the toolchain
 // API https://cloud.ibm.com/apidocs/toolchain#create-tool, and use the tool ID to create the Tekton pipeline.
 func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipeline(createTektonPipelineOptions *CreateTektonPipelineOptions) (result *TektonPipeline, response *core.DetailedResponse, err error) {
-	return cdTektonPipeline.CreateTektonPipelineWithContext(context.Background(), createTektonPipelineOptions)
+	result, response, err = cdTektonPipeline.CreateTektonPipelineWithContext(context.Background(), createTektonPipelineOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // CreateTektonPipelineWithContext is an alternate form of the CreateTektonPipeline method which supports a Context parameter
 func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineWithContext(ctx context.Context, createTektonPipelineOptions *CreateTektonPipelineOptions) (result *TektonPipeline, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createTektonPipelineOptions, "createTektonPipelineOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(createTektonPipelineOptions, "createTektonPipelineOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -203,6 +217,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineWithContext(ctx 
 	builder.EnableGzipCompression = cdTektonPipeline.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdTektonPipeline.Service.Options.URL, `/tekton_pipelines`, nil)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -235,22 +250,27 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineWithContext(ctx 
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = cdTektonPipeline.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "create_tekton_pipeline", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTektonPipeline)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -262,17 +282,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineWithContext(ctx 
 // GetTektonPipeline : Get Tekton pipeline data
 // This request retrieves the Tekton pipeline data for the pipeline identified by `{id}`.
 func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipeline(getTektonPipelineOptions *GetTektonPipelineOptions) (result *TektonPipeline, response *core.DetailedResponse, err error) {
-	return cdTektonPipeline.GetTektonPipelineWithContext(context.Background(), getTektonPipelineOptions)
+	result, response, err = cdTektonPipeline.GetTektonPipelineWithContext(context.Background(), getTektonPipelineOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetTektonPipelineWithContext is an alternate form of the GetTektonPipeline method which supports a Context parameter
 func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineWithContext(ctx context.Context, getTektonPipelineOptions *GetTektonPipelineOptions) (result *TektonPipeline, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getTektonPipelineOptions, "getTektonPipelineOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(getTektonPipelineOptions, "getTektonPipelineOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -285,6 +309,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineWithContext(ctx con
 	builder.EnableGzipCompression = cdTektonPipeline.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdTektonPipeline.Service.Options.URL, `/tekton_pipelines/{id}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -300,17 +325,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineWithContext(ctx con
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = cdTektonPipeline.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "get_tekton_pipeline", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTektonPipeline)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -323,17 +352,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineWithContext(ctx con
 // This request updates Tekton pipeline data, but you can only change worker ID in this endpoint. Use other endpoints
 // such as /definitions, /triggers, and /properties for other configuration updates.
 func (cdTektonPipeline *CdTektonPipelineV2) UpdateTektonPipeline(updateTektonPipelineOptions *UpdateTektonPipelineOptions) (result *TektonPipeline, response *core.DetailedResponse, err error) {
-	return cdTektonPipeline.UpdateTektonPipelineWithContext(context.Background(), updateTektonPipelineOptions)
+	result, response, err = cdTektonPipeline.UpdateTektonPipelineWithContext(context.Background(), updateTektonPipelineOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // UpdateTektonPipelineWithContext is an alternate form of the UpdateTektonPipeline method which supports a Context parameter
 func (cdTektonPipeline *CdTektonPipelineV2) UpdateTektonPipelineWithContext(ctx context.Context, updateTektonPipelineOptions *UpdateTektonPipelineOptions) (result *TektonPipeline, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateTektonPipelineOptions, "updateTektonPipelineOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(updateTektonPipelineOptions, "updateTektonPipelineOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -346,6 +379,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) UpdateTektonPipelineWithContext(ctx 
 	builder.EnableGzipCompression = cdTektonPipeline.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdTektonPipeline.Service.Options.URL, `/tekton_pipelines/{id}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -363,23 +397,28 @@ func (cdTektonPipeline *CdTektonPipelineV2) UpdateTektonPipelineWithContext(ctx 
 	if updateTektonPipelineOptions.TektonPipelinePatch != nil {
 		_, err = builder.SetBodyContentJSON(updateTektonPipelineOptions.TektonPipelinePatch)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 			return
 		}
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = cdTektonPipeline.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "update_tekton_pipeline", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTektonPipeline)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -391,17 +430,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) UpdateTektonPipelineWithContext(ctx 
 // DeleteTektonPipeline : Delete Tekton pipeline instance
 // This request deletes Tekton pipeline instance that is associated with the pipeline toolchain integration.
 func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipeline(deleteTektonPipelineOptions *DeleteTektonPipelineOptions) (response *core.DetailedResponse, err error) {
-	return cdTektonPipeline.DeleteTektonPipelineWithContext(context.Background(), deleteTektonPipelineOptions)
+	response, err = cdTektonPipeline.DeleteTektonPipelineWithContext(context.Background(), deleteTektonPipelineOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // DeleteTektonPipelineWithContext is an alternate form of the DeleteTektonPipeline method which supports a Context parameter
 func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelineWithContext(ctx context.Context, deleteTektonPipelineOptions *DeleteTektonPipelineOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteTektonPipelineOptions, "deleteTektonPipelineOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(deleteTektonPipelineOptions, "deleteTektonPipelineOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -414,6 +457,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelineWithContext(ctx 
 	builder.EnableGzipCompression = cdTektonPipeline.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdTektonPipeline.Service.Options.URL, `/tekton_pipelines/{id}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -428,10 +472,16 @@ func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelineWithContext(ctx 
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	response, err = cdTektonPipeline.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_tekton_pipeline", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
 
 	return
 }
@@ -440,17 +490,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelineWithContext(ctx 
 // This request lists pipeline run records, which has data about the runs, such as status, user_info, trigger and other
 // information. Default limit is 50.
 func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineRuns(listTektonPipelineRunsOptions *ListTektonPipelineRunsOptions) (result *PipelineRunsCollection, response *core.DetailedResponse, err error) {
-	return cdTektonPipeline.ListTektonPipelineRunsWithContext(context.Background(), listTektonPipelineRunsOptions)
+	result, response, err = cdTektonPipeline.ListTektonPipelineRunsWithContext(context.Background(), listTektonPipelineRunsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // ListTektonPipelineRunsWithContext is an alternate form of the ListTektonPipelineRuns method which supports a Context parameter
 func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineRunsWithContext(ctx context.Context, listTektonPipelineRunsOptions *ListTektonPipelineRunsOptions) (result *PipelineRunsCollection, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listTektonPipelineRunsOptions, "listTektonPipelineRunsOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(listTektonPipelineRunsOptions, "listTektonPipelineRunsOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -463,6 +517,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineRunsWithContext(ct
 	builder.EnableGzipCompression = cdTektonPipeline.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdTektonPipeline.Service.Options.URL, `/tekton_pipelines/{pipeline_id}/pipeline_runs`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -491,17 +546,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineRunsWithContext(ct
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = cdTektonPipeline.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "list_tekton_pipeline_runs", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPipelineRunsCollection)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -514,17 +573,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineRunsWithContext(ct
 // Trigger a new pipeline run using either the manual or the timed trigger, specifying the additional properties or
 // overriding existing ones as needed.
 func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineRun(createTektonPipelineRunOptions *CreateTektonPipelineRunOptions) (result *PipelineRun, response *core.DetailedResponse, err error) {
-	return cdTektonPipeline.CreateTektonPipelineRunWithContext(context.Background(), createTektonPipelineRunOptions)
+	result, response, err = cdTektonPipeline.CreateTektonPipelineRunWithContext(context.Background(), createTektonPipelineRunOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // CreateTektonPipelineRunWithContext is an alternate form of the CreateTektonPipelineRun method which supports a Context parameter
 func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineRunWithContext(ctx context.Context, createTektonPipelineRunOptions *CreateTektonPipelineRunOptions) (result *PipelineRun, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createTektonPipelineRunOptions, "createTektonPipelineRunOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(createTektonPipelineRunOptions, "createTektonPipelineRunOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -537,6 +600,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineRunWithContext(c
 	builder.EnableGzipCompression = cdTektonPipeline.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdTektonPipeline.Service.Options.URL, `/tekton_pipelines/{pipeline_id}/pipeline_runs`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -575,22 +639,27 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineRunWithContext(c
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = cdTektonPipeline.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "create_tekton_pipeline_run", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPipelineRun)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -602,17 +671,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineRunWithContext(c
 // GetTektonPipelineRun : Get a pipeline run record
 // This request retrieves details of the pipeline run identified by `{id}`.
 func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineRun(getTektonPipelineRunOptions *GetTektonPipelineRunOptions) (result *PipelineRun, response *core.DetailedResponse, err error) {
-	return cdTektonPipeline.GetTektonPipelineRunWithContext(context.Background(), getTektonPipelineRunOptions)
+	result, response, err = cdTektonPipeline.GetTektonPipelineRunWithContext(context.Background(), getTektonPipelineRunOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetTektonPipelineRunWithContext is an alternate form of the GetTektonPipelineRun method which supports a Context parameter
 func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineRunWithContext(ctx context.Context, getTektonPipelineRunOptions *GetTektonPipelineRunOptions) (result *PipelineRun, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getTektonPipelineRunOptions, "getTektonPipelineRunOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(getTektonPipelineRunOptions, "getTektonPipelineRunOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -626,6 +699,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineRunWithContext(ctx 
 	builder.EnableGzipCompression = cdTektonPipeline.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdTektonPipeline.Service.Options.URL, `/tekton_pipelines/{pipeline_id}/pipeline_runs/{id}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -645,17 +719,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineRunWithContext(ctx 
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = cdTektonPipeline.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "get_tekton_pipeline_run", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPipelineRun)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -667,17 +745,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineRunWithContext(ctx 
 // DeleteTektonPipelineRun : Delete a pipeline run record
 // This request deletes the pipeline run record identified by `{id}`.
 func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelineRun(deleteTektonPipelineRunOptions *DeleteTektonPipelineRunOptions) (response *core.DetailedResponse, err error) {
-	return cdTektonPipeline.DeleteTektonPipelineRunWithContext(context.Background(), deleteTektonPipelineRunOptions)
+	response, err = cdTektonPipeline.DeleteTektonPipelineRunWithContext(context.Background(), deleteTektonPipelineRunOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // DeleteTektonPipelineRunWithContext is an alternate form of the DeleteTektonPipelineRun method which supports a Context parameter
 func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelineRunWithContext(ctx context.Context, deleteTektonPipelineRunOptions *DeleteTektonPipelineRunOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteTektonPipelineRunOptions, "deleteTektonPipelineRunOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(deleteTektonPipelineRunOptions, "deleteTektonPipelineRunOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -691,6 +773,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelineRunWithContext(c
 	builder.EnableGzipCompression = cdTektonPipeline.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdTektonPipeline.Service.Options.URL, `/tekton_pipelines/{pipeline_id}/pipeline_runs/{id}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -705,10 +788,16 @@ func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelineRunWithContext(c
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	response, err = cdTektonPipeline.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_tekton_pipeline_run", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
 
 	return
 }
@@ -717,17 +806,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelineRunWithContext(c
 // This request cancels a running pipeline run identified by `{id}`. Use `force: true` in the body if the pipeline run
 // can't be cancelled normally.
 func (cdTektonPipeline *CdTektonPipelineV2) CancelTektonPipelineRun(cancelTektonPipelineRunOptions *CancelTektonPipelineRunOptions) (result *PipelineRun, response *core.DetailedResponse, err error) {
-	return cdTektonPipeline.CancelTektonPipelineRunWithContext(context.Background(), cancelTektonPipelineRunOptions)
+	result, response, err = cdTektonPipeline.CancelTektonPipelineRunWithContext(context.Background(), cancelTektonPipelineRunOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // CancelTektonPipelineRunWithContext is an alternate form of the CancelTektonPipelineRun method which supports a Context parameter
 func (cdTektonPipeline *CdTektonPipelineV2) CancelTektonPipelineRunWithContext(ctx context.Context, cancelTektonPipelineRunOptions *CancelTektonPipelineRunOptions) (result *PipelineRun, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(cancelTektonPipelineRunOptions, "cancelTektonPipelineRunOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(cancelTektonPipelineRunOptions, "cancelTektonPipelineRunOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -741,6 +834,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) CancelTektonPipelineRunWithContext(c
 	builder.EnableGzipCompression = cdTektonPipeline.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdTektonPipeline.Service.Options.URL, `/tekton_pipelines/{pipeline_id}/pipeline_runs/{id}/cancel`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -761,22 +855,27 @@ func (cdTektonPipeline *CdTektonPipelineV2) CancelTektonPipelineRunWithContext(c
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = cdTektonPipeline.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "cancel_tekton_pipeline_run", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPipelineRun)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -789,17 +888,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) CancelTektonPipelineRunWithContext(c
 // This request reruns a past pipeline run, which is identified by `{id}`, with the same data. Request body isn't
 // allowed.
 func (cdTektonPipeline *CdTektonPipelineV2) RerunTektonPipelineRun(rerunTektonPipelineRunOptions *RerunTektonPipelineRunOptions) (result *PipelineRun, response *core.DetailedResponse, err error) {
-	return cdTektonPipeline.RerunTektonPipelineRunWithContext(context.Background(), rerunTektonPipelineRunOptions)
+	result, response, err = cdTektonPipeline.RerunTektonPipelineRunWithContext(context.Background(), rerunTektonPipelineRunOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // RerunTektonPipelineRunWithContext is an alternate form of the RerunTektonPipelineRun method which supports a Context parameter
 func (cdTektonPipeline *CdTektonPipelineV2) RerunTektonPipelineRunWithContext(ctx context.Context, rerunTektonPipelineRunOptions *RerunTektonPipelineRunOptions) (result *PipelineRun, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(rerunTektonPipelineRunOptions, "rerunTektonPipelineRunOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(rerunTektonPipelineRunOptions, "rerunTektonPipelineRunOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -813,6 +916,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) RerunTektonPipelineRunWithContext(ct
 	builder.EnableGzipCompression = cdTektonPipeline.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdTektonPipeline.Service.Options.URL, `/tekton_pipelines/{pipeline_id}/pipeline_runs/{id}/rerun`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -828,17 +932,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) RerunTektonPipelineRunWithContext(ct
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = cdTektonPipeline.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "rerun_tekton_pipeline_run", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPipelineRun)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -851,17 +959,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) RerunTektonPipelineRunWithContext(ct
 // This request fetches a list of log data for a pipeline run identified by `{id}`. The `href` in each log entry can be
 // used to fetch that individual log.
 func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineRunLogs(getTektonPipelineRunLogsOptions *GetTektonPipelineRunLogsOptions) (result *LogsCollection, response *core.DetailedResponse, err error) {
-	return cdTektonPipeline.GetTektonPipelineRunLogsWithContext(context.Background(), getTektonPipelineRunLogsOptions)
+	result, response, err = cdTektonPipeline.GetTektonPipelineRunLogsWithContext(context.Background(), getTektonPipelineRunLogsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetTektonPipelineRunLogsWithContext is an alternate form of the GetTektonPipelineRunLogs method which supports a Context parameter
 func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineRunLogsWithContext(ctx context.Context, getTektonPipelineRunLogsOptions *GetTektonPipelineRunLogsOptions) (result *LogsCollection, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getTektonPipelineRunLogsOptions, "getTektonPipelineRunLogsOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(getTektonPipelineRunLogsOptions, "getTektonPipelineRunLogsOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -875,6 +987,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineRunLogsWithContext(
 	builder.EnableGzipCompression = cdTektonPipeline.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdTektonPipeline.Service.Options.URL, `/tekton_pipelines/{pipeline_id}/pipeline_runs/{id}/logs`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -890,17 +1003,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineRunLogsWithContext(
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = cdTektonPipeline.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "get_tekton_pipeline_run_logs", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalLogsCollection)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -913,17 +1030,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineRunLogsWithContext(
 // This request retrieves the log content of a pipeline run step, where the step is identified by `{id}`. To get the log
 // ID use the endpoint `/tekton_pipelines/{pipeline_id}/pipeline_runs/{id}/logs`.
 func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineRunLogContent(getTektonPipelineRunLogContentOptions *GetTektonPipelineRunLogContentOptions) (result *StepLog, response *core.DetailedResponse, err error) {
-	return cdTektonPipeline.GetTektonPipelineRunLogContentWithContext(context.Background(), getTektonPipelineRunLogContentOptions)
+	result, response, err = cdTektonPipeline.GetTektonPipelineRunLogContentWithContext(context.Background(), getTektonPipelineRunLogContentOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetTektonPipelineRunLogContentWithContext is an alternate form of the GetTektonPipelineRunLogContent method which supports a Context parameter
 func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineRunLogContentWithContext(ctx context.Context, getTektonPipelineRunLogContentOptions *GetTektonPipelineRunLogContentOptions) (result *StepLog, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getTektonPipelineRunLogContentOptions, "getTektonPipelineRunLogContentOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(getTektonPipelineRunLogContentOptions, "getTektonPipelineRunLogContentOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -938,6 +1059,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineRunLogContentWithCo
 	builder.EnableGzipCompression = cdTektonPipeline.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdTektonPipeline.Service.Options.URL, `/tekton_pipelines/{pipeline_id}/pipeline_runs/{pipeline_run_id}/logs/{id}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -953,17 +1075,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineRunLogContentWithCo
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = cdTektonPipeline.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "get_tekton_pipeline_run_log_content", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalStepLog)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -979,17 +1105,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineRunLogContentWithCo
 // https://cloud.ibm.com/apidocs/toolchain#list-tools. The branch or tag of the definition must match against a
 // corresponding branch or tag in the chosen repository, and the path must match a subfolder in the repository.
 func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineDefinitions(listTektonPipelineDefinitionsOptions *ListTektonPipelineDefinitionsOptions) (result *DefinitionsCollection, response *core.DetailedResponse, err error) {
-	return cdTektonPipeline.ListTektonPipelineDefinitionsWithContext(context.Background(), listTektonPipelineDefinitionsOptions)
+	result, response, err = cdTektonPipeline.ListTektonPipelineDefinitionsWithContext(context.Background(), listTektonPipelineDefinitionsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // ListTektonPipelineDefinitionsWithContext is an alternate form of the ListTektonPipelineDefinitions method which supports a Context parameter
 func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineDefinitionsWithContext(ctx context.Context, listTektonPipelineDefinitionsOptions *ListTektonPipelineDefinitionsOptions) (result *DefinitionsCollection, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listTektonPipelineDefinitionsOptions, "listTektonPipelineDefinitionsOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(listTektonPipelineDefinitionsOptions, "listTektonPipelineDefinitionsOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1002,6 +1132,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineDefinitionsWithCon
 	builder.EnableGzipCompression = cdTektonPipeline.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdTektonPipeline.Service.Options.URL, `/tekton_pipelines/{pipeline_id}/definitions`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1017,17 +1148,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineDefinitionsWithCon
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = cdTektonPipeline.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "list_tekton_pipeline_definitions", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDefinitionsCollection)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -1043,17 +1178,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineDefinitionsWithCon
 // The branch or tag of the definition must match against a corresponding branch or tag in the chosen repository, and
 // the path must match a subfolder in the repository.
 func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineDefinition(createTektonPipelineDefinitionOptions *CreateTektonPipelineDefinitionOptions) (result *Definition, response *core.DetailedResponse, err error) {
-	return cdTektonPipeline.CreateTektonPipelineDefinitionWithContext(context.Background(), createTektonPipelineDefinitionOptions)
+	result, response, err = cdTektonPipeline.CreateTektonPipelineDefinitionWithContext(context.Background(), createTektonPipelineDefinitionOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // CreateTektonPipelineDefinitionWithContext is an alternate form of the CreateTektonPipelineDefinition method which supports a Context parameter
 func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineDefinitionWithContext(ctx context.Context, createTektonPipelineDefinitionOptions *CreateTektonPipelineDefinitionOptions) (result *Definition, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createTektonPipelineDefinitionOptions, "createTektonPipelineDefinitionOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(createTektonPipelineDefinitionOptions, "createTektonPipelineDefinitionOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1066,6 +1205,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineDefinitionWithCo
 	builder.EnableGzipCompression = cdTektonPipeline.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdTektonPipeline.Service.Options.URL, `/tekton_pipelines/{pipeline_id}/definitions`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1086,22 +1226,27 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineDefinitionWithCo
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = cdTektonPipeline.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "create_tekton_pipeline_definition", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDefinition)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -1114,17 +1259,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineDefinitionWithCo
 // This request fetches a single definition entry, which consists of the definition repository URL, a repository path,
 // and a branch or tag.
 func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineDefinition(getTektonPipelineDefinitionOptions *GetTektonPipelineDefinitionOptions) (result *Definition, response *core.DetailedResponse, err error) {
-	return cdTektonPipeline.GetTektonPipelineDefinitionWithContext(context.Background(), getTektonPipelineDefinitionOptions)
+	result, response, err = cdTektonPipeline.GetTektonPipelineDefinitionWithContext(context.Background(), getTektonPipelineDefinitionOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetTektonPipelineDefinitionWithContext is an alternate form of the GetTektonPipelineDefinition method which supports a Context parameter
 func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineDefinitionWithContext(ctx context.Context, getTektonPipelineDefinitionOptions *GetTektonPipelineDefinitionOptions) (result *Definition, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getTektonPipelineDefinitionOptions, "getTektonPipelineDefinitionOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(getTektonPipelineDefinitionOptions, "getTektonPipelineDefinitionOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1138,6 +1287,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineDefinitionWithConte
 	builder.EnableGzipCompression = cdTektonPipeline.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdTektonPipeline.Service.Options.URL, `/tekton_pipelines/{pipeline_id}/definitions/{definition_id}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1153,17 +1303,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineDefinitionWithConte
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = cdTektonPipeline.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "get_tekton_pipeline_definition", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDefinition)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -1175,17 +1329,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineDefinitionWithConte
 // ReplaceTektonPipelineDefinition : Edit a single definition entry
 // This request updates a definition entry identified by `{definition_id}`.
 func (cdTektonPipeline *CdTektonPipelineV2) ReplaceTektonPipelineDefinition(replaceTektonPipelineDefinitionOptions *ReplaceTektonPipelineDefinitionOptions) (result *Definition, response *core.DetailedResponse, err error) {
-	return cdTektonPipeline.ReplaceTektonPipelineDefinitionWithContext(context.Background(), replaceTektonPipelineDefinitionOptions)
+	result, response, err = cdTektonPipeline.ReplaceTektonPipelineDefinitionWithContext(context.Background(), replaceTektonPipelineDefinitionOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // ReplaceTektonPipelineDefinitionWithContext is an alternate form of the ReplaceTektonPipelineDefinition method which supports a Context parameter
 func (cdTektonPipeline *CdTektonPipelineV2) ReplaceTektonPipelineDefinitionWithContext(ctx context.Context, replaceTektonPipelineDefinitionOptions *ReplaceTektonPipelineDefinitionOptions) (result *Definition, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(replaceTektonPipelineDefinitionOptions, "replaceTektonPipelineDefinitionOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(replaceTektonPipelineDefinitionOptions, "replaceTektonPipelineDefinitionOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1199,6 +1357,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) ReplaceTektonPipelineDefinitionWithC
 	builder.EnableGzipCompression = cdTektonPipeline.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdTektonPipeline.Service.Options.URL, `/tekton_pipelines/{pipeline_id}/definitions/{definition_id}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1219,22 +1378,27 @@ func (cdTektonPipeline *CdTektonPipelineV2) ReplaceTektonPipelineDefinitionWithC
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = cdTektonPipeline.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "replace_tekton_pipeline_definition", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDefinition)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -1246,17 +1410,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) ReplaceTektonPipelineDefinitionWithC
 // DeleteTektonPipelineDefinition : Delete a single definition entry
 // This request deletes a single definition from the definition list.
 func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelineDefinition(deleteTektonPipelineDefinitionOptions *DeleteTektonPipelineDefinitionOptions) (response *core.DetailedResponse, err error) {
-	return cdTektonPipeline.DeleteTektonPipelineDefinitionWithContext(context.Background(), deleteTektonPipelineDefinitionOptions)
+	response, err = cdTektonPipeline.DeleteTektonPipelineDefinitionWithContext(context.Background(), deleteTektonPipelineDefinitionOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // DeleteTektonPipelineDefinitionWithContext is an alternate form of the DeleteTektonPipelineDefinition method which supports a Context parameter
 func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelineDefinitionWithContext(ctx context.Context, deleteTektonPipelineDefinitionOptions *DeleteTektonPipelineDefinitionOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteTektonPipelineDefinitionOptions, "deleteTektonPipelineDefinitionOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(deleteTektonPipelineDefinitionOptions, "deleteTektonPipelineDefinitionOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1270,6 +1438,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelineDefinitionWithCo
 	builder.EnableGzipCompression = cdTektonPipeline.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdTektonPipeline.Service.Options.URL, `/tekton_pipelines/{pipeline_id}/definitions/{definition_id}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1284,10 +1453,16 @@ func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelineDefinitionWithCo
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	response, err = cdTektonPipeline.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_tekton_pipeline_definition", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
 
 	return
 }
@@ -1295,17 +1470,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelineDefinitionWithCo
 // ListTektonPipelineProperties : List the pipeline's environment properties
 // This request lists the environment properties of the pipeline identified by  `{pipeline_id}`.
 func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineProperties(listTektonPipelinePropertiesOptions *ListTektonPipelinePropertiesOptions) (result *PropertiesCollection, response *core.DetailedResponse, err error) {
-	return cdTektonPipeline.ListTektonPipelinePropertiesWithContext(context.Background(), listTektonPipelinePropertiesOptions)
+	result, response, err = cdTektonPipeline.ListTektonPipelinePropertiesWithContext(context.Background(), listTektonPipelinePropertiesOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // ListTektonPipelinePropertiesWithContext is an alternate form of the ListTektonPipelineProperties method which supports a Context parameter
 func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelinePropertiesWithContext(ctx context.Context, listTektonPipelinePropertiesOptions *ListTektonPipelinePropertiesOptions) (result *PropertiesCollection, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listTektonPipelinePropertiesOptions, "listTektonPipelinePropertiesOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(listTektonPipelinePropertiesOptions, "listTektonPipelinePropertiesOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1318,6 +1497,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelinePropertiesWithCont
 	builder.EnableGzipCompression = cdTektonPipeline.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdTektonPipeline.Service.Options.URL, `/tekton_pipelines/{pipeline_id}/properties`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1343,17 +1523,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelinePropertiesWithCont
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = cdTektonPipeline.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "list_tekton_pipeline_properties", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPropertiesCollection)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -1365,17 +1549,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelinePropertiesWithCont
 // CreateTektonPipelineProperties : Create a pipeline environment property
 // This request creates an environment property.
 func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineProperties(createTektonPipelinePropertiesOptions *CreateTektonPipelinePropertiesOptions) (result *Property, response *core.DetailedResponse, err error) {
-	return cdTektonPipeline.CreateTektonPipelinePropertiesWithContext(context.Background(), createTektonPipelinePropertiesOptions)
+	result, response, err = cdTektonPipeline.CreateTektonPipelinePropertiesWithContext(context.Background(), createTektonPipelinePropertiesOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // CreateTektonPipelinePropertiesWithContext is an alternate form of the CreateTektonPipelineProperties method which supports a Context parameter
 func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelinePropertiesWithContext(ctx context.Context, createTektonPipelinePropertiesOptions *CreateTektonPipelinePropertiesOptions) (result *Property, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createTektonPipelinePropertiesOptions, "createTektonPipelinePropertiesOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(createTektonPipelinePropertiesOptions, "createTektonPipelinePropertiesOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1388,6 +1576,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelinePropertiesWithCo
 	builder.EnableGzipCompression = cdTektonPipeline.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdTektonPipeline.Service.Options.URL, `/tekton_pipelines/{pipeline_id}/properties`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1423,22 +1612,27 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelinePropertiesWithCo
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = cdTektonPipeline.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "create_tekton_pipeline_properties", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProperty)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -1450,17 +1644,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelinePropertiesWithCo
 // GetTektonPipelineProperty : Get a pipeline environment property
 // This request gets the data of an environment property identified by `{property_name}`.
 func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineProperty(getTektonPipelinePropertyOptions *GetTektonPipelinePropertyOptions) (result *Property, response *core.DetailedResponse, err error) {
-	return cdTektonPipeline.GetTektonPipelinePropertyWithContext(context.Background(), getTektonPipelinePropertyOptions)
+	result, response, err = cdTektonPipeline.GetTektonPipelinePropertyWithContext(context.Background(), getTektonPipelinePropertyOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetTektonPipelinePropertyWithContext is an alternate form of the GetTektonPipelineProperty method which supports a Context parameter
 func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelinePropertyWithContext(ctx context.Context, getTektonPipelinePropertyOptions *GetTektonPipelinePropertyOptions) (result *Property, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getTektonPipelinePropertyOptions, "getTektonPipelinePropertyOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(getTektonPipelinePropertyOptions, "getTektonPipelinePropertyOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1474,6 +1672,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelinePropertyWithContext
 	builder.EnableGzipCompression = cdTektonPipeline.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdTektonPipeline.Service.Options.URL, `/tekton_pipelines/{pipeline_id}/properties/{property_name}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1489,17 +1688,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelinePropertyWithContext
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = cdTektonPipeline.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "get_tekton_pipeline_property", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProperty)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -1512,17 +1715,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelinePropertyWithContext
 // This request updates the value of an environment property identified by `{property_name}`, its type and name are
 // immutable.
 func (cdTektonPipeline *CdTektonPipelineV2) ReplaceTektonPipelineProperty(replaceTektonPipelinePropertyOptions *ReplaceTektonPipelinePropertyOptions) (result *Property, response *core.DetailedResponse, err error) {
-	return cdTektonPipeline.ReplaceTektonPipelinePropertyWithContext(context.Background(), replaceTektonPipelinePropertyOptions)
+	result, response, err = cdTektonPipeline.ReplaceTektonPipelinePropertyWithContext(context.Background(), replaceTektonPipelinePropertyOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // ReplaceTektonPipelinePropertyWithContext is an alternate form of the ReplaceTektonPipelineProperty method which supports a Context parameter
 func (cdTektonPipeline *CdTektonPipelineV2) ReplaceTektonPipelinePropertyWithContext(ctx context.Context, replaceTektonPipelinePropertyOptions *ReplaceTektonPipelinePropertyOptions) (result *Property, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(replaceTektonPipelinePropertyOptions, "replaceTektonPipelinePropertyOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(replaceTektonPipelinePropertyOptions, "replaceTektonPipelinePropertyOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1536,6 +1743,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) ReplaceTektonPipelinePropertyWithCon
 	builder.EnableGzipCompression = cdTektonPipeline.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdTektonPipeline.Service.Options.URL, `/tekton_pipelines/{pipeline_id}/properties/{property_name}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1571,22 +1779,27 @@ func (cdTektonPipeline *CdTektonPipelineV2) ReplaceTektonPipelinePropertyWithCon
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = cdTektonPipeline.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "replace_tekton_pipeline_property", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProperty)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -1598,17 +1811,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) ReplaceTektonPipelinePropertyWithCon
 // DeleteTektonPipelineProperty : Delete a single pipeline environment property
 // This request deletes a single pipeline environment property.
 func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelineProperty(deleteTektonPipelinePropertyOptions *DeleteTektonPipelinePropertyOptions) (response *core.DetailedResponse, err error) {
-	return cdTektonPipeline.DeleteTektonPipelinePropertyWithContext(context.Background(), deleteTektonPipelinePropertyOptions)
+	response, err = cdTektonPipeline.DeleteTektonPipelinePropertyWithContext(context.Background(), deleteTektonPipelinePropertyOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // DeleteTektonPipelinePropertyWithContext is an alternate form of the DeleteTektonPipelineProperty method which supports a Context parameter
 func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelinePropertyWithContext(ctx context.Context, deleteTektonPipelinePropertyOptions *DeleteTektonPipelinePropertyOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteTektonPipelinePropertyOptions, "deleteTektonPipelinePropertyOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(deleteTektonPipelinePropertyOptions, "deleteTektonPipelinePropertyOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1622,6 +1839,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelinePropertyWithCont
 	builder.EnableGzipCompression = cdTektonPipeline.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdTektonPipeline.Service.Options.URL, `/tekton_pipelines/{pipeline_id}/properties/{property_name}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1636,10 +1854,16 @@ func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelinePropertyWithCont
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	response, err = cdTektonPipeline.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_tekton_pipeline_property", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
 
 	return
 }
@@ -1647,17 +1871,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelinePropertyWithCont
 // ListTektonPipelineTriggers : List pipeline triggers
 // This request lists pipeline triggers for the pipeline identified by `{pipeline_id}`.
 func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineTriggers(listTektonPipelineTriggersOptions *ListTektonPipelineTriggersOptions) (result *TriggersCollection, response *core.DetailedResponse, err error) {
-	return cdTektonPipeline.ListTektonPipelineTriggersWithContext(context.Background(), listTektonPipelineTriggersOptions)
+	result, response, err = cdTektonPipeline.ListTektonPipelineTriggersWithContext(context.Background(), listTektonPipelineTriggersOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // ListTektonPipelineTriggersWithContext is an alternate form of the ListTektonPipelineTriggers method which supports a Context parameter
 func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineTriggersWithContext(ctx context.Context, listTektonPipelineTriggersOptions *ListTektonPipelineTriggersOptions) (result *TriggersCollection, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listTektonPipelineTriggersOptions, "listTektonPipelineTriggersOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(listTektonPipelineTriggersOptions, "listTektonPipelineTriggersOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1670,6 +1898,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineTriggersWithContex
 	builder.EnableGzipCompression = cdTektonPipeline.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdTektonPipeline.Service.Options.URL, `/tekton_pipelines/{pipeline_id}/triggers`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1707,17 +1936,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineTriggersWithContex
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = cdTektonPipeline.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "list_tekton_pipeline_triggers", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTriggersCollection)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -1729,17 +1962,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineTriggersWithContex
 // CreateTektonPipelineTrigger : Create a trigger
 // This request creates a trigger.
 func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineTrigger(createTektonPipelineTriggerOptions *CreateTektonPipelineTriggerOptions) (result TriggerIntf, response *core.DetailedResponse, err error) {
-	return cdTektonPipeline.CreateTektonPipelineTriggerWithContext(context.Background(), createTektonPipelineTriggerOptions)
+	result, response, err = cdTektonPipeline.CreateTektonPipelineTriggerWithContext(context.Background(), createTektonPipelineTriggerOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // CreateTektonPipelineTriggerWithContext is an alternate form of the CreateTektonPipelineTrigger method which supports a Context parameter
 func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineTriggerWithContext(ctx context.Context, createTektonPipelineTriggerOptions *CreateTektonPipelineTriggerOptions) (result TriggerIntf, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createTektonPipelineTriggerOptions, "createTektonPipelineTriggerOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(createTektonPipelineTriggerOptions, "createTektonPipelineTriggerOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1752,6 +1989,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineTriggerWithConte
 	builder.EnableGzipCompression = cdTektonPipeline.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdTektonPipeline.Service.Options.URL, `/tekton_pipelines/{pipeline_id}/triggers`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1814,22 +2052,27 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineTriggerWithConte
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = cdTektonPipeline.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "create_tekton_pipeline_trigger", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTrigger)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -1841,17 +2084,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineTriggerWithConte
 // GetTektonPipelineTrigger : Get a single trigger
 // This request retrieves a single trigger identified by `{trigger_id}`.
 func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineTrigger(getTektonPipelineTriggerOptions *GetTektonPipelineTriggerOptions) (result TriggerIntf, response *core.DetailedResponse, err error) {
-	return cdTektonPipeline.GetTektonPipelineTriggerWithContext(context.Background(), getTektonPipelineTriggerOptions)
+	result, response, err = cdTektonPipeline.GetTektonPipelineTriggerWithContext(context.Background(), getTektonPipelineTriggerOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetTektonPipelineTriggerWithContext is an alternate form of the GetTektonPipelineTrigger method which supports a Context parameter
 func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineTriggerWithContext(ctx context.Context, getTektonPipelineTriggerOptions *GetTektonPipelineTriggerOptions) (result TriggerIntf, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getTektonPipelineTriggerOptions, "getTektonPipelineTriggerOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(getTektonPipelineTriggerOptions, "getTektonPipelineTriggerOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1865,6 +2112,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineTriggerWithContext(
 	builder.EnableGzipCompression = cdTektonPipeline.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdTektonPipeline.Service.Options.URL, `/tekton_pipelines/{pipeline_id}/triggers/{trigger_id}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1880,17 +2128,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineTriggerWithContext(
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = cdTektonPipeline.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "get_tekton_pipeline_trigger", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTrigger)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -1903,17 +2155,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineTriggerWithContext(
 // This request changes a single field or many fields of the trigger identified by `{trigger_id}`. Note that some fields
 // are immutable, and use `/properties` endpoint to update trigger properties.
 func (cdTektonPipeline *CdTektonPipelineV2) UpdateTektonPipelineTrigger(updateTektonPipelineTriggerOptions *UpdateTektonPipelineTriggerOptions) (result TriggerIntf, response *core.DetailedResponse, err error) {
-	return cdTektonPipeline.UpdateTektonPipelineTriggerWithContext(context.Background(), updateTektonPipelineTriggerOptions)
+	result, response, err = cdTektonPipeline.UpdateTektonPipelineTriggerWithContext(context.Background(), updateTektonPipelineTriggerOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // UpdateTektonPipelineTriggerWithContext is an alternate form of the UpdateTektonPipelineTrigger method which supports a Context parameter
 func (cdTektonPipeline *CdTektonPipelineV2) UpdateTektonPipelineTriggerWithContext(ctx context.Context, updateTektonPipelineTriggerOptions *UpdateTektonPipelineTriggerOptions) (result TriggerIntf, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateTektonPipelineTriggerOptions, "updateTektonPipelineTriggerOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(updateTektonPipelineTriggerOptions, "updateTektonPipelineTriggerOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1927,6 +2183,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) UpdateTektonPipelineTriggerWithConte
 	builder.EnableGzipCompression = cdTektonPipeline.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdTektonPipeline.Service.Options.URL, `/tekton_pipelines/{pipeline_id}/triggers/{trigger_id}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1944,23 +2201,28 @@ func (cdTektonPipeline *CdTektonPipelineV2) UpdateTektonPipelineTriggerWithConte
 	if updateTektonPipelineTriggerOptions.TriggerPatch != nil {
 		_, err = builder.SetBodyContentJSON(updateTektonPipelineTriggerOptions.TriggerPatch)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 			return
 		}
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = cdTektonPipeline.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "update_tekton_pipeline_trigger", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTrigger)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -1972,17 +2234,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) UpdateTektonPipelineTriggerWithConte
 // DeleteTektonPipelineTrigger : Delete a single trigger
 // This request deletes the trigger identified by `{trigger_id}`.
 func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelineTrigger(deleteTektonPipelineTriggerOptions *DeleteTektonPipelineTriggerOptions) (response *core.DetailedResponse, err error) {
-	return cdTektonPipeline.DeleteTektonPipelineTriggerWithContext(context.Background(), deleteTektonPipelineTriggerOptions)
+	response, err = cdTektonPipeline.DeleteTektonPipelineTriggerWithContext(context.Background(), deleteTektonPipelineTriggerOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // DeleteTektonPipelineTriggerWithContext is an alternate form of the DeleteTektonPipelineTrigger method which supports a Context parameter
 func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelineTriggerWithContext(ctx context.Context, deleteTektonPipelineTriggerOptions *DeleteTektonPipelineTriggerOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteTektonPipelineTriggerOptions, "deleteTektonPipelineTriggerOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(deleteTektonPipelineTriggerOptions, "deleteTektonPipelineTriggerOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1996,6 +2262,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelineTriggerWithConte
 	builder.EnableGzipCompression = cdTektonPipeline.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdTektonPipeline.Service.Options.URL, `/tekton_pipelines/{pipeline_id}/triggers/{trigger_id}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2010,10 +2277,16 @@ func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelineTriggerWithConte
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	response, err = cdTektonPipeline.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_tekton_pipeline_trigger", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
 
 	return
 }
@@ -2021,17 +2294,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelineTriggerWithConte
 // DuplicateTektonPipelineTrigger : Duplicate a trigger
 // This request duplicates a trigger from an existing trigger identified by `{source_trigger_id}`.
 func (cdTektonPipeline *CdTektonPipelineV2) DuplicateTektonPipelineTrigger(duplicateTektonPipelineTriggerOptions *DuplicateTektonPipelineTriggerOptions) (result TriggerIntf, response *core.DetailedResponse, err error) {
-	return cdTektonPipeline.DuplicateTektonPipelineTriggerWithContext(context.Background(), duplicateTektonPipelineTriggerOptions)
+	result, response, err = cdTektonPipeline.DuplicateTektonPipelineTriggerWithContext(context.Background(), duplicateTektonPipelineTriggerOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // DuplicateTektonPipelineTriggerWithContext is an alternate form of the DuplicateTektonPipelineTrigger method which supports a Context parameter
 func (cdTektonPipeline *CdTektonPipelineV2) DuplicateTektonPipelineTriggerWithContext(ctx context.Context, duplicateTektonPipelineTriggerOptions *DuplicateTektonPipelineTriggerOptions) (result TriggerIntf, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(duplicateTektonPipelineTriggerOptions, "duplicateTektonPipelineTriggerOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(duplicateTektonPipelineTriggerOptions, "duplicateTektonPipelineTriggerOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2045,6 +2322,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) DuplicateTektonPipelineTriggerWithCo
 	builder.EnableGzipCompression = cdTektonPipeline.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdTektonPipeline.Service.Options.URL, `/tekton_pipelines/{pipeline_id}/triggers/{source_trigger_id}/duplicate`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2065,22 +2343,27 @@ func (cdTektonPipeline *CdTektonPipelineV2) DuplicateTektonPipelineTriggerWithCo
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = cdTektonPipeline.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "duplicate_tekton_pipeline_trigger", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTrigger)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -2092,17 +2375,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) DuplicateTektonPipelineTriggerWithCo
 // ListTektonPipelineTriggerProperties : List trigger properties
 // This request lists trigger properties for the trigger identified by `{trigger_id}`.
 func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineTriggerProperties(listTektonPipelineTriggerPropertiesOptions *ListTektonPipelineTriggerPropertiesOptions) (result *TriggerPropertiesCollection, response *core.DetailedResponse, err error) {
-	return cdTektonPipeline.ListTektonPipelineTriggerPropertiesWithContext(context.Background(), listTektonPipelineTriggerPropertiesOptions)
+	result, response, err = cdTektonPipeline.ListTektonPipelineTriggerPropertiesWithContext(context.Background(), listTektonPipelineTriggerPropertiesOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // ListTektonPipelineTriggerPropertiesWithContext is an alternate form of the ListTektonPipelineTriggerProperties method which supports a Context parameter
 func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineTriggerPropertiesWithContext(ctx context.Context, listTektonPipelineTriggerPropertiesOptions *ListTektonPipelineTriggerPropertiesOptions) (result *TriggerPropertiesCollection, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listTektonPipelineTriggerPropertiesOptions, "listTektonPipelineTriggerPropertiesOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(listTektonPipelineTriggerPropertiesOptions, "listTektonPipelineTriggerPropertiesOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2116,6 +2403,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineTriggerPropertiesW
 	builder.EnableGzipCompression = cdTektonPipeline.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdTektonPipeline.Service.Options.URL, `/tekton_pipelines/{pipeline_id}/triggers/{trigger_id}/properties`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2141,17 +2429,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineTriggerPropertiesW
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = cdTektonPipeline.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "list_tekton_pipeline_trigger_properties", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTriggerPropertiesCollection)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -2163,17 +2455,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineTriggerPropertiesW
 // CreateTektonPipelineTriggerProperties : Create a trigger property
 // This request creates a property in the trigger identified by `{trigger_id}`.
 func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineTriggerProperties(createTektonPipelineTriggerPropertiesOptions *CreateTektonPipelineTriggerPropertiesOptions) (result *TriggerProperty, response *core.DetailedResponse, err error) {
-	return cdTektonPipeline.CreateTektonPipelineTriggerPropertiesWithContext(context.Background(), createTektonPipelineTriggerPropertiesOptions)
+	result, response, err = cdTektonPipeline.CreateTektonPipelineTriggerPropertiesWithContext(context.Background(), createTektonPipelineTriggerPropertiesOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // CreateTektonPipelineTriggerPropertiesWithContext is an alternate form of the CreateTektonPipelineTriggerProperties method which supports a Context parameter
 func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineTriggerPropertiesWithContext(ctx context.Context, createTektonPipelineTriggerPropertiesOptions *CreateTektonPipelineTriggerPropertiesOptions) (result *TriggerProperty, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createTektonPipelineTriggerPropertiesOptions, "createTektonPipelineTriggerPropertiesOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(createTektonPipelineTriggerPropertiesOptions, "createTektonPipelineTriggerPropertiesOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2187,6 +2483,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineTriggerPropertie
 	builder.EnableGzipCompression = cdTektonPipeline.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdTektonPipeline.Service.Options.URL, `/tekton_pipelines/{pipeline_id}/triggers/{trigger_id}/properties`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2222,22 +2519,27 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineTriggerPropertie
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = cdTektonPipeline.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "create_tekton_pipeline_trigger_properties", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTriggerProperty)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -2249,17 +2551,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineTriggerPropertie
 // GetTektonPipelineTriggerProperty : Get a trigger property
 // This request retrieves a trigger property.
 func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineTriggerProperty(getTektonPipelineTriggerPropertyOptions *GetTektonPipelineTriggerPropertyOptions) (result *TriggerProperty, response *core.DetailedResponse, err error) {
-	return cdTektonPipeline.GetTektonPipelineTriggerPropertyWithContext(context.Background(), getTektonPipelineTriggerPropertyOptions)
+	result, response, err = cdTektonPipeline.GetTektonPipelineTriggerPropertyWithContext(context.Background(), getTektonPipelineTriggerPropertyOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetTektonPipelineTriggerPropertyWithContext is an alternate form of the GetTektonPipelineTriggerProperty method which supports a Context parameter
 func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineTriggerPropertyWithContext(ctx context.Context, getTektonPipelineTriggerPropertyOptions *GetTektonPipelineTriggerPropertyOptions) (result *TriggerProperty, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getTektonPipelineTriggerPropertyOptions, "getTektonPipelineTriggerPropertyOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(getTektonPipelineTriggerPropertyOptions, "getTektonPipelineTriggerPropertyOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2274,6 +2580,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineTriggerPropertyWith
 	builder.EnableGzipCompression = cdTektonPipeline.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdTektonPipeline.Service.Options.URL, `/tekton_pipelines/{pipeline_id}/triggers/{trigger_id}/properties/{property_name}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2289,17 +2596,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineTriggerPropertyWith
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = cdTektonPipeline.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "get_tekton_pipeline_trigger_property", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTriggerProperty)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -2311,17 +2622,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineTriggerPropertyWith
 // ReplaceTektonPipelineTriggerProperty : Replace a trigger property value
 // This request updates a trigger property value, type and name are immutable.
 func (cdTektonPipeline *CdTektonPipelineV2) ReplaceTektonPipelineTriggerProperty(replaceTektonPipelineTriggerPropertyOptions *ReplaceTektonPipelineTriggerPropertyOptions) (result *TriggerProperty, response *core.DetailedResponse, err error) {
-	return cdTektonPipeline.ReplaceTektonPipelineTriggerPropertyWithContext(context.Background(), replaceTektonPipelineTriggerPropertyOptions)
+	result, response, err = cdTektonPipeline.ReplaceTektonPipelineTriggerPropertyWithContext(context.Background(), replaceTektonPipelineTriggerPropertyOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // ReplaceTektonPipelineTriggerPropertyWithContext is an alternate form of the ReplaceTektonPipelineTriggerProperty method which supports a Context parameter
 func (cdTektonPipeline *CdTektonPipelineV2) ReplaceTektonPipelineTriggerPropertyWithContext(ctx context.Context, replaceTektonPipelineTriggerPropertyOptions *ReplaceTektonPipelineTriggerPropertyOptions) (result *TriggerProperty, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(replaceTektonPipelineTriggerPropertyOptions, "replaceTektonPipelineTriggerPropertyOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(replaceTektonPipelineTriggerPropertyOptions, "replaceTektonPipelineTriggerPropertyOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2336,6 +2651,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) ReplaceTektonPipelineTriggerProperty
 	builder.EnableGzipCompression = cdTektonPipeline.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdTektonPipeline.Service.Options.URL, `/tekton_pipelines/{pipeline_id}/triggers/{trigger_id}/properties/{property_name}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2371,22 +2687,27 @@ func (cdTektonPipeline *CdTektonPipelineV2) ReplaceTektonPipelineTriggerProperty
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = cdTektonPipeline.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "replace_tekton_pipeline_trigger_property", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTriggerProperty)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -2398,17 +2719,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) ReplaceTektonPipelineTriggerProperty
 // DeleteTektonPipelineTriggerProperty : Delete a trigger property
 // This request deletes a trigger property.
 func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelineTriggerProperty(deleteTektonPipelineTriggerPropertyOptions *DeleteTektonPipelineTriggerPropertyOptions) (response *core.DetailedResponse, err error) {
-	return cdTektonPipeline.DeleteTektonPipelineTriggerPropertyWithContext(context.Background(), deleteTektonPipelineTriggerPropertyOptions)
+	response, err = cdTektonPipeline.DeleteTektonPipelineTriggerPropertyWithContext(context.Background(), deleteTektonPipelineTriggerPropertyOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // DeleteTektonPipelineTriggerPropertyWithContext is an alternate form of the DeleteTektonPipelineTriggerProperty method which supports a Context parameter
 func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelineTriggerPropertyWithContext(ctx context.Context, deleteTektonPipelineTriggerPropertyOptions *DeleteTektonPipelineTriggerPropertyOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteTektonPipelineTriggerPropertyOptions, "deleteTektonPipelineTriggerPropertyOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(deleteTektonPipelineTriggerPropertyOptions, "deleteTektonPipelineTriggerPropertyOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2423,6 +2748,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelineTriggerPropertyW
 	builder.EnableGzipCompression = cdTektonPipeline.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdTektonPipeline.Service.Options.URL, `/tekton_pipelines/{pipeline_id}/triggers/{trigger_id}/properties/{property_name}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2437,12 +2763,21 @@ func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelineTriggerPropertyW
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	response, err = cdTektonPipeline.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_tekton_pipeline_trigger_property", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
 
 	return
+}
+func getServiceComponentInfo() *core.ProblemComponent {
+	return core.NewProblemComponent(DefaultServiceName, "2.0.0")
 }
 
 // CancelTektonPipelineRunOptions : The CancelTektonPipelineRun options.
@@ -2456,7 +2791,7 @@ type CancelTektonPipelineRunOptions struct {
 	// Flag indicating whether the pipeline cancellation action is forced or not.
 	Force *bool `json:"force,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -2500,7 +2835,7 @@ type CreateTektonPipelineDefinitionOptions struct {
 	// Source repository containing the Tekton pipeline definition.
 	Source *DefinitionSource `json:"source" validate:"required"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -2552,7 +2887,7 @@ type CreateTektonPipelineOptions struct {
 	// not specified or set as `worker: { id: 'public' }`, the IBM Managed shared workers are used.
 	Worker *WorkerIdentity `json:"worker,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -2624,7 +2959,7 @@ type CreateTektonPipelinePropertiesOptions struct {
 	// blank the full tool integration data will be used.
 	Path *string `json:"path,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -2726,7 +3061,7 @@ type CreateTektonPipelineRunOptions struct {
 	// Trigger details passed when triggering a Tekton pipeline run.
 	Trigger *PipelineRunTrigger `json:"trigger,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -2855,7 +3190,7 @@ type CreateTektonPipelineTriggerOptions struct {
 	// pipeline run.
 	EnableEventsFromForks *bool `json:"enable_events_from_forks,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -3017,7 +3352,7 @@ type CreateTektonPipelineTriggerPropertiesOptions struct {
 	// being rejected. The default is false.
 	Locked *bool `json:"locked,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -3116,14 +3451,17 @@ func UnmarshalDefinition(m map[string]json.RawMessage, result interface{}) (err 
 	obj := new(Definition)
 	err = core.UnmarshalModel(m, "source", &obj.Source, UnmarshalDefinitionSource)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "source-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -3146,6 +3484,9 @@ func (*CdTektonPipelineV2) NewDefinitionSource(typeVar string, properties *Defin
 		Properties: properties,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
 	return
 }
 
@@ -3154,10 +3495,12 @@ func UnmarshalDefinitionSource(m map[string]json.RawMessage, result interface{})
 	obj := new(DefinitionSource)
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "properties", &obj.Properties, UnmarshalDefinitionSourceProperties)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "properties-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -3189,6 +3532,9 @@ func (*CdTektonPipelineV2) NewDefinitionSourceProperties(url string, path string
 		Path: core.StringPtr(path),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
 	return
 }
 
@@ -3197,22 +3543,27 @@ func UnmarshalDefinitionSourceProperties(m map[string]json.RawMessage, result in
 	obj := new(DefinitionSourceProperties)
 	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "branch", &obj.Branch)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "branch-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "tag", &obj.Tag)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "tag-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "path", &obj.Path)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "path-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "tool", &obj.Tool, UnmarshalTool)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "tool-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -3231,6 +3582,7 @@ func UnmarshalDefinitionsCollection(m map[string]json.RawMessage, result interfa
 	obj := new(DefinitionsCollection)
 	err = core.UnmarshalModel(m, "definitions", &obj.Definitions, UnmarshalDefinition)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "definitions-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -3245,7 +3597,7 @@ type DeleteTektonPipelineDefinitionOptions struct {
 	// The definition ID.
 	DefinitionID *string `json:"definition_id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -3280,7 +3632,7 @@ type DeleteTektonPipelineOptions struct {
 	// ID of current instance.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -3311,7 +3663,7 @@ type DeleteTektonPipelinePropertyOptions struct {
 	// The property name.
 	PropertyName *string `json:"property_name" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -3349,7 +3701,7 @@ type DeleteTektonPipelineRunOptions struct {
 	// ID of current instance.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -3387,7 +3739,7 @@ type DeleteTektonPipelineTriggerOptions struct {
 	// The trigger ID.
 	TriggerID *string `json:"trigger_id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -3428,7 +3780,7 @@ type DeleteTektonPipelineTriggerPropertyOptions struct {
 	// The property name.
 	PropertyName *string `json:"property_name" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -3476,7 +3828,7 @@ type DuplicateTektonPipelineTriggerOptions struct {
 	// Trigger name.
 	Name *string `json:"name" validate:"required"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -3566,25 +3918,52 @@ func UnmarshalGenericSecret(m map[string]json.RawMessage, result interface{}) (e
 	obj := new(GenericSecret)
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "value-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "source", &obj.Source)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "source-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "key_name", &obj.KeyName)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "key_name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "algorithm", &obj.Algorithm)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "algorithm-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// asPatch returns a generic map representation of the GenericSecret
+func (genericSecret *GenericSecret) asPatch() (_patch map[string]interface{}) {
+	_patch = map[string]interface{}{}
+	if !core.IsNil(genericSecret.Type) {
+		_patch["type"] = genericSecret.Type
+	}
+	if !core.IsNil(genericSecret.Value) {
+		_patch["value"] = genericSecret.Value
+	}
+	if !core.IsNil(genericSecret.Source) {
+		_patch["source"] = genericSecret.Source
+	}
+	if !core.IsNil(genericSecret.KeyName) {
+		_patch["key_name"] = genericSecret.KeyName
+	}
+	if !core.IsNil(genericSecret.Algorithm) {
+		_patch["algorithm"] = genericSecret.Algorithm
+	}
+
 	return
 }
 
@@ -3596,7 +3975,7 @@ type GetTektonPipelineDefinitionOptions struct {
 	// The definition ID.
 	DefinitionID *string `json:"definition_id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -3631,7 +4010,7 @@ type GetTektonPipelineOptions struct {
 	// ID of current instance.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -3662,7 +4041,7 @@ type GetTektonPipelinePropertyOptions struct {
 	// The property name.
 	PropertyName *string `json:"property_name" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -3703,7 +4082,7 @@ type GetTektonPipelineRunLogContentOptions struct {
 	// ID of current instance.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -3748,7 +4127,7 @@ type GetTektonPipelineRunLogsOptions struct {
 	// ID of current instance.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -3789,7 +4168,7 @@ type GetTektonPipelineRunOptions struct {
 	// Defines if response includes definition metadata.
 	Includes *string `json:"includes,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -3839,7 +4218,7 @@ type GetTektonPipelineTriggerOptions struct {
 	// The trigger ID.
 	TriggerID *string `json:"trigger_id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -3880,7 +4259,7 @@ type GetTektonPipelineTriggerPropertyOptions struct {
 	// The property name.
 	PropertyName *string `json:"property_name" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -3922,7 +4301,7 @@ type ListTektonPipelineDefinitionsOptions struct {
 	// The Tekton pipeline ID.
 	PipelineID *string `json:"pipeline_id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -3959,7 +4338,7 @@ type ListTektonPipelinePropertiesOptions struct {
 	// Sorts the returned properties by name, in ascending order using `name` or in descending order using `-name`.
 	Sort *string `json:"sort,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -4028,7 +4407,7 @@ type ListTektonPipelineRunsOptions struct {
 	// Filters the collection to resources with the specified trigger name.
 	TriggerName *string `json:"trigger.name,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -4105,7 +4484,7 @@ type ListTektonPipelineTriggerPropertiesOptions struct {
 	// Sort properties by name. They can be sorted in ascending order using `name` or in descending order using `-name`.
 	Sort *string `json:"sort,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -4181,7 +4560,7 @@ type ListTektonPipelineTriggersOptions struct {
 	// matching tag.
 	Tags *string `json:"tags,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -4263,14 +4642,17 @@ func UnmarshalLog(m map[string]json.RawMessage, result interface{}) (err error) 
 	obj := new(Log)
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -4288,6 +4670,7 @@ func UnmarshalLogsCollection(m map[string]json.RawMessage, result interface{}) (
 	obj := new(LogsCollection)
 	err = core.UnmarshalModel(m, "logs", &obj.Logs, UnmarshalLog)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "logs-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -4296,7 +4679,7 @@ func UnmarshalLogsCollection(m map[string]json.RawMessage, result interface{}) (
 
 // PipelineRun : Single Tekton pipeline run object.
 type PipelineRun struct {
-	// UUID.
+	// Universally Unique Identifier.
 	ID *string `json:"id" validate:"required"`
 
 	// General href URL.
@@ -4315,8 +4698,8 @@ type PipelineRun struct {
 	// Reference to the pipeline definition of a pipeline run.
 	Definition *RunDefinition `json:"definition,omitempty"`
 
-	// A description of the PipelineRun.
-	Description interface{} `json:"description,omitempty"`
+	// Optional description for the created PipelineRun.
+	Description *string `json:"description,omitempty"`
 
 	// Worker details used in this pipeline run.
 	Worker *PipelineRunWorker `json:"worker" validate:"required"`
@@ -4376,78 +4759,97 @@ func UnmarshalPipelineRun(m map[string]json.RawMessage, result interface{}) (err
 	obj := new(PipelineRun)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "user_info", &obj.UserInfo, UnmarshalUserInfo)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "user_info-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "definition_id", &obj.DefinitionID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "definition_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "definition", &obj.Definition, UnmarshalRunDefinition)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "definition-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "description-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "worker", &obj.Worker, UnmarshalPipelineRunWorker)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "worker-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "pipeline_id", &obj.PipelineID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "pipeline_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "pipeline", &obj.Pipeline, UnmarshalRunPipeline)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "pipeline-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "listener_name", &obj.ListenerName)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "listener_name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "trigger", &obj.Trigger, UnmarshalTrigger)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "trigger-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "event_params_blob", &obj.EventParamsBlob)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "event_params_blob-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "trigger_headers", &obj.TriggerHeaders)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "trigger_headers-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "properties", &obj.Properties, UnmarshalProperty)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "properties-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "updated_at", &obj.UpdatedAt)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "updated_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "run_url", &obj.RunURL)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_url-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "error_message", &obj.ErrorMessage)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "error_message-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -4483,6 +4885,9 @@ func (*CdTektonPipelineV2) NewPipelineRunTrigger(name string) (_model *PipelineR
 		Name: core.StringPtr(name),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
 	return
 }
 
@@ -4491,22 +4896,27 @@ func UnmarshalPipelineRunTrigger(m map[string]json.RawMessage, result interface{
 	obj := new(PipelineRunTrigger)
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "properties", &obj.Properties)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "properties-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "secure_properties", &obj.SecureProperties)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "secure_properties-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "headers", &obj.HeadersVar)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "headers-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "body", &obj.Body)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "body-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -4524,7 +4934,7 @@ type PipelineRunWorker struct {
 	// The Service ID of the corresponding private worker integration used for this pipeline run.
 	ServiceID *string `json:"service_id,omitempty"`
 
-	// UUID.
+	// Universally Unique Identifier.
 	ID *string `json:"id" validate:"required"`
 }
 
@@ -4533,18 +4943,22 @@ func UnmarshalPipelineRunWorker(m map[string]json.RawMessage, result interface{}
 	obj := new(PipelineRunWorker)
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "agent_id", &obj.AgentID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "agent_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "service_id", &obj.ServiceID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "service_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -4576,22 +4990,27 @@ func UnmarshalPipelineRunsCollection(m map[string]json.RawMessage, result interf
 	obj := new(PipelineRunsCollection)
 	err = core.UnmarshalModel(m, "pipeline_runs", &obj.PipelineRuns, UnmarshalPipelineRun)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "pipeline_runs-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalRunsFirstPage)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "first-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalRunsNextPage)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "next-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "last", &obj.Last, UnmarshalRunsLastPage)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "last-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -4604,8 +5023,11 @@ func (resp *PipelineRunsCollection) GetNextStart() (*string, error) {
 		return nil, nil
 	}
 	start, err := core.GetQueryParam(resp.Next.Href, "start")
-	if err != nil || start == nil {
+	if err != nil {
+		err = core.SDKErrorf(err, "", "read-query-param-error", common.GetComponentInfo())
 		return nil, err
+	} else if start == nil {
+		return nil, nil
 	}
 	return start, nil
 }
@@ -4621,6 +5043,7 @@ func UnmarshalPropertiesCollection(m map[string]json.RawMessage, result interfac
 	obj := new(PropertiesCollection)
 	err = core.UnmarshalModel(m, "properties", &obj.Properties, UnmarshalProperty)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "properties-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -4668,30 +5091,37 @@ func UnmarshalProperty(m map[string]json.RawMessage, result interface{}) (err er
 	obj := new(Property)
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "value-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "enum", &obj.Enum)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "enum-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "locked", &obj.Locked)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "locked-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "path", &obj.Path)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "path-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -4709,7 +5139,7 @@ type ReplaceTektonPipelineDefinitionOptions struct {
 	// Source repository containing the Tekton pipeline definition.
 	Source *DefinitionSource `json:"source" validate:"required"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -4774,7 +5204,7 @@ type ReplaceTektonPipelinePropertyOptions struct {
 	// blank the full tool integration data will be used.
 	Path *string `json:"path,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -4883,7 +5313,7 @@ type ReplaceTektonPipelineTriggerPropertyOptions struct {
 	// being rejected. The default is false.
 	Locked *bool `json:"locked,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -4976,7 +5406,7 @@ type RerunTektonPipelineRunOptions struct {
 	// ID of current instance.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -5017,6 +5447,7 @@ func UnmarshalResourceGroupReference(m map[string]json.RawMessage, result interf
 	obj := new(ResourceGroupReference)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5034,6 +5465,7 @@ func UnmarshalRunDefinition(m map[string]json.RawMessage, result interface{}) (e
 	obj := new(RunDefinition)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5051,6 +5483,7 @@ func UnmarshalRunPipeline(m map[string]json.RawMessage, result interface{}) (err
 	obj := new(RunPipeline)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5068,6 +5501,7 @@ func UnmarshalRunsFirstPage(m map[string]json.RawMessage, result interface{}) (e
 	obj := new(RunsFirstPage)
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5086,6 +5520,7 @@ func UnmarshalRunsLastPage(m map[string]json.RawMessage, result interface{}) (er
 	obj := new(RunsLastPage)
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5104,6 +5539,7 @@ func UnmarshalRunsNextPage(m map[string]json.RawMessage, result interface{}) (er
 	obj := new(RunsNextPage)
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5124,10 +5560,12 @@ func UnmarshalStepLog(m map[string]json.RawMessage, result interface{}) (err err
 	obj := new(StepLog)
 	err = core.UnmarshalPrimitive(m, "data", &obj.Data)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "data-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5148,7 +5586,7 @@ type TektonPipeline struct {
 	// Toolchain object containing references to the parent toolchain.
 	Toolchain *ToolchainReference `json:"toolchain" validate:"required"`
 
-	// UUID.
+	// Universally Unique Identifier.
 	ID *string `json:"id" validate:"required"`
 
 	// Definition list.
@@ -5207,74 +5645,92 @@ func UnmarshalTektonPipeline(m map[string]json.RawMessage, result interface{}) (
 	obj := new(TektonPipeline)
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "resource_group", &obj.ResourceGroup, UnmarshalResourceGroupReference)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "resource_group-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "toolchain", &obj.Toolchain, UnmarshalToolchainReference)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "toolchain-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "definitions", &obj.Definitions, UnmarshalDefinition)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "definitions-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "properties", &obj.Properties, UnmarshalProperty)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "properties-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "updated_at", &obj.UpdatedAt)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "updated_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "triggers", &obj.Triggers, UnmarshalTrigger)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "triggers-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "worker", &obj.Worker, UnmarshalWorker)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "worker-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "runs_url", &obj.RunsURL)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "runs_url-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "build_number", &obj.BuildNumber)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build_number-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "next_build_number", &obj.NextBuildNumber)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "next_build_number-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "enable_notifications", &obj.EnableNotifications)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "enable_notifications-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "enable_partial_cloning", &obj.EnablePartialCloning)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "enable_partial_cloning-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "enabled", &obj.Enabled)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "enabled-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5305,18 +5761,22 @@ func UnmarshalTektonPipelinePatch(m map[string]json.RawMessage, result interface
 	obj := new(TektonPipelinePatch)
 	err = core.UnmarshalPrimitive(m, "next_build_number", &obj.NextBuildNumber)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "next_build_number-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "enable_notifications", &obj.EnableNotifications)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "enable_notifications-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "enable_partial_cloning", &obj.EnablePartialCloning)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "enable_partial_cloning-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "worker", &obj.Worker, UnmarshalWorkerIdentity)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "worker-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5325,11 +5785,20 @@ func UnmarshalTektonPipelinePatch(m map[string]json.RawMessage, result interface
 
 // AsPatch returns a generic map representation of the TektonPipelinePatch
 func (tektonPipelinePatch *TektonPipelinePatch) AsPatch() (_patch map[string]interface{}, err error) {
-	var jsonData []byte
-	jsonData, err = json.Marshal(tektonPipelinePatch)
-	if err == nil {
-		err = json.Unmarshal(jsonData, &_patch)
+	_patch = map[string]interface{}{}
+	if !core.IsNil(tektonPipelinePatch.NextBuildNumber) {
+		_patch["next_build_number"] = tektonPipelinePatch.NextBuildNumber
 	}
+	if !core.IsNil(tektonPipelinePatch.EnableNotifications) {
+		_patch["enable_notifications"] = tektonPipelinePatch.EnableNotifications
+	}
+	if !core.IsNil(tektonPipelinePatch.EnablePartialCloning) {
+		_patch["enable_partial_cloning"] = tektonPipelinePatch.EnablePartialCloning
+	}
+	if !core.IsNil(tektonPipelinePatch.Worker) {
+		_patch["worker"] = tektonPipelinePatch.Worker.asPatch()
+	}
+
 	return
 }
 
@@ -5345,6 +5814,9 @@ func (*CdTektonPipelineV2) NewTool(id string) (_model *Tool, err error) {
 		ID: core.StringPtr(id),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
 	return
 }
 
@@ -5353,6 +5825,7 @@ func UnmarshalTool(m map[string]json.RawMessage, result interface{}) (err error)
 	obj := new(Tool)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5361,7 +5834,7 @@ func UnmarshalTool(m map[string]json.RawMessage, result interface{}) (err error)
 
 // ToolchainReference : Toolchain object containing references to the parent toolchain.
 type ToolchainReference struct {
-	// UUID.
+	// Universally Unique Identifier.
 	ID *string `json:"id" validate:"required"`
 
 	// The CRN for the toolchain that contains the Tekton pipeline.
@@ -5373,10 +5846,12 @@ func UnmarshalToolchainReference(m map[string]json.RawMessage, result interface{
 	obj := new(ToolchainReference)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "crn-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5481,78 +5956,97 @@ func UnmarshalTrigger(m map[string]json.RawMessage, result interface{}) (err err
 	obj := new(Trigger)
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "event_listener", &obj.EventListener)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "event_listener-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "properties", &obj.Properties, UnmarshalTriggerProperty)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "properties-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "tags", &obj.Tags)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "tags-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "worker", &obj.Worker, UnmarshalWorker)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "worker-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "max_concurrent_runs", &obj.MaxConcurrentRuns)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "max_concurrent_runs-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "enabled", &obj.Enabled)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "enabled-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "favorite", &obj.Favorite)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "favorite-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "enable_events_from_forks", &obj.EnableEventsFromForks)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "enable_events_from_forks-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "source", &obj.Source, UnmarshalTriggerSource)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "source-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "events", &obj.Events)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "events-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "filter", &obj.Filter)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "filter-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "cron", &obj.Cron)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "cron-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "timezone", &obj.Timezone)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "timezone-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "secret", &obj.Secret, UnmarshalGenericSecret)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "secret-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "webhook_url", &obj.WebhookURL)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "webhook_url-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5643,62 +6137,77 @@ func UnmarshalTriggerPatch(m map[string]json.RawMessage, result interface{}) (er
 	obj := new(TriggerPatch)
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "event_listener", &obj.EventListener)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "event_listener-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "tags", &obj.Tags)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "tags-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "worker", &obj.Worker, UnmarshalWorkerIdentity)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "worker-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "max_concurrent_runs", &obj.MaxConcurrentRuns)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "max_concurrent_runs-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "enabled", &obj.Enabled)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "enabled-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "secret", &obj.Secret, UnmarshalGenericSecret)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "secret-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "cron", &obj.Cron)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "cron-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "timezone", &obj.Timezone)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "timezone-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "source", &obj.Source, UnmarshalTriggerSourcePrototype)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "source-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "events", &obj.Events)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "events-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "filter", &obj.Filter)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "filter-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "favorite", &obj.Favorite)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "favorite-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "enable_events_from_forks", &obj.EnableEventsFromForks)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "enable_events_from_forks-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5707,11 +6216,53 @@ func UnmarshalTriggerPatch(m map[string]json.RawMessage, result interface{}) (er
 
 // AsPatch returns a generic map representation of the TriggerPatch
 func (triggerPatch *TriggerPatch) AsPatch() (_patch map[string]interface{}, err error) {
-	var jsonData []byte
-	jsonData, err = json.Marshal(triggerPatch)
-	if err == nil {
-		err = json.Unmarshal(jsonData, &_patch)
+	_patch = map[string]interface{}{}
+	if !core.IsNil(triggerPatch.Type) {
+		_patch["type"] = triggerPatch.Type
 	}
+	if !core.IsNil(triggerPatch.Name) {
+		_patch["name"] = triggerPatch.Name
+	}
+	if !core.IsNil(triggerPatch.EventListener) {
+		_patch["event_listener"] = triggerPatch.EventListener
+	}
+	if !core.IsNil(triggerPatch.Tags) {
+		_patch["tags"] = triggerPatch.Tags
+	}
+	if !core.IsNil(triggerPatch.Worker) {
+		_patch["worker"] = triggerPatch.Worker.asPatch()
+	}
+	if !core.IsNil(triggerPatch.MaxConcurrentRuns) {
+		_patch["max_concurrent_runs"] = triggerPatch.MaxConcurrentRuns
+	}
+	if !core.IsNil(triggerPatch.Enabled) {
+		_patch["enabled"] = triggerPatch.Enabled
+	}
+	if !core.IsNil(triggerPatch.Secret) {
+		_patch["secret"] = triggerPatch.Secret.asPatch()
+	}
+	if !core.IsNil(triggerPatch.Cron) {
+		_patch["cron"] = triggerPatch.Cron
+	}
+	if !core.IsNil(triggerPatch.Timezone) {
+		_patch["timezone"] = triggerPatch.Timezone
+	}
+	if !core.IsNil(triggerPatch.Source) {
+		_patch["source"] = triggerPatch.Source.asPatch()
+	}
+	if !core.IsNil(triggerPatch.Events) {
+		_patch["events"] = triggerPatch.Events
+	}
+	if !core.IsNil(triggerPatch.Filter) {
+		_patch["filter"] = triggerPatch.Filter
+	}
+	if !core.IsNil(triggerPatch.Favorite) {
+		_patch["favorite"] = triggerPatch.Favorite
+	}
+	if !core.IsNil(triggerPatch.EnableEventsFromForks) {
+		_patch["enable_events_from_forks"] = triggerPatch.EnableEventsFromForks
+	}
+
 	return
 }
 
@@ -5726,6 +6277,7 @@ func UnmarshalTriggerPropertiesCollection(m map[string]json.RawMessage, result i
 	obj := new(TriggerPropertiesCollection)
 	err = core.UnmarshalModel(m, "properties", &obj.Properties, UnmarshalTriggerProperty)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "properties-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5773,30 +6325,37 @@ func UnmarshalTriggerProperty(m map[string]json.RawMessage, result interface{}) 
 	obj := new(TriggerProperty)
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "value-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "enum", &obj.Enum)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "enum-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "path", &obj.Path)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "path-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "locked", &obj.Locked)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "locked-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5819,10 +6378,12 @@ func UnmarshalTriggerSource(m map[string]json.RawMessage, result interface{}) (e
 	obj := new(TriggerSource)
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "properties", &obj.Properties, UnmarshalTriggerSourceProperties)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "properties-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5859,26 +6420,32 @@ func UnmarshalTriggerSourceProperties(m map[string]json.RawMessage, result inter
 	obj := new(TriggerSourceProperties)
 	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "branch", &obj.Branch)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "branch-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "pattern", &obj.Pattern)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "pattern-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "blind_connection", &obj.BlindConnection)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "blind_connection-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "hook_id", &obj.HookID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "hook_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "tool", &obj.Tool, UnmarshalTool)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "tool-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5906,6 +6473,9 @@ func (*CdTektonPipelineV2) NewTriggerSourcePropertiesPrototype(url string) (_mod
 		URL: core.StringPtr(url),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
 	return
 }
 
@@ -5914,17 +6484,36 @@ func UnmarshalTriggerSourcePropertiesPrototype(m map[string]json.RawMessage, res
 	obj := new(TriggerSourcePropertiesPrototype)
 	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "branch", &obj.Branch)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "branch-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "pattern", &obj.Pattern)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "pattern-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// asPatch returns a generic map representation of the TriggerSourcePropertiesPrototype
+func (triggerSourcePropertiesPrototype *TriggerSourcePropertiesPrototype) asPatch() (_patch map[string]interface{}) {
+	_patch = map[string]interface{}{}
+	if !core.IsNil(triggerSourcePropertiesPrototype.URL) {
+		_patch["url"] = triggerSourcePropertiesPrototype.URL
+	}
+	if !core.IsNil(triggerSourcePropertiesPrototype.Branch) {
+		_patch["branch"] = triggerSourcePropertiesPrototype.Branch
+	}
+	if !core.IsNil(triggerSourcePropertiesPrototype.Pattern) {
+		_patch["pattern"] = triggerSourcePropertiesPrototype.Pattern
+	}
+
 	return
 }
 
@@ -5946,6 +6535,9 @@ func (*CdTektonPipelineV2) NewTriggerSourcePrototype(typeVar string, properties 
 		Properties: properties,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
 	return
 }
 
@@ -5954,13 +6546,28 @@ func UnmarshalTriggerSourcePrototype(m map[string]json.RawMessage, result interf
 	obj := new(TriggerSourcePrototype)
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "properties", &obj.Properties, UnmarshalTriggerSourcePropertiesPrototype)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "properties-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// asPatch returns a generic map representation of the TriggerSourcePrototype
+func (triggerSourcePrototype *TriggerSourcePrototype) asPatch() (_patch map[string]interface{}) {
+	_patch = map[string]interface{}{}
+	if !core.IsNil(triggerSourcePrototype.Type) {
+		_patch["type"] = triggerSourcePrototype.Type
+	}
+	if !core.IsNil(triggerSourcePrototype.Properties) {
+		_patch["properties"] = triggerSourcePrototype.Properties.asPatch()
+	}
+
 	return
 }
 
@@ -5975,6 +6582,7 @@ func UnmarshalTriggersCollection(m map[string]json.RawMessage, result interface{
 	obj := new(TriggersCollection)
 	err = core.UnmarshalModel(m, "triggers", &obj.Triggers, UnmarshalTrigger)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "triggers-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5989,7 +6597,7 @@ type UpdateTektonPipelineOptions struct {
 	// JSON Merge-Patch content for update_tekton_pipeline.
 	TektonPipelinePatch map[string]interface{} `json:"TektonPipelinePatch,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -6029,7 +6637,7 @@ type UpdateTektonPipelineTriggerOptions struct {
 	// JSON Merge-Patch content for update_tekton_pipeline_trigger.
 	TriggerPatch map[string]interface{} `json:"TriggerPatch,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -6080,10 +6688,12 @@ func UnmarshalUserInfo(m map[string]json.RawMessage, result interface{}) (err er
 	obj := new(UserInfo)
 	err = core.UnmarshalPrimitive(m, "iam_id", &obj.IamID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "iam_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "sub", &obj.Sub)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "sub-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -6107,14 +6717,17 @@ func UnmarshalWorker(m map[string]json.RawMessage, result interface{}) (err erro
 	obj := new(Worker)
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -6134,6 +6747,9 @@ func (*CdTektonPipelineV2) NewWorkerIdentity(id string) (_model *WorkerIdentity,
 		ID: core.StringPtr(id),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
 	return
 }
 
@@ -6142,9 +6758,20 @@ func UnmarshalWorkerIdentity(m map[string]json.RawMessage, result interface{}) (
 	obj := new(WorkerIdentity)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// asPatch returns a generic map representation of the WorkerIdentity
+func (workerIdentity *WorkerIdentity) asPatch() (_patch map[string]interface{}) {
+	_patch = map[string]interface{}{}
+	if !core.IsNil(workerIdentity.ID) {
+		_patch["id"] = workerIdentity.ID
+	}
+
 	return
 }
 
@@ -6208,58 +6835,72 @@ func UnmarshalTriggerGenericTrigger(m map[string]json.RawMessage, result interfa
 	obj := new(TriggerGenericTrigger)
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "event_listener", &obj.EventListener)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "event_listener-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "properties", &obj.Properties, UnmarshalTriggerProperty)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "properties-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "tags", &obj.Tags)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "tags-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "worker", &obj.Worker, UnmarshalWorker)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "worker-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "max_concurrent_runs", &obj.MaxConcurrentRuns)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "max_concurrent_runs-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "enabled", &obj.Enabled)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "enabled-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "favorite", &obj.Favorite)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "favorite-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "secret", &obj.Secret, UnmarshalGenericSecret)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "secret-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "webhook_url", &obj.WebhookURL)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "webhook_url-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "filter", &obj.Filter)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "filter-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -6315,46 +6956,57 @@ func UnmarshalTriggerManualTrigger(m map[string]json.RawMessage, result interfac
 	obj := new(TriggerManualTrigger)
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "event_listener", &obj.EventListener)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "event_listener-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "properties", &obj.Properties, UnmarshalTriggerProperty)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "properties-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "tags", &obj.Tags)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "tags-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "worker", &obj.Worker, UnmarshalWorker)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "worker-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "max_concurrent_runs", &obj.MaxConcurrentRuns)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "max_concurrent_runs-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "enabled", &obj.Enabled)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "enabled-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "favorite", &obj.Favorite)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "favorite-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -6437,62 +7089,77 @@ func UnmarshalTriggerScmTrigger(m map[string]json.RawMessage, result interface{}
 	obj := new(TriggerScmTrigger)
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "event_listener", &obj.EventListener)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "event_listener-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "properties", &obj.Properties, UnmarshalTriggerProperty)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "properties-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "tags", &obj.Tags)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "tags-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "worker", &obj.Worker, UnmarshalWorker)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "worker-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "max_concurrent_runs", &obj.MaxConcurrentRuns)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "max_concurrent_runs-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "enabled", &obj.Enabled)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "enabled-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "favorite", &obj.Favorite)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "favorite-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "enable_events_from_forks", &obj.EnableEventsFromForks)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "enable_events_from_forks-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "source", &obj.Source, UnmarshalTriggerSource)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "source-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "events", &obj.Events)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "events-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "filter", &obj.Filter)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "filter-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -6558,54 +7225,67 @@ func UnmarshalTriggerTimerTrigger(m map[string]json.RawMessage, result interface
 	obj := new(TriggerTimerTrigger)
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "event_listener", &obj.EventListener)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "event_listener-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "properties", &obj.Properties, UnmarshalTriggerProperty)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "properties-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "tags", &obj.Tags)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "tags-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "worker", &obj.Worker, UnmarshalWorker)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "worker-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "max_concurrent_runs", &obj.MaxConcurrentRuns)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "max_concurrent_runs-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "enabled", &obj.Enabled)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "enabled-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "favorite", &obj.Favorite)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "favorite-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "cron", &obj.Cron)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "cron-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "timezone", &obj.Timezone)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "timezone-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -6627,7 +7307,7 @@ type TektonPipelineRunsPager struct {
 // NewTektonPipelineRunsPager returns a new TektonPipelineRunsPager instance.
 func (cdTektonPipeline *CdTektonPipelineV2) NewTektonPipelineRunsPager(options *ListTektonPipelineRunsOptions) (pager *TektonPipelineRunsPager, err error) {
 	if options.Start != nil && *options.Start != "" {
-		err = fmt.Errorf("the 'options.Start' field should not be set")
+		err = core.SDKErrorf(nil, "the 'options.Start' field should not be set", "no-query-setting", common.GetComponentInfo())
 		return
 	}
 
@@ -6655,6 +7335,7 @@ func (pager *TektonPipelineRunsPager) GetNextWithContext(ctx context.Context) (p
 
 	result, _, err := pager.client.ListTektonPipelineRunsWithContext(ctx, pager.options)
 	if err != nil {
+		err = core.RepurposeSDKProblem(err, "error-getting-next-page")
 		return
 	}
 
@@ -6663,7 +7344,8 @@ func (pager *TektonPipelineRunsPager) GetNextWithContext(ctx context.Context) (p
 		var start *string
 		start, err = core.GetQueryParam(result.Next.Href, "start")
 		if err != nil {
-			err = fmt.Errorf("error retrieving 'start' query parameter from URL '%s': %s", *result.Next.Href, err.Error())
+			errMsg := fmt.Sprintf("error retrieving 'start' query parameter from URL '%s': %s", *result.Next.Href, err.Error())
+			err = core.SDKErrorf(err, errMsg, "get-query-error", common.GetComponentInfo())
 			return
 		}
 		next = start
@@ -6682,6 +7364,7 @@ func (pager *TektonPipelineRunsPager) GetAllWithContext(ctx context.Context) (al
 		var nextPage []PipelineRun
 		nextPage, err = pager.GetNextWithContext(ctx)
 		if err != nil {
+			err = core.RepurposeSDKProblem(err, "error-getting-next-page")
 			return
 		}
 		allItems = append(allItems, nextPage...)
@@ -6691,10 +7374,14 @@ func (pager *TektonPipelineRunsPager) GetAllWithContext(ctx context.Context) (al
 
 // GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
 func (pager *TektonPipelineRunsPager) GetNext() (page []PipelineRun, err error) {
-	return pager.GetNextWithContext(context.Background())
+	page, err = pager.GetNextWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
 func (pager *TektonPipelineRunsPager) GetAll() (allItems []PipelineRun, err error) {
-	return pager.GetAllWithContext(context.Background())
+	allItems, err = pager.GetAllWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
