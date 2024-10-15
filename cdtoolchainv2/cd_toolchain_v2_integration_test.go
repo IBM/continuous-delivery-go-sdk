@@ -22,6 +22,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/IBM/continuous-delivery-go-sdk/v2/cdtoolchainv2"
