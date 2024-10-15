@@ -1,3 +1,37 @@
+## [1.8.2](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.8.1...v1.8.2) (2024-10-10)
+
+
+### Bug Fixes
+
+* **tekton:** regenerate tekton after openapi lint fixes ([031b5c4](https://github.com/IBM/continuous-delivery-go-sdk/commit/031b5c4c7fd1c7f72a159fd2040bfa9636837200))
+
+## [1.8.1](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.8.0...v1.8.1) (2024-09-30)
+
+
+### Bug Fixes
+
+* **tekton:** full support for fork feature ([cbf05f9](https://github.com/IBM/continuous-delivery-go-sdk/commit/cbf05f93de924b0811694bb9418aa0c6b8ce8126))
+
+# [1.8.0](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.7.0...v1.8.0) (2024-09-30)
+
+
+### Features
+
+* **tekton:** Add fork events option ([aaff1f4](https://github.com/IBM/continuous-delivery-go-sdk/commit/aaff1f4d0c894daea84e09f831a1f85316517179))
+
+# [1.7.0](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.6.0...v1.7.0) (2024-09-26)
+
+
+### Bug Fixes
+
+* **build:** Fix format of bumpversion file ([021b630](https://github.com/IBM/continuous-delivery-go-sdk/commit/021b630fea5dd37981e1b37e6bafd2805ff71e69))
+
+
+### Features
+
+* Go version updates ([f34e013](https://github.com/IBM/continuous-delivery-go-sdk/commit/f34e013110f7a3d8de5e5e5b9030df8df2d3da3a))
+* **tekton:** add run description for pipeline runs ([66f3cdd](https://github.com/IBM/continuous-delivery-go-sdk/commit/66f3cddc2bb9cc5a460ed0a65f434c5271eb3496))
+
 # [1.6.0](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.5.0...v1.6.0) (2024-07-29)
 
 
