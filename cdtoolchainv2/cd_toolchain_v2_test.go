@@ -1385,7 +1385,6 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the ToolchainEventPrototypeData model
 				toolchainEventPrototypeDataModel := new(cdtoolchainv2.ToolchainEventPrototypeData)
 				toolchainEventPrototypeDataModel.ApplicationJSON = toolchainEventPrototypeDataApplicationJSONModel
-				toolchainEventPrototypeDataModel.TextPlain = toolchainEventPrototypeDataTextPlainModel
 
 				// Construct an instance of the CreateToolchainEventOptions model
 				createToolchainEventOptionsModel := new(cdtoolchainv2.CreateToolchainEventOptions)
