@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,8 @@ package cdtoolchainv2_test
 import (
 	"bytes"
 	"context"
+	"encoding/base64"
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -447,14 +449,14 @@ var _ = Describe(`CdToolchainV2`, func() {
 				nextObject := new(cdtoolchainv2.ToolchainCollectionNext)
 				nextObject.Start = core.StringPtr("abc-123")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
 				responseObject := new(cdtoolchainv2.ToolchainCollection)
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -1383,7 +1385,7 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the ToolchainEventPrototypeData model
 				toolchainEventPrototypeDataModel := new(cdtoolchainv2.ToolchainEventPrototypeData)
 				toolchainEventPrototypeDataModel.ApplicationJSON = toolchainEventPrototypeDataApplicationJSONModel
-				toolchainEventPrototypeDataModel.TextPlain = core.StringPtr("This event is dispatched because the pipeline failed")
+				toolchainEventPrototypeDataModel.TextPlain = toolchainEventPrototypeDataTextPlainModel
 
 				// Construct an instance of the CreateToolchainEventOptions model
 				createToolchainEventOptionsModel := new(cdtoolchainv2.CreateToolchainEventOptions)
@@ -1463,7 +1465,6 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the ToolchainEventPrototypeData model
 				toolchainEventPrototypeDataModel := new(cdtoolchainv2.ToolchainEventPrototypeData)
 				toolchainEventPrototypeDataModel.ApplicationJSON = toolchainEventPrototypeDataApplicationJSONModel
-				toolchainEventPrototypeDataModel.TextPlain = core.StringPtr("This event is dispatched because the pipeline failed")
 
 				// Construct an instance of the CreateToolchainEventOptions model
 				createToolchainEventOptionsModel := new(cdtoolchainv2.CreateToolchainEventOptions)
@@ -1551,7 +1552,6 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the ToolchainEventPrototypeData model
 				toolchainEventPrototypeDataModel := new(cdtoolchainv2.ToolchainEventPrototypeData)
 				toolchainEventPrototypeDataModel.ApplicationJSON = toolchainEventPrototypeDataApplicationJSONModel
-				toolchainEventPrototypeDataModel.TextPlain = core.StringPtr("This event is dispatched because the pipeline failed")
 
 				// Construct an instance of the CreateToolchainEventOptions model
 				createToolchainEventOptionsModel := new(cdtoolchainv2.CreateToolchainEventOptions)
@@ -1584,7 +1584,6 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the ToolchainEventPrototypeData model
 				toolchainEventPrototypeDataModel := new(cdtoolchainv2.ToolchainEventPrototypeData)
 				toolchainEventPrototypeDataModel.ApplicationJSON = toolchainEventPrototypeDataApplicationJSONModel
-				toolchainEventPrototypeDataModel.TextPlain = core.StringPtr("This event is dispatched because the pipeline failed")
 
 				// Construct an instance of the CreateToolchainEventOptions model
 				createToolchainEventOptionsModel := new(cdtoolchainv2.CreateToolchainEventOptions)
@@ -1638,7 +1637,6 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the ToolchainEventPrototypeData model
 				toolchainEventPrototypeDataModel := new(cdtoolchainv2.ToolchainEventPrototypeData)
 				toolchainEventPrototypeDataModel.ApplicationJSON = toolchainEventPrototypeDataApplicationJSONModel
-				toolchainEventPrototypeDataModel.TextPlain = core.StringPtr("This event is dispatched because the pipeline failed")
 
 				// Construct an instance of the CreateToolchainEventOptions model
 				createToolchainEventOptionsModel := new(cdtoolchainv2.CreateToolchainEventOptions)
@@ -1895,14 +1893,14 @@ var _ = Describe(`CdToolchainV2`, func() {
 				nextObject := new(cdtoolchainv2.ToolchainToolCollectionNext)
 				nextObject.Start = core.StringPtr("abc-123")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
 				responseObject := new(cdtoolchainv2.ToolchainToolCollection)
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -2851,13 +2849,19 @@ var _ = Describe(`CdToolchainV2`, func() {
 				toolchainEventPrototypeDataApplicationJSONModel.Content = map[string]interface{}{"anyKey": "anyValue"}
 				Expect(toolchainEventPrototypeDataApplicationJSONModel.Content).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 
+				// Construct an instance of the ToolchainEventPrototypeDataTextPlain model
+				toolchainEventPrototypeDataTextPlainModel := new(cdtoolchainv2.ToolchainEventPrototypeDataTextPlain)
+				Expect(toolchainEventPrototypeDataTextPlainModel).ToNot(BeNil())
+				toolchainEventPrototypeDataTextPlainModel.Content = core.StringPtr("This event is dispatched because the pipeline failed")
+				Expect(toolchainEventPrototypeDataTextPlainModel.Content).To(Equal(core.StringPtr("This event is dispatched because the pipeline failed")))
+
 				// Construct an instance of the ToolchainEventPrototypeData model
 				toolchainEventPrototypeDataModel := new(cdtoolchainv2.ToolchainEventPrototypeData)
 				Expect(toolchainEventPrototypeDataModel).ToNot(BeNil())
 				toolchainEventPrototypeDataModel.ApplicationJSON = toolchainEventPrototypeDataApplicationJSONModel
-				toolchainEventPrototypeDataModel.TextPlain = core.StringPtr("This event is dispatched because the pipeline failed")
+				toolchainEventPrototypeDataModel.TextPlain = toolchainEventPrototypeDataTextPlainModel
 				Expect(toolchainEventPrototypeDataModel.ApplicationJSON).To(Equal(toolchainEventPrototypeDataApplicationJSONModel))
-				Expect(toolchainEventPrototypeDataModel.TextPlain).To(Equal(core.StringPtr("This event is dispatched because the pipeline failed")))
+				Expect(toolchainEventPrototypeDataModel.TextPlain).To(Equal(toolchainEventPrototypeDataTextPlainModel))
 
 				// Construct an instance of the CreateToolchainEventOptions model
 				toolchainID := "testString"
@@ -2976,6 +2980,12 @@ var _ = Describe(`CdToolchainV2`, func() {
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
+			It(`Invoke NewToolchainEventPrototypeDataTextPlain successfully`, func() {
+				content := "This event is dispatched because the pipeline failed"
+				_model, err := cdToolchainService.NewToolchainEventPrototypeDataTextPlain(content)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
 			It(`Invoke NewUpdateToolOptions successfully`, func() {
 				// Construct an instance of the UpdateToolOptions model
 				toolchainID := "testString"
@@ -3007,9 +3017,105 @@ var _ = Describe(`CdToolchainV2`, func() {
 			})
 		})
 	})
+	Describe(`Model unmarshaling tests`, func() {
+		It(`Invoke UnmarshalToolchainEventPrototypeData successfully`, func() {
+			// Construct an instance of the model.
+			model := new(cdtoolchainv2.ToolchainEventPrototypeData)
+			model.ApplicationJSON = nil
+			model.TextPlain = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *cdtoolchainv2.ToolchainEventPrototypeData
+			err = cdtoolchainv2.UnmarshalToolchainEventPrototypeData(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalToolchainEventPrototypeDataApplicationJSON successfully`, func() {
+			// Construct an instance of the model.
+			model := new(cdtoolchainv2.ToolchainEventPrototypeDataApplicationJSON)
+			model.Content = map[string]interface{}{"anyKey": "anyValue"}
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *cdtoolchainv2.ToolchainEventPrototypeDataApplicationJSON
+			err = cdtoolchainv2.UnmarshalToolchainEventPrototypeDataApplicationJSON(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalToolchainEventPrototypeDataTextPlain successfully`, func() {
+			// Construct an instance of the model.
+			model := new(cdtoolchainv2.ToolchainEventPrototypeDataTextPlain)
+			model.Content = core.StringPtr("This event is dispatched because the pipeline failed")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *cdtoolchainv2.ToolchainEventPrototypeDataTextPlain
+			err = cdtoolchainv2.UnmarshalToolchainEventPrototypeDataTextPlain(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalToolchainPrototypePatch successfully`, func() {
+			// Construct an instance of the model.
+			model := new(cdtoolchainv2.ToolchainPrototypePatch)
+			model.Name = core.StringPtr("newToolchainName")
+			model.Description = core.StringPtr("New toolchain description")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *cdtoolchainv2.ToolchainPrototypePatch
+			err = cdtoolchainv2.UnmarshalToolchainPrototypePatch(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalToolchainToolPrototypePatch successfully`, func() {
+			// Construct an instance of the model.
+			model := new(cdtoolchainv2.ToolchainToolPrototypePatch)
+			model.Name = core.StringPtr("MyTool")
+			model.ToolTypeID = core.StringPtr("draservicebroker")
+			model.Parameters = map[string]interface{}{"anyKey": "anyValue"}
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *cdtoolchainv2.ToolchainToolPrototypePatch
+			err = cdtoolchainv2.UnmarshalToolchainToolPrototypePatch(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+	})
 	Describe(`Utility function tests`, func() {
 		It(`Invoke CreateMockByteArray() successfully`, func() {
-			mockByteArray := CreateMockByteArray("This is a test")
+			mockByteArray := CreateMockByteArray("VGhpcyBpcyBhIHRlc3Qgb2YgdGhlIGVtZXJnZW5jeSBicm9hZGNhc3Qgc3lzdGVt")
 			Expect(mockByteArray).ToNot(BeNil())
 		})
 		It(`Invoke CreateMockUUID() successfully`, func() {
@@ -3035,9 +3141,11 @@ var _ = Describe(`CdToolchainV2`, func() {
 // Utility functions used by the generated test code
 //
 
-func CreateMockByteArray(mockData string) *[]byte {
-	ba := make([]byte, 0)
-	ba = append(ba, mockData...)
+func CreateMockByteArray(encodedString string) *[]byte {
+	ba, err := base64.StdEncoding.DecodeString(encodedString)
+	if err != nil {
+		panic(err)
+	}
 	return &ba
 }
 
