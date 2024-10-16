@@ -1,7 +1,7 @@
-// +build integration
+//go:build integration
 
 /**
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -171,11 +171,9 @@ var _ = Describe(`CdToolchainV2 Integration Tests`, func() {
 			listToolchainsOptions := &cdtoolchainv2.ListToolchainsOptions{
 				ResourceGroupID: core.StringPtr(config["RESOURCE_GROUP_ID"]),
 				Limit: core.Int64Ptr(int64(10)),
-				Start: core.StringPtr("testString"),
-				Name: core.StringPtr("TestToolchainV2"),
+				Name: core.StringPtr(toolchainName),
 			}
 
-			listToolchainsOptions.Start = nil
 			listToolchainsOptions.Limit = core.Int64Ptr(1)
 
 			var allResults []cdtoolchainv2.ToolchainModel
@@ -289,7 +287,7 @@ var _ = Describe(`CdToolchainV2 Integration Tests`, func() {
 			Expect(toolchainToolPost).ToNot(BeNil())
 		})
 
-		It(`CreateToolchainEvent(createToolchainEventOptions *CreateToolchainEventOptions)`, func() {
+		It(`CreateToolchainEvent(createToolchainEventOptions *CreateToolchainEventOptions) - Application JSON event`, func() {
 			toolchainEventPrototypeDataApplicationJSONModel := &cdtoolchainv2.ToolchainEventPrototypeDataApplicationJSON{
 				Content: map[string]interface{}{"anyKey": "anyValue"},
 			}
@@ -311,6 +309,29 @@ var _ = Describe(`CdToolchainV2 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(toolchainEventPost).ToNot(BeNil())
 		})
+
+		It(`CreateToolchainEvent(createToolchainEventOptions *CreateToolchainEventOptions) - Text plain event`, func() {
+			toolchainEventPrototypeDataTextPlainModel := &cdtoolchainv2.ToolchainEventPrototypeDataTextPlain{
+				Content: core.StringPtr("This event is dispatched because the pipeline failed"),
+			}
+
+			toolchainEventPrototypeDataModel := &cdtoolchainv2.ToolchainEventPrototypeData{
+				TextPlain: toolchainEventPrototypeDataTextPlainModel,
+			}
+
+			createToolchainEventOptions := &cdtoolchainv2.CreateToolchainEventOptions{
+				ToolchainID: &toolchainIDLink,
+				Title: core.StringPtr("My-custom-event"),
+				Description: core.StringPtr("This is my custom event"),
+				ContentType: core.StringPtr("text/plain"),
+				Data: toolchainEventPrototypeDataModel,
+			}
+
+			toolchainEventPost, response, err := cdToolchainService.CreateToolchainEvent(createToolchainEventOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(toolchainEventPost).ToNot(BeNil())
+		})
 	})
 
 	Describe(`ListTools - Get a list of tools bound to a toolchain`, func() {
@@ -321,10 +342,8 @@ var _ = Describe(`CdToolchainV2 Integration Tests`, func() {
 			listToolsOptions := &cdtoolchainv2.ListToolsOptions{
 				ToolchainID: &toolchainIDLink,
 				Limit: core.Int64Ptr(int64(10)),
-				Start: core.StringPtr("testString"),
 			}
 
-			listToolsOptions.Start = nil
 			listToolsOptions.Limit = core.Int64Ptr(1)
 
 			var allResults []cdtoolchainv2.ToolModel

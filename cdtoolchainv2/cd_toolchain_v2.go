@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.77.0-42417df0-20230811-192318
+ * IBM OpenAPI SDK Code Generator Version: 3.96.0-d6dec9d7-20241008-212902
  */
 
 // Package cdtoolchainv2 : Operations and models for the CdToolchainV2 service
@@ -34,13 +34,6 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// CdToolchainV2 : This swagger document describes the options and endpoints of the Toolchain API.<br><br> All calls
-// require an <strong>Authorization</strong> HTTP header to be set with a bearer token, which can be generated using the
-// <a href="https://cloud.ibm.com/apidocs/iam-identity-token-api">Identity and Access Management (IAM)
-// API</a>.<br><br>Note that all resources must have a corresponding <b>resource_group_id</b> to use the API, resources
-// within a Cloud Foundry organization cannot be accessed or modified using the API.
-//
-// API Version: 2.0.0
 type CdToolchainV2 struct {
 	Service *core.BaseService
 }
@@ -67,22 +60,26 @@ func NewCdToolchainV2UsingExternalConfig(options *CdToolchainV2Options) (cdToolc
 	if options.Authenticator == nil {
 		options.Authenticator, err = core.GetAuthenticatorFromEnvironment(options.ServiceName)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "env-auth-error", common.GetComponentInfo())
 			return
 		}
 	}
 
 	cdToolchain, err = NewCdToolchainV2(options)
+	err = core.RepurposeSDKProblem(err, "new-client-error")
 	if err != nil {
 		return
 	}
 
 	err = cdToolchain.Service.ConfigureService(options.ServiceName)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "client-config-error", common.GetComponentInfo())
 		return
 	}
 
 	if options.URL != "" {
 		err = cdToolchain.Service.SetServiceURL(options.URL)
+		err = core.RepurposeSDKProblem(err, "url-set-error")
 	}
 	return
 }
@@ -96,12 +93,14 @@ func NewCdToolchainV2(options *CdToolchainV2Options) (service *CdToolchainV2, er
 
 	baseService, err := core.NewBaseService(serviceOptions)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "new-base-error", common.GetComponentInfo())
 		return
 	}
 
 	if options.URL != "" {
 		err = baseService.SetServiceURL(options.URL)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "set-url-error", common.GetComponentInfo())
 			return
 		}
 	}
@@ -131,7 +130,7 @@ func GetServiceURLForRegion(region string) (string, error) {
 	if url, ok := endpoints[region]; ok {
 		return url, nil
 	}
-	return "", fmt.Errorf("service URL for region '%s' not found", region)
+	return "", core.SDKErrorf(nil, fmt.Sprintf("service URL for region '%s' not found", region), "invalid-region", common.GetComponentInfo())
 }
 
 // Clone makes a copy of "cdToolchain" suitable for processing requests.
@@ -146,7 +145,11 @@ func (cdToolchain *CdToolchainV2) Clone() *CdToolchainV2 {
 
 // SetServiceURL sets the service URL
 func (cdToolchain *CdToolchainV2) SetServiceURL(url string) error {
-	return cdToolchain.Service.SetServiceURL(url)
+	err := cdToolchain.Service.SetServiceURL(url)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-set-error", common.GetComponentInfo())
+	}
+	return err
 }
 
 // GetServiceURL returns the service URL
@@ -183,17 +186,21 @@ func (cdToolchain *CdToolchainV2) DisableRetries() {
 // ListToolchains : Get a list of toolchains
 // Returns a list of toolchains that the caller is authorized to access and that meets the provided query parameters.
 func (cdToolchain *CdToolchainV2) ListToolchains(listToolchainsOptions *ListToolchainsOptions) (result *ToolchainCollection, response *core.DetailedResponse, err error) {
-	return cdToolchain.ListToolchainsWithContext(context.Background(), listToolchainsOptions)
+	result, response, err = cdToolchain.ListToolchainsWithContext(context.Background(), listToolchainsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // ListToolchainsWithContext is an alternate form of the ListToolchains method which supports a Context parameter
 func (cdToolchain *CdToolchainV2) ListToolchainsWithContext(ctx context.Context, listToolchainsOptions *ListToolchainsOptions) (result *ToolchainCollection, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listToolchainsOptions, "listToolchainsOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(listToolchainsOptions, "listToolchainsOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -202,6 +209,7 @@ func (cdToolchain *CdToolchainV2) ListToolchainsWithContext(ctx context.Context,
 	builder.EnableGzipCompression = cdToolchain.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/toolchains`, nil)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -228,17 +236,21 @@ func (cdToolchain *CdToolchainV2) ListToolchainsWithContext(ctx context.Context,
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = cdToolchain.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "list_toolchains", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalToolchainCollection)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -250,17 +262,21 @@ func (cdToolchain *CdToolchainV2) ListToolchainsWithContext(ctx context.Context,
 // CreateToolchain : Create a toolchain
 // Creates a new toolchain based off the provided parameters in the body.
 func (cdToolchain *CdToolchainV2) CreateToolchain(createToolchainOptions *CreateToolchainOptions) (result *ToolchainPost, response *core.DetailedResponse, err error) {
-	return cdToolchain.CreateToolchainWithContext(context.Background(), createToolchainOptions)
+	result, response, err = cdToolchain.CreateToolchainWithContext(context.Background(), createToolchainOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // CreateToolchainWithContext is an alternate form of the CreateToolchain method which supports a Context parameter
 func (cdToolchain *CdToolchainV2) CreateToolchainWithContext(ctx context.Context, createToolchainOptions *CreateToolchainOptions) (result *ToolchainPost, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createToolchainOptions, "createToolchainOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(createToolchainOptions, "createToolchainOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -269,6 +285,7 @@ func (cdToolchain *CdToolchainV2) CreateToolchainWithContext(ctx context.Context
 	builder.EnableGzipCompression = cdToolchain.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/toolchains`, nil)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -295,22 +312,27 @@ func (cdToolchain *CdToolchainV2) CreateToolchainWithContext(ctx context.Context
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = cdToolchain.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "create_toolchain", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalToolchainPost)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -322,17 +344,21 @@ func (cdToolchain *CdToolchainV2) CreateToolchainWithContext(ctx context.Context
 // GetToolchainByID : Get a toolchain
 // Returns data for a single toolchain identified by its ID.
 func (cdToolchain *CdToolchainV2) GetToolchainByID(getToolchainByIDOptions *GetToolchainByIDOptions) (result *Toolchain, response *core.DetailedResponse, err error) {
-	return cdToolchain.GetToolchainByIDWithContext(context.Background(), getToolchainByIDOptions)
+	result, response, err = cdToolchain.GetToolchainByIDWithContext(context.Background(), getToolchainByIDOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetToolchainByIDWithContext is an alternate form of the GetToolchainByID method which supports a Context parameter
 func (cdToolchain *CdToolchainV2) GetToolchainByIDWithContext(ctx context.Context, getToolchainByIDOptions *GetToolchainByIDOptions) (result *Toolchain, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getToolchainByIDOptions, "getToolchainByIDOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(getToolchainByIDOptions, "getToolchainByIDOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -345,6 +371,7 @@ func (cdToolchain *CdToolchainV2) GetToolchainByIDWithContext(ctx context.Contex
 	builder.EnableGzipCompression = cdToolchain.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/toolchains/{toolchain_id}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -360,17 +387,21 @@ func (cdToolchain *CdToolchainV2) GetToolchainByIDWithContext(ctx context.Contex
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = cdToolchain.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "get_toolchain_by_id", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalToolchain)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -382,17 +413,21 @@ func (cdToolchain *CdToolchainV2) GetToolchainByIDWithContext(ctx context.Contex
 // DeleteToolchain : Delete a toolchain
 // Delete the toolchain with the specified ID.
 func (cdToolchain *CdToolchainV2) DeleteToolchain(deleteToolchainOptions *DeleteToolchainOptions) (response *core.DetailedResponse, err error) {
-	return cdToolchain.DeleteToolchainWithContext(context.Background(), deleteToolchainOptions)
+	response, err = cdToolchain.DeleteToolchainWithContext(context.Background(), deleteToolchainOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // DeleteToolchainWithContext is an alternate form of the DeleteToolchain method which supports a Context parameter
 func (cdToolchain *CdToolchainV2) DeleteToolchainWithContext(ctx context.Context, deleteToolchainOptions *DeleteToolchainOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteToolchainOptions, "deleteToolchainOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(deleteToolchainOptions, "deleteToolchainOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -405,6 +440,7 @@ func (cdToolchain *CdToolchainV2) DeleteToolchainWithContext(ctx context.Context
 	builder.EnableGzipCompression = cdToolchain.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/toolchains/{toolchain_id}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -419,10 +455,16 @@ func (cdToolchain *CdToolchainV2) DeleteToolchainWithContext(ctx context.Context
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	response, err = cdToolchain.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_toolchain", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
 
 	return
 }
@@ -430,17 +472,21 @@ func (cdToolchain *CdToolchainV2) DeleteToolchainWithContext(ctx context.Context
 // UpdateToolchain : Update a toolchain
 // Update the toolchain with the specified ID.
 func (cdToolchain *CdToolchainV2) UpdateToolchain(updateToolchainOptions *UpdateToolchainOptions) (result *ToolchainPatch, response *core.DetailedResponse, err error) {
-	return cdToolchain.UpdateToolchainWithContext(context.Background(), updateToolchainOptions)
+	result, response, err = cdToolchain.UpdateToolchainWithContext(context.Background(), updateToolchainOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // UpdateToolchainWithContext is an alternate form of the UpdateToolchain method which supports a Context parameter
 func (cdToolchain *CdToolchainV2) UpdateToolchainWithContext(ctx context.Context, updateToolchainOptions *UpdateToolchainOptions) (result *ToolchainPatch, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateToolchainOptions, "updateToolchainOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(updateToolchainOptions, "updateToolchainOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -453,6 +499,7 @@ func (cdToolchain *CdToolchainV2) UpdateToolchainWithContext(ctx context.Context
 	builder.EnableGzipCompression = cdToolchain.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/toolchains/{toolchain_id}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -469,22 +516,27 @@ func (cdToolchain *CdToolchainV2) UpdateToolchainWithContext(ctx context.Context
 
 	_, err = builder.SetBodyContentJSON(updateToolchainOptions.ToolchainPrototypePatch)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = cdToolchain.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "update_toolchain", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalToolchainPatch)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -494,20 +546,24 @@ func (cdToolchain *CdToolchainV2) UpdateToolchainWithContext(ctx context.Context
 }
 
 // CreateToolchainEvent : Create a toolchain event
-// Creates and sends a custom event to Event Notifications. This requires an Event Notification tool. This method is
-// BETA and subject to change.
+// Creates and sends a custom event to each Event Notifications instance configured as a tool into the toolchain. This
+// operation will fail if no Event Notifications instances are configured into the toolchain.
 func (cdToolchain *CdToolchainV2) CreateToolchainEvent(createToolchainEventOptions *CreateToolchainEventOptions) (result *ToolchainEventPost, response *core.DetailedResponse, err error) {
-	return cdToolchain.CreateToolchainEventWithContext(context.Background(), createToolchainEventOptions)
+	result, response, err = cdToolchain.CreateToolchainEventWithContext(context.Background(), createToolchainEventOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // CreateToolchainEventWithContext is an alternate form of the CreateToolchainEvent method which supports a Context parameter
 func (cdToolchain *CdToolchainV2) CreateToolchainEventWithContext(ctx context.Context, createToolchainEventOptions *CreateToolchainEventOptions) (result *ToolchainEventPost, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createToolchainEventOptions, "createToolchainEventOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(createToolchainEventOptions, "createToolchainEventOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -520,6 +576,7 @@ func (cdToolchain *CdToolchainV2) CreateToolchainEventWithContext(ctx context.Co
 	builder.EnableGzipCompression = cdToolchain.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/toolchains/{toolchain_id}/events`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -549,22 +606,27 @@ func (cdToolchain *CdToolchainV2) CreateToolchainEventWithContext(ctx context.Co
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = cdToolchain.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "create_toolchain_event", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalToolchainEventPost)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -577,17 +639,21 @@ func (cdToolchain *CdToolchainV2) CreateToolchainEventWithContext(ctx context.Co
 // Returns a list of tools bound to a toolchain that the caller is authorized to access and that meet the provided query
 // parameters.
 func (cdToolchain *CdToolchainV2) ListTools(listToolsOptions *ListToolsOptions) (result *ToolchainToolCollection, response *core.DetailedResponse, err error) {
-	return cdToolchain.ListToolsWithContext(context.Background(), listToolsOptions)
+	result, response, err = cdToolchain.ListToolsWithContext(context.Background(), listToolsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // ListToolsWithContext is an alternate form of the ListTools method which supports a Context parameter
 func (cdToolchain *CdToolchainV2) ListToolsWithContext(ctx context.Context, listToolsOptions *ListToolsOptions) (result *ToolchainToolCollection, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listToolsOptions, "listToolsOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(listToolsOptions, "listToolsOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -600,6 +666,7 @@ func (cdToolchain *CdToolchainV2) ListToolsWithContext(ctx context.Context, list
 	builder.EnableGzipCompression = cdToolchain.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/toolchains/{toolchain_id}/tools`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -622,17 +689,21 @@ func (cdToolchain *CdToolchainV2) ListToolsWithContext(ctx context.Context, list
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = cdToolchain.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "list_tools", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalToolchainToolCollection)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -644,17 +715,21 @@ func (cdToolchain *CdToolchainV2) ListToolsWithContext(ctx context.Context, list
 // CreateTool : Create a tool
 // Provisions a new tool based off the provided parameters in the body and binds it to the specified toolchain.
 func (cdToolchain *CdToolchainV2) CreateTool(createToolOptions *CreateToolOptions) (result *ToolchainToolPost, response *core.DetailedResponse, err error) {
-	return cdToolchain.CreateToolWithContext(context.Background(), createToolOptions)
+	result, response, err = cdToolchain.CreateToolWithContext(context.Background(), createToolOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // CreateToolWithContext is an alternate form of the CreateTool method which supports a Context parameter
 func (cdToolchain *CdToolchainV2) CreateToolWithContext(ctx context.Context, createToolOptions *CreateToolOptions) (result *ToolchainToolPost, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createToolOptions, "createToolOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(createToolOptions, "createToolOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -667,6 +742,7 @@ func (cdToolchain *CdToolchainV2) CreateToolWithContext(ctx context.Context, cre
 	builder.EnableGzipCompression = cdToolchain.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/toolchains/{toolchain_id}/tools`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -693,22 +769,27 @@ func (cdToolchain *CdToolchainV2) CreateToolWithContext(ctx context.Context, cre
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = cdToolchain.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "create_tool", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalToolchainToolPost)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -720,17 +801,21 @@ func (cdToolchain *CdToolchainV2) CreateToolWithContext(ctx context.Context, cre
 // GetToolByID : Get a tool
 // Returns a tool that is bound to the provided toolchain.
 func (cdToolchain *CdToolchainV2) GetToolByID(getToolByIDOptions *GetToolByIDOptions) (result *ToolchainTool, response *core.DetailedResponse, err error) {
-	return cdToolchain.GetToolByIDWithContext(context.Background(), getToolByIDOptions)
+	result, response, err = cdToolchain.GetToolByIDWithContext(context.Background(), getToolByIDOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetToolByIDWithContext is an alternate form of the GetToolByID method which supports a Context parameter
 func (cdToolchain *CdToolchainV2) GetToolByIDWithContext(ctx context.Context, getToolByIDOptions *GetToolByIDOptions) (result *ToolchainTool, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getToolByIDOptions, "getToolByIDOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(getToolByIDOptions, "getToolByIDOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -744,6 +829,7 @@ func (cdToolchain *CdToolchainV2) GetToolByIDWithContext(ctx context.Context, ge
 	builder.EnableGzipCompression = cdToolchain.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/toolchains/{toolchain_id}/tools/{tool_id}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -759,17 +845,21 @@ func (cdToolchain *CdToolchainV2) GetToolByIDWithContext(ctx context.Context, ge
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = cdToolchain.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "get_tool_by_id", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalToolchainTool)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -781,17 +871,21 @@ func (cdToolchain *CdToolchainV2) GetToolByIDWithContext(ctx context.Context, ge
 // DeleteTool : Delete a tool
 // Delete the tool with the specified ID.
 func (cdToolchain *CdToolchainV2) DeleteTool(deleteToolOptions *DeleteToolOptions) (response *core.DetailedResponse, err error) {
-	return cdToolchain.DeleteToolWithContext(context.Background(), deleteToolOptions)
+	response, err = cdToolchain.DeleteToolWithContext(context.Background(), deleteToolOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // DeleteToolWithContext is an alternate form of the DeleteTool method which supports a Context parameter
 func (cdToolchain *CdToolchainV2) DeleteToolWithContext(ctx context.Context, deleteToolOptions *DeleteToolOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteToolOptions, "deleteToolOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(deleteToolOptions, "deleteToolOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -805,6 +899,7 @@ func (cdToolchain *CdToolchainV2) DeleteToolWithContext(ctx context.Context, del
 	builder.EnableGzipCompression = cdToolchain.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/toolchains/{toolchain_id}/tools/{tool_id}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -819,10 +914,16 @@ func (cdToolchain *CdToolchainV2) DeleteToolWithContext(ctx context.Context, del
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	response, err = cdToolchain.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_tool", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
 
 	return
 }
@@ -830,17 +931,21 @@ func (cdToolchain *CdToolchainV2) DeleteToolWithContext(ctx context.Context, del
 // UpdateTool : Update a tool
 // Update the tool with the specified ID.
 func (cdToolchain *CdToolchainV2) UpdateTool(updateToolOptions *UpdateToolOptions) (result *ToolchainToolPatch, response *core.DetailedResponse, err error) {
-	return cdToolchain.UpdateToolWithContext(context.Background(), updateToolOptions)
+	result, response, err = cdToolchain.UpdateToolWithContext(context.Background(), updateToolOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // UpdateToolWithContext is an alternate form of the UpdateTool method which supports a Context parameter
 func (cdToolchain *CdToolchainV2) UpdateToolWithContext(ctx context.Context, updateToolOptions *UpdateToolOptions) (result *ToolchainToolPatch, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateToolOptions, "updateToolOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(updateToolOptions, "updateToolOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -854,6 +959,7 @@ func (cdToolchain *CdToolchainV2) UpdateToolWithContext(ctx context.Context, upd
 	builder.EnableGzipCompression = cdToolchain.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(cdToolchain.Service.Options.URL, `/toolchains/{toolchain_id}/tools/{tool_id}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -870,28 +976,36 @@ func (cdToolchain *CdToolchainV2) UpdateToolWithContext(ctx context.Context, upd
 
 	_, err = builder.SetBodyContentJSON(updateToolOptions.ToolchainToolPrototypePatch)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = cdToolchain.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "update_tool", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalToolchainToolPatch)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
 	}
 
 	return
+}
+func getServiceComponentInfo() *core.ProblemComponent {
+	return core.NewProblemComponent(DefaultServiceName, "2.0.0")
 }
 
 // CreateToolOptions : The CreateTool options.
@@ -914,7 +1028,7 @@ type CreateToolOptions struct {
 	// integrations page</a>.
 	Parameters map[string]interface{} `json:"parameters,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -973,7 +1087,7 @@ type CreateToolchainEventOptions struct {
 	// Additional data to be added with the event. The format must correspond to the value of `content_type`.
 	Data *ToolchainEventPrototypeData `json:"data,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -1042,7 +1156,7 @@ type CreateToolchainOptions struct {
 	// Describes the toolchain.
 	Description *string `json:"description,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -1086,7 +1200,7 @@ type DeleteToolOptions struct {
 	// ID of the tool bound to the toolchain.
 	ToolID *string `json:"tool_id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -1121,7 +1235,7 @@ type DeleteToolchainOptions struct {
 	// ID of the toolchain.
 	ToolchainID *string `json:"toolchain_id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -1152,7 +1266,7 @@ type GetToolByIDOptions struct {
 	// ID of the tool bound to the toolchain.
 	ToolID *string `json:"tool_id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -1187,7 +1301,7 @@ type GetToolchainByIDOptions struct {
 	// ID of the toolchain.
 	ToolchainID *string `json:"toolchain_id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -1224,7 +1338,7 @@ type ListToolchainsOptions struct {
 	// Exact name of toolchain to look up. This parameter is case sensitive.
 	Name *string `json:"name,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -1276,7 +1390,7 @@ type ListToolsOptions struct {
 	// Pagination token.
 	Start *string `json:"start,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -1370,50 +1484,62 @@ func UnmarshalToolModel(m map[string]json.RawMessage, result interface{}) (err e
 	obj := new(ToolModel)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "resource_group_id", &obj.ResourceGroupID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "resource_group_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "crn-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "tool_type_id", &obj.ToolTypeID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "tool_type_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "toolchain_id", &obj.ToolchainID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "toolchain_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "toolchain_crn", &obj.ToolchainCRN)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "toolchain_crn-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "referent", &obj.Referent, UnmarshalToolModelReferent)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "referent-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "updated_at", &obj.UpdatedAt)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "updated_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "parameters", &obj.Parameters)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "parameters-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "state", &obj.State)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "state-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -1434,10 +1560,12 @@ func UnmarshalToolModelReferent(m map[string]json.RawMessage, result interface{}
 	obj := new(ToolModelReferent)
 	err = core.UnmarshalPrimitive(m, "ui_href", &obj.UIHref)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "ui_href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "api_href", &obj.APIHref)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "api_href-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -1488,50 +1616,62 @@ func UnmarshalToolchain(m map[string]json.RawMessage, result interface{}) (err e
 	obj := new(Toolchain)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "description-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "account_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "location", &obj.Location)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "location-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "resource_group_id", &obj.ResourceGroupID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "resource_group_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "crn-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "ui_href", &obj.UIHref)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "ui_href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "updated_at", &obj.UpdatedAt)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "updated_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_by", &obj.CreatedBy)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "created_by-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -1567,30 +1707,37 @@ func UnmarshalToolchainCollection(m map[string]json.RawMessage, result interface
 	obj := new(ToolchainCollection)
 	err = core.UnmarshalPrimitive(m, "total_count", &obj.TotalCount)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "total_count-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalToolchainCollectionFirst)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "first-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "previous", &obj.Previous, UnmarshalToolchainCollectionPrevious)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "previous-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalToolchainCollectionNext)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "next-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "last", &obj.Last, UnmarshalToolchainCollectionLast)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "last-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "toolchains", &obj.Toolchains, UnmarshalToolchainModel)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "toolchains-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -1616,6 +1763,7 @@ func UnmarshalToolchainCollectionFirst(m map[string]json.RawMessage, result inte
 	obj := new(ToolchainCollectionFirst)
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -1636,10 +1784,12 @@ func UnmarshalToolchainCollectionLast(m map[string]json.RawMessage, result inter
 	obj := new(ToolchainCollectionLast)
 	err = core.UnmarshalPrimitive(m, "start", &obj.Start)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "start-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -1660,10 +1810,12 @@ func UnmarshalToolchainCollectionNext(m map[string]json.RawMessage, result inter
 	obj := new(ToolchainCollectionNext)
 	err = core.UnmarshalPrimitive(m, "start", &obj.Start)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "start-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -1684,10 +1836,12 @@ func UnmarshalToolchainCollectionPrevious(m map[string]json.RawMessage, result i
 	obj := new(ToolchainCollectionPrevious)
 	err = core.UnmarshalPrimitive(m, "start", &obj.Start)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "start-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -1705,6 +1859,7 @@ func UnmarshalToolchainEventPost(m map[string]json.RawMessage, result interface{
 	obj := new(ToolchainEventPost)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -1717,7 +1872,7 @@ type ToolchainEventPrototypeData struct {
 	ApplicationJSON *ToolchainEventPrototypeDataApplicationJSON `json:"application_json,omitempty"`
 
 	// Contains text data to be added with the event. `content_type` must be set to `text/plain`.
-	TextPlain *string `json:"text_plain,omitempty"`
+	TextPlain *ToolchainEventPrototypeDataTextPlain `json:"text_plain,omitempty"`
 }
 
 // UnmarshalToolchainEventPrototypeData unmarshals an instance of ToolchainEventPrototypeData from the specified map of raw messages.
@@ -1725,10 +1880,12 @@ func UnmarshalToolchainEventPrototypeData(m map[string]json.RawMessage, result i
 	obj := new(ToolchainEventPrototypeData)
 	err = core.UnmarshalModel(m, "application_json", &obj.ApplicationJSON, UnmarshalToolchainEventPrototypeDataApplicationJSON)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "application_json-error", common.GetComponentInfo())
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "text_plain", &obj.TextPlain)
+	err = core.UnmarshalModel(m, "text_plain", &obj.TextPlain, UnmarshalToolchainEventPrototypeDataTextPlain)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "text_plain-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -1737,7 +1894,8 @@ func UnmarshalToolchainEventPrototypeData(m map[string]json.RawMessage, result i
 
 // ToolchainEventPrototypeDataApplicationJSON : Contains JSON data to be added with the event. `content_type` must be set to `application/json`.
 type ToolchainEventPrototypeDataApplicationJSON struct {
-	// JSON-formatted key-value pairs representing any additional information to be included with the event.
+	// JSON-formatted key-value pairs representing any additional information to be included with the event. The payload is
+	// constrained to a maximum depth of 5, and keys that must satisfy the pattern ^[a-zA-Z0-9-_]+$.
 	Content map[string]interface{} `json:"content" validate:"required"`
 }
 
@@ -1747,6 +1905,9 @@ func (*CdToolchainV2) NewToolchainEventPrototypeDataApplicationJSON(content map[
 		Content: content,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
 	return
 }
 
@@ -1755,6 +1916,37 @@ func UnmarshalToolchainEventPrototypeDataApplicationJSON(m map[string]json.RawMe
 	obj := new(ToolchainEventPrototypeDataApplicationJSON)
 	err = core.UnmarshalPrimitive(m, "content", &obj.Content)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "content-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ToolchainEventPrototypeDataTextPlain : Contains text data to be added with the event. `content_type` must be set to `text/plain`.
+type ToolchainEventPrototypeDataTextPlain struct {
+	// The text data to send in the event.
+	Content *string `json:"content" validate:"required"`
+}
+
+// NewToolchainEventPrototypeDataTextPlain : Instantiate ToolchainEventPrototypeDataTextPlain (Generic Model Constructor)
+func (*CdToolchainV2) NewToolchainEventPrototypeDataTextPlain(content string) (_model *ToolchainEventPrototypeDataTextPlain, err error) {
+	_model = &ToolchainEventPrototypeDataTextPlain{
+		Content: core.StringPtr(content),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
+	return
+}
+
+// UnmarshalToolchainEventPrototypeDataTextPlain unmarshals an instance of ToolchainEventPrototypeDataTextPlain from the specified map of raw messages.
+func UnmarshalToolchainEventPrototypeDataTextPlain(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ToolchainEventPrototypeDataTextPlain)
+	err = core.UnmarshalPrimitive(m, "content", &obj.Content)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "content-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -1805,50 +1997,62 @@ func UnmarshalToolchainModel(m map[string]json.RawMessage, result interface{}) (
 	obj := new(ToolchainModel)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "description-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "account_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "location", &obj.Location)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "location-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "resource_group_id", &obj.ResourceGroupID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "resource_group_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "crn-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "ui_href", &obj.UIHref)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "ui_href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "updated_at", &obj.UpdatedAt)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "updated_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_by", &obj.CreatedBy)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "created_by-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -1899,50 +2103,62 @@ func UnmarshalToolchainPatch(m map[string]json.RawMessage, result interface{}) (
 	obj := new(ToolchainPatch)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "description-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "account_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "location", &obj.Location)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "location-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "resource_group_id", &obj.ResourceGroupID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "resource_group_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "crn-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "ui_href", &obj.UIHref)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "ui_href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "updated_at", &obj.UpdatedAt)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "updated_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_by", &obj.CreatedBy)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "created_by-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -1993,50 +2209,62 @@ func UnmarshalToolchainPost(m map[string]json.RawMessage, result interface{}) (e
 	obj := new(ToolchainPost)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "description-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "account_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "location", &obj.Location)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "location-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "resource_group_id", &obj.ResourceGroupID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "resource_group_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "crn-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "ui_href", &obj.UIHref)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "ui_href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "updated_at", &obj.UpdatedAt)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "updated_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_by", &obj.CreatedBy)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "created_by-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -2057,10 +2285,12 @@ func UnmarshalToolchainPrototypePatch(m map[string]json.RawMessage, result inter
 	obj := new(ToolchainPrototypePatch)
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "description-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -2069,11 +2299,14 @@ func UnmarshalToolchainPrototypePatch(m map[string]json.RawMessage, result inter
 
 // AsPatch returns a generic map representation of the ToolchainPrototypePatch
 func (toolchainPrototypePatch *ToolchainPrototypePatch) AsPatch() (_patch map[string]interface{}, err error) {
-	var jsonData []byte
-	jsonData, err = json.Marshal(toolchainPrototypePatch)
-	if err == nil {
-		err = json.Unmarshal(jsonData, &_patch)
+	_patch = map[string]interface{}{}
+	if !core.IsNil(toolchainPrototypePatch.Name) {
+		_patch["name"] = toolchainPrototypePatch.Name
 	}
+	if !core.IsNil(toolchainPrototypePatch.Description) {
+		_patch["description"] = toolchainPrototypePatch.Description
+	}
+
 	return
 }
 
@@ -2136,50 +2369,62 @@ func UnmarshalToolchainTool(m map[string]json.RawMessage, result interface{}) (e
 	obj := new(ToolchainTool)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "resource_group_id", &obj.ResourceGroupID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "resource_group_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "crn-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "tool_type_id", &obj.ToolTypeID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "tool_type_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "toolchain_id", &obj.ToolchainID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "toolchain_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "toolchain_crn", &obj.ToolchainCRN)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "toolchain_crn-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "referent", &obj.Referent, UnmarshalToolModelReferent)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "referent-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "updated_at", &obj.UpdatedAt)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "updated_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "parameters", &obj.Parameters)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "parameters-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "state", &obj.State)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "state-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -2215,30 +2460,37 @@ func UnmarshalToolchainToolCollection(m map[string]json.RawMessage, result inter
 	obj := new(ToolchainToolCollection)
 	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "total_count", &obj.TotalCount)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "total_count-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalToolchainToolCollectionFirst)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "first-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "previous", &obj.Previous, UnmarshalToolchainToolCollectionPrevious)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "previous-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalToolchainToolCollectionNext)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "next-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "last", &obj.Last, UnmarshalToolchainToolCollectionLast)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "last-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "tools", &obj.Tools, UnmarshalToolModel)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "tools-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -2264,6 +2516,7 @@ func UnmarshalToolchainToolCollectionFirst(m map[string]json.RawMessage, result 
 	obj := new(ToolchainToolCollectionFirst)
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -2284,10 +2537,12 @@ func UnmarshalToolchainToolCollectionLast(m map[string]json.RawMessage, result i
 	obj := new(ToolchainToolCollectionLast)
 	err = core.UnmarshalPrimitive(m, "start", &obj.Start)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "start-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -2308,10 +2563,12 @@ func UnmarshalToolchainToolCollectionNext(m map[string]json.RawMessage, result i
 	obj := new(ToolchainToolCollectionNext)
 	err = core.UnmarshalPrimitive(m, "start", &obj.Start)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "start-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -2332,10 +2589,12 @@ func UnmarshalToolchainToolCollectionPrevious(m map[string]json.RawMessage, resu
 	obj := new(ToolchainToolCollectionPrevious)
 	err = core.UnmarshalPrimitive(m, "start", &obj.Start)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "start-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -2401,50 +2660,62 @@ func UnmarshalToolchainToolPatch(m map[string]json.RawMessage, result interface{
 	obj := new(ToolchainToolPatch)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "resource_group_id", &obj.ResourceGroupID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "resource_group_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "crn-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "tool_type_id", &obj.ToolTypeID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "tool_type_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "toolchain_id", &obj.ToolchainID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "toolchain_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "toolchain_crn", &obj.ToolchainCRN)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "toolchain_crn-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "referent", &obj.Referent, UnmarshalToolModelReferent)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "referent-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "updated_at", &obj.UpdatedAt)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "updated_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "parameters", &obj.Parameters)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "parameters-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "state", &obj.State)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "state-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -2510,50 +2781,62 @@ func UnmarshalToolchainToolPost(m map[string]json.RawMessage, result interface{}
 	obj := new(ToolchainToolPost)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "resource_group_id", &obj.ResourceGroupID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "resource_group_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "crn-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "tool_type_id", &obj.ToolTypeID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "tool_type_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "toolchain_id", &obj.ToolchainID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "toolchain_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "toolchain_crn", &obj.ToolchainCRN)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "toolchain_crn-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "referent", &obj.Referent, UnmarshalToolModelReferent)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "referent-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "updated_at", &obj.UpdatedAt)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "updated_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "parameters", &obj.Parameters)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "parameters-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "state", &obj.State)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "state-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -2583,14 +2866,17 @@ func UnmarshalToolchainToolPrototypePatch(m map[string]json.RawMessage, result i
 	obj := new(ToolchainToolPrototypePatch)
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "tool_type_id", &obj.ToolTypeID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "tool_type_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "parameters", &obj.Parameters)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "parameters-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -2599,11 +2885,17 @@ func UnmarshalToolchainToolPrototypePatch(m map[string]json.RawMessage, result i
 
 // AsPatch returns a generic map representation of the ToolchainToolPrototypePatch
 func (toolchainToolPrototypePatch *ToolchainToolPrototypePatch) AsPatch() (_patch map[string]interface{}, err error) {
-	var jsonData []byte
-	jsonData, err = json.Marshal(toolchainToolPrototypePatch)
-	if err == nil {
-		err = json.Unmarshal(jsonData, &_patch)
+	_patch = map[string]interface{}{}
+	if !core.IsNil(toolchainToolPrototypePatch.Name) {
+		_patch["name"] = toolchainToolPrototypePatch.Name
 	}
+	if !core.IsNil(toolchainToolPrototypePatch.ToolTypeID) {
+		_patch["tool_type_id"] = toolchainToolPrototypePatch.ToolTypeID
+	}
+	if !core.IsNil(toolchainToolPrototypePatch.Parameters) {
+		_patch["parameters"] = toolchainToolPrototypePatch.Parameters
+	}
+
 	return
 }
 
@@ -2618,7 +2910,7 @@ type UpdateToolOptions struct {
 	// JSON Merge-Patch content for update_tool.
 	ToolchainToolPrototypePatch map[string]interface{} `json:"ToolchainToolPrototype_patch" validate:"required"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -2663,7 +2955,7 @@ type UpdateToolchainOptions struct {
 	// JSON Merge-Patch content for update_toolchain.
 	ToolchainPrototypePatch map[string]interface{} `json:"ToolchainPrototype_patch" validate:"required"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -2708,7 +3000,7 @@ type ToolchainsPager struct {
 // NewToolchainsPager returns a new ToolchainsPager instance.
 func (cdToolchain *CdToolchainV2) NewToolchainsPager(options *ListToolchainsOptions) (pager *ToolchainsPager, err error) {
 	if options.Start != nil && *options.Start != "" {
-		err = fmt.Errorf("the 'options.Start' field should not be set")
+		err = core.SDKErrorf(nil, "the 'options.Start' field should not be set", "no-query-setting", common.GetComponentInfo())
 		return
 	}
 
@@ -2736,6 +3028,7 @@ func (pager *ToolchainsPager) GetNextWithContext(ctx context.Context) (page []To
 
 	result, _, err := pager.client.ListToolchainsWithContext(ctx, pager.options)
 	if err != nil {
+		err = core.RepurposeSDKProblem(err, "error-getting-next-page")
 		return
 	}
 
@@ -2757,6 +3050,7 @@ func (pager *ToolchainsPager) GetAllWithContext(ctx context.Context) (allItems [
 		var nextPage []ToolchainModel
 		nextPage, err = pager.GetNextWithContext(ctx)
 		if err != nil {
+			err = core.RepurposeSDKProblem(err, "error-getting-next-page")
 			return
 		}
 		allItems = append(allItems, nextPage...)
@@ -2766,12 +3060,16 @@ func (pager *ToolchainsPager) GetAllWithContext(ctx context.Context) (allItems [
 
 // GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
 func (pager *ToolchainsPager) GetNext() (page []ToolchainModel, err error) {
-	return pager.GetNextWithContext(context.Background())
+	page, err = pager.GetNextWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
 func (pager *ToolchainsPager) GetAll() (allItems []ToolchainModel, err error) {
-	return pager.GetAllWithContext(context.Background())
+	allItems, err = pager.GetAllWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 //
@@ -2789,7 +3087,7 @@ type ToolsPager struct {
 // NewToolsPager returns a new ToolsPager instance.
 func (cdToolchain *CdToolchainV2) NewToolsPager(options *ListToolsOptions) (pager *ToolsPager, err error) {
 	if options.Start != nil && *options.Start != "" {
-		err = fmt.Errorf("the 'options.Start' field should not be set")
+		err = core.SDKErrorf(nil, "the 'options.Start' field should not be set", "no-query-setting", common.GetComponentInfo())
 		return
 	}
 
@@ -2817,6 +3115,7 @@ func (pager *ToolsPager) GetNextWithContext(ctx context.Context) (page []ToolMod
 
 	result, _, err := pager.client.ListToolsWithContext(ctx, pager.options)
 	if err != nil {
+		err = core.RepurposeSDKProblem(err, "error-getting-next-page")
 		return
 	}
 
@@ -2838,6 +3137,7 @@ func (pager *ToolsPager) GetAllWithContext(ctx context.Context) (allItems []Tool
 		var nextPage []ToolModel
 		nextPage, err = pager.GetNextWithContext(ctx)
 		if err != nil {
+			err = core.RepurposeSDKProblem(err, "error-getting-next-page")
 			return
 		}
 		allItems = append(allItems, nextPage...)
@@ -2847,10 +3147,14 @@ func (pager *ToolsPager) GetAllWithContext(ctx context.Context) (allItems []Tool
 
 // GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
 func (pager *ToolsPager) GetNext() (page []ToolModel, err error) {
-	return pager.GetNextWithContext(context.Background())
+	page, err = pager.GetNextWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
 func (pager *ToolsPager) GetAll() (allItems []ToolModel, err error) {
-	return pager.GetAllWithContext(context.Background())
+	allItems, err = pager.GetAllWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
