@@ -1,4 +1,4 @@
-# IBM Cloud Continuous Delivery Go SDK 1.8.2
+# IBM Cloud Continuous Delivery Go SDK 2.0.0
 
 [![Build Status](https://app.travis-ci.com/IBM/continuous-delivery-go-sdk.svg?branch=main)](https://app.travis-ci.com/github/IBM/continuous-delivery-go-sdk)
 [![Release](https://img.shields.io/github/v/release/IBM/continuous-delivery-go-sdk)](https://github.com/IBM/continuous-delivery-go-sdk/releases/latest)
@@ -23,7 +23,7 @@ The Go client library to interact with the [IBM Cloud Continuous Delivery Toolch
 
 <!-- toc -->
 
-- [IBM Cloud Continuous Delivery Go SDK 1.8.2](#ibm-cloud-continuous-delivery-go-sdk-160)
+- [IBM Cloud Continuous Delivery Go SDK 2.0.0](#ibm-cloud-continuous-delivery-go-sdk-160)
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
   - [Prerequisites](#prerequisites)
@@ -60,7 +60,7 @@ Table 1. IBM Cloud services
 
 ## Installation
 
-The current version of this SDK: 1.8.2
+The current version of this SDK: 2.0.0
 
 ### Go modules
 
