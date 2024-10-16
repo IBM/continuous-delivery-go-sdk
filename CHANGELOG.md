@@ -1,3 +1,25 @@
+# [2.0.0](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.8.2...v2.0.0) (2024-10-16)
+
+
+### Features
+
+* **toolchain:** add text plain struct property for CreateToolchainEvent ([#81](https://github.com/IBM/continuous-delivery-go-sdk/issues/81)) ([7b7b432](https://github.com/IBM/continuous-delivery-go-sdk/commit/7b7b432c57fa86e9212b475a2b9bfd3e60c8432d))
+
+
+### BREAKING CHANGES
+
+* **toolchain:** the TextPlain *string property is being replaced by a ToolchainEventPrototypeDataTextPlain struct. String values must be provided using the ToolchainEventPrototypeDataTextPlain.Content property
+
+Signed-off-by: Omar Al Bastami <omar.albastami@ibm.com>
+
+* add missing test module
+
+Signed-off-by: Omar Al Bastami <omar.albastami@ibm.com>
+
+* update secrets baseline
+
+Signed-off-by: Omar Al Bastami <omar.albastami@ibm.com>
+
 ## [1.8.2](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.8.1...v1.8.2) (2024-10-10)
 
 
