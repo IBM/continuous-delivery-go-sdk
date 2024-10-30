@@ -1,4 +1,4 @@
-# IBM Cloud Continuous Delivery Go SDK 3.0.0
+# IBM Cloud Continuous Delivery Go SDK 2.0.1
 
 [![Build Status](https://app.travis-ci.com/IBM/continuous-delivery-go-sdk.svg?branch=main)](https://app.travis-ci.com/github/IBM/continuous-delivery-go-sdk)
 [![Release](https://img.shields.io/github/v/release/IBM/continuous-delivery-go-sdk)](https://github.com/IBM/continuous-delivery-go-sdk/releases/latest)
@@ -23,7 +23,7 @@ The Go client library to interact with the [IBM Cloud Continuous Delivery Toolch
 
 <!-- toc -->
 
-- [IBM Cloud Continuous Delivery Go SDK 3.0.0](#ibm-cloud-continuous-delivery-go-sdk-201)
+- [IBM Cloud Continuous Delivery Go SDK 2.0.1](#ibm-cloud-continuous-delivery-go-sdk-201)
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
   - [Prerequisites](#prerequisites)
@@ -60,7 +60,7 @@ Table 1. IBM Cloud services
 
 ## Installation
 
-The current version of this SDK: 3.0.0
+The current version of this SDK: 2.0.1
 
 ### Go modules
 
@@ -70,7 +70,7 @@ Example:
 
 ```go
 import (
-  "github.com/IBM/continuous-delivery-go-sdk/v2/cdtoolchainv2"
+  "github.com/IBM/continuous-delivery-go-sdk/cdtoolchainv2"
 )
 ```
 
@@ -83,7 +83,7 @@ In the example, the `cdtoolchainv2` part of the import path is the package name 
 Alternatively, you can use the `go get` command to download and install the appropriate packages that your application uses:
 
 ```sh
-go get -u github.com/IBM/continuous-delivery-go-sdk/v2/cdtoolchainv2
+go get -u github.com/IBM/continuous-delivery-go-sdk/cdtoolchainv2
 ```
 
 Be sure to use the appropriate package name from Table 1 for the services that your application uses.
