@@ -70,7 +70,7 @@ Example:
 
 ```go
 import (
-  "github.com/IBM/continuous-delivery-go-sdk/v2/cdtoolchainv2"
+  "github.com/IBM/continuous-delivery-go-sdk/cdtoolchainv2"
 )
 ```
 
@@ -83,7 +83,7 @@ In the example, the `cdtoolchainv2` part of the import path is the package name 
 Alternatively, you can use the `go get` command to download and install the appropriate packages that your application uses:
 
 ```sh
-go get -u github.com/IBM/continuous-delivery-go-sdk/v2/cdtoolchainv2
+go get -u github.com/IBM/continuous-delivery-go-sdk/cdtoolchainv2
 ```
 
 Be sure to use the appropriate package name from Table 1 for the services that your application uses.
