@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/IBM/continuous-delivery-go-sdk/compare/v2.0.0...v2.0.1) (2024-10-30)
+
+
+### Bug Fixes
+
+* append v2 to module name ([#82](https://github.com/IBM/continuous-delivery-go-sdk/issues/82)) ([63abcbd](https://github.com/IBM/continuous-delivery-go-sdk/commit/63abcbde3e062dd0081e871e257a5f93cf6dc72f))
+
 # [2.0.0](https://github.com/IBM/continuous-delivery-go-sdk/compare/v1.8.2...v2.0.0) (2024-10-16)
 
 
