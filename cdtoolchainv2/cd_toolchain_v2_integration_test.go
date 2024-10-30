@@ -25,7 +25,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/IBM/continuous-delivery-go-sdk/cdtoolchainv2"
+	"github.com/IBM/continuous-delivery-go-sdk/v2/cdtoolchainv2"
 	"github.com/IBM/go-sdk-core/v5/core"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"

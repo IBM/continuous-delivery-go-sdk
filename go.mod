@@ -1,13 +1,13 @@
-module github.com/IBM/continuous-delivery-go-sdk
+module github.com/IBM/continuous-delivery-go-sdk/v2
 
 go 1.21
 
 require (
-	github.com/IBM/go-sdk-core/v5 v5.17.4
-	github.com/go-openapi/strfmt v0.22.1
+	github.com/IBM/go-sdk-core/v5 v5.18.0
+	github.com/go-openapi/strfmt v0.23.0
 	github.com/onsi/ginkgo v1.16.5
 	github.com/onsi/gomega v1.31.1
-	github.com/stretchr/testify v1.8.4
+	github.com/stretchr/testify v1.9.0
 )
 
 require (
@@ -15,7 +15,7 @@ require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.3 // indirect
-	github.com/go-openapi/errors v0.21.0 // indirect
+	github.com/go-openapi/errors v0.22.0 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/go-playground/validator/v10 v10.19.0 // indirect
@@ -37,5 +37,3 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
-
-retract v1.0.0
