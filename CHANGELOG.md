@@ -1,3 +1,10 @@
+## [2.0.2](https://github.com/IBM/continuous-delivery-go-sdk/compare/v2.0.1...v2.0.2) (2024-10-31)
+
+
+### Bug Fixes
+
+* add v2 to common module import path ([#86](https://github.com/IBM/continuous-delivery-go-sdk/issues/86)) ([0492adc](https://github.com/IBM/continuous-delivery-go-sdk/commit/0492adc156edeea56035b96ba0adaf3682d9fbd2))
+
 ## [2.0.1](https://github.com/IBM/continuous-delivery-go-sdk/compare/v2.0.0...v2.0.1) (2024-10-30)
 
 
