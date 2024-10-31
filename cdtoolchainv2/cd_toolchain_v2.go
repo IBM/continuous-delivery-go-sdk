@@ -29,7 +29,7 @@ import (
 	"reflect"
 	"time"
 
-	common "github.com/IBM/continuous-delivery-go-sdk/common"
+	common "github.com/IBM/continuous-delivery-go-sdk/v2/common"
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/go-openapi/strfmt"
 )
