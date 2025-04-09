@@ -1,7 +1,7 @@
 //go:build examples
 
 /**
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -219,6 +219,7 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 			createTektonPipelineRunOptions := cdTektonPipelineService.NewCreateTektonPipelineRunOptions(
 				"94619026-912b-4d92-8f51-6c74f0692d90",
 			)
+			createTektonPipelineRunOptions.SetDescription("My custom manual PipelineRun")
 			createTektonPipelineRunOptions.SetTrigger(pipelineRunTriggerModel)
 
 			pipelineRun, response, err := cdTektonPipelineService.CreateTektonPipelineRun(createTektonPipelineRunOptions)

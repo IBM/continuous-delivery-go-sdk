@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1466,7 +1466,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				// Construct an instance of the CreateTektonPipelineRunOptions model
 				createTektonPipelineRunOptionsModel := new(cdtektonpipelinev2.CreateTektonPipelineRunOptions)
 				createTektonPipelineRunOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
-				createTektonPipelineRunOptionsModel.Description = core.StringPtr("testString")
+				createTektonPipelineRunOptionsModel.Description = core.StringPtr("My custom manual PipelineRun")
 				createTektonPipelineRunOptionsModel.TriggerName = core.StringPtr("testString")
 				createTektonPipelineRunOptionsModel.TriggerProperties = map[string]interface{}{"anyKey": "anyValue"}
 				createTektonPipelineRunOptionsModel.SecureTriggerProperties = map[string]interface{}{"anyKey": "anyValue"}
@@ -1548,7 +1548,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				// Construct an instance of the CreateTektonPipelineRunOptions model
 				createTektonPipelineRunOptionsModel := new(cdtektonpipelinev2.CreateTektonPipelineRunOptions)
 				createTektonPipelineRunOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
-				createTektonPipelineRunOptionsModel.Description = core.StringPtr("testString")
+				createTektonPipelineRunOptionsModel.Description = core.StringPtr("My custom manual PipelineRun")
 				createTektonPipelineRunOptionsModel.TriggerName = core.StringPtr("testString")
 				createTektonPipelineRunOptionsModel.TriggerProperties = map[string]interface{}{"anyKey": "anyValue"}
 				createTektonPipelineRunOptionsModel.SecureTriggerProperties = map[string]interface{}{"anyKey": "anyValue"}
@@ -1638,7 +1638,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				// Construct an instance of the CreateTektonPipelineRunOptions model
 				createTektonPipelineRunOptionsModel := new(cdtektonpipelinev2.CreateTektonPipelineRunOptions)
 				createTektonPipelineRunOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
-				createTektonPipelineRunOptionsModel.Description = core.StringPtr("testString")
+				createTektonPipelineRunOptionsModel.Description = core.StringPtr("My custom manual PipelineRun")
 				createTektonPipelineRunOptionsModel.TriggerName = core.StringPtr("testString")
 				createTektonPipelineRunOptionsModel.TriggerProperties = map[string]interface{}{"anyKey": "anyValue"}
 				createTektonPipelineRunOptionsModel.SecureTriggerProperties = map[string]interface{}{"anyKey": "anyValue"}
@@ -1673,7 +1673,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				// Construct an instance of the CreateTektonPipelineRunOptions model
 				createTektonPipelineRunOptionsModel := new(cdtektonpipelinev2.CreateTektonPipelineRunOptions)
 				createTektonPipelineRunOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
-				createTektonPipelineRunOptionsModel.Description = core.StringPtr("testString")
+				createTektonPipelineRunOptionsModel.Description = core.StringPtr("My custom manual PipelineRun")
 				createTektonPipelineRunOptionsModel.TriggerName = core.StringPtr("testString")
 				createTektonPipelineRunOptionsModel.TriggerProperties = map[string]interface{}{"anyKey": "anyValue"}
 				createTektonPipelineRunOptionsModel.SecureTriggerProperties = map[string]interface{}{"anyKey": "anyValue"}
@@ -1729,7 +1729,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				// Construct an instance of the CreateTektonPipelineRunOptions model
 				createTektonPipelineRunOptionsModel := new(cdtektonpipelinev2.CreateTektonPipelineRunOptions)
 				createTektonPipelineRunOptionsModel.PipelineID = core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")
-				createTektonPipelineRunOptionsModel.Description = core.StringPtr("testString")
+				createTektonPipelineRunOptionsModel.Description = core.StringPtr("My custom manual PipelineRun")
 				createTektonPipelineRunOptionsModel.TriggerName = core.StringPtr("testString")
 				createTektonPipelineRunOptionsModel.TriggerProperties = map[string]interface{}{"anyKey": "anyValue"}
 				createTektonPipelineRunOptionsModel.SecureTriggerProperties = map[string]interface{}{"anyKey": "anyValue"}
@@ -8140,7 +8140,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				pipelineID := "94619026-912b-4d92-8f51-6c74f0692d90"
 				createTektonPipelineRunOptionsModel := cdTektonPipelineService.NewCreateTektonPipelineRunOptions(pipelineID)
 				createTektonPipelineRunOptionsModel.SetPipelineID("94619026-912b-4d92-8f51-6c74f0692d90")
-				createTektonPipelineRunOptionsModel.SetDescription("testString")
+				createTektonPipelineRunOptionsModel.SetDescription("My custom manual PipelineRun")
 				createTektonPipelineRunOptionsModel.SetTriggerName("testString")
 				createTektonPipelineRunOptionsModel.SetTriggerProperties(map[string]interface{}{"anyKey": "anyValue"})
 				createTektonPipelineRunOptionsModel.SetSecureTriggerProperties(map[string]interface{}{"anyKey": "anyValue"})
@@ -8150,7 +8150,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				createTektonPipelineRunOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createTektonPipelineRunOptionsModel).ToNot(BeNil())
 				Expect(createTektonPipelineRunOptionsModel.PipelineID).To(Equal(core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")))
-				Expect(createTektonPipelineRunOptionsModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(createTektonPipelineRunOptionsModel.Description).To(Equal(core.StringPtr("My custom manual PipelineRun")))
 				Expect(createTektonPipelineRunOptionsModel.TriggerName).To(Equal(core.StringPtr("testString")))
 				Expect(createTektonPipelineRunOptionsModel.TriggerProperties).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(createTektonPipelineRunOptionsModel.SecureTriggerProperties).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
