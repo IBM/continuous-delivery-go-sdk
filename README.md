@@ -56,7 +56,7 @@ Table 1. IBM Cloud services
 
 - An [IBM Cloud][ibm-cloud-onboarding] account.
 - An IAM API key to allow the SDK to access your account. Create an [API key](https://cloud.ibm.com/iam/apikeys).
-- Go version 1.21 or above.
+- Go version 1.23 or above.
 
 ## Installation
 
