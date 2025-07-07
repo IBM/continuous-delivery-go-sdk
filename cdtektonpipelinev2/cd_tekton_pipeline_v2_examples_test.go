@@ -592,6 +592,7 @@ var _ = Describe(`CdTektonPipelineV2 Examples Tests`, func() {
 			)
 			createTektonPipelineTriggerOptions.SetWorker(workerIdentityModel)
 			createTektonPipelineTriggerOptions.SetMaxConcurrentRuns(int64(3))
+			createTektonPipelineTriggerOptions.SetLimitWaitingRuns(false)
 			createTektonPipelineTriggerOptions.SetEnabled(true)
 
 			trigger, response, err := cdTektonPipelineService.CreateTektonPipelineTrigger(createTektonPipelineTriggerOptions)

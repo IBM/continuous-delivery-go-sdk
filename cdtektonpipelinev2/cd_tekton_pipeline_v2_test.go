@@ -5524,6 +5524,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				createTektonPipelineTriggerOptionsModel.Tags = []string{"testString"}
 				createTektonPipelineTriggerOptionsModel.Worker = workerIdentityModel
 				createTektonPipelineTriggerOptionsModel.MaxConcurrentRuns = core.Int64Ptr(int64(3))
+				createTektonPipelineTriggerOptionsModel.LimitWaitingRuns = core.BoolPtr(false)
 				createTektonPipelineTriggerOptionsModel.Enabled = core.BoolPtr(true)
 				createTektonPipelineTriggerOptionsModel.Secret = genericSecretModel
 				createTektonPipelineTriggerOptionsModel.Cron = core.StringPtr("testString")
@@ -5629,6 +5630,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				createTektonPipelineTriggerOptionsModel.Tags = []string{"testString"}
 				createTektonPipelineTriggerOptionsModel.Worker = workerIdentityModel
 				createTektonPipelineTriggerOptionsModel.MaxConcurrentRuns = core.Int64Ptr(int64(3))
+				createTektonPipelineTriggerOptionsModel.LimitWaitingRuns = core.BoolPtr(false)
 				createTektonPipelineTriggerOptionsModel.Enabled = core.BoolPtr(true)
 				createTektonPipelineTriggerOptionsModel.Secret = genericSecretModel
 				createTektonPipelineTriggerOptionsModel.Cron = core.StringPtr("testString")
@@ -5742,6 +5744,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				createTektonPipelineTriggerOptionsModel.Tags = []string{"testString"}
 				createTektonPipelineTriggerOptionsModel.Worker = workerIdentityModel
 				createTektonPipelineTriggerOptionsModel.MaxConcurrentRuns = core.Int64Ptr(int64(3))
+				createTektonPipelineTriggerOptionsModel.LimitWaitingRuns = core.BoolPtr(false)
 				createTektonPipelineTriggerOptionsModel.Enabled = core.BoolPtr(true)
 				createTektonPipelineTriggerOptionsModel.Secret = genericSecretModel
 				createTektonPipelineTriggerOptionsModel.Cron = core.StringPtr("testString")
@@ -5800,6 +5803,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				createTektonPipelineTriggerOptionsModel.Tags = []string{"testString"}
 				createTektonPipelineTriggerOptionsModel.Worker = workerIdentityModel
 				createTektonPipelineTriggerOptionsModel.MaxConcurrentRuns = core.Int64Ptr(int64(3))
+				createTektonPipelineTriggerOptionsModel.LimitWaitingRuns = core.BoolPtr(false)
 				createTektonPipelineTriggerOptionsModel.Enabled = core.BoolPtr(true)
 				createTektonPipelineTriggerOptionsModel.Secret = genericSecretModel
 				createTektonPipelineTriggerOptionsModel.Cron = core.StringPtr("testString")
@@ -5879,6 +5883,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				createTektonPipelineTriggerOptionsModel.Tags = []string{"testString"}
 				createTektonPipelineTriggerOptionsModel.Worker = workerIdentityModel
 				createTektonPipelineTriggerOptionsModel.MaxConcurrentRuns = core.Int64Ptr(int64(3))
+				createTektonPipelineTriggerOptionsModel.LimitWaitingRuns = core.BoolPtr(false)
 				createTektonPipelineTriggerOptionsModel.Enabled = core.BoolPtr(true)
 				createTektonPipelineTriggerOptionsModel.Secret = genericSecretModel
 				createTektonPipelineTriggerOptionsModel.Cron = core.StringPtr("testString")
@@ -6174,6 +6179,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				triggerPatchModel.Tags = []string{"testString"}
 				triggerPatchModel.Worker = workerIdentityModel
 				triggerPatchModel.MaxConcurrentRuns = core.Int64Ptr(int64(4))
+				triggerPatchModel.LimitWaitingRuns = core.BoolPtr(false)
 				triggerPatchModel.Enabled = core.BoolPtr(true)
 				triggerPatchModel.Secret = genericSecretModel
 				triggerPatchModel.Cron = core.StringPtr("testString")
@@ -6286,6 +6292,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				triggerPatchModel.Tags = []string{"testString"}
 				triggerPatchModel.Worker = workerIdentityModel
 				triggerPatchModel.MaxConcurrentRuns = core.Int64Ptr(int64(4))
+				triggerPatchModel.LimitWaitingRuns = core.BoolPtr(false)
 				triggerPatchModel.Enabled = core.BoolPtr(true)
 				triggerPatchModel.Secret = genericSecretModel
 				triggerPatchModel.Cron = core.StringPtr("testString")
@@ -6406,6 +6413,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				triggerPatchModel.Tags = []string{"testString"}
 				triggerPatchModel.Worker = workerIdentityModel
 				triggerPatchModel.MaxConcurrentRuns = core.Int64Ptr(int64(4))
+				triggerPatchModel.LimitWaitingRuns = core.BoolPtr(false)
 				triggerPatchModel.Enabled = core.BoolPtr(true)
 				triggerPatchModel.Secret = genericSecretModel
 				triggerPatchModel.Cron = core.StringPtr("testString")
@@ -6471,6 +6479,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				triggerPatchModel.Tags = []string{"testString"}
 				triggerPatchModel.Worker = workerIdentityModel
 				triggerPatchModel.MaxConcurrentRuns = core.Int64Ptr(int64(4))
+				triggerPatchModel.LimitWaitingRuns = core.BoolPtr(false)
 				triggerPatchModel.Enabled = core.BoolPtr(true)
 				triggerPatchModel.Secret = genericSecretModel
 				triggerPatchModel.Cron = core.StringPtr("testString")
@@ -6557,6 +6566,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				triggerPatchModel.Tags = []string{"testString"}
 				triggerPatchModel.Worker = workerIdentityModel
 				triggerPatchModel.MaxConcurrentRuns = core.Int64Ptr(int64(4))
+				triggerPatchModel.LimitWaitingRuns = core.BoolPtr(false)
 				triggerPatchModel.Enabled = core.BoolPtr(true)
 				triggerPatchModel.Secret = genericSecretModel
 				triggerPatchModel.Cron = core.StringPtr("testString")
@@ -8211,6 +8221,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				createTektonPipelineTriggerOptionsModel.SetTags([]string{"testString"})
 				createTektonPipelineTriggerOptionsModel.SetWorker(workerIdentityModel)
 				createTektonPipelineTriggerOptionsModel.SetMaxConcurrentRuns(int64(3))
+				createTektonPipelineTriggerOptionsModel.SetLimitWaitingRuns(false)
 				createTektonPipelineTriggerOptionsModel.SetEnabled(true)
 				createTektonPipelineTriggerOptionsModel.SetSecret(genericSecretModel)
 				createTektonPipelineTriggerOptionsModel.SetCron("testString")
@@ -8229,6 +8240,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				Expect(createTektonPipelineTriggerOptionsModel.Tags).To(Equal([]string{"testString"}))
 				Expect(createTektonPipelineTriggerOptionsModel.Worker).To(Equal(workerIdentityModel))
 				Expect(createTektonPipelineTriggerOptionsModel.MaxConcurrentRuns).To(Equal(core.Int64Ptr(int64(3))))
+				Expect(createTektonPipelineTriggerOptionsModel.LimitWaitingRuns).To(Equal(core.BoolPtr(false)))
 				Expect(createTektonPipelineTriggerOptionsModel.Enabled).To(Equal(core.BoolPtr(true)))
 				Expect(createTektonPipelineTriggerOptionsModel.Secret).To(Equal(genericSecretModel))
 				Expect(createTektonPipelineTriggerOptionsModel.Cron).To(Equal(core.StringPtr("testString")))
@@ -8877,6 +8889,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 			model.Tags = []string{"testString"}
 			model.Worker = nil
 			model.MaxConcurrentRuns = core.Int64Ptr(int64(4))
+			model.LimitWaitingRuns = core.BoolPtr(false)
 			model.Enabled = core.BoolPtr(true)
 			model.Secret = nil
 			model.Cron = core.StringPtr("testString")

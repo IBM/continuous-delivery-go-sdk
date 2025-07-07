@@ -2023,6 +2023,9 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineTriggerWithConte
 	if createTektonPipelineTriggerOptions.MaxConcurrentRuns != nil {
 		body["max_concurrent_runs"] = createTektonPipelineTriggerOptions.MaxConcurrentRuns
 	}
+	if createTektonPipelineTriggerOptions.LimitWaitingRuns != nil {
+		body["limit_waiting_runs"] = createTektonPipelineTriggerOptions.LimitWaitingRuns
+	}
 	if createTektonPipelineTriggerOptions.Enabled != nil {
 		body["enabled"] = createTektonPipelineTriggerOptions.Enabled
 	}
@@ -3153,6 +3156,10 @@ type CreateTektonPipelineTriggerOptions struct {
 	// for this trigger.
 	MaxConcurrentRuns *int64 `json:"max_concurrent_runs,omitempty"`
 
+	// Only used for SCM triggers. Flag that will limit the trigger to a maximum of one waiting run. A newly triggered run
+	// will cause waiting run(s) to be automatically cancelled.
+	LimitWaitingRuns *bool `json:"limit_waiting_runs,omitempty"`
+
 	// Flag to check if the trigger is enabled. If omitted the trigger is enabled by default.
 	Enabled *bool `json:"enabled,omitempty"`
 
@@ -3261,6 +3268,12 @@ func (_options *CreateTektonPipelineTriggerOptions) SetWorker(worker *WorkerIden
 // SetMaxConcurrentRuns : Allow user to set MaxConcurrentRuns
 func (_options *CreateTektonPipelineTriggerOptions) SetMaxConcurrentRuns(maxConcurrentRuns int64) *CreateTektonPipelineTriggerOptions {
 	_options.MaxConcurrentRuns = core.Int64Ptr(maxConcurrentRuns)
+	return _options
+}
+
+// SetLimitWaitingRuns : Allow user to set LimitWaitingRuns
+func (_options *CreateTektonPipelineTriggerOptions) SetLimitWaitingRuns(limitWaitingRuns bool) *CreateTektonPipelineTriggerOptions {
+	_options.LimitWaitingRuns = core.BoolPtr(limitWaitingRuns)
 	return _options
 }
 
@@ -5918,6 +5931,10 @@ type Trigger struct {
 	// for event filtering against the Git webhook payloads.
 	Filter *string `json:"filter,omitempty"`
 
+	// Flag that will limit the trigger to a maximum of one waiting run. A newly triggered run will cause waiting run(s) to
+	// be automatically cancelled.
+	LimitWaitingRuns *bool `json:"limit_waiting_runs,omitempty"`
+
 	// Only needed for timer triggers. CRON expression that indicates when this trigger will activate. Maximum frequency is
 	// every 5 minutes. The string is based on UNIX crontab syntax: minute, hour, day of month, month, day of week.
 	// Example: The CRON expression 0 *_/2 * * * - translates to - every 2 hours.
@@ -6029,6 +6046,11 @@ func UnmarshalTrigger(m map[string]json.RawMessage, result interface{}) (err err
 		err = core.SDKErrorf(err, "", "filter-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "limit_waiting_runs", &obj.LimitWaitingRuns)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "limit_waiting_runs-error", common.GetComponentInfo())
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "cron", &obj.Cron)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "cron-error", common.GetComponentInfo())
@@ -6075,6 +6097,10 @@ type TriggerPatch struct {
 	// Defines the maximum number of concurrent runs for this trigger. If set to 0 then the custom concurrency limit is
 	// disabled for this trigger.
 	MaxConcurrentRuns *int64 `json:"max_concurrent_runs,omitempty"`
+
+	// Only used for SCM triggers. Flag that will limit the trigger to a maximum of one waiting run. A newly triggered run
+	// will cause waiting run(s) to be automatically cancelled.
+	LimitWaitingRuns *bool `json:"limit_waiting_runs,omitempty"`
 
 	// Defines if this trigger is enabled.
 	Enabled *bool `json:"enabled,omitempty"`
@@ -6165,6 +6191,11 @@ func UnmarshalTriggerPatch(m map[string]json.RawMessage, result interface{}) (er
 		err = core.SDKErrorf(err, "", "max_concurrent_runs-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "limit_waiting_runs", &obj.LimitWaitingRuns)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "limit_waiting_runs-error", common.GetComponentInfo())
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "enabled", &obj.Enabled)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "enabled-error", common.GetComponentInfo())
@@ -6234,6 +6265,9 @@ func (triggerPatch *TriggerPatch) AsPatch() (_patch map[string]interface{}, err 
 	}
 	if !core.IsNil(triggerPatch.MaxConcurrentRuns) {
 		_patch["max_concurrent_runs"] = triggerPatch.MaxConcurrentRuns
+	}
+	if !core.IsNil(triggerPatch.LimitWaitingRuns) {
+		_patch["limit_waiting_runs"] = triggerPatch.LimitWaitingRuns
 	}
 	if !core.IsNil(triggerPatch.Enabled) {
 		_patch["enabled"] = triggerPatch.Enabled
@@ -7069,6 +7103,10 @@ type TriggerScmTrigger struct {
 	// Either 'events' or 'filter' can be used. Stores the CEL (Common Expression Language) expression value which is used
 	// for event filtering against the Git webhook payloads.
 	Filter *string `json:"filter,omitempty"`
+
+	// Flag that will limit the trigger to a maximum of one waiting run. A newly triggered run will cause waiting run(s) to
+	// be automatically cancelled.
+	LimitWaitingRuns *bool `json:"limit_waiting_runs,omitempty"`
 }
 
 // Constants associated with the TriggerScmTrigger.Events property.
@@ -7160,6 +7198,11 @@ func UnmarshalTriggerScmTrigger(m map[string]json.RawMessage, result interface{}
 	err = core.UnmarshalPrimitive(m, "filter", &obj.Filter)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "filter-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "limit_waiting_runs", &obj.LimitWaitingRuns)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "limit_waiting_runs-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
