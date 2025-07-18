@@ -1,6 +1,6 @@
 language: go
 
-dist: focal
+dist: jammy
 
 go:
 - 1.23.x
