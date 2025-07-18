@@ -3,8 +3,8 @@ language: go
 dist: jammy
 
 go:
-- 1.23.x
-- 1.24.x
+  - 1.23.x
+  - 1.24.x
 
 notifications:
   email: true
