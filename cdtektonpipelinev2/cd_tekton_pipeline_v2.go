@@ -3156,8 +3156,8 @@ type CreateTektonPipelineTriggerOptions struct {
 	// for this trigger.
 	MaxConcurrentRuns *int64 `json:"max_concurrent_runs,omitempty"`
 
-	// Only used for SCM triggers. Flag that will limit the trigger to a maximum of one waiting run. A newly triggered run
-	// will cause waiting run(s) to be automatically cancelled.
+	// Flag that will limit the trigger to a maximum of one waiting run. A newly triggered run will cause any other waiting
+	// run(s) to be automatically cancelled.
 	LimitWaitingRuns *bool `json:"limit_waiting_runs,omitempty"`
 
 	// Flag to check if the trigger is enabled. If omitted the trigger is enabled by default.
@@ -5914,6 +5914,10 @@ type Trigger struct {
 	// Mark the trigger as a favorite.
 	Favorite *bool `json:"favorite,omitempty"`
 
+	// Flag that will limit the trigger to a maximum of one waiting run. A newly triggered run will cause any other waiting
+	// run(s) to be automatically cancelled.
+	LimitWaitingRuns *bool `json:"limit_waiting_runs,omitempty"`
+
 	// When enabled, pull request events from forks of the selected repository will trigger a pipeline run.
 	EnableEventsFromForks *bool `json:"enable_events_from_forks,omitempty"`
 
@@ -5930,10 +5934,6 @@ type Trigger struct {
 	// Either 'events' or 'filter' can be used. Stores the CEL (Common Expression Language) expression value which is used
 	// for event filtering against the Git webhook payloads.
 	Filter *string `json:"filter,omitempty"`
-
-	// Flag that will limit the trigger to a maximum of one waiting run. A newly triggered run will cause waiting run(s) to
-	// be automatically cancelled.
-	LimitWaitingRuns *bool `json:"limit_waiting_runs,omitempty"`
 
 	// Only needed for timer triggers. CRON expression that indicates when this trigger will activate. Maximum frequency is
 	// every 5 minutes. The string is based on UNIX crontab syntax: minute, hour, day of month, month, day of week.
@@ -6026,6 +6026,11 @@ func UnmarshalTrigger(m map[string]json.RawMessage, result interface{}) (err err
 		err = core.SDKErrorf(err, "", "favorite-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "limit_waiting_runs", &obj.LimitWaitingRuns)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "limit_waiting_runs-error", common.GetComponentInfo())
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "enable_events_from_forks", &obj.EnableEventsFromForks)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "enable_events_from_forks-error", common.GetComponentInfo())
@@ -6044,11 +6049,6 @@ func UnmarshalTrigger(m map[string]json.RawMessage, result interface{}) (err err
 	err = core.UnmarshalPrimitive(m, "filter", &obj.Filter)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "filter-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "limit_waiting_runs", &obj.LimitWaitingRuns)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "limit_waiting_runs-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "cron", &obj.Cron)
@@ -6098,8 +6098,8 @@ type TriggerPatch struct {
 	// disabled for this trigger.
 	MaxConcurrentRuns *int64 `json:"max_concurrent_runs,omitempty"`
 
-	// Only used for SCM triggers. Flag that will limit the trigger to a maximum of one waiting run. A newly triggered run
-	// will cause waiting run(s) to be automatically cancelled.
+	// Flag that will limit the trigger to a maximum of one waiting run. A newly triggered run will cause any other waiting
+	// run(s) to be automatically cancelled.
 	LimitWaitingRuns *bool `json:"limit_waiting_runs,omitempty"`
 
 	// Defines if this trigger is enabled.
@@ -6849,6 +6849,10 @@ type TriggerGenericTrigger struct {
 	// Mark the trigger as a favorite.
 	Favorite *bool `json:"favorite,omitempty"`
 
+	// Flag that will limit the trigger to a maximum of one waiting run. A newly triggered run will cause any other waiting
+	// run(s) to be automatically cancelled.
+	LimitWaitingRuns *bool `json:"limit_waiting_runs,omitempty"`
+
 	// Only needed for Generic Webhook trigger type. The secret is used to start the Generic Webhook trigger.
 	Secret *GenericSecret `json:"secret,omitempty"`
 
@@ -6922,6 +6926,11 @@ func UnmarshalTriggerGenericTrigger(m map[string]json.RawMessage, result interfa
 		err = core.SDKErrorf(err, "", "favorite-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "limit_waiting_runs", &obj.LimitWaitingRuns)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "limit_waiting_runs-error", common.GetComponentInfo())
+		return
+	}
 	err = core.UnmarshalModel(m, "secret", &obj.Secret, UnmarshalGenericSecret)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "secret-error", common.GetComponentInfo())
@@ -6979,6 +6988,10 @@ type TriggerManualTrigger struct {
 
 	// Mark the trigger as a favorite.
 	Favorite *bool `json:"favorite,omitempty"`
+
+	// Flag that will limit the trigger to a maximum of one waiting run. A newly triggered run will cause any other waiting
+	// run(s) to be automatically cancelled.
+	LimitWaitingRuns *bool `json:"limit_waiting_runs,omitempty"`
 }
 
 func (*TriggerManualTrigger) isaTrigger() bool {
@@ -7043,6 +7056,11 @@ func UnmarshalTriggerManualTrigger(m map[string]json.RawMessage, result interfac
 		err = core.SDKErrorf(err, "", "favorite-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "limit_waiting_runs", &obj.LimitWaitingRuns)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "limit_waiting_runs-error", common.GetComponentInfo())
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -7087,6 +7105,10 @@ type TriggerScmTrigger struct {
 	// Mark the trigger as a favorite.
 	Favorite *bool `json:"favorite,omitempty"`
 
+	// Flag that will limit the trigger to a maximum of one waiting run. A newly triggered run will cause any other waiting
+	// run(s) to be automatically cancelled.
+	LimitWaitingRuns *bool `json:"limit_waiting_runs,omitempty"`
+
 	// When enabled, pull request events from forks of the selected repository will trigger a pipeline run.
 	EnableEventsFromForks *bool `json:"enable_events_from_forks,omitempty"`
 
@@ -7103,10 +7125,6 @@ type TriggerScmTrigger struct {
 	// Either 'events' or 'filter' can be used. Stores the CEL (Common Expression Language) expression value which is used
 	// for event filtering against the Git webhook payloads.
 	Filter *string `json:"filter,omitempty"`
-
-	// Flag that will limit the trigger to a maximum of one waiting run. A newly triggered run will cause waiting run(s) to
-	// be automatically cancelled.
-	LimitWaitingRuns *bool `json:"limit_waiting_runs,omitempty"`
 }
 
 // Constants associated with the TriggerScmTrigger.Events property.
@@ -7180,6 +7198,11 @@ func UnmarshalTriggerScmTrigger(m map[string]json.RawMessage, result interface{}
 		err = core.SDKErrorf(err, "", "favorite-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "limit_waiting_runs", &obj.LimitWaitingRuns)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "limit_waiting_runs-error", common.GetComponentInfo())
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "enable_events_from_forks", &obj.EnableEventsFromForks)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "enable_events_from_forks-error", common.GetComponentInfo())
@@ -7198,11 +7221,6 @@ func UnmarshalTriggerScmTrigger(m map[string]json.RawMessage, result interface{}
 	err = core.UnmarshalPrimitive(m, "filter", &obj.Filter)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "filter-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "limit_waiting_runs", &obj.LimitWaitingRuns)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "limit_waiting_runs-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -7247,6 +7265,10 @@ type TriggerTimerTrigger struct {
 
 	// Mark the trigger as a favorite.
 	Favorite *bool `json:"favorite,omitempty"`
+
+	// Flag that will limit the trigger to a maximum of one waiting run. A newly triggered run will cause any other waiting
+	// run(s) to be automatically cancelled.
+	LimitWaitingRuns *bool `json:"limit_waiting_runs,omitempty"`
 
 	// Only needed for timer triggers. CRON expression that indicates when this trigger will activate. Maximum frequency is
 	// every 5 minutes. The string is based on UNIX crontab syntax: minute, hour, day of month, month, day of week.
@@ -7319,6 +7341,11 @@ func UnmarshalTriggerTimerTrigger(m map[string]json.RawMessage, result interface
 	err = core.UnmarshalPrimitive(m, "favorite", &obj.Favorite)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "favorite-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "limit_waiting_runs", &obj.LimitWaitingRuns)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "limit_waiting_runs-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "cron", &obj.Cron)
