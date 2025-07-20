@@ -17,6 +17,8 @@ env:
 
 before_install:
   - pyenv global 3.8
+  - echo $TRAVIS_GO_VERSION
+  - go version
 
 install:
   # Travis's docs claim to use gimme to install the go version but they in fact use go install. This does not support
