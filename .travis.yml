@@ -3,8 +3,10 @@ language: go
 dist: jammy
 
 go:
-  - GO_VERSION="module" # The oldest version we claim to support
-  - GO_VERSION="stable" # The latest version
+  - 1.23.x
+  - 1.24.x
+  # - GO_VERSION="module" # The oldest version we claim to support
+  # - GO_VERSION="stable" # The latest version
 
 notifications:
   email: true
@@ -20,11 +22,11 @@ install:
   # Travis's docs claim to use gimme to install the go version but they in fact use go install. This does not support
   # the 1.23.x syntax or any equivalent. Travis's version of gimme is also unmaintained and broken. Use a maintained
   # version from the urfave org in its place.
-  - curl -sL -o ~/bin/gimme https://raw.githubusercontent.com/urfave/gimme/main/gimme
-  - chmod +x ~/bin/gimme
-  - gimme version
-  - eval "$(gimme "$GO_VERSION")"
-  - go env
+  # - curl -sL -o ~/bin/gimme https://raw.githubusercontent.com/urfave/gimme/main/gimme
+  # - chmod +x ~/bin/gimme
+  # - gimme version
+  # - eval "$(gimme "$GO_VERSION")"
+  # - go env
   - curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s -- -b $(go env GOPATH)/bin v1.64.4
 
 script:
@@ -36,6 +38,7 @@ before_deploy:
   - npm --version
   - npm install
   - go version
+  - echo $TRAVIS_GO_VERSION
   - pip install --user bump-my-version
 
 deploy:
