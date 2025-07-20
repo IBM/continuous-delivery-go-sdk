@@ -3,7 +3,8 @@ language: go
 dist: jammy
 
 go:
-  - 1.23.11
+  - 1.23.x
+  # - 1.23.11
   - 1.24.x
 
 notifications:
@@ -16,7 +17,6 @@ env:
 before_install:
   - pyenv global 3.8
   - echo $TRAVIS_GO_VERSION
-  - echo $($TRAVIS_GO_VERSION =~ ^1\.23)
   - go version
 
 install:
@@ -47,6 +47,6 @@ deploy:
   script: npm run semantic-release --dry-run
   skip_cleanup: true
   on:
-    go: 1.23.11
-    # condition: $TRAVIS_GO_VERSION =~ ^1\.23
+    # go: 1.23.11
+    condition: $TRAVIS_GO_VERSION =~ ^1\.23
     branch: main
