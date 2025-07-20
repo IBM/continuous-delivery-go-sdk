@@ -3,8 +3,10 @@ language: go
 dist: jammy
 
 go:
-  - 1.23.x
-  - 1.24.x
+  - 1.23
+  - 1.24
+  - module
+  - stable
   # - GO_VERSION="module" # The oldest version we claim to support
   # - GO_VERSION="stable" # The latest version
 
@@ -45,7 +47,7 @@ before_deploy:
 
 deploy:
 - provider: script
-  script: npm run semantic-release
+  script: npm run semantic-release --dry-run
   skip_cleanup: true
   on:
     go: '1.23.x'
