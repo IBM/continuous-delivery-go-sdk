@@ -42,9 +42,9 @@ before_deploy:
   - pip install --user bump-my-version
 
 deploy:
-  - provider: script
-    script: npm run semantic-release
-    skip_cleanup: true
-    on:
-      go: '1.23.x'
-      branch: main
+- provider: script
+  script: npm run semantic-release
+  skip_cleanup: true
+  on:
+    go: '1.23.x'
+    branch: main
