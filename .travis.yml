@@ -3,12 +3,8 @@ language: go
 dist: jammy
 
 go:
-  - 1.23
-  - 1.24
-  - module
-  - stable
-  # - GO_VERSION="module" # The oldest version we claim to support
-  # - GO_VERSION="stable" # The latest version
+  - 1.23.11
+  - 1.24.x
 
 notifications:
   email: true
@@ -20,6 +16,7 @@ env:
 before_install:
   - pyenv global 3.8
   - echo $TRAVIS_GO_VERSION
+  - echo $($TRAVIS_GO_VERSION =~ ^1\.23)
   - go version
 
 install:
@@ -51,4 +48,5 @@ deploy:
   skip_cleanup: true
   on:
     go: '1.23.x'
+    # condition: $TRAVIS_GO_VERSION =~ ^1\.23
     branch: main
