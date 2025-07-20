@@ -13,9 +13,9 @@ env:
   global:
     - GO111MODULE=on
 
-before_install:
-  # - pyenv global 3.8
-  - go version
+# No longer needed, but keeping below as an example
+# before_install:
+#   - go version
 
 install:
   - curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s -- -b $(go env GOPATH)/bin v1.64.4
@@ -34,8 +34,9 @@ before_deploy:
 
 deploy:
 - provider: script
-  script: npm run semantic-release --dry-run
+  script: npm run semantic-release
   skip_cleanup: true
   on:
+    # Using "go: '1.23.x'" here was not working. Using below condition instead from https://docs.travis-ci.com/user/languages/go/#environment-variable
     condition: $TRAVIS_GO_VERSION =~ ^1\.23
     branch: main
