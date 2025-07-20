@@ -47,6 +47,6 @@ deploy:
   script: npm run semantic-release --dry-run
   skip_cleanup: true
   on:
-    go: '1.23.x'
+    go: 1.23.11
     # condition: $TRAVIS_GO_VERSION =~ ^1\.23
     branch: main
