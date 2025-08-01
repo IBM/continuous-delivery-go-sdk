@@ -822,7 +822,7 @@ func (cdToolchain *CdToolchainV2) GetToolByIDWithContext(ctx context.Context, ge
 
 	pathParamsMap := map[string]string{
 		"toolchain_id": *getToolByIDOptions.ToolchainID,
-		"tool_id":      *getToolByIDOptions.ToolID,
+		"tool_id": *getToolByIDOptions.ToolID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -892,7 +892,7 @@ func (cdToolchain *CdToolchainV2) DeleteToolWithContext(ctx context.Context, del
 
 	pathParamsMap := map[string]string{
 		"toolchain_id": *deleteToolOptions.ToolchainID,
-		"tool_id":      *deleteToolOptions.ToolID,
+		"tool_id": *deleteToolOptions.ToolID,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -952,7 +952,7 @@ func (cdToolchain *CdToolchainV2) UpdateToolWithContext(ctx context.Context, upd
 
 	pathParamsMap := map[string]string{
 		"toolchain_id": *updateToolOptions.ToolchainID,
-		"tool_id":      *updateToolOptions.ToolID,
+		"tool_id": *updateToolOptions.ToolID,
 	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
@@ -1037,7 +1037,7 @@ type CreateToolOptions struct {
 func (*CdToolchainV2) NewCreateToolOptions(toolchainID string, toolTypeID string) *CreateToolOptions {
 	return &CreateToolOptions{
 		ToolchainID: core.StringPtr(toolchainID),
-		ToolTypeID:  core.StringPtr(toolTypeID),
+		ToolTypeID: core.StringPtr(toolTypeID),
 	}
 }
 
@@ -1096,15 +1096,15 @@ type CreateToolchainEventOptions struct {
 // The content type of the attached data. Supported values are `text/plain`, `application/json`, and `none`.
 const (
 	CreateToolchainEventOptionsContentTypeApplicationJSONConst = "application/json"
-	CreateToolchainEventOptionsContentTypeNoneConst            = "none"
-	CreateToolchainEventOptionsContentTypeTextPlainConst       = "text/plain"
+	CreateToolchainEventOptionsContentTypeNoneConst = "none"
+	CreateToolchainEventOptionsContentTypeTextPlainConst = "text/plain"
 )
 
 // NewCreateToolchainEventOptions : Instantiate CreateToolchainEventOptions
 func (*CdToolchainV2) NewCreateToolchainEventOptions(toolchainID string, title string, description string, contentType string) *CreateToolchainEventOptions {
 	return &CreateToolchainEventOptions{
 		ToolchainID: core.StringPtr(toolchainID),
-		Title:       core.StringPtr(title),
+		Title: core.StringPtr(title),
 		Description: core.StringPtr(description),
 		ContentType: core.StringPtr(contentType),
 	}
@@ -1164,7 +1164,7 @@ type CreateToolchainOptions struct {
 // NewCreateToolchainOptions : Instantiate CreateToolchainOptions
 func (*CdToolchainV2) NewCreateToolchainOptions(name string, resourceGroupID string) *CreateToolchainOptions {
 	return &CreateToolchainOptions{
-		Name:            core.StringPtr(name),
+		Name: core.StringPtr(name),
 		ResourceGroupID: core.StringPtr(resourceGroupID),
 	}
 }
@@ -1209,7 +1209,7 @@ type DeleteToolOptions struct {
 func (*CdToolchainV2) NewDeleteToolOptions(toolchainID string, toolID string) *DeleteToolOptions {
 	return &DeleteToolOptions{
 		ToolchainID: core.StringPtr(toolchainID),
-		ToolID:      core.StringPtr(toolID),
+		ToolID: core.StringPtr(toolID),
 	}
 }
 
@@ -1275,7 +1275,7 @@ type GetToolByIDOptions struct {
 func (*CdToolchainV2) NewGetToolByIDOptions(toolchainID string, toolID string) *GetToolByIDOptions {
 	return &GetToolByIDOptions{
 		ToolchainID: core.StringPtr(toolchainID),
-		ToolID:      core.StringPtr(toolID),
+		ToolID: core.StringPtr(toolID),
 	}
 }
 
@@ -1474,10 +1474,10 @@ type ToolModel struct {
 // Constants associated with the ToolModel.State property.
 // Current configuration state of the tool.
 const (
-	ToolModelStateConfiguredConst    = "configured"
-	ToolModelStateConfiguringConst   = "configuring"
+	ToolModelStateConfiguredConst = "configured"
+	ToolModelStateConfiguringConst = "configuring"
 	ToolModelStateMisconfiguredConst = "misconfigured"
-	ToolModelStateUnconfiguredConst  = "unconfigured"
+	ToolModelStateUnconfiguredConst = "unconfigured"
 )
 
 // UnmarshalToolModel unmarshals an instance of ToolModel from the specified map of raw messages.
@@ -2359,10 +2359,10 @@ type ToolchainTool struct {
 // Constants associated with the ToolchainTool.State property.
 // Current configuration state of the tool.
 const (
-	ToolchainToolStateConfiguredConst    = "configured"
-	ToolchainToolStateConfiguringConst   = "configuring"
+	ToolchainToolStateConfiguredConst = "configured"
+	ToolchainToolStateConfiguringConst = "configuring"
 	ToolchainToolStateMisconfiguredConst = "misconfigured"
-	ToolchainToolStateUnconfiguredConst  = "unconfigured"
+	ToolchainToolStateUnconfiguredConst = "unconfigured"
 )
 
 // UnmarshalToolchainTool unmarshals an instance of ToolchainTool from the specified map of raw messages.
@@ -2650,10 +2650,10 @@ type ToolchainToolPatch struct {
 // Constants associated with the ToolchainToolPatch.State property.
 // Current configuration state of the tool.
 const (
-	ToolchainToolPatchStateConfiguredConst    = "configured"
-	ToolchainToolPatchStateConfiguringConst   = "configuring"
+	ToolchainToolPatchStateConfiguredConst = "configured"
+	ToolchainToolPatchStateConfiguringConst = "configuring"
 	ToolchainToolPatchStateMisconfiguredConst = "misconfigured"
-	ToolchainToolPatchStateUnconfiguredConst  = "unconfigured"
+	ToolchainToolPatchStateUnconfiguredConst = "unconfigured"
 )
 
 // UnmarshalToolchainToolPatch unmarshals an instance of ToolchainToolPatch from the specified map of raw messages.
@@ -2771,10 +2771,10 @@ type ToolchainToolPost struct {
 // Constants associated with the ToolchainToolPost.State property.
 // Current configuration state of the tool.
 const (
-	ToolchainToolPostStateConfiguredConst    = "configured"
-	ToolchainToolPostStateConfiguringConst   = "configuring"
+	ToolchainToolPostStateConfiguredConst = "configured"
+	ToolchainToolPostStateConfiguringConst = "configuring"
 	ToolchainToolPostStateMisconfiguredConst = "misconfigured"
-	ToolchainToolPostStateUnconfiguredConst  = "unconfigured"
+	ToolchainToolPostStateUnconfiguredConst = "unconfigured"
 )
 
 // UnmarshalToolchainToolPost unmarshals an instance of ToolchainToolPost from the specified map of raw messages.
@@ -2918,8 +2918,8 @@ type UpdateToolOptions struct {
 // NewUpdateToolOptions : Instantiate UpdateToolOptions
 func (*CdToolchainV2) NewUpdateToolOptions(toolchainID string, toolID string, toolchainToolPrototypePatch map[string]interface{}) *UpdateToolOptions {
 	return &UpdateToolOptions{
-		ToolchainID:                 core.StringPtr(toolchainID),
-		ToolID:                      core.StringPtr(toolID),
+		ToolchainID: core.StringPtr(toolchainID),
+		ToolID: core.StringPtr(toolID),
 		ToolchainToolPrototypePatch: toolchainToolPrototypePatch,
 	}
 }
@@ -2963,7 +2963,7 @@ type UpdateToolchainOptions struct {
 // NewUpdateToolchainOptions : Instantiate UpdateToolchainOptions
 func (*CdToolchainV2) NewUpdateToolchainOptions(toolchainID string, toolchainPrototypePatch map[string]interface{}) *UpdateToolchainOptions {
 	return &UpdateToolchainOptions{
-		ToolchainID:             core.StringPtr(toolchainID),
+		ToolchainID: core.StringPtr(toolchainID),
 		ToolchainPrototypePatch: toolchainPrototypePatch,
 	}
 }
@@ -2990,9 +2990,9 @@ func (options *UpdateToolchainOptions) SetHeaders(param map[string]string) *Upda
 // ToolchainsPager can be used to simplify the use of the "ListToolchains" method.
 //
 type ToolchainsPager struct {
-	hasNext     bool
-	options     *ListToolchainsOptions
-	client      *CdToolchainV2
+	hasNext bool
+	options *ListToolchainsOptions
+	client  *CdToolchainV2
 	pageContext struct {
 		next *string
 	}
@@ -3077,9 +3077,9 @@ func (pager *ToolchainsPager) GetAll() (allItems []ToolchainModel, err error) {
 // ToolsPager can be used to simplify the use of the "ListTools" method.
 //
 type ToolsPager struct {
-	hasNext     bool
-	options     *ListToolsOptions
-	client      *CdToolchainV2
+	hasNext bool
+	options *ListToolsOptions
+	client  *CdToolchainV2
 	pageContext struct {
 		next *string
 	}
