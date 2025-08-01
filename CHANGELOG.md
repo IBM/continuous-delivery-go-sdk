@@ -1,3 +1,10 @@
+## [2.0.4](https://github.com/IBM/continuous-delivery-go-sdk/compare/v2.0.3...v2.0.4) (2025-08-01)
+
+
+### Bug Fixes
+
+* add ca-mon region support to pipeline ([301cb96](https://github.com/IBM/continuous-delivery-go-sdk/commit/301cb96d35ed61a28c1f5f843054b692cbc70506))
+
 ## [2.0.3](https://github.com/IBM/continuous-delivery-go-sdk/compare/v2.0.2...v2.0.3) (2025-07-20)
 
 
