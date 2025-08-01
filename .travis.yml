@@ -1,11 +1,10 @@
 language: go
 
-dist: focal
+dist: jammy
 
 go:
-- 1.21.x
-- 1.22.x
-- 1.23.x
+  - 1.23.x
+  - 1.24.x
 
 notifications:
   email: true
@@ -14,11 +13,12 @@ env:
   global:
     - GO111MODULE=on
 
-before_install:
-  - pyenv global 3.8
+# No longer needed, but keeping below as an example
+# before_install:
+#   - go version
 
 install:
-  - curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s -- -b $(go env GOPATH)/bin v1.61.0
+  - curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s -- -b $(go env GOPATH)/bin v1.64.4
 
 script:
   - make travis-ci
@@ -28,12 +28,15 @@ before_deploy:
   - node --version
   - npm --version
   - npm install
+  - go version
+  - echo $TRAVIS_GO_VERSION
   - pip install --user bump-my-version
 
 deploy:
-  - provider: script
-    script: npm run semantic-release
-    skip_cleanup: true
-    on:
-      go: '1.21.x'
-      branch: main
+- provider: script
+  script: npm run semantic-release
+  skip_cleanup: true
+  on:
+    # Using "go: '1.23.x'" here was not working. Using below condition instead from https://docs.travis-ci.com/user/languages/go/#environment-variable
+    condition: $TRAVIS_GO_VERSION =~ ^1\.23
+    branch: main

@@ -1,3 +1,25 @@
+## [2.0.4](https://github.com/IBM/continuous-delivery-go-sdk/compare/v2.0.3...v2.0.4) (2025-08-01)
+
+
+### Bug Fixes
+
+* add ca-mon region support to pipeline ([301cb96](https://github.com/IBM/continuous-delivery-go-sdk/commit/301cb96d35ed61a28c1f5f843054b692cbc70506))
+
+## [2.0.3](https://github.com/IBM/continuous-delivery-go-sdk/compare/v2.0.2...v2.0.3) (2025-07-20)
+
+
+### Bug Fixes
+
+* **tekton:** add support for waiting runs limit on triggers ([de995e5](https://github.com/IBM/continuous-delivery-go-sdk/commit/de995e5c1c8cc827fdc6e84d2e50af73aead747c))
+* **tekton:** more limit_waiting_run updates ([2a53e41](https://github.com/IBM/continuous-delivery-go-sdk/commit/2a53e41452a2def49711693b483af9e59ff74d1c))
+
+## [2.0.2](https://github.com/IBM/continuous-delivery-go-sdk/compare/v2.0.1...v2.0.2) (2024-10-31)
+
+
+### Bug Fixes
+
+* add v2 to common module import path ([#86](https://github.com/IBM/continuous-delivery-go-sdk/issues/86)) ([0492adc](https://github.com/IBM/continuous-delivery-go-sdk/commit/0492adc156edeea56035b96ba0adaf3682d9fbd2))
+
 ## [2.0.1](https://github.com/IBM/continuous-delivery-go-sdk/compare/v2.0.0...v2.0.1) (2024-10-30)
 
 
