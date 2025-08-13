@@ -131,7 +131,7 @@ func GetServiceURLForRegion(region string) (string, error) {
 		"jp-tok": "https://api.jp-tok.devops.cloud.ibm.com/pipeline/v2", // The host URL for Tekton Pipeline Service in the jp-tok region.
 		"au-syd": "https://api.au-syd.devops.cloud.ibm.com/pipeline/v2", // The host URL for Tekton Pipeline Service in the au-syd region.
 		"ca-tor": "https://api.ca-tor.devops.cloud.ibm.com/pipeline/v2", // The host URL for Tekton Pipeline Service in the ca-tor region.
-		"ca-mon": "https://api.ca-mon.devops.cloud.ibm.com/pipeline/v2", // Montreal (ca-mon) is a limited-availability region and not generally available. The host URL for Tekton Pipeline Service in the ca-mon region.
+		"ca-mon": "https://api.ca-mon.devops.cloud.ibm.com/pipeline/v2", // Montreal (ca-mon) is a limited availability region and not generally available. The host URL for Tekton Pipeline Service in the ca-mon region.
 		"br-sao": "https://api.br-sao.devops.cloud.ibm.com/pipeline/v2", // The host URL for Tekton Pipeline Service in the br-sao region.
 	}
 
@@ -2054,6 +2054,9 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineTriggerWithConte
 	if createTektonPipelineTriggerOptions.EnableEventsFromForks != nil {
 		body["enable_events_from_forks"] = createTektonPipelineTriggerOptions.EnableEventsFromForks
 	}
+	if createTektonPipelineTriggerOptions.DisableDraftEvents != nil {
+		body["disable_draft_events"] = createTektonPipelineTriggerOptions.DisableDraftEvents
+	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
@@ -3198,6 +3201,9 @@ type CreateTektonPipelineTriggerOptions struct {
 	// pipeline run.
 	EnableEventsFromForks *bool `json:"enable_events_from_forks,omitempty"`
 
+	// Prevent new pipeline runs from being triggered by events from draft pull requests.
+	DisableDraftEvents *bool `json:"disable_draft_events,omitempty"`
+
 	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
@@ -3329,6 +3335,12 @@ func (_options *CreateTektonPipelineTriggerOptions) SetFavorite(favorite bool) *
 // SetEnableEventsFromForks : Allow user to set EnableEventsFromForks
 func (_options *CreateTektonPipelineTriggerOptions) SetEnableEventsFromForks(enableEventsFromForks bool) *CreateTektonPipelineTriggerOptions {
 	_options.EnableEventsFromForks = core.BoolPtr(enableEventsFromForks)
+	return _options
+}
+
+// SetDisableDraftEvents : Allow user to set DisableDraftEvents
+func (_options *CreateTektonPipelineTriggerOptions) SetDisableDraftEvents(disableDraftEvents bool) *CreateTektonPipelineTriggerOptions {
+	_options.DisableDraftEvents = core.BoolPtr(disableDraftEvents)
 	return _options
 }
 
@@ -5922,6 +5934,9 @@ type Trigger struct {
 	// When enabled, pull request events from forks of the selected repository will trigger a pipeline run.
 	EnableEventsFromForks *bool `json:"enable_events_from_forks,omitempty"`
 
+	// Prevent new pipeline runs from being triggered by events from draft pull requests.
+	DisableDraftEvents *bool `json:"disable_draft_events,omitempty"`
+
 	// Source repository for a Git trigger. Only required for Git triggers. The referenced repository URL must match the
 	// URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from the toolchain API
 	// https://cloud.ibm.com/apidocs/toolchain#list-tools.
@@ -6037,6 +6052,11 @@ func UnmarshalTrigger(m map[string]json.RawMessage, result interface{}) (err err
 		err = core.SDKErrorf(err, "", "enable_events_from_forks-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "disable_draft_events", &obj.DisableDraftEvents)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "disable_draft_events-error", common.GetComponentInfo())
+		return
+	}
 	err = core.UnmarshalModel(m, "source", &obj.Source, UnmarshalTriggerSource)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "source-error", common.GetComponentInfo())
@@ -6139,6 +6159,9 @@ type TriggerPatch struct {
 	// Only used for SCM triggers. When enabled, pull request events from forks of the selected repository will trigger a
 	// pipeline run.
 	EnableEventsFromForks *bool `json:"enable_events_from_forks,omitempty"`
+
+	// Prevent new pipeline runs from being triggered by events from draft pull requests.
+	DisableDraftEvents *bool `json:"disable_draft_events,omitempty"`
 }
 
 // Constants associated with the TriggerPatch.Type property.
@@ -6242,6 +6265,11 @@ func UnmarshalTriggerPatch(m map[string]json.RawMessage, result interface{}) (er
 		err = core.SDKErrorf(err, "", "enable_events_from_forks-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "disable_draft_events", &obj.DisableDraftEvents)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "disable_draft_events-error", common.GetComponentInfo())
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -6296,6 +6324,9 @@ func (triggerPatch *TriggerPatch) AsPatch() (_patch map[string]interface{}, err 
 	}
 	if !core.IsNil(triggerPatch.EnableEventsFromForks) {
 		_patch["enable_events_from_forks"] = triggerPatch.EnableEventsFromForks
+	}
+	if !core.IsNil(triggerPatch.DisableDraftEvents) {
+		_patch["disable_draft_events"] = triggerPatch.DisableDraftEvents
 	}
 
 	return
@@ -7113,6 +7144,9 @@ type TriggerScmTrigger struct {
 	// When enabled, pull request events from forks of the selected repository will trigger a pipeline run.
 	EnableEventsFromForks *bool `json:"enable_events_from_forks,omitempty"`
 
+	// Prevent new pipeline runs from being triggered by events from draft pull requests.
+	DisableDraftEvents *bool `json:"disable_draft_events,omitempty"`
+
 	// Source repository for a Git trigger. Only required for Git triggers. The referenced repository URL must match the
 	// URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from the toolchain API
 	// https://cloud.ibm.com/apidocs/toolchain#list-tools.
@@ -7207,6 +7241,11 @@ func UnmarshalTriggerScmTrigger(m map[string]json.RawMessage, result interface{}
 	err = core.UnmarshalPrimitive(m, "enable_events_from_forks", &obj.EnableEventsFromForks)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "enable_events_from_forks-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "disable_draft_events", &obj.DisableDraftEvents)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "disable_draft_events-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "source", &obj.Source, UnmarshalTriggerSource)
