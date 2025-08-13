@@ -5538,6 +5538,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				createTektonPipelineTriggerOptionsModel.Filter = core.StringPtr("testString")
 				createTektonPipelineTriggerOptionsModel.Favorite = core.BoolPtr(false)
 				createTektonPipelineTriggerOptionsModel.EnableEventsFromForks = core.BoolPtr(false)
+				createTektonPipelineTriggerOptionsModel.DisableDraftEvents = core.BoolPtr(false)
 				createTektonPipelineTriggerOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := cdTektonPipelineService.CreateTektonPipelineTrigger(createTektonPipelineTriggerOptionsModel)
@@ -5644,6 +5645,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				createTektonPipelineTriggerOptionsModel.Filter = core.StringPtr("testString")
 				createTektonPipelineTriggerOptionsModel.Favorite = core.BoolPtr(false)
 				createTektonPipelineTriggerOptionsModel.EnableEventsFromForks = core.BoolPtr(false)
+				createTektonPipelineTriggerOptionsModel.DisableDraftEvents = core.BoolPtr(false)
 				createTektonPipelineTriggerOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -5758,6 +5760,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				createTektonPipelineTriggerOptionsModel.Filter = core.StringPtr("testString")
 				createTektonPipelineTriggerOptionsModel.Favorite = core.BoolPtr(false)
 				createTektonPipelineTriggerOptionsModel.EnableEventsFromForks = core.BoolPtr(false)
+				createTektonPipelineTriggerOptionsModel.DisableDraftEvents = core.BoolPtr(false)
 				createTektonPipelineTriggerOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -5817,6 +5820,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				createTektonPipelineTriggerOptionsModel.Filter = core.StringPtr("testString")
 				createTektonPipelineTriggerOptionsModel.Favorite = core.BoolPtr(false)
 				createTektonPipelineTriggerOptionsModel.EnableEventsFromForks = core.BoolPtr(false)
+				createTektonPipelineTriggerOptionsModel.DisableDraftEvents = core.BoolPtr(false)
 				createTektonPipelineTriggerOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := cdTektonPipelineService.SetServiceURL("")
@@ -5897,6 +5901,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				createTektonPipelineTriggerOptionsModel.Filter = core.StringPtr("testString")
 				createTektonPipelineTriggerOptionsModel.Favorite = core.BoolPtr(false)
 				createTektonPipelineTriggerOptionsModel.EnableEventsFromForks = core.BoolPtr(false)
+				createTektonPipelineTriggerOptionsModel.DisableDraftEvents = core.BoolPtr(false)
 				createTektonPipelineTriggerOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -6193,6 +6198,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				triggerPatchModel.Filter = core.StringPtr("header['x-github-event'] == 'push' && body.ref == 'refs/heads/main'")
 				triggerPatchModel.Favorite = core.BoolPtr(false)
 				triggerPatchModel.EnableEventsFromForks = core.BoolPtr(false)
+				triggerPatchModel.DisableDraftEvents = core.BoolPtr(false)
 				triggerPatchModelAsPatch, asPatchErr := triggerPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
 
@@ -6306,6 +6312,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				triggerPatchModel.Filter = core.StringPtr("header['x-github-event'] == 'push' && body.ref == 'refs/heads/main'")
 				triggerPatchModel.Favorite = core.BoolPtr(false)
 				triggerPatchModel.EnableEventsFromForks = core.BoolPtr(false)
+				triggerPatchModel.DisableDraftEvents = core.BoolPtr(false)
 				triggerPatchModelAsPatch, asPatchErr := triggerPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
 
@@ -6427,6 +6434,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				triggerPatchModel.Filter = core.StringPtr("header['x-github-event'] == 'push' && body.ref == 'refs/heads/main'")
 				triggerPatchModel.Favorite = core.BoolPtr(false)
 				triggerPatchModel.EnableEventsFromForks = core.BoolPtr(false)
+				triggerPatchModel.DisableDraftEvents = core.BoolPtr(false)
 				triggerPatchModelAsPatch, asPatchErr := triggerPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
 
@@ -6493,6 +6501,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				triggerPatchModel.Filter = core.StringPtr("header['x-github-event'] == 'push' && body.ref == 'refs/heads/main'")
 				triggerPatchModel.Favorite = core.BoolPtr(false)
 				triggerPatchModel.EnableEventsFromForks = core.BoolPtr(false)
+				triggerPatchModel.DisableDraftEvents = core.BoolPtr(false)
 				triggerPatchModelAsPatch, asPatchErr := triggerPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
 
@@ -6580,6 +6589,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				triggerPatchModel.Filter = core.StringPtr("header['x-github-event'] == 'push' && body.ref == 'refs/heads/main'")
 				triggerPatchModel.Favorite = core.BoolPtr(false)
 				triggerPatchModel.EnableEventsFromForks = core.BoolPtr(false)
+				triggerPatchModel.DisableDraftEvents = core.BoolPtr(false)
 				triggerPatchModelAsPatch, asPatchErr := triggerPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
 
@@ -8235,6 +8245,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				createTektonPipelineTriggerOptionsModel.SetFilter("testString")
 				createTektonPipelineTriggerOptionsModel.SetFavorite(false)
 				createTektonPipelineTriggerOptionsModel.SetEnableEventsFromForks(false)
+				createTektonPipelineTriggerOptionsModel.SetDisableDraftEvents(false)
 				createTektonPipelineTriggerOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createTektonPipelineTriggerOptionsModel).ToNot(BeNil())
 				Expect(createTektonPipelineTriggerOptionsModel.PipelineID).To(Equal(core.StringPtr("94619026-912b-4d92-8f51-6c74f0692d90")))
@@ -8254,6 +8265,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 				Expect(createTektonPipelineTriggerOptionsModel.Filter).To(Equal(core.StringPtr("testString")))
 				Expect(createTektonPipelineTriggerOptionsModel.Favorite).To(Equal(core.BoolPtr(false)))
 				Expect(createTektonPipelineTriggerOptionsModel.EnableEventsFromForks).To(Equal(core.BoolPtr(false)))
+				Expect(createTektonPipelineTriggerOptionsModel.DisableDraftEvents).To(Equal(core.BoolPtr(false)))
 				Expect(createTektonPipelineTriggerOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateTektonPipelineTriggerPropertiesOptions successfully`, func() {
@@ -8903,6 +8915,7 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 			model.Filter = core.StringPtr("header['x-github-event'] == 'push' && body.ref == 'refs/heads/main'")
 			model.Favorite = core.BoolPtr(false)
 			model.EnableEventsFromForks = core.BoolPtr(false)
+			model.DisableDraftEvents = core.BoolPtr(false)
 
 			b, err := json.Marshal(model)
 			Expect(err).To(BeNil())
