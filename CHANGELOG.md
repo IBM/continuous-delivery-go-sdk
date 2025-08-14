@@ -1,3 +1,10 @@
+## [2.0.6](https://github.com/IBM/continuous-delivery-go-sdk/compare/v2.0.5...v2.0.6) (2025-08-14)
+
+
+### Bug Fixes
+
+* add missing draft PR option support ([3b2b3c2](https://github.com/IBM/continuous-delivery-go-sdk/commit/3b2b3c2974c5e24dcfb4d45f1893cbc7f7f85378))
+
 ## [2.0.5](https://github.com/IBM/continuous-delivery-go-sdk/compare/v2.0.4...v2.0.5) (2025-08-01)
 
 
