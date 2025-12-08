@@ -125,6 +125,7 @@ func GetServiceURLForRegion(region string) (string, error) {
 		"us-south": "https://api.us-south.devops.cloud.ibm.com/pipeline/v2", // The host URL for Tekton Pipeline Service in the us-south region.
 		"us-east": "https://api.us-east.devops.cloud.ibm.com/pipeline/v2", // The host URL for Tekton Pipeline Service in the us-east region.
 		"eu-de": "https://api.eu-de.devops.cloud.ibm.com/pipeline/v2", // The host URL for Tekton Pipeline Service in the eu-de region.
+		"eu-fr2": "https://api.eu-fr2.devops.cloud.ibm.com/pipeline/v2", // Paris (eu-fr2) is a limited availability region and not generally available. The host URL for Tekton Pipeline Service in the Paris region.
 		"eu-gb": "https://api.eu-gb.devops.cloud.ibm.com/pipeline/v2", // The host URL for Tekton Pipeline Service in the eu-gb region.
 		"eu-es": "https://api.eu-es.devops.cloud.ibm.com/pipeline/v2", // The host URL for Tekton Pipeline Service in the eu-es region.
 		"jp-osa": "https://api.jp-osa.devops.cloud.ibm.com/pipeline/v2", // The host URL for Tekton Pipeline Service in the jp-osa region.

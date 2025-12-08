@@ -171,6 +171,10 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 			Expect(url).To(Equal("https://api.eu-de.devops.cloud.ibm.com/pipeline/v2"))
 			Expect(err).To(BeNil())
 
+			url, err = cdtektonpipelinev2.GetServiceURLForRegion("eu-fr2")
+			Expect(url).To(Equal("https://api.eu-fr2.devops.cloud.ibm.com/pipeline/v2"))
+			Expect(err).To(BeNil())
+
 			url, err = cdtektonpipelinev2.GetServiceURLForRegion("eu-gb")
 			Expect(url).To(Equal("https://api.eu-gb.devops.cloud.ibm.com/pipeline/v2"))
 			Expect(err).To(BeNil())
