@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.103.0-e8b84313-20250402-201816
+ * IBM OpenAPI SDK Code Generator Version: 3.112.0-f88e9264-20260220-115155
  */
 
 // Package cdtektonpipelinev2 : Operations and models for the CdTektonPipelineV2 service
@@ -222,12 +222,12 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineWithContext(ctx 
 		return
 	}
 
-	for headerName, headerValue := range createTektonPipelineOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "CreateTektonPipeline")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "CreateTektonPipeline")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range createTektonPipelineOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -314,12 +314,12 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineWithContext(ctx con
 		return
 	}
 
-	for headerName, headerValue := range getTektonPipelineOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "GetTektonPipeline")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "GetTektonPipeline")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getTektonPipelineOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -384,12 +384,12 @@ func (cdTektonPipeline *CdTektonPipelineV2) UpdateTektonPipelineWithContext(ctx 
 		return
 	}
 
-	for headerName, headerValue := range updateTektonPipelineOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "UpdateTektonPipeline")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "UpdateTektonPipeline")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range updateTektonPipelineOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -462,12 +462,12 @@ func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelineWithContext(ctx 
 		return
 	}
 
-	for headerName, headerValue := range deleteTektonPipelineOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "DeleteTektonPipeline")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "DeleteTektonPipeline")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range deleteTektonPipelineOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -522,12 +522,12 @@ func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineRunsWithContext(ct
 		return
 	}
 
-	for headerName, headerValue := range listTektonPipelineRunsOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "ListTektonPipelineRuns")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "ListTektonPipelineRuns")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range listTektonPipelineRunsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -605,12 +605,12 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineRunWithContext(c
 		return
 	}
 
-	for headerName, headerValue := range createTektonPipelineRunOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "CreateTektonPipelineRun")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "CreateTektonPipelineRun")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range createTektonPipelineRunOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -704,12 +704,12 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineRunWithContext(ctx 
 		return
 	}
 
-	for headerName, headerValue := range getTektonPipelineRunOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "GetTektonPipelineRun")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "GetTektonPipelineRun")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getTektonPipelineRunOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -778,12 +778,12 @@ func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelineRunWithContext(c
 		return
 	}
 
-	for headerName, headerValue := range deleteTektonPipelineRunOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "DeleteTektonPipelineRun")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "DeleteTektonPipelineRun")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range deleteTektonPipelineRunOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -839,12 +839,12 @@ func (cdTektonPipeline *CdTektonPipelineV2) CancelTektonPipelineRunWithContext(c
 		return
 	}
 
-	for headerName, headerValue := range cancelTektonPipelineRunOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "CancelTektonPipelineRun")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "CancelTektonPipelineRun")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range cancelTektonPipelineRunOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -921,12 +921,12 @@ func (cdTektonPipeline *CdTektonPipelineV2) RerunTektonPipelineRunWithContext(ct
 		return
 	}
 
-	for headerName, headerValue := range rerunTektonPipelineRunOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "RerunTektonPipelineRun")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "RerunTektonPipelineRun")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range rerunTektonPipelineRunOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -992,12 +992,12 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineRunLogsWithContext(
 		return
 	}
 
-	for headerName, headerValue := range getTektonPipelineRunLogsOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "GetTektonPipelineRunLogs")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "GetTektonPipelineRunLogs")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getTektonPipelineRunLogsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1064,12 +1064,12 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineRunLogContentWithCo
 		return
 	}
 
-	for headerName, headerValue := range getTektonPipelineRunLogContentOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "GetTektonPipelineRunLogContent")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "GetTektonPipelineRunLogContent")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getTektonPipelineRunLogContentOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1137,12 +1137,12 @@ func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineDefinitionsWithCon
 		return
 	}
 
-	for headerName, headerValue := range listTektonPipelineDefinitionsOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "ListTektonPipelineDefinitions")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "ListTektonPipelineDefinitions")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range listTektonPipelineDefinitionsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1210,12 +1210,12 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineDefinitionWithCo
 		return
 	}
 
-	for headerName, headerValue := range createTektonPipelineDefinitionOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "CreateTektonPipelineDefinition")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "CreateTektonPipelineDefinition")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range createTektonPipelineDefinitionOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1292,12 +1292,12 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineDefinitionWithConte
 		return
 	}
 
-	for headerName, headerValue := range getTektonPipelineDefinitionOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "GetTektonPipelineDefinition")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "GetTektonPipelineDefinition")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getTektonPipelineDefinitionOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1362,12 +1362,12 @@ func (cdTektonPipeline *CdTektonPipelineV2) ReplaceTektonPipelineDefinitionWithC
 		return
 	}
 
-	for headerName, headerValue := range replaceTektonPipelineDefinitionOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "ReplaceTektonPipelineDefinition")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "ReplaceTektonPipelineDefinition")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range replaceTektonPipelineDefinitionOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1443,12 +1443,12 @@ func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelineDefinitionWithCo
 		return
 	}
 
-	for headerName, headerValue := range deleteTektonPipelineDefinitionOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "DeleteTektonPipelineDefinition")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "DeleteTektonPipelineDefinition")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range deleteTektonPipelineDefinitionOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -1502,12 +1502,12 @@ func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelinePropertiesWithCont
 		return
 	}
 
-	for headerName, headerValue := range listTektonPipelinePropertiesOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "ListTektonPipelineProperties")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "ListTektonPipelineProperties")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range listTektonPipelinePropertiesOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1581,12 +1581,12 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelinePropertiesWithCo
 		return
 	}
 
-	for headerName, headerValue := range createTektonPipelinePropertiesOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "CreateTektonPipelineProperties")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "CreateTektonPipelineProperties")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range createTektonPipelinePropertiesOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1677,12 +1677,12 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelinePropertyWithContext
 		return
 	}
 
-	for headerName, headerValue := range getTektonPipelinePropertyOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "GetTektonPipelineProperty")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "GetTektonPipelineProperty")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getTektonPipelinePropertyOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1748,12 +1748,12 @@ func (cdTektonPipeline *CdTektonPipelineV2) ReplaceTektonPipelinePropertyWithCon
 		return
 	}
 
-	for headerName, headerValue := range replaceTektonPipelinePropertyOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "ReplaceTektonPipelineProperty")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "ReplaceTektonPipelineProperty")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range replaceTektonPipelinePropertyOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1844,12 +1844,12 @@ func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelinePropertyWithCont
 		return
 	}
 
-	for headerName, headerValue := range deleteTektonPipelinePropertyOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "DeleteTektonPipelineProperty")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "DeleteTektonPipelineProperty")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range deleteTektonPipelinePropertyOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -1903,12 +1903,12 @@ func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineTriggersWithContex
 		return
 	}
 
-	for headerName, headerValue := range listTektonPipelineTriggersOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "ListTektonPipelineTriggers")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "ListTektonPipelineTriggers")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range listTektonPipelineTriggersOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1994,12 +1994,12 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineTriggerWithConte
 		return
 	}
 
-	for headerName, headerValue := range createTektonPipelineTriggerOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "CreateTektonPipelineTrigger")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "CreateTektonPipelineTrigger")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range createTektonPipelineTriggerOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -2123,12 +2123,12 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineTriggerWithContext(
 		return
 	}
 
-	for headerName, headerValue := range getTektonPipelineTriggerOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "GetTektonPipelineTrigger")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "GetTektonPipelineTrigger")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getTektonPipelineTriggerOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -2194,12 +2194,12 @@ func (cdTektonPipeline *CdTektonPipelineV2) UpdateTektonPipelineTriggerWithConte
 		return
 	}
 
-	for headerName, headerValue := range updateTektonPipelineTriggerOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "UpdateTektonPipelineTrigger")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "UpdateTektonPipelineTrigger")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range updateTektonPipelineTriggerOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -2273,12 +2273,12 @@ func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelineTriggerWithConte
 		return
 	}
 
-	for headerName, headerValue := range deleteTektonPipelineTriggerOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "DeleteTektonPipelineTrigger")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "DeleteTektonPipelineTrigger")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range deleteTektonPipelineTriggerOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -2333,12 +2333,12 @@ func (cdTektonPipeline *CdTektonPipelineV2) DuplicateTektonPipelineTriggerWithCo
 		return
 	}
 
-	for headerName, headerValue := range duplicateTektonPipelineTriggerOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "DuplicateTektonPipelineTrigger")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "DuplicateTektonPipelineTrigger")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range duplicateTektonPipelineTriggerOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -2414,12 +2414,12 @@ func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineTriggerPropertiesW
 		return
 	}
 
-	for headerName, headerValue := range listTektonPipelineTriggerPropertiesOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "ListTektonPipelineTriggerProperties")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "ListTektonPipelineTriggerProperties")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range listTektonPipelineTriggerPropertiesOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -2494,12 +2494,12 @@ func (cdTektonPipeline *CdTektonPipelineV2) CreateTektonPipelineTriggerPropertie
 		return
 	}
 
-	for headerName, headerValue := range createTektonPipelineTriggerPropertiesOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "CreateTektonPipelineTriggerProperties")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "CreateTektonPipelineTriggerProperties")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range createTektonPipelineTriggerPropertiesOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -2591,12 +2591,12 @@ func (cdTektonPipeline *CdTektonPipelineV2) GetTektonPipelineTriggerPropertyWith
 		return
 	}
 
-	for headerName, headerValue := range getTektonPipelineTriggerPropertyOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "GetTektonPipelineTriggerProperty")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "GetTektonPipelineTriggerProperty")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getTektonPipelineTriggerPropertyOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -2662,12 +2662,12 @@ func (cdTektonPipeline *CdTektonPipelineV2) ReplaceTektonPipelineTriggerProperty
 		return
 	}
 
-	for headerName, headerValue := range replaceTektonPipelineTriggerPropertyOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "ReplaceTektonPipelineTriggerProperty")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "ReplaceTektonPipelineTriggerProperty")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range replaceTektonPipelineTriggerPropertyOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -2759,12 +2759,12 @@ func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelineTriggerPropertyW
 		return
 	}
 
-	for headerName, headerValue := range deleteTektonPipelineTriggerPropertyOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "DeleteTektonPipelineTriggerProperty")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("cd_tekton_pipeline", "V2", "DeleteTektonPipelineTriggerProperty")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range deleteTektonPipelineTriggerPropertyOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
