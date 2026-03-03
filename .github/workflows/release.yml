@@ -16,7 +16,6 @@ jobs:
   release:
     name: Semantic release
     runs-on: ubuntu-latest
-    needs: build
     # Only run on one Go version to avoid duplicate releases
 
     steps:
