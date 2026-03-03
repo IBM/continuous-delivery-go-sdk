@@ -1,3 +1,10 @@
+## [2.0.7](https://github.com/IBM/continuous-delivery-go-sdk/compare/v2.0.6...v2.0.7) (2026-03-03)
+
+
+### Bug Fixes
+
+* updates from sdkgen v3.112.0 ([de84c40](https://github.com/IBM/continuous-delivery-go-sdk/commit/de84c405d4a37b50a891a47833f1d10123b2ad92))
+
 ## [2.0.6](https://github.com/IBM/continuous-delivery-go-sdk/compare/v2.0.5...v2.0.6) (2025-08-14)
 
 
