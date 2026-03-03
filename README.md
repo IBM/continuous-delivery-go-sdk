@@ -1,8 +1,8 @@
-# IBM Cloud Continuous Delivery Go SDK 2.0.7
+# IBM Cloud Continuous Delivery Go SDK
 
-[![Build Status](https://app.travis-ci.com/IBM/continuous-delivery-go-sdk.svg?branch=main)](https://app.travis-ci.com/github/IBM/continuous-delivery-go-sdk)
+[![Build](https://github.com/IBM/continuous-delivery-go-sdk/actions/workflows/release.yml/badge.svg)](https://github.com/IBM/continuous-delivery-go-sdk/actions/workflows/release.yml)
 [![Release](https://img.shields.io/github/v/release/IBM/continuous-delivery-go-sdk)](https://github.com/IBM/continuous-delivery-go-sdk/releases/latest)
-[![Go Reference](https://pkg.go.dev/badge/github.com/IBM/continuous-delivery-go-sdk.svg)](https://pkg.go.dev/github.com/IBM/continuous-delivery-go-sdk)
+[![Go Reference](https://pkg.go.dev/badge/github.com/IBM/continuous-delivery-go-sdk.svg)](https://pkg.go.dev/github.com/IBM/continuous-delivery-go-sdk/v2)
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/IBM/continuous-delivery-go-sdk)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
@@ -23,7 +23,7 @@ The Go client library to interact with the [IBM Cloud Continuous Delivery Toolch
 
 <!-- toc -->
 
-- [IBM Cloud Continuous Delivery Go SDK 2.0.7](#ibm-cloud-continuous-delivery-go-sdk-204)
+- [IBM Cloud Continuous Delivery Go SDK](#ibm-cloud-continuous-delivery-go-sdk)
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
   - [Prerequisites](#prerequisites)
@@ -72,11 +72,14 @@ Example:
 import (
   "github.com/IBM/continuous-delivery-go-sdk/v2/cdtoolchainv2"
 )
+import (
+  "github.com/IBM/continuous-delivery-go-sdk/v2/cdtektonpipelinev2"
+)
 ```
 
 Next, run `go build` or `go mod tidy` to download and install the new dependencies and update your application's `go.mod` file.  
 
-In the example, the `cdtoolchainv2` part of the import path is the package name that is associated with the Toolchain service. See Table 1 to find the appropriate package name for the services that your application uses.
+In the example, the `cdtoolchainv2` part of the first import path is the package name that is associated with the Toolchain service, and the `cdtektonpipelinev2` part of the second import path is the package name that is associated with the Tekton Pipeline service. See Table 1 to find the appropriate package name for the services that your application uses.
 
 ### `go get` command
 
@@ -84,6 +87,8 @@ Alternatively, you can use the `go get` command to download and install the appr
 
 ```sh
 go get -u github.com/IBM/continuous-delivery-go-sdk/v2/cdtoolchainv2
+# and/or
+go get -u github.com/IBM/continuous-delivery-go-sdk/v2/cdtektonpipelinev2
 ```
 
 Be sure to use the appropriate package name from Table 1 for the services that your application uses.
