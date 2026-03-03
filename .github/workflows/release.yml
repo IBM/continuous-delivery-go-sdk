@@ -1,0 +1,95 @@
+name: release
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Run semantic-release in dry-run mode'
+        required: false
+        type: boolean
+        default: true
+
+jobs:
+  build:
+    name: Build and Test with (Go v${{ matrix.go-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go-version: ['1.23.x', '1.24.x']
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up Go v${{ matrix.go-version }}
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ matrix.go-version }}
+
+      - name: Install golangci-lint
+        run: |
+          curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.64.4
+          echo "$(go env GOPATH)/bin" >> $GITHUB_PATH
+
+      - name: Install Go dependencies
+        run: make tidy
+
+      - name: Run tests
+        run: make test-cov
+
+      - name: Run linter
+        run: make lint
+
+
+  release:
+    name: Semantic release
+    runs-on: ubuntu-latest
+    name: build
+    # Only run on one Go version to avoid duplicate releases
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up Go v1.23.x
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.23.x'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.12
+
+      - name: Install Node.js dependencies
+        run: npm install
+
+      - name: Install bump-my-version
+        run: pip install bump-my-version
+
+      - name: Semantic Release (Dry Run)
+        if: github.event_name == 'workflow_dispatch' && inputs.dry_run
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm run semantic-release --dry-run
+
+      - name: Semantic Release
+        run: npm run semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
