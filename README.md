@@ -92,11 +92,6 @@ Be sure to use the appropriate package name from Table 1 for the services that y
 
 For general SDK usage information, see [IBM Cloud SDK Common README](https://github.com/IBM/ibm-cloud-sdk-common/blob/main/README.md).
 
-## Questions
-
-If you are having difficulties using this SDK or you have a question about the IBM Cloud services, ask a question at [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-cloud).
-Alternatively, you can reach out to the IBM Cloud Continuous Delivery development team by joining us on [Slack](https://ic-devops-slack-invite.us-south.devops.cloud.ibm.com/).
-
 ## Issues
 
 If you have a problem with the project, submit a [bug report](https://github.com/IBM/continuous-delivery-go-sdk/issues), but before you do, search for similar problems. Someone else might have already reported the problem.
