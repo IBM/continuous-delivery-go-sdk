@@ -24,7 +24,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v6
         with:
-          python-version: 3.12
+          python-version: 3.14
 
       - name: Install detect-secrets
         run: |
@@ -42,7 +42,7 @@ jobs:
     timeout-minutes: 30
     strategy:
       matrix:
-        go-version: ['1.23.x', '1.24.x', '1.25.x']
+        go-version: ['1.25.x', '1.26.x']
 
     steps:
       - name: Checkout code
