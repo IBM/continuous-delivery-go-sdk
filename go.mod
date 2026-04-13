@@ -2,7 +2,7 @@ module github.com/IBM/continuous-delivery-go-sdk/v2
 
 go 1.23.0
 
-toolchain go1.23.6
+toolchain go1.26.2
 
 require (
 	github.com/IBM/go-sdk-core/v5 v5.20.1
