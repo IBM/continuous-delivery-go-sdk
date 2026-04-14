@@ -1,3 +1,11 @@
+## [2.0.8](https://github.com/IBM/continuous-delivery-go-sdk/compare/v2.0.7...v2.0.8) (2026-04-14)
+
+
+### Bug Fixes
+
+* go and pkg updates ([cb1142b](https://github.com/IBM/continuous-delivery-go-sdk/commit/cb1142b04e216786b44c499e77dd4c9c10dffbcd))
+* update Go version in Actions ([60a0d10](https://github.com/IBM/continuous-delivery-go-sdk/commit/60a0d10ff364d2fe215f879a08bb14b2959da9b8))
+
 ## [2.0.7](https://github.com/IBM/continuous-delivery-go-sdk/compare/v2.0.6...v2.0.7) (2026-03-03)
 
 
