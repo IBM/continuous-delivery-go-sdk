@@ -428,8 +428,8 @@ func (cdTektonPipeline *CdTektonPipelineV2) UpdateTektonPipelineWithContext(ctx 
 	return
 }
 
-// DeleteTektonPipeline : Delete Tekton pipeline instance
-// This request deletes Tekton pipeline instance that is associated with the pipeline toolchain integration.
+// DeleteTektonPipeline : Delete a Tekton pipeline instance
+// This request deletes the Tekton pipeline instance that is associated with the pipeline toolchain integration.
 func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipeline(deleteTektonPipelineOptions *DeleteTektonPipelineOptions) (response *core.DetailedResponse, err error) {
 	response, err = cdTektonPipeline.DeleteTektonPipelineWithContext(context.Background(), deleteTektonPipelineOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -488,7 +488,7 @@ func (cdTektonPipeline *CdTektonPipelineV2) DeleteTektonPipelineWithContext(ctx 
 }
 
 // ListTektonPipelineRuns : List pipeline run records
-// This request lists pipeline run records, which has data about the runs, such as status, user_info, trigger and other
+// This request lists pipeline run records, which have data about the runs, such as status, user_info, trigger and other
 // information. Default limit is 50.
 func (cdTektonPipeline *CdTektonPipelineV2) ListTektonPipelineRuns(listTektonPipelineRunsOptions *ListTektonPipelineRunsOptions) (result *PipelineRunsCollection, response *core.DetailedResponse, err error) {
 	result, response, err = cdTektonPipeline.ListTektonPipelineRunsWithContext(context.Background(), listTektonPipelineRunsOptions)
@@ -6465,7 +6465,7 @@ type TriggerSourceProperties struct {
 	Branch *string `json:"branch,omitempty"`
 
 	// The pattern of Git branch or tag. You can specify a glob pattern such as '!test' or '*master' to match against
-	// multiple tags or branches in the repository.The glob pattern used must conform to Bash 4.3 specifications, see bash
+	// multiple tags or branches in the repository. The glob pattern used must conform to Bash 4.3 specifications, see bash
 	// documentation for more info: https://www.gnu.org/software/bash/manual/bash.html#Pattern-Matching. Only one of
 	// branch, pattern, or filter should be specified.
 	Pattern *string `json:"pattern,omitempty"`
@@ -6527,7 +6527,7 @@ type TriggerSourcePropertiesPrototype struct {
 	Branch *string `json:"branch,omitempty"`
 
 	// The pattern of Git branch or tag. You can specify a glob pattern such as '!test' or '*master' to match against
-	// multiple tags or branches in the repository.The glob pattern used must conform to Bash 4.3 specifications, see bash
+	// multiple tags or branches in the repository. The glob pattern used must conform to Bash 4.3 specifications, see bash
 	// documentation for more info: https://www.gnu.org/software/bash/manual/bash.html#Pattern-Matching. Only one of
 	// branch, pattern, or filter should be specified.
 	Pattern *string `json:"pattern,omitempty"`
