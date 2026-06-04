@@ -1,3 +1,10 @@
+## [2.0.10](https://github.com/IBM/continuous-delivery-go-sdk/compare/v2.0.9...v2.0.10) (2026-06-04)
+
+
+### Bug Fixes
+
+* **deps:** update module github.com/ibm/go-sdk-core/v5 to v5.21.4 ([#131](https://github.com/IBM/continuous-delivery-go-sdk/issues/131)) ([5ae68ba](https://github.com/IBM/continuous-delivery-go-sdk/commit/5ae68baed2b971ed2c7f4f645383c08e4197df06))
+
 ## [2.0.9](https://github.com/IBM/continuous-delivery-go-sdk/compare/v2.0.8...v2.0.9) (2026-06-04)
 
 
