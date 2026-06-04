@@ -1,3 +1,10 @@
+## [2.0.11](https://github.com/IBM/continuous-delivery-go-sdk/compare/v2.0.10...v2.0.11) (2026-06-04)
+
+
+### Bug Fixes
+
+* **deps:** update module github.com/onsi/gomega to v1.41.0 ([#130](https://github.com/IBM/continuous-delivery-go-sdk/issues/130)) ([fb622fb](https://github.com/IBM/continuous-delivery-go-sdk/commit/fb622fbb765c568ba66a6cd4b36a11a2e8de5442))
+
 ## [2.0.10](https://github.com/IBM/continuous-delivery-go-sdk/compare/v2.0.9...v2.0.10) (2026-06-04)
 
 
