@@ -1,3 +1,10 @@
+## [2.0.9](https://github.com/IBM/continuous-delivery-go-sdk/compare/v2.0.8...v2.0.9) (2026-06-04)
+
+
+### Bug Fixes
+
+* **deps:** update go-openapi packages to v0.26.3 ([#128](https://github.com/IBM/continuous-delivery-go-sdk/issues/128)) ([99f9fd1](https://github.com/IBM/continuous-delivery-go-sdk/commit/99f9fd1e86f814ebe203dff2fc2f256095ad85f5))
+
 ## [2.0.8](https://github.com/IBM/continuous-delivery-go-sdk/compare/v2.0.7...v2.0.8) (2026-04-14)
 
 
