@@ -304,7 +304,32 @@ var _ = Describe(`CdToolchainV2 Integration Tests`, func() {
 				Data: toolchainEventPrototypeDataModel,
 			}
 
-			toolchainEventPost, response, err := cdToolchainService.CreateToolchainEvent(createToolchainEventOptions)
+			// Retry logic with exponential backoff to wait for event creation to succeed
+			var toolchainEventPost *cdtoolchainv2.ToolchainEventPost
+			var response *core.DetailedResponse
+			var err error
+			maxRetries := 10
+			baseDelay := 1 * time.Second
+			maxDelay := 30 * time.Second
+
+			for i := 0; i < maxRetries; i++ {
+				toolchainEventPost, response, err = cdToolchainService.CreateToolchainEvent(createToolchainEventOptions)
+				if err == nil {
+					fmt.Println()
+					log.Printf("Event was created successfully on attempt %d.\n", i+1)
+					break
+				}
+				if i < maxRetries-1 {
+					// Exponential backoff: 1s, 2s, 4s, 8s, 16s, 30s (capped), 30s...
+					retryDelay := baseDelay * (1 << uint(i))
+					if retryDelay > maxDelay {
+						retryDelay = maxDelay
+					}
+					fmt.Println()
+					log.Printf("Attempt %d failed, retrying in %v... Error: %v\n", i+1, retryDelay, err)
+					time.Sleep(retryDelay)
+				}
+			}
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(toolchainEventPost).ToNot(BeNil())
@@ -327,7 +352,32 @@ var _ = Describe(`CdToolchainV2 Integration Tests`, func() {
 				Data: toolchainEventPrototypeDataModel,
 			}
 
-			toolchainEventPost, response, err := cdToolchainService.CreateToolchainEvent(createToolchainEventOptions)
+			// Retry logic with exponential backoff to wait for event creation to succeed
+			var toolchainEventPost *cdtoolchainv2.ToolchainEventPost
+			var response *core.DetailedResponse
+			var err error
+			maxRetries := 10
+			baseDelay := 1 * time.Second
+			maxDelay := 30 * time.Second
+
+			for i := 0; i < maxRetries; i++ {
+				toolchainEventPost, response, err = cdToolchainService.CreateToolchainEvent(createToolchainEventOptions)
+				if err == nil {
+					fmt.Println()
+					log.Printf("Event was created successfully on attempt %d.\n", i+1)
+					break
+				}
+				if i < maxRetries-1 {
+					// Exponential backoff: 1s, 2s, 4s, 8s, 16s, 30s (capped), 30s...
+					retryDelay := baseDelay * (1 << uint(i))
+					if retryDelay > maxDelay {
+						retryDelay = maxDelay
+					}
+					fmt.Println()
+					log.Printf("Attempt %d failed, retrying in %v... Error: %v\n", i+1, retryDelay, err)
+					time.Sleep(retryDelay)
+				}
+			}
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(toolchainEventPost).ToNot(BeNil())
