@@ -1,3 +1,10 @@
+## [2.0.12](https://github.com/IBM/continuous-delivery-go-sdk/compare/v2.0.11...v2.0.12) (2026-06-11)
+
+
+### Bug Fixes
+
+* upgrade golang.org/x/crypto to v0.52.0 ([a8e9a31](https://github.com/IBM/continuous-delivery-go-sdk/commit/a8e9a31aa000ce084f90b1001e73f51be789f211))
+
 ## [2.0.11](https://github.com/IBM/continuous-delivery-go-sdk/compare/v2.0.10...v2.0.11) (2026-06-04)
 
 
