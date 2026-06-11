@@ -1005,7 +1005,32 @@ var _ = Describe(`CdTektonPipelineV2 Integration Tests`, func() {
 				ID: core.StringPtr(*runLogLink.ID),
 			}
 
-			stepLog, response, err := cdTektonPipelineService.GetTektonPipelineRunLogContent(getTektonPipelineRunLogContentOptions)
+			// Retry logic with exponential backoff to wait for log content to be available
+			var stepLog *cdtektonpipelinev2.StepLog
+			var response *core.DetailedResponse
+			var err error
+			maxRetries := 10
+			baseDelay := 1 * time.Second
+			maxDelay := 30 * time.Second
+
+			for i := 0; i < maxRetries; i++ {
+				stepLog, response, err = cdTektonPipelineService.GetTektonPipelineRunLogContent(getTektonPipelineRunLogContentOptions)
+				if err == nil {
+					fmt.Println()
+					log.Printf("Log content was retrieved successfully on attempt %d.\n", i+1)
+					break
+				}
+				if i < maxRetries-1 {
+					// Exponential backoff: 1s, 2s, 4s, 8s, 16s, 30s (capped), 30s...
+					retryDelay := baseDelay * (1 << uint(i))
+					if retryDelay > maxDelay {
+						retryDelay = maxDelay
+					}
+					fmt.Println()
+					log.Printf("Attempt %d failed, retrying in %v... Error: %v\n", i+1, retryDelay, err)
+					time.Sleep(retryDelay)
+				}
+			}
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(stepLog).ToNot(BeNil())
