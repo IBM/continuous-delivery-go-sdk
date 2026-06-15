@@ -6,6 +6,12 @@ on:
       - main
   workflow_dispatch:
     # Allow workflow to be triggered manually.
+    inputs:
+      skip_integration_tests:
+        description: 'Skip integration tests'
+        required: false
+        type: boolean
+        default: false
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -24,7 +30,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v6
         with:
-          python-version: 3.14
+          python-version: 3.12
 
       - name: Install detect-secrets
         run: |
@@ -39,6 +45,7 @@ jobs:
     name: Test on ${{ matrix.go-version }}
     needs: detect-secrets
     runs-on: ubuntu-latest
+    environment: test-integration-dal
     timeout-minutes: 30
     strategy:
       matrix:
@@ -57,8 +64,83 @@ jobs:
       - name: Install Go dependencies
         run: make tidy
 
-      - name: Run tests
-        run: make test-cov
+      - name: Run unit tests
+        run: make test-unit
+
+      - name: Create .env files
+        if: github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && !inputs.skip_integration_tests)
+        env:
+          CLOUD_API_KEY: ${{ secrets.CLOUD_API_KEY }}
+          CD_TOOLCHAIN_URL: ${{ vars.CD_TOOLCHAIN_URL }}
+          CD_TOOLCHAIN_AUTH_TYPE: ${{ vars.CD_TOOLCHAIN_AUTH_TYPE }}
+          CD_TOOLCHAIN_EVENT_NOTIFICATIONS_SERVICE_CRN: ${{ vars.CD_TOOLCHAIN_EVENT_NOTIFICATIONS_SERVICE_CRN }}
+          CD_TOOLCHAIN_RESOURCE_GROUP_ID: ${{ vars.CD_TOOLCHAIN_RESOURCE_GROUP_ID }}
+          CD_TEKTON_PIPELINE_URL: ${{ vars.CD_TEKTON_PIPELINE_URL }}
+          CD_TEKTON_PIPELINE_AUTH_TYPE: ${{ vars.CD_TEKTON_PIPELINE_AUTH_TYPE }}
+          CD_TEKTON_PIPELINE_RESOURCE_GROUP_ID: ${{ vars.CD_TEKTON_PIPELINE_RESOURCE_GROUP_ID }}
+        run: |
+          set -e
+          
+          # Verify all required environment variables are set
+          if [ -z "$CLOUD_API_KEY" ]; then
+            echo "Error: CLOUD_API_KEY secret is not set"
+            exit 1
+          fi
+          
+          if [ -z "$CD_TOOLCHAIN_URL" ] || [ -z "$CD_TOOLCHAIN_AUTH_TYPE" ] || \
+             [ -z "$CD_TOOLCHAIN_RESOURCE_GROUP_ID" ] || [ -z "$CD_TOOLCHAIN_EVENT_NOTIFICATIONS_SERVICE_CRN" ]; then
+            echo "Error: One or more CD_TOOLCHAIN variables are not set"
+            echo "Please configure all required variables in GitHub repository settings"
+            exit 1
+          fi
+          
+          if [ -z "$CD_TEKTON_PIPELINE_URL" ] || [ -z "$CD_TEKTON_PIPELINE_AUTH_TYPE" ] || \
+             [ -z "$CD_TEKTON_PIPELINE_RESOURCE_GROUP_ID" ]; then
+            echo "Error: One or more CD_TEKTON_PIPELINE variables are not set"
+            echo "Please configure all required variables in GitHub repository settings"
+            exit 1
+          fi
+          
+          # cd_toolchain_v2.env
+          cat > cd_toolchain_v2.env << EOF
+          CD_TOOLCHAIN_URL=${CD_TOOLCHAIN_URL}
+          CD_TOOLCHAIN_AUTH_TYPE=${CD_TOOLCHAIN_AUTH_TYPE}
+          CD_TOOLCHAIN_APIKEY=${CLOUD_API_KEY}
+          CD_TOOLCHAIN_EVENT_NOTIFICATIONS_SERVICE_CRN=${CD_TOOLCHAIN_EVENT_NOTIFICATIONS_SERVICE_CRN}
+          CD_TOOLCHAIN_RESOURCE_GROUP_ID=${CD_TOOLCHAIN_RESOURCE_GROUP_ID}
+          EOF
+
+          # cd_tekton_pipeline_v2.env
+          cat > cd_tekton_pipeline_v2.env << EOF
+          CD_TEKTON_PIPELINE_URL=${CD_TEKTON_PIPELINE_URL}
+          CD_TEKTON_PIPELINE_AUTH_TYPE=${CD_TEKTON_PIPELINE_AUTH_TYPE}
+          CD_TEKTON_PIPELINE_APIKEY=${CLOUD_API_KEY}
+          CD_TEKTON_PIPELINE_RESOURCE_GROUP_ID=${CD_TEKTON_PIPELINE_RESOURCE_GROUP_ID}
+          CD_TOOLCHAIN_URL=${CD_TOOLCHAIN_URL}
+          CD_TOOLCHAIN_AUTH_TYPE=${CD_TOOLCHAIN_AUTH_TYPE}
+          CD_TOOLCHAIN_APIKEY=${CLOUD_API_KEY}
+          CD_TOOLCHAIN_RESOURCE_GROUP_ID=${CD_TOOLCHAIN_RESOURCE_GROUP_ID}
+          EOF
+          
+          # Verify files were created successfully
+          if [ ! -f cd_toolchain_v2.env ] || [ ! -f cd_tekton_pipeline_v2.env ]; then
+            echo "Error: Failed to create .env files"
+            exit 1
+          fi
+          
+          echo "✓ Environment files created successfully"
+          echo "✓ cd_toolchain_v2.env: $(wc -l < cd_toolchain_v2.env) lines"
+          echo "✓ cd_tekton_pipeline_v2.env: $(wc -l < cd_tekton_pipeline_v2.env) lines"
+
+      - name: Run integration tests
+        if: github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && !inputs.skip_integration_tests)
+        run: make test-integration
+
+      - name: Cleanup .env files
+        if: always() && (github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && !inputs.skip_integration_tests))
+        run: |
+          rm -f cd_tekton_pipeline_v2.env cd_toolchain_v2.env
+          echo "✓ Environment files cleaned up"
 
       - name: Run linter
         uses: golangci/golangci-lint-action@v9
