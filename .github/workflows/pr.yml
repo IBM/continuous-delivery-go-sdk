@@ -134,7 +134,7 @@ jobs:
 
       - name: Run integration tests
         if: github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && !inputs.skip_integration_tests)
-        run: make test-integration
+        run: make test-int
 
       - name: Cleanup .env files
         if: always() && (github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && !inputs.skip_integration_tests))
