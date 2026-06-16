@@ -57,8 +57,8 @@ jobs:
       - name: Install Go dependencies
         run: make tidy
 
-      - name: Run unit tests
-        run: make test-unit
+      - name: Run unit tests + check coverage
+        run: make test-unit-cov
 
       - name: Run linter
         uses: golangci/golangci-lint-action@v9
