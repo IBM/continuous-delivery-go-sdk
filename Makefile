@@ -14,6 +14,12 @@ test:
 test-cov:
 	${GO} test ./... ${TEST_TAGS} ${COVERAGE}
 
+test-unit:
+	${GO} test ./... -short
+
+test-unit-cov:
+	${GO} test ./... -short ${COVERAGE}
+
 test-int:
 	${GO} test ./... -tags=integration
 

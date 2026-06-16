@@ -5,8 +5,8 @@ on:
     branches:
       - main
   workflow_dispatch:
-    # Allow workflow to be triggered manually.
 
+# Cancel in-progress runs when a new commit is pushed
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -35,8 +35,8 @@ jobs:
           detect-secrets scan --update .secrets.baseline
           detect-secrets -v audit --report --fail-on-unaudited --fail-on-live --fail-on-audited-real .secrets.baseline
 
-  test:
-    name: Test on ${{ matrix.go-version }}
+  unit-tests:
+    name: Unit Tests on ${{ matrix.go-version }}
     needs: detect-secrets
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -57,8 +57,8 @@ jobs:
       - name: Install Go dependencies
         run: make tidy
 
-      - name: Run tests
-        run: make test-cov
+      - name: Run unit tests + check coverage
+        run: make test-unit-cov
 
       - name: Run linter
         uses: golangci/golangci-lint-action@v9
