@@ -46,7 +46,9 @@ jobs:
     name: Integration Tests on ${{ matrix.go-version }}
     needs: detect-secrets
     runs-on: ubuntu-latest
-    environment: test-integration-dal
+    environment:
+      name: test-integration-dal
+      deployment: false
     timeout-minutes: 30
     strategy:
       matrix:
