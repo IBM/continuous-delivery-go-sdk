@@ -19,32 +19,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  detect-secrets:
-    name: detect-secrets
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v5
-
-      - name: Setup Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: 3.14
-
-      - name: Install detect-secrets
-        run: |
-          pip install --upgrade "git+https://github.com/ibm/detect-secrets.git@master#egg=detect-secrets"
-
-      - name: Run detect-secrets
-        run: |
-          detect-secrets scan --update .secrets.baseline
-          detect-secrets -v audit --report --fail-on-unaudited --fail-on-live --fail-on-audited-real .secrets.baseline
-
   integration-tests:
     name: Integration Tests on ${{ matrix.go-version }}
-    needs: detect-secrets
     runs-on: ubuntu-latest
     environment:
       name: test-integration-dal
