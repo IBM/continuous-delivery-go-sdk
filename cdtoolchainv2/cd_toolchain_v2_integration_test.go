@@ -148,9 +148,9 @@ var _ = Describe(`CdToolchainV2 Integration Tests`, func() {
 		It(`CreateTool(createToolOptions *CreateToolOptions)`, func() {
 			createToolOptions := &cdtoolchainv2.CreateToolOptions{
 				ToolchainID: &toolchainIDLink,
-				ToolTypeID: core.StringPtr("draservicebroker"),
+				ToolTypeID: core.StringPtr("pipeline"),
 				Name: core.StringPtr("testString"),
-				Parameters: map[string]interface{}{"anyKey": "anyValue"},
+				Parameters: map[string]interface{}{"type": "tekton"},
 			}
 
 			toolchainToolPost, response, err := cdToolchainService.CreateTool(createToolOptions)
@@ -470,8 +470,8 @@ var _ = Describe(`CdToolchainV2 Integration Tests`, func() {
 		It(`UpdateTool(updateToolOptions *UpdateToolOptions)`, func() {
 			toolchainToolPrototypePatchModel := &cdtoolchainv2.ToolchainToolPrototypePatch{
 				Name: core.StringPtr("MyTool"),
-				ToolTypeID: core.StringPtr("draservicebroker"),
-				Parameters: map[string]interface{}{"anyKey": "anyValue"},
+				ToolTypeID: core.StringPtr("pipeline"),
+				Parameters: map[string]interface{}{"type": "tekton"},
 			}
 			toolchainToolPrototypePatchModelAsPatch, asPatchErr := toolchainToolPrototypePatchModel.AsPatch()
 			Expect(asPatchErr).To(BeNil())
