@@ -136,8 +136,10 @@ var _ = Describe(`CdToolchainV2 Examples Tests`, func() {
 
 			createToolOptions := cdToolchainService.NewCreateToolOptions(
 				toolchainIDLink,
-				"draservicebroker",
+				"pipeline",
 			)
+			createToolOptions.SetName("example-toolchain-tool")
+			createToolOptions.SetParameters(map[string]interface{}{"type": "tekton"})
 
 			toolchainToolPost, response, err := cdToolchainService.CreateTool(createToolOptions)
 			if err != nil {
