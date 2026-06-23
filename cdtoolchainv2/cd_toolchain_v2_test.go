@@ -2008,9 +2008,9 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the CreateToolOptions model
 				createToolOptionsModel := new(cdtoolchainv2.CreateToolOptions)
 				createToolOptionsModel.ToolchainID = core.StringPtr("testString")
-				createToolOptionsModel.ToolTypeID = core.StringPtr("draservicebroker")
+				createToolOptionsModel.ToolTypeID = core.StringPtr("pipeline")
 				createToolOptionsModel.Name = core.StringPtr("testString")
-				createToolOptionsModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
+				createToolOptionsModel.Parameters = map[string]interface{}{"type": "tekton"}
 				createToolOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := cdToolchainService.CreateTool(createToolOptionsModel)
@@ -2078,9 +2078,9 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the CreateToolOptions model
 				createToolOptionsModel := new(cdtoolchainv2.CreateToolOptions)
 				createToolOptionsModel.ToolchainID = core.StringPtr("testString")
-				createToolOptionsModel.ToolTypeID = core.StringPtr("draservicebroker")
+				createToolOptionsModel.ToolTypeID = core.StringPtr("pipeline")
 				createToolOptionsModel.Name = core.StringPtr("testString")
-				createToolOptionsModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
+				createToolOptionsModel.Parameters = map[string]interface{}{"type": "tekton"}
 				createToolOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -2156,9 +2156,9 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the CreateToolOptions model
 				createToolOptionsModel := new(cdtoolchainv2.CreateToolOptions)
 				createToolOptionsModel.ToolchainID = core.StringPtr("testString")
-				createToolOptionsModel.ToolTypeID = core.StringPtr("draservicebroker")
+				createToolOptionsModel.ToolTypeID = core.StringPtr("pipeline")
 				createToolOptionsModel.Name = core.StringPtr("testString")
-				createToolOptionsModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
+				createToolOptionsModel.Parameters = map[string]interface{}{"type": "tekton"}
 				createToolOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -2179,9 +2179,9 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the CreateToolOptions model
 				createToolOptionsModel := new(cdtoolchainv2.CreateToolOptions)
 				createToolOptionsModel.ToolchainID = core.StringPtr("testString")
-				createToolOptionsModel.ToolTypeID = core.StringPtr("draservicebroker")
+				createToolOptionsModel.ToolTypeID = core.StringPtr("pipeline")
 				createToolOptionsModel.Name = core.StringPtr("testString")
-				createToolOptionsModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
+				createToolOptionsModel.Parameters = map[string]interface{}{"type": "tekton"}
 				createToolOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := cdToolchainService.SetServiceURL("")
@@ -2223,9 +2223,9 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the CreateToolOptions model
 				createToolOptionsModel := new(cdtoolchainv2.CreateToolOptions)
 				createToolOptionsModel.ToolchainID = core.StringPtr("testString")
-				createToolOptionsModel.ToolTypeID = core.StringPtr("draservicebroker")
+				createToolOptionsModel.ToolTypeID = core.StringPtr("pipeline")
 				createToolOptionsModel.Name = core.StringPtr("testString")
-				createToolOptionsModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
+				createToolOptionsModel.Parameters = map[string]interface{}{"type": "tekton"}
 				createToolOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -2554,8 +2554,8 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the ToolchainToolPrototypePatch model
 				toolchainToolPrototypePatchModel := new(cdtoolchainv2.ToolchainToolPrototypePatch)
 				toolchainToolPrototypePatchModel.Name = core.StringPtr("MyTool")
-				toolchainToolPrototypePatchModel.ToolTypeID = core.StringPtr("draservicebroker")
-				toolchainToolPrototypePatchModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
+				toolchainToolPrototypePatchModel.ToolTypeID = core.StringPtr("pipeline")
+				toolchainToolPrototypePatchModel.Parameters = map[string]interface{}{"type": "tekton"}
 				toolchainToolPrototypePatchModelAsPatch, asPatchErr := toolchainToolPrototypePatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
 
@@ -2631,8 +2631,8 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the ToolchainToolPrototypePatch model
 				toolchainToolPrototypePatchModel := new(cdtoolchainv2.ToolchainToolPrototypePatch)
 				toolchainToolPrototypePatchModel.Name = core.StringPtr("MyTool")
-				toolchainToolPrototypePatchModel.ToolTypeID = core.StringPtr("draservicebroker")
-				toolchainToolPrototypePatchModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
+				toolchainToolPrototypePatchModel.ToolTypeID = core.StringPtr("pipeline")
+				toolchainToolPrototypePatchModel.Parameters = map[string]interface{}{"type": "tekton"}
 				toolchainToolPrototypePatchModelAsPatch, asPatchErr := toolchainToolPrototypePatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
 
@@ -2716,8 +2716,8 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the ToolchainToolPrototypePatch model
 				toolchainToolPrototypePatchModel := new(cdtoolchainv2.ToolchainToolPrototypePatch)
 				toolchainToolPrototypePatchModel.Name = core.StringPtr("MyTool")
-				toolchainToolPrototypePatchModel.ToolTypeID = core.StringPtr("draservicebroker")
-				toolchainToolPrototypePatchModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
+				toolchainToolPrototypePatchModel.ToolTypeID = core.StringPtr("pipeline")
+				toolchainToolPrototypePatchModel.Parameters = map[string]interface{}{"type": "tekton"}
 				toolchainToolPrototypePatchModelAsPatch, asPatchErr := toolchainToolPrototypePatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
 
@@ -2746,8 +2746,8 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the ToolchainToolPrototypePatch model
 				toolchainToolPrototypePatchModel := new(cdtoolchainv2.ToolchainToolPrototypePatch)
 				toolchainToolPrototypePatchModel.Name = core.StringPtr("MyTool")
-				toolchainToolPrototypePatchModel.ToolTypeID = core.StringPtr("draservicebroker")
-				toolchainToolPrototypePatchModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
+				toolchainToolPrototypePatchModel.ToolTypeID = core.StringPtr("pipeline")
+				toolchainToolPrototypePatchModel.Parameters = map[string]interface{}{"type": "tekton"}
 				toolchainToolPrototypePatchModelAsPatch, asPatchErr := toolchainToolPrototypePatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
 
@@ -2797,8 +2797,8 @@ var _ = Describe(`CdToolchainV2`, func() {
 				// Construct an instance of the ToolchainToolPrototypePatch model
 				toolchainToolPrototypePatchModel := new(cdtoolchainv2.ToolchainToolPrototypePatch)
 				toolchainToolPrototypePatchModel.Name = core.StringPtr("MyTool")
-				toolchainToolPrototypePatchModel.ToolTypeID = core.StringPtr("draservicebroker")
-				toolchainToolPrototypePatchModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
+				toolchainToolPrototypePatchModel.ToolTypeID = core.StringPtr("pipeline")
+				toolchainToolPrototypePatchModel.Parameters = map[string]interface{}{"type": "tekton"}
 				toolchainToolPrototypePatchModelAsPatch, asPatchErr := toolchainToolPrototypePatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
 
@@ -2831,18 +2831,18 @@ var _ = Describe(`CdToolchainV2`, func() {
 			It(`Invoke NewCreateToolOptions successfully`, func() {
 				// Construct an instance of the CreateToolOptions model
 				toolchainID := "testString"
-				createToolOptionsToolTypeID := "draservicebroker"
+				createToolOptionsToolTypeID := "pipeline"
 				createToolOptionsModel := cdToolchainService.NewCreateToolOptions(toolchainID, createToolOptionsToolTypeID)
 				createToolOptionsModel.SetToolchainID("testString")
-				createToolOptionsModel.SetToolTypeID("draservicebroker")
+				createToolOptionsModel.SetToolTypeID("pipeline")
 				createToolOptionsModel.SetName("testString")
-				createToolOptionsModel.SetParameters(map[string]interface{}{"anyKey": "anyValue"})
+				createToolOptionsModel.SetParameters(map[string]interface{}{"type": "tekton"})
 				createToolOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createToolOptionsModel).ToNot(BeNil())
 				Expect(createToolOptionsModel.ToolchainID).To(Equal(core.StringPtr("testString")))
-				Expect(createToolOptionsModel.ToolTypeID).To(Equal(core.StringPtr("draservicebroker")))
+				Expect(createToolOptionsModel.ToolTypeID).To(Equal(core.StringPtr("pipeline")))
 				Expect(createToolOptionsModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(createToolOptionsModel.Parameters).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
+				Expect(createToolOptionsModel.Parameters).To(Equal(map[string]interface{}{"type": "tekton"}))
 				Expect(createToolOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateToolchainEventOptions successfully`, func() {
@@ -3099,8 +3099,8 @@ var _ = Describe(`CdToolchainV2`, func() {
 			// Construct an instance of the model.
 			model := new(cdtoolchainv2.ToolchainToolPrototypePatch)
 			model.Name = core.StringPtr("MyTool")
-			model.ToolTypeID = core.StringPtr("draservicebroker")
-			model.Parameters = map[string]interface{}{"anyKey": "anyValue"}
+			model.ToolTypeID = core.StringPtr("pipeline")
+			model.Parameters = map[string]interface{}{"type": "tekton"}
 
 			b, err := json.Marshal(model)
 			Expect(err).To(BeNil())
