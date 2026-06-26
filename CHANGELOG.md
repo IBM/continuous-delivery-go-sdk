@@ -1,3 +1,12 @@
+## [2.0.15](https://github.com/IBM/continuous-delivery-go-sdk/compare/v2.0.14...v2.0.15) (2026-06-26)
+
+
+### Bug Fixes
+
+* **deps:** update module github.com/ibm/go-sdk-core/v5 to v5.22.1 ([9da2ee2](https://github.com/IBM/continuous-delivery-go-sdk/commit/9da2ee29f4559d39103396d7355cc9adfe0a91c4))
+* **deps:** update module github.com/onsi/ginkgo/v2 to v2.32.0 ([f8fc61b](https://github.com/IBM/continuous-delivery-go-sdk/commit/f8fc61b67d3e283056140cf1993acbbeb57f75e2))
+* **deps:** update module github.com/onsi/gomega to v1.42.1 ([a51dc8c](https://github.com/IBM/continuous-delivery-go-sdk/commit/a51dc8ccdd0e2de32a0b535e7fe7b2121cc1d4f8))
+
 ## [2.0.14](https://github.com/IBM/continuous-delivery-go-sdk/compare/v2.0.13...v2.0.14) (2026-06-17)
 
 
