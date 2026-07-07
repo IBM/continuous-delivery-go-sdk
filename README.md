@@ -60,7 +60,7 @@ Table 1. IBM Cloud services
 
 ## Installation
 
-The current version of this SDK: 2.0.15
+The current version of this SDK: 2.0.16
 
 ### Go modules
 
