@@ -1,3 +1,10 @@
+## [2.0.16](https://github.com/IBM/continuous-delivery-go-sdk/compare/v2.0.15...v2.0.16) (2026-07-07)
+
+
+### Bug Fixes
+
+* **deps:** update module github.com/go-openapi/strfmt to v0.26.4 ([3ea06ac](https://github.com/IBM/continuous-delivery-go-sdk/commit/3ea06acb8015787a35fca62a5ba9629801b94dcc))
+
 ## [2.0.15](https://github.com/IBM/continuous-delivery-go-sdk/compare/v2.0.14...v2.0.15) (2026-06-26)
 
 
