@@ -175,10 +175,6 @@ var _ = Describe(`CdToolchainV2`, func() {
 			Expect(url).To(Equal("https://api.eu-gb.devops.cloud.ibm.com/toolchain/v2"))
 			Expect(err).To(BeNil())
 
-			url, err = cdtoolchainv2.GetServiceURLForRegion("jp-osa")
-			Expect(url).To(Equal("https://api.jp-osa.devops.cloud.ibm.com/toolchain/v2"))
-			Expect(err).To(BeNil())
-
 			url, err = cdtoolchainv2.GetServiceURLForRegion("jp-tok")
 			Expect(url).To(Equal("https://api.jp-tok.devops.cloud.ibm.com/toolchain/v2"))
 			Expect(err).To(BeNil())
@@ -191,16 +187,8 @@ var _ = Describe(`CdToolchainV2`, func() {
 			Expect(url).To(Equal("https://api.ca-tor.devops.cloud.ibm.com/toolchain/v2"))
 			Expect(err).To(BeNil())
 
-			url, err = cdtoolchainv2.GetServiceURLForRegion("ca-mon")
-			Expect(url).To(Equal("https://api.ca-mon.devops.cloud.ibm.com/toolchain/v2"))
-			Expect(err).To(BeNil())
-
 			url, err = cdtoolchainv2.GetServiceURLForRegion("br-sao")
 			Expect(url).To(Equal("https://api.br-sao.devops.cloud.ibm.com/toolchain/v2"))
-			Expect(err).To(BeNil())
-
-			url, err = cdtoolchainv2.GetServiceURLForRegion("eu-es")
-			Expect(url).To(Equal("https://api.eu-es.devops.cloud.ibm.com/toolchain/v2"))
 			Expect(err).To(BeNil())
 
 			url, err = cdtoolchainv2.GetServiceURLForRegion("INVALID_REGION")

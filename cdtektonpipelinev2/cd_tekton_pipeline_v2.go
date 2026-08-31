@@ -126,12 +126,9 @@ func GetServiceURLForRegion(region string) (string, error) {
 		"us-east": "https://api.us-east.devops.cloud.ibm.com/pipeline/v2", // The host URL for Tekton Pipeline Service in the us-east region.
 		"eu-de": "https://api.eu-de.devops.cloud.ibm.com/pipeline/v2", // The host URL for Tekton Pipeline Service in the eu-de region.
 		"eu-gb": "https://api.eu-gb.devops.cloud.ibm.com/pipeline/v2", // The host URL for Tekton Pipeline Service in the eu-gb region.
-		"eu-es": "https://api.eu-es.devops.cloud.ibm.com/pipeline/v2", // The host URL for Tekton Pipeline Service in the eu-es region.
-		"jp-osa": "https://api.jp-osa.devops.cloud.ibm.com/pipeline/v2", // The host URL for Tekton Pipeline Service in the jp-osa region.
 		"jp-tok": "https://api.jp-tok.devops.cloud.ibm.com/pipeline/v2", // The host URL for Tekton Pipeline Service in the jp-tok region.
 		"au-syd": "https://api.au-syd.devops.cloud.ibm.com/pipeline/v2", // The host URL for Tekton Pipeline Service in the au-syd region.
 		"ca-tor": "https://api.ca-tor.devops.cloud.ibm.com/pipeline/v2", // The host URL for Tekton Pipeline Service in the ca-tor region.
-		"ca-mon": "https://api.ca-mon.devops.cloud.ibm.com/pipeline/v2", // Montreal (ca-mon) is a limited availability region and not generally available. The host URL for Tekton Pipeline Service in the ca-mon region.
 		"br-sao": "https://api.br-sao.devops.cloud.ibm.com/pipeline/v2", // The host URL for Tekton Pipeline Service in the br-sao region.
 	}
 
