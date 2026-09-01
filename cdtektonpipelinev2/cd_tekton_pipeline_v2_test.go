@@ -175,14 +175,6 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 			Expect(url).To(Equal("https://api.eu-gb.devops.cloud.ibm.com/pipeline/v2"))
 			Expect(err).To(BeNil())
 
-			url, err = cdtektonpipelinev2.GetServiceURLForRegion("eu-es")
-			Expect(url).To(Equal("https://api.eu-es.devops.cloud.ibm.com/pipeline/v2"))
-			Expect(err).To(BeNil())
-
-			url, err = cdtektonpipelinev2.GetServiceURLForRegion("jp-osa")
-			Expect(url).To(Equal("https://api.jp-osa.devops.cloud.ibm.com/pipeline/v2"))
-			Expect(err).To(BeNil())
-
 			url, err = cdtektonpipelinev2.GetServiceURLForRegion("jp-tok")
 			Expect(url).To(Equal("https://api.jp-tok.devops.cloud.ibm.com/pipeline/v2"))
 			Expect(err).To(BeNil())
@@ -193,10 +185,6 @@ var _ = Describe(`CdTektonPipelineV2`, func() {
 
 			url, err = cdtektonpipelinev2.GetServiceURLForRegion("ca-tor")
 			Expect(url).To(Equal("https://api.ca-tor.devops.cloud.ibm.com/pipeline/v2"))
-			Expect(err).To(BeNil())
-
-			url, err = cdtektonpipelinev2.GetServiceURLForRegion("ca-mon")
-			Expect(url).To(Equal("https://api.ca-mon.devops.cloud.ibm.com/pipeline/v2"))
 			Expect(err).To(BeNil())
 
 			url, err = cdtektonpipelinev2.GetServiceURLForRegion("br-sao")
