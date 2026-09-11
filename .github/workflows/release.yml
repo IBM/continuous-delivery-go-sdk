@@ -46,9 +46,6 @@ jobs:
         with:
           python-version: 3.14
 
-      - name: Install Node.js dependencies
-        run: npm install
-
       - name: Install bump-my-version
         run: pip install bump-my-version
 
@@ -56,10 +53,10 @@ jobs:
         if: github.event_name == 'workflow_dispatch' && inputs.dry_run
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npm run semantic-release --dry-run
+        run: npx --yes --package semantic-release --package @semantic-release/changelog --package @semantic-release/exec --package @semantic-release/git semantic-release --dry-run
 
       - name: Semantic Release
         if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && !inputs.dry_run)
-        run: npm run semantic-release
+        run: npx --yes --package semantic-release --package @semantic-release/changelog --package @semantic-release/exec --package @semantic-release/git semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

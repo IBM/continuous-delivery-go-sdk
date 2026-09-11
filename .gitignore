@@ -9,10 +9,6 @@ vendor/
 .openapi-generator/VERSION
 /.project
 
-# files produced by "npm install" commands during build
-package-lock.json
-node_modules/
-
 # IDE files
 *.idea
 .vscode/
