@@ -459,7 +459,7 @@ resource "ibm_cd_toolchain_tool_slack" "my_slack_tool" {
     pipeline_fail = true
     toolchain_bind = true
     toolchain_unbind = true
-    api_token = "https://hooks.slack.com/services/A5EWRN5WK/A726ZQWT68G/TsdTjp6q4i6wFQTICTasjkE8"
+    api_token = "..."
     team_url = "my_team"
   }
 }
@@ -477,7 +477,7 @@ resource "ibm_cd_toolchain_tool_slack" "my_slack_tool" {
     pipeline_fail = true
     toolchain_bind = true
     toolchain_unbind = true
-    webhook = "https://hooks.slack.com/services/A5EWRN5WK/A726ZQWT68G/TsdTjp6q4i6wFQTICTasjkE8"
+    webhook = "..."
     team_name = "my_team"
   }
 }
