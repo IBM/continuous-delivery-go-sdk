@@ -1,3 +1,10 @@
+## [2.0.19](https://github.com/IBM/continuous-delivery-go-sdk/compare/v2.0.18...v2.0.19) (2026-09-14)
+
+
+### Bug Fixes
+
+* **deps:** update module github.com/onsi/ginkgo/v2 to v2.32.2 ([#146](https://github.com/IBM/continuous-delivery-go-sdk/issues/146)) ([c71684f](https://github.com/IBM/continuous-delivery-go-sdk/commit/c71684f9ed4d7077b3bf59478e911ac467f2c48f))
+
 ## [2.0.18](https://github.com/IBM/continuous-delivery-go-sdk/compare/v2.0.17...v2.0.18) (2026-09-14)
 
 
