@@ -1,3 +1,10 @@
+## [2.0.20](https://github.com/IBM/continuous-delivery-go-sdk/compare/v2.0.19...v2.0.20) (2026-09-14)
+
+
+### Bug Fixes
+
+* **deps:** update module github.com/stretchr/testify to v1.12.1 ([#147](https://github.com/IBM/continuous-delivery-go-sdk/issues/147)) ([6f640e9](https://github.com/IBM/continuous-delivery-go-sdk/commit/6f640e9f1fdd07f7053c2ac1e21e6966dbab09a4))
+
 ## [2.0.19](https://github.com/IBM/continuous-delivery-go-sdk/compare/v2.0.18...v2.0.19) (2026-09-14)
 
 
