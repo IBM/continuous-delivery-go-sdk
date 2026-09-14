@@ -5,8 +5,14 @@
   ],
   "packageRules": [
     {
-      "matchManagers": ["github-actions"],
-      "enabled": false
+      "enabled": false,
+      "matchPackageNames": [
+        "*"
+      ]
     }
-  ]
+  ],
+  "vulnerabilityAlerts": {
+    "enabled": true
+  },
+  "osvVulnerabilityAlerts": true
 }
