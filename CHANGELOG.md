@@ -1,3 +1,10 @@
+## [2.0.17](https://github.com/IBM/continuous-delivery-go-sdk/compare/v2.0.16...v2.0.17) (2026-09-14)
+
+
+### Bug Fixes
+
+* upgrade vulnerable packages and remove dummy slack webhook from release notes ([#151](https://github.com/IBM/continuous-delivery-go-sdk/issues/151)) ([9d3683f](https://github.com/IBM/continuous-delivery-go-sdk/commit/9d3683f562c755827fd43caa92e818c4ecc3b0a6))
+
 ## [2.0.16](https://github.com/IBM/continuous-delivery-go-sdk/compare/v2.0.15...v2.0.16) (2026-07-07)
 
 
