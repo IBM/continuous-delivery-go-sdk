@@ -1,3 +1,10 @@
+## [2.0.21](https://github.com/IBM/continuous-delivery-go-sdk/compare/v2.0.20...v2.0.21) (2026-09-29)
+
+
+### Bug Fixes
+
+* **ci:** define explicit GitHub Actions workflow permissions ([#160](https://github.com/IBM/continuous-delivery-go-sdk/issues/160)) ([440454f](https://github.com/IBM/continuous-delivery-go-sdk/commit/440454f1ce667178ab819e12e0e8a1e62dd0fa8e))
+
 ## [2.0.20](https://github.com/IBM/continuous-delivery-go-sdk/compare/v2.0.19...v2.0.20) (2026-09-14)
 
 
